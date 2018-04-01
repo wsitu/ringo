@@ -13,6 +13,8 @@
         body {
             background-color: #f7e7c8;
             color: #111;
+            margin: 0 auto;
+            max-width: 64rem;
         }
         h1, h2, h3{
             color: SeaGreen;
@@ -74,21 +76,20 @@
             color: black;
         }
         .main{
-            margin-right: 14rem; /* same size as sidebar*/
             padding: 1rem;
+            margin-left: 14rem; /* size of sidebar */
         }
         .no-data{
             color: #aaa;
         }
         .sidebar{
             background-color: #f7e7c8;
-            border-left: 0.25rem solid SeaGreen;
+            border-right: 0.25rem solid SeaGreen;
             height: 100%;
             padding: 1rem;
             position: fixed;
             overflow: auto;
-            right: 0;
-            width: 14rem;
+            width: 14rem; /* adjust .main margin if changed */
         }
         .sidebar a, .sidebar a:visited{
             color: inherit;
