@@ -69,6 +69,7 @@
             line-height: 2rem;
             width: 2rem;
             height: 2rem;
+            margin-right: 0.4rem;
         }
         .kanzi-container span:hover{
             background-color: #b8ecfd;
@@ -2848,9 +2849,9 @@
 
     }
     var containers = document.querySelectorAll(".kanzi-container");
-    var wrapped = "<span onclick=\"showDetail(this)\">$&</span>"
+    var wrapped = "<span onclick=\"showDetail(this)\">$1</span>"
     for (var i = 0; i < containers.length; i++) {
-        containers[i].innerHTML = containers[i].innerHTML.replace(/\S+/g, wrapped);
+        containers[i].innerHTML = containers[i].innerHTML.replace(/(\S+)\s+/g, wrapped);
         var words = containers[i].getElementsByTagName("span");
         for (var j = 0; j < words.length; j++) {
             if (details[words[j].innerHTML] == undefined) {
