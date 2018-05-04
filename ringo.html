@@ -45,22 +45,24 @@
             list-style-type: none;
             margin: 0.5rem, 0;
         }
-        .kana-tables {
-            display: flex;
-            flex-wrap: wrap;
-            margin: 0 -6rem -4rem 0; /* undo the margin on div if it wraps */
-        }
-        .kana-tables caption{
-            font-weight: bold;
-        }
-        .kana-tables div{
-            margin: 0 6rem 4rem 0;
+        .kana-table {
+            margin: 2rem 0 4rem 0;
             overflow-x: auto;
         }
-        .kana-tables td{
+        .kana-table caption{
+            font-weight: bold;
+        }
+        .kana-table rt {
+            color: #999
+        }
+        .kana-table table {
+            table-layout: fixed;
+            width: 30rem;
+        }
+        .kana-table td{
             font-size: 1.5rem;
             padding: 0.25em;
-            ruby-position: under;
+            ruby-position: under; /*only firefox atm, minor preference anyways*/
             text-align: center;
         }
         .kanzi-container{
@@ -282,419 +284,417 @@
                 楼 漏 籠 麓 賄 脇 惑 枠 湾 腕 
             </p>
         </section>
-        <section class="kana-section">
+        <section>
             <h1 id="kana">Kana</h1>
-            <div class="kana-tables">
-                <div><table>
-                    <caption>Hiragana</caption>
-                    <tr>
-                        <td><ruby>あ<rt>a</rt></ruby></td>
-                        <td><ruby>い<rt>i</rt></ruby></td>
-                        <td><ruby>う<rt>u</rt></ruby></td>
-                        <td><ruby>え<rt>e</rt></ruby></td>
-                        <td><ruby>お<rt>o</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>か<rt>ka</rt></ruby></td>
-                        <td><ruby>き<rt>ki</rt></ruby></td>
-                        <td><ruby>く<rt>ku</rt></ruby></td>
-                        <td><ruby>け<rt>ke</rt></ruby></td>
-                        <td><ruby>こ<rt>ko</rt></ruby></td>
-                        <td><ruby>きゃ<rt>kya</rt></ruby></td>
-                        <td><ruby>きゅ<rt>kyu</rt></ruby></td>
-                        <td><ruby>きょ<rt>kyo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>さ<rt>sa</rt></ruby></td>
-                        <td><ruby>し<rt>si (shi)</rt></ruby></td>
-                        <td><ruby>す<rt>su</rt></ruby></td>
-                        <td><ruby>せ<rt>se</rt></ruby></td>
-                        <td><ruby>そ<rt>so</rt></ruby></td>
-                        <td><ruby>しゃ<rt>sya (sha)</rt></ruby></td>
-                        <td><ruby>しゅ<rt>syu (shu)</rt></ruby></td>
-                        <td><ruby>しょ<rt>syo (sho)</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>た<rt>ta</rt></ruby></td>
-                        <td><ruby>ち<rt>ti (chi)</rt></ruby></td>
-                        <td><ruby>つ<rt>tu (tsu)</rt></ruby></td>
-                        <td><ruby>て<rt>te</rt></ruby></td>
-                        <td><ruby>と<rt>to</rt></ruby></td>
-                        <td><ruby>ちゃ<rt>tya (cha)</rt></ruby></td>
-                        <td><ruby>ちゅ<rt>tyu (chu)</rt></ruby></td>
-                        <td><ruby>ちょ<rt>tyo (cho)</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>な<rt>na</rt></ruby></td>
-                        <td><ruby>に<rt>ni</rt></ruby></td>
-                        <td><ruby>ぬ<rt>nu</rt></ruby></td>
-                        <td><ruby>ね<rt>ne</rt></ruby></td>
-                        <td><ruby>の<rt>no</rt></ruby></td>
-                        <td><ruby>にゃ<rt>nya</rt></ruby></td>
-                        <td><ruby>にゅ<rt>nyu</rt></ruby></td>
-                        <td><ruby>にょ<rt>nyo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>は<rt>ha</rt></ruby></td>
-                        <td><ruby>ひ<rt>hi</rt></ruby></td>
-                        <td><ruby>ふ<rt>hu (fu)</rt></ruby></td>
-                        <td><ruby>へ<rt>he</rt></ruby></td>
-                        <td><ruby>ほ<rt>ho</rt></ruby></td>
-                        <td><ruby>ひゃ<rt>hya</rt></ruby></td>
-                        <td><ruby>ひゅ<rt>hyu</rt></ruby></td>
-                        <td><ruby>ひょ<rt>hyo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ま<rt>ma</rt></ruby></td>
-                        <td><ruby>み<rt>mi</rt></ruby></td>
-                        <td><ruby>む<rt>mu</rt></ruby></td>
-                        <td><ruby>め<rt>me</rt></ruby></td>
-                        <td><ruby>も<rt>mo</rt></ruby></td>
-                        <td><ruby>みゃ<rt>mya</rt></ruby></td>
-                        <td><ruby>みゅ<rt>myu</rt></ruby></td>
-                        <td><ruby>みょ<rt>myo</rt></ruby></td>
-                    </tr>
-                                <tr>
-                        <td><ruby>や<rt>ya</rt></ruby></td>
-                        <td></td>
-                        <td><ruby>ゆ<rt>yu</rt></ruby></td>
-                        <td></td>
-                        <td><ruby>よ<rt>yo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ら<rt>ra</rt></ruby></td>
-                        <td><ruby>り<rt>ri</rt></ruby></td>
-                        <td><ruby>る<rt>ru</rt></ruby></td>
-                        <td><ruby>れ<rt>re</rt></ruby></td>
-                        <td><ruby>ろ<rt>ro</rt></ruby></td>
-                        <td><ruby>りゃ<rt>rya</rt></ruby></td>
-                        <td><ruby>りゅ<rt>ryu</rt></ruby></td>
-                        <td><ruby>りょ<rt>ryo</rt></ruby></td>
-                    </tr>
-                                <tr>
-                        <td><ruby>わ<rt>wa</rt></ruby></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><ruby>を<rt>wo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ん<rt>n</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>が<rt>ga</rt></ruby></td>
-                        <td><ruby>ぎ<rt>gi</rt></ruby></td>
-                        <td><ruby>ぐ<rt>gu</rt></ruby></td>
-                        <td><ruby>げ<rt>ge</rt></ruby></td>
-                        <td><ruby>ご<rt>go</rt></ruby></td>
-                        <td><ruby>ぎゃ<rt>gya</rt></ruby></td>
-                        <td><ruby>ぎゅ<rt>gyu</rt></ruby></td>
-                        <td><ruby>ぎょ<rt>gyo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ざ<rt>za</rt></ruby></td>
-                        <td><ruby>じ<rt>zi (ji)</rt></ruby></td>
-                        <td><ruby>ず<rt>zu</rt></ruby></td>
-                        <td><ruby>ぜ<rt>ze</rt></ruby></td>
-                        <td><ruby>ぞ<rt>zo</rt></ruby></td>
-                        <td><ruby>じゃ<rt>zya (ja)</rt></ruby></td>
-                        <td><ruby>じゅ<rt>zyu (ju)</rt></ruby></td>
-                        <td><ruby>じょ<rt>zyo (jo)</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>だ<rt>da</rt></ruby></td>
-                        <td><ruby>ぢ<rt>di (ji)</rt></ruby></td>
-                        <td><ruby>づ<rt>du (zu)</rt></ruby></td>
-                        <td><ruby>で<rt>de</rt></ruby></td>
-                        <td><ruby>ど<rt>do</rt></ruby></td>
-                        <td><ruby>ぢゃ<rt>dya　(ja)</rt></ruby></td>
-                        <td><ruby>ぢゅ<rt>dyu (ju)</rt></ruby></td>
-                        <td><ruby>ぢょ<rt>dyo (jo)</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ば<rt>ba</rt></ruby></td>
-                        <td><ruby>び<rt>bi</rt></ruby></td>
-                        <td><ruby>ぶ<rt>bu</rt></ruby></td>
-                        <td><ruby>べ<rt>be</rt></ruby></td>
-                        <td><ruby>ぼ<rt>bo</rt></ruby></td>
-                        <td><ruby>びゃ<rt>bya</rt></ruby></td>
-                        <td><ruby>びゅ<rt>byu</rt></ruby></td>
-                        <td><ruby>びょ<rt>byo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ぱ<rt>pa</rt></ruby></td>
-                        <td><ruby>ぴ<rt>pi</rt></ruby></td>
-                        <td><ruby>ぷ<rt>pu</rt></ruby></td>
-                        <td><ruby>ぺ<rt>pe</rt></ruby></td>
-                        <td><ruby>ぽ<rt>po</rt></ruby></td>
-                        <td><ruby>ぴゃ<rt>pya</rt></ruby></td>
-                        <td><ruby>ぴゅ<rt>pyu</rt></ruby></td>
-                        <td><ruby>ぴょ<rt>pyo</rt></ruby></td>
-                    </tr>
-                </table></div>
-                <div><table>
-                    <caption>Katakana</caption>
-                    <tr>
-                        <td><ruby>ア<rt>a</rt></ruby></td>
-                        <td><ruby>イ<rt>i</rt></ruby></td>
-                        <td><ruby>ウ<rt>u</rt></ruby></td>
-                        <td><ruby>エ<rt>e</rt></ruby></td>
-                        <td><ruby>オ<rt>o</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>カ<rt>ka</rt></ruby></td>
-                        <td><ruby>キ<rt>ki</rt></ruby></td>
-                        <td><ruby>ク<rt>ku</rt></ruby></td>
-                        <td><ruby>ケ<rt>ke</rt></ruby></td>
-                        <td><ruby>コ<rt>ko</rt></ruby></td>
-                        <td><ruby>キャ<rt>kya</rt></ruby></td>
-                        <td><ruby>キュ<rt>kyu</rt></ruby></td>
-                        <td><ruby>キョ<rt>kyo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>サ<rt>sa</rt></ruby></td>
-                        <td><ruby>シ<rt>si</rt></ruby></td>
-                        <td><ruby>ス<rt>su</rt></ruby></td>
-                        <td><ruby>セ<rt>se</rt></ruby></td>
-                        <td><ruby>ソ<rt>so</rt></ruby></td>
-                        <td><ruby>シャ<rt>sya</rt></ruby></td>
-                        <td><ruby>シュ<rt>syu</rt></ruby></td>
-                        <td><ruby>ショ<rt>syo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>タ<rt>ta</rt></ruby></td>
-                        <td><ruby>チ<rt>ti</rt></ruby></td>
-                        <td><ruby>ツ<rt>tu</rt></ruby></td>
-                        <td><ruby>テ<rt>te</rt></ruby></td>
-                        <td><ruby>ト<rt>to</rt></ruby></td>
-                        <td><ruby>チャ<rt>tya</rt></ruby></td>
-                        <td><ruby>チュ<rt>tyu</rt></ruby></td>
-                        <td><ruby>チョ<rt>tyo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ナ<rt>na</rt></ruby></td>
-                        <td><ruby>ニ<rt>ni</rt></ruby></td>
-                        <td><ruby>ヌ<rt>nu</rt></ruby></td>
-                        <td><ruby>ネ<rt>ne</rt></ruby></td>
-                        <td><ruby>ノ<rt>no</rt></ruby></td>
-                        <td><ruby>ニャ<rt>nya</rt></ruby></td>
-                        <td><ruby>ニュ<rt>nyu</rt></ruby></td>
-                        <td><ruby>ニョ<rt>nyo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ハ<rt>ha</rt></ruby></td>
-                        <td><ruby>ヒ<rt>hi</rt></ruby></td>
-                        <td><ruby>フ<rt>hu</rt></ruby></td>
-                        <td><ruby>ヘ<rt>he</rt></ruby></td>
-                        <td><ruby>ホ<rt>ho</rt></ruby></td>
-                        <td><ruby>ヒャ<rt>hya</rt></ruby></td>
-                        <td><ruby>ヒュ<rt>hyu</rt></ruby></td>
-                        <td><ruby>ヒョ<rt>hyo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>マ<rt>ma</rt></ruby></td>
-                        <td><ruby>ミ<rt>mi</rt></ruby></td>
-                        <td><ruby>ム<rt>mu</rt></ruby></td>
-                        <td><ruby>メ<rt>me</rt></ruby></td>
-                        <td><ruby>モ<rt>mo</rt></ruby></td>
-                        <td><ruby>ミャ<rt>mya</rt></ruby></td>
-                        <td><ruby>ミュ<rt>myu</rt></ruby></td>
-                        <td><ruby>ミョ<rt>myo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ヤ<rt>ya</rt></ruby></td>
-                        <td></td>
-                        <td><ruby>ユ<rt>yu</rt></ruby></td>
-                        <td></td>
-                        <td><ruby>ヨ<rt>yo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ラ<rt>ra</rt></ruby></td>
-                        <td><ruby>リ<rt>ri</rt></ruby></td>
-                        <td><ruby>ル<rt>ru</rt></ruby></td>
-                        <td><ruby>レ<rt>re</rt></ruby></td>
-                        <td><ruby>ロ<rt>ro</rt></ruby></td>
-                        <td><ruby>リャ<rt>rya</rt></ruby></td>
-                        <td><ruby>リュ<rt>ryu</rt></ruby></td>
-                        <td><ruby>リョ<rt>ryo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ワ<rt>wa</rt></ruby></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><ruby>ヲ<rt>wo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ン<rt>n</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ガ<rt>ga</rt></ruby></td>
-                        <td><ruby>ギ<rt>gi</rt></ruby></td>
-                        <td><ruby>グ<rt>gu</rt></ruby></td>
-                        <td><ruby>ゲ<rt>ge</rt></ruby></td>
-                        <td><ruby>ゴ<rt>go</rt></ruby></td>
-                        <td><ruby>ギャ<rt>gya</rt></ruby></td>
-                        <td><ruby>ギュ<rt>gyu</rt></ruby></td>
-                        <td><ruby>ギョ<rt>gyo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ザ<rt>za</rt></ruby></td>
-                        <td><ruby>ジ<rt>zi</rt></ruby></td>
-                        <td><ruby>ズ<rt>zu</rt></ruby></td>
-                        <td><ruby>ゼ<rt>ze</rt></ruby></td>
-                        <td><ruby>ゾ<rt>zo</rt></ruby></td>
-                        <td><ruby>ジャ<rt>zya</rt></ruby></td>
-                        <td><ruby>ジュ<rt>zyu</rt></ruby></td>
-                        <td><ruby>ジョ<rt>zyo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ダ<rt>da</rt></ruby></td>
-                        <td><ruby>ヂ<rt>di</rt></ruby></td>
-                        <td><ruby>ヅ<rt>du</rt></ruby></td>
-                        <td><ruby>デ<rt>de</rt></ruby></td>
-                        <td><ruby>ド<rt>do</rt></ruby></td>
-                        <td><ruby>ヂャ<rt>dya</rt></ruby></td>
-                        <td><ruby>ヂュ<rt>dyu</rt></ruby></td>
-                        <td><ruby>ヂョ<rt>dyo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>バ<rt>ba</rt></ruby></td>
-                        <td><ruby>ビ<rt>bi</rt></ruby></td>
-                        <td><ruby>ブ<rt>bu</rt></ruby></td>
-                        <td><ruby>ベ<rt>be</rt></ruby></td>
-                        <td><ruby>ボ<rt>bo</rt></ruby></td>
-                        <td><ruby>ビャ<rt>bya</rt></ruby></td>
-                        <td><ruby>ビュ<rt>byu</rt></ruby></td>
-                        <td><ruby>ビョ<rt>byo</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>パ<rt>pa</rt></ruby></td>
-                        <td><ruby>ピ<rt>pi</rt></ruby></td>
-                        <td><ruby>プ<rt>pu</rt></ruby></td>
-                        <td><ruby>ペ<rt>pe</rt></ruby></td>
-                        <td><ruby>ポ<rt>po</rt></ruby></td>
-                        <td><ruby>ピャ<rt>pya</rt></ruby></td>
-                        <td><ruby>ピュ<rt>pyu</rt></ruby></td>
-                        <td><ruby>ピョ<rt>pyo</rt></ruby></td>
-                    </tr>
-                </table></div>
-                <div><table>
-                    <caption>Extended Katakana</caption>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><ruby>イェ<rt>ye</rt></ruby></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><ruby>ウィ<rt>wi</rt></ruby></td>
-                        <td></td>
-                        <td><ruby>ウェ<rt>we</rt></ruby></td>
-                        <td><ruby>ウォ<rt>who (wo)</rt></ruby></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>クァ<rt>qa (kwa)</rt></ruby></td>
-                        <td><ruby>クィ<rt>qi (kwi)</rt></ruby></td>
-                        <td></td>
-                        <td><ruby>クェ<rt>qe (kwe)</rt></ruby></td>
-                        <td><ruby>クォ<rt>qo (kwo)</rt></ruby></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><ruby>シェ<rt>sye (she)</rt></ruby></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><ruby>チェ<rt>che</rt></ruby></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ツァ<rt>tsa</rt></ruby></td>
-                        <td><ruby>ツィ<rt>tsi</rt></ruby></td>
-                        <td></td>
-                        <td><ruby>ツェ<rt>tse</rt></ruby></td>
-                        <td><ruby>ツォ<rt>tso</rt></ruby></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><ruby>ティ<rt>thi (ti)</rt></ruby></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><ruby>テュ<rt>thu (tyu)</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td><ruby>トゥ<rt>twu (tu)</rt></ruby></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ファ<rt>fa</rt></ruby></td>
-                        <td><ruby>フィ<rt>fi</rt></ruby></td>
-                        <td></td>
-                        <td><ruby>フェ<rt>fe</rt></ruby></td>
-                        <td><ruby>フォ<rt>fo</rt></ruby></td>
-                        <td><ruby>フュ<rt>fyu</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>グァ<rt>gwa</rt></ruby></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><ruby>ジェ<rt>zye (je)</rt></ruby></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><ruby>ディ<rt>dhi (di)</rt></ruby></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><ruby>デュ<rt>dhu (dyu)</rt></ruby></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td><ruby>ドゥ<rt>dwu (du)</rt></ruby></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><ruby>ヴァ<rt>va</rt></ruby></td>
-                        <td><ruby>ヴィ<rt>vi</rt></ruby></td>
-                        <td><ruby>ヴ<rt>vu</rt></ruby></td>
-                        <td><ruby>ヴェ<rt>ve</rt></ruby></td>
-                        <td><ruby>ヴォ<rt>vo</rt></ruby></td>
-                        <td><ruby>ヴュ<rt>vyu</rt></ruby></td>
-                    </tr>
-                </table></div>
-            </div>
+            <div class="kana-table"><table>
+                <caption>Hiragana</caption>
+                <tr>
+                    <td><ruby>あ<rt>a</rt></ruby></td>
+                    <td><ruby>い<rt>i</rt></ruby></td>
+                    <td><ruby>う<rt>u</rt></ruby></td>
+                    <td><ruby>え<rt>e</rt></ruby></td>
+                    <td><ruby>お<rt>o</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>か<rt>ka</rt></ruby></td>
+                    <td><ruby>き<rt>ki</rt></ruby></td>
+                    <td><ruby>く<rt>ku</rt></ruby></td>
+                    <td><ruby>け<rt>ke</rt></ruby></td>
+                    <td><ruby>こ<rt>ko</rt></ruby></td>
+                    <td><ruby>きゃ<rt>kya</rt></ruby></td>
+                    <td><ruby>きゅ<rt>kyu</rt></ruby></td>
+                    <td><ruby>きょ<rt>kyo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>さ<rt>sa</rt></ruby></td>
+                    <td><ruby>し<rt>si (shi)</rt></ruby></td>
+                    <td><ruby>す<rt>su</rt></ruby></td>
+                    <td><ruby>せ<rt>se</rt></ruby></td>
+                    <td><ruby>そ<rt>so</rt></ruby></td>
+                    <td><ruby>しゃ<rt>sya (sha)</rt></ruby></td>
+                    <td><ruby>しゅ<rt>syu (shu)</rt></ruby></td>
+                    <td><ruby>しょ<rt>syo (sho)</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>た<rt>ta</rt></ruby></td>
+                    <td><ruby>ち<rt>ti (chi)</rt></ruby></td>
+                    <td><ruby>つ<rt>tu (tsu)</rt></ruby></td>
+                    <td><ruby>て<rt>te</rt></ruby></td>
+                    <td><ruby>と<rt>to</rt></ruby></td>
+                    <td><ruby>ちゃ<rt>tya (cha)</rt></ruby></td>
+                    <td><ruby>ちゅ<rt>tyu (chu)</rt></ruby></td>
+                    <td><ruby>ちょ<rt>tyo (cho)</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>な<rt>na</rt></ruby></td>
+                    <td><ruby>に<rt>ni</rt></ruby></td>
+                    <td><ruby>ぬ<rt>nu</rt></ruby></td>
+                    <td><ruby>ね<rt>ne</rt></ruby></td>
+                    <td><ruby>の<rt>no</rt></ruby></td>
+                    <td><ruby>にゃ<rt>nya</rt></ruby></td>
+                    <td><ruby>にゅ<rt>nyu</rt></ruby></td>
+                    <td><ruby>にょ<rt>nyo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>は<rt>ha</rt></ruby></td>
+                    <td><ruby>ひ<rt>hi</rt></ruby></td>
+                    <td><ruby>ふ<rt>hu (fu)</rt></ruby></td>
+                    <td><ruby>へ<rt>he</rt></ruby></td>
+                    <td><ruby>ほ<rt>ho</rt></ruby></td>
+                    <td><ruby>ひゃ<rt>hya</rt></ruby></td>
+                    <td><ruby>ひゅ<rt>hyu</rt></ruby></td>
+                    <td><ruby>ひょ<rt>hyo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>ま<rt>ma</rt></ruby></td>
+                    <td><ruby>み<rt>mi</rt></ruby></td>
+                    <td><ruby>む<rt>mu</rt></ruby></td>
+                    <td><ruby>め<rt>me</rt></ruby></td>
+                    <td><ruby>も<rt>mo</rt></ruby></td>
+                    <td><ruby>みゃ<rt>mya</rt></ruby></td>
+                    <td><ruby>みゅ<rt>myu</rt></ruby></td>
+                    <td><ruby>みょ<rt>myo</rt></ruby></td>
+                </tr>
+                            <tr>
+                    <td><ruby>や<rt>ya</rt></ruby></td>
+                    <td></td>
+                    <td><ruby>ゆ<rt>yu</rt></ruby></td>
+                    <td></td>
+                    <td><ruby>よ<rt>yo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>ら<rt>ra</rt></ruby></td>
+                    <td><ruby>り<rt>ri</rt></ruby></td>
+                    <td><ruby>る<rt>ru</rt></ruby></td>
+                    <td><ruby>れ<rt>re</rt></ruby></td>
+                    <td><ruby>ろ<rt>ro</rt></ruby></td>
+                    <td><ruby>りゃ<rt>rya</rt></ruby></td>
+                    <td><ruby>りゅ<rt>ryu</rt></ruby></td>
+                    <td><ruby>りょ<rt>ryo</rt></ruby></td>
+                </tr>
+                            <tr>
+                    <td><ruby>わ<rt>wa</rt></ruby></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><ruby>を<rt>wo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>ん<rt>n</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>が<rt>ga</rt></ruby></td>
+                    <td><ruby>ぎ<rt>gi</rt></ruby></td>
+                    <td><ruby>ぐ<rt>gu</rt></ruby></td>
+                    <td><ruby>げ<rt>ge</rt></ruby></td>
+                    <td><ruby>ご<rt>go</rt></ruby></td>
+                    <td><ruby>ぎゃ<rt>gya</rt></ruby></td>
+                    <td><ruby>ぎゅ<rt>gyu</rt></ruby></td>
+                    <td><ruby>ぎょ<rt>gyo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>ざ<rt>za</rt></ruby></td>
+                    <td><ruby>じ<rt>zi (ji)</rt></ruby></td>
+                    <td><ruby>ず<rt>zu</rt></ruby></td>
+                    <td><ruby>ぜ<rt>ze</rt></ruby></td>
+                    <td><ruby>ぞ<rt>zo</rt></ruby></td>
+                    <td><ruby>じゃ<rt>zya (ja)</rt></ruby></td>
+                    <td><ruby>じゅ<rt>zyu (ju)</rt></ruby></td>
+                    <td><ruby>じょ<rt>zyo (jo)</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>だ<rt>da</rt></ruby></td>
+                    <td><ruby>ぢ<rt>di (ji)</rt></ruby></td>
+                    <td><ruby>づ<rt>du (zu)</rt></ruby></td>
+                    <td><ruby>で<rt>de</rt></ruby></td>
+                    <td><ruby>ど<rt>do</rt></ruby></td>
+                    <td><ruby>ぢゃ<rt>dya　(ja)</rt></ruby></td>
+                    <td><ruby>ぢゅ<rt>dyu (ju)</rt></ruby></td>
+                    <td><ruby>ぢょ<rt>dyo (jo)</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>ば<rt>ba</rt></ruby></td>
+                    <td><ruby>び<rt>bi</rt></ruby></td>
+                    <td><ruby>ぶ<rt>bu</rt></ruby></td>
+                    <td><ruby>べ<rt>be</rt></ruby></td>
+                    <td><ruby>ぼ<rt>bo</rt></ruby></td>
+                    <td><ruby>びゃ<rt>bya</rt></ruby></td>
+                    <td><ruby>びゅ<rt>byu</rt></ruby></td>
+                    <td><ruby>びょ<rt>byo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>ぱ<rt>pa</rt></ruby></td>
+                    <td><ruby>ぴ<rt>pi</rt></ruby></td>
+                    <td><ruby>ぷ<rt>pu</rt></ruby></td>
+                    <td><ruby>ぺ<rt>pe</rt></ruby></td>
+                    <td><ruby>ぽ<rt>po</rt></ruby></td>
+                    <td><ruby>ぴゃ<rt>pya</rt></ruby></td>
+                    <td><ruby>ぴゅ<rt>pyu</rt></ruby></td>
+                    <td><ruby>ぴょ<rt>pyo</rt></ruby></td>
+                </tr>
+            </table></div>
+            <div class="kana-table"><table>
+                <caption>Katakana</caption>
+                <tr>
+                    <td><ruby>ア<rt>a</rt></ruby></td>
+                    <td><ruby>イ<rt>i</rt></ruby></td>
+                    <td><ruby>ウ<rt>u</rt></ruby></td>
+                    <td><ruby>エ<rt>e</rt></ruby></td>
+                    <td><ruby>オ<rt>o</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>カ<rt>ka</rt></ruby></td>
+                    <td><ruby>キ<rt>ki</rt></ruby></td>
+                    <td><ruby>ク<rt>ku</rt></ruby></td>
+                    <td><ruby>ケ<rt>ke</rt></ruby></td>
+                    <td><ruby>コ<rt>ko</rt></ruby></td>
+                    <td><ruby>キャ<rt>kya</rt></ruby></td>
+                    <td><ruby>キュ<rt>kyu</rt></ruby></td>
+                    <td><ruby>キョ<rt>kyo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>サ<rt>sa</rt></ruby></td>
+                    <td><ruby>シ<rt>si</rt></ruby></td>
+                    <td><ruby>ス<rt>su</rt></ruby></td>
+                    <td><ruby>セ<rt>se</rt></ruby></td>
+                    <td><ruby>ソ<rt>so</rt></ruby></td>
+                    <td><ruby>シャ<rt>sya</rt></ruby></td>
+                    <td><ruby>シュ<rt>syu</rt></ruby></td>
+                    <td><ruby>ショ<rt>syo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>タ<rt>ta</rt></ruby></td>
+                    <td><ruby>チ<rt>ti</rt></ruby></td>
+                    <td><ruby>ツ<rt>tu</rt></ruby></td>
+                    <td><ruby>テ<rt>te</rt></ruby></td>
+                    <td><ruby>ト<rt>to</rt></ruby></td>
+                    <td><ruby>チャ<rt>tya</rt></ruby></td>
+                    <td><ruby>チュ<rt>tyu</rt></ruby></td>
+                    <td><ruby>チョ<rt>tyo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>ナ<rt>na</rt></ruby></td>
+                    <td><ruby>ニ<rt>ni</rt></ruby></td>
+                    <td><ruby>ヌ<rt>nu</rt></ruby></td>
+                    <td><ruby>ネ<rt>ne</rt></ruby></td>
+                    <td><ruby>ノ<rt>no</rt></ruby></td>
+                    <td><ruby>ニャ<rt>nya</rt></ruby></td>
+                    <td><ruby>ニュ<rt>nyu</rt></ruby></td>
+                    <td><ruby>ニョ<rt>nyo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>ハ<rt>ha</rt></ruby></td>
+                    <td><ruby>ヒ<rt>hi</rt></ruby></td>
+                    <td><ruby>フ<rt>hu</rt></ruby></td>
+                    <td><ruby>ヘ<rt>he</rt></ruby></td>
+                    <td><ruby>ホ<rt>ho</rt></ruby></td>
+                    <td><ruby>ヒャ<rt>hya</rt></ruby></td>
+                    <td><ruby>ヒュ<rt>hyu</rt></ruby></td>
+                    <td><ruby>ヒョ<rt>hyo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>マ<rt>ma</rt></ruby></td>
+                    <td><ruby>ミ<rt>mi</rt></ruby></td>
+                    <td><ruby>ム<rt>mu</rt></ruby></td>
+                    <td><ruby>メ<rt>me</rt></ruby></td>
+                    <td><ruby>モ<rt>mo</rt></ruby></td>
+                    <td><ruby>ミャ<rt>mya</rt></ruby></td>
+                    <td><ruby>ミュ<rt>myu</rt></ruby></td>
+                    <td><ruby>ミョ<rt>myo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>ヤ<rt>ya</rt></ruby></td>
+                    <td></td>
+                    <td><ruby>ユ<rt>yu</rt></ruby></td>
+                    <td></td>
+                    <td><ruby>ヨ<rt>yo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>ラ<rt>ra</rt></ruby></td>
+                    <td><ruby>リ<rt>ri</rt></ruby></td>
+                    <td><ruby>ル<rt>ru</rt></ruby></td>
+                    <td><ruby>レ<rt>re</rt></ruby></td>
+                    <td><ruby>ロ<rt>ro</rt></ruby></td>
+                    <td><ruby>リャ<rt>rya</rt></ruby></td>
+                    <td><ruby>リュ<rt>ryu</rt></ruby></td>
+                    <td><ruby>リョ<rt>ryo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>ワ<rt>wa</rt></ruby></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><ruby>ヲ<rt>wo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>ン<rt>n</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>ガ<rt>ga</rt></ruby></td>
+                    <td><ruby>ギ<rt>gi</rt></ruby></td>
+                    <td><ruby>グ<rt>gu</rt></ruby></td>
+                    <td><ruby>ゲ<rt>ge</rt></ruby></td>
+                    <td><ruby>ゴ<rt>go</rt></ruby></td>
+                    <td><ruby>ギャ<rt>gya</rt></ruby></td>
+                    <td><ruby>ギュ<rt>gyu</rt></ruby></td>
+                    <td><ruby>ギョ<rt>gyo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>ザ<rt>za</rt></ruby></td>
+                    <td><ruby>ジ<rt>zi</rt></ruby></td>
+                    <td><ruby>ズ<rt>zu</rt></ruby></td>
+                    <td><ruby>ゼ<rt>ze</rt></ruby></td>
+                    <td><ruby>ゾ<rt>zo</rt></ruby></td>
+                    <td><ruby>ジャ<rt>zya</rt></ruby></td>
+                    <td><ruby>ジュ<rt>zyu</rt></ruby></td>
+                    <td><ruby>ジョ<rt>zyo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>ダ<rt>da</rt></ruby></td>
+                    <td><ruby>ヂ<rt>di</rt></ruby></td>
+                    <td><ruby>ヅ<rt>du</rt></ruby></td>
+                    <td><ruby>デ<rt>de</rt></ruby></td>
+                    <td><ruby>ド<rt>do</rt></ruby></td>
+                    <td><ruby>ヂャ<rt>dya</rt></ruby></td>
+                    <td><ruby>ヂュ<rt>dyu</rt></ruby></td>
+                    <td><ruby>ヂョ<rt>dyo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>バ<rt>ba</rt></ruby></td>
+                    <td><ruby>ビ<rt>bi</rt></ruby></td>
+                    <td><ruby>ブ<rt>bu</rt></ruby></td>
+                    <td><ruby>ベ<rt>be</rt></ruby></td>
+                    <td><ruby>ボ<rt>bo</rt></ruby></td>
+                    <td><ruby>ビャ<rt>bya</rt></ruby></td>
+                    <td><ruby>ビュ<rt>byu</rt></ruby></td>
+                    <td><ruby>ビョ<rt>byo</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>パ<rt>pa</rt></ruby></td>
+                    <td><ruby>ピ<rt>pi</rt></ruby></td>
+                    <td><ruby>プ<rt>pu</rt></ruby></td>
+                    <td><ruby>ペ<rt>pe</rt></ruby></td>
+                    <td><ruby>ポ<rt>po</rt></ruby></td>
+                    <td><ruby>ピャ<rt>pya</rt></ruby></td>
+                    <td><ruby>ピュ<rt>pyu</rt></ruby></td>
+                    <td><ruby>ピョ<rt>pyo</rt></ruby></td>
+                </tr>
+            </table></div>
+            <div class="kana-table"><table>
+                <caption>Extended Katakana</caption>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><ruby>イェ<rt>ye</rt></ruby></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><ruby>ウィ<rt>wi</rt></ruby></td>
+                    <td></td>
+                    <td><ruby>ウェ<rt>we</rt></ruby></td>
+                    <td><ruby>ウォ<rt>who (wo)</rt></ruby></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><ruby>クァ<rt>qa (kwa)</rt></ruby></td>
+                    <td><ruby>クィ<rt>qi (kwi)</rt></ruby></td>
+                    <td></td>
+                    <td><ruby>クェ<rt>qe (kwe)</rt></ruby></td>
+                    <td><ruby>クォ<rt>qo (kwo)</rt></ruby></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><ruby>シェ<rt>sye (she)</rt></ruby></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><ruby>チェ<rt>che</rt></ruby></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><ruby>ツァ<rt>tsa</rt></ruby></td>
+                    <td><ruby>ツィ<rt>tsi</rt></ruby></td>
+                    <td></td>
+                    <td><ruby>ツェ<rt>tse</rt></ruby></td>
+                    <td><ruby>ツォ<rt>tso</rt></ruby></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><ruby>ティ<rt>thi (ti)</rt></ruby></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><ruby>テュ<rt>thu (tyu)</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><ruby>トゥ<rt>twu (tu)</rt></ruby></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><ruby>ファ<rt>fa</rt></ruby></td>
+                    <td><ruby>フィ<rt>fi</rt></ruby></td>
+                    <td></td>
+                    <td><ruby>フェ<rt>fe</rt></ruby></td>
+                    <td><ruby>フォ<rt>fo</rt></ruby></td>
+                    <td><ruby>フュ<rt>fyu</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td><ruby>グァ<rt>gwa</rt></ruby></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><ruby>ジェ<rt>zye (je)</rt></ruby></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><ruby>ディ<rt>dhi (di)</rt></ruby></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><ruby>デュ<rt>dhu (dyu)</rt></ruby></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><ruby>ドゥ<rt>dwu (du)</rt></ruby></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><ruby>ヴァ<rt>va</rt></ruby></td>
+                    <td><ruby>ヴィ<rt>vi</rt></ruby></td>
+                    <td><ruby>ヴ<rt>vu</rt></ruby></td>
+                    <td><ruby>ヴェ<rt>ve</rt></ruby></td>
+                    <td><ruby>ヴォ<rt>vo</rt></ruby></td>
+                    <td><ruby>ヴュ<rt>vyu</rt></ruby></td>
+                </tr>
+            </table></div>
         </section>
     </div>
 </body>
