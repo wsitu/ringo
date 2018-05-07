@@ -31,13 +31,6 @@
         h3{
             font-size: 1.25rem;
         }
-        nav {
-            background-color: #fcf0de;
-            border-radius: 1rem;
-            box-shadow: 0 0 0.1rem 0 #aaa;
-            margin: 1rem 0;
-            padding: 1rem;
-        }
         nav li{
             color: SeaGreen;
             font-size: 1.25rem;
@@ -106,6 +99,13 @@
             text-decoration: none;
             font-size: 1.2em;
         }
+        .sidebar > div, .sidebar > nav {
+            background-color: #fcf0de;
+            border-radius: 1rem;
+            box-shadow: 0 0 0.1rem 0 #aaa;
+            margin: 1rem 0;
+            padding: 1rem;
+        }
         #detail-box{
             color: #ff4a90;
             background-color: FloralWhite;
@@ -129,6 +129,10 @@
         #external-search{
             color: #ff4a90;
         }
+        #resource-box li {
+            font-weight: bold;
+            list-style-type: none;
+        }
     </style>
 </head>
 
@@ -148,7 +152,16 @@
         </nav>
         <div id="detail-box">
             <div id="detail-body"></div>
-            <a id="external-search" href="http://jisho.org/" target="_blank"></a>
+        </div>
+        <div id="resource-box">
+            <ul>
+                <li><a id="jisho" href="http://jisho.org/" target="_blank">Jisho</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/List_of_kanji_radicals_by_frequency" target="_blank">Radical list</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Japanese_particles#List_of_particles" target="_blank">Particle list</a></li>
+                <li><a href="https://files.tofugu.com/articles/japanese/2009-03-25-japanese-particles-cheatsheet/japanese-particles-cheatsheet1.pdf" target="_blank">Basic particles</a></li>
+                <li><a href="http://www.e-douwa.com/" target="_blank">Fairy tales</a></li>
+                <li><a href="https://www3.nhk.or.jp/news/easy/" target="_blank">NHK's easy news</a></li>
+            </ul>
         </div>
     </div>
     <div class="main">
@@ -725,8 +738,7 @@
             }
             document.getElementById("detail-body").innerHTML = detail_text;
         }
-        document.getElementById("external-search").href = "http://jisho.org/search/" + selected;
-        document.getElementById("external-search").innerHTML = "Search: " + selected;
+        document.getElementById("jisho").href = "http://jisho.org/search/" + selected;
     }
 </script>
 
