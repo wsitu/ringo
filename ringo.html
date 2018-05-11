@@ -153,6 +153,7 @@
                 <li><a href="#Grade 6">Grade 6</a></li>
                 <li><a href="#Common Use">Common</a></li>
                 <li><a href="#kana">Kana</a></li>
+                <li id="mode-button" onclick="LabelManager.toggleMode()">Mode</li>
             </ul>
         </nav>
         <div id="detail-box">
@@ -796,15 +797,19 @@
         }
         
         static toggleMode() {
+            var button = document.getElementById("mode-button");
             switch (LabelManager.mode) {
                 case "highlight": 
                     LabelManager.mode = "fade";
+                    button.innerHTML = "Hide";
                     break
                 case "fade": 
                     LabelManager.mode = "";
+                    button.innerHTML = "View";
                     break
                 default: 
                     LabelManager.mode = "highlight";
+                    button.innerHTML = "Underline";
             }
         }
     }
