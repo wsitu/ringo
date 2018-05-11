@@ -38,6 +38,12 @@
             list-style-type: none;
             margin: 0.5rem, 0;
         }
+        .fade {
+            color: #aaa;
+        }
+        .highlight {
+            text-decoration: underline #d60838;
+        }
         .kana-table {
             margin: 2rem 0 4rem 0;
             overflow-x: auto;
@@ -72,7 +78,6 @@
         .kanzi-container span:hover{
             background-color: #b8ecfd;
             border-radius: 50%;
-            color: black;
         }
         .main{
             padding: 1rem;
@@ -714,8 +719,98 @@
 
 <script src="kanji.js"></script>
 <script>
+    class LabelManager {
+        static getData(key) {
+            if (!localStorage){
+                return null;
+            }
+            return localStorage.getItem(key);
+        }
+        
+        static refreshLabel(elem) {
+            var code = LabelManager.getData(elem.innerHTML);
+            if (code){
+                switch (code) {
+                    case "1": 
+                        elem.setAttribute("class", "highlight");
+                        break
+                    case "2": 
+                        elem.setAttribute("class", "fade");
+                        break
+                    default: 
+                        console.warn("Unknown code on '%s': %s", elem.innerHTML, code);
+                }
+            }
+        }
+        
+        static removeData(key) {
+            if (!localStorage){
+                return;
+            }
+            localStorage.removeItem(key);
+        }
+
+        static saveLabel(elem) {
+            var key = elem.innerHTML;
+            var label = elem.getAttribute("class");
+            switch (label) {
+                case null:
+                    LabelManager.removeData(key);
+                    break;
+                case "highlight": 
+                    LabelManager.setData(key, "1");
+                    break;
+                case "fade": 
+                    LabelManager.setData(key, "2");
+                    break;
+                default:
+                    console.warn("Unknown label: '%s' on %s", label, key);
+                    return;
+            }
+        }
+        
+        static setData(key, value) {
+            if (!localStorage){
+                return;
+            }
+            try {
+                localStorage.setItem(key, value);
+            } catch(e) {
+                console.warn("Could not save data: Error code %s %s", e.code, e.name);
+                //make a popup at bottom of page to notify users
+            }
+        }
+        
+        static toggleLabel(elem) {
+            var label = elem.getAttribute("class");
+            if (!LabelManager.mode) {
+                return;
+            }
+            if (label === LabelManager.mode) {
+                elem.removeAttribute("class");
+            }
+            else {
+                elem.setAttribute("class", LabelManager.mode);
+            }
+            LabelManager.saveLabel(elem);
+        }
+        
+        static toggleMode() {
+            switch (LabelManager.mode) {
+                case "highlight": 
+                    LabelManager.mode = "fade";
+                    break
+                case "fade": 
+                    LabelManager.mode = "";
+                    break
+                default: 
+                    LabelManager.mode = "highlight";
+            }
+        }
+    }
+
     var containers = document.querySelectorAll(".kanzi-container");
-    var wrapped = "<span onclick=\"showDetail(this)\">$1</span>"
+    var wrapped = "<span onclick=\"showDetail(this)\">$1</span>";
     for (var i = 0; i < containers.length; i++) {
         containers[i].innerHTML = containers[i].innerHTML.replace(/(\S+)\s+/g, wrapped);
         var words = containers[i].getElementsByTagName("span");
@@ -723,18 +818,21 @@
             if (kanji_definition[words[j].innerHTML] == undefined) {
                 words[j].classList.add("no-data");
             }
+            LabelManager.refreshLabel(words[j]);
         }
     }
+    
     function showDetail(elem) {
-        var selected = elem.innerHTML
-        data = kanji_definition[selected]
+        LabelManager.toggleLabel(elem);
+        var selected = elem.innerHTML;
+        data = kanji_definition[selected];
         if( data == undefined ) {
-            document.getElementById("detail-body").innerHTML = "Missing data for: " + selected
+            document.getElementById("detail-body").innerHTML = "Missing data for: " + selected;
         }
         else {
             var detail_text = "";
             for (var i = 0; i < data.length; i+=2) {
-                detail_text = detail_text.concat("<h1><ruby>", data[i], "</ruby></h1>", "<p>", data[i+1], "</p>")
+                detail_text = detail_text.concat("<h1><ruby>", data[i], "</ruby></h1>", "<p>", data[i+1], "</p>");
             }
             document.getElementById("detail-body").innerHTML = detail_text;
         }
