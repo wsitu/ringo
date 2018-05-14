@@ -720,62 +720,26 @@
 
 <script src="kanji.js"></script>
 <script>
-    class LabelManager {
-        static getData(key) {
+        function getData(key) {
             if (!localStorage){
                 return null;
             }
             return localStorage.getItem(key);
         }
         
-        static isQuotaError(e) {
+        function isQuotaError(e) {
             return e instanceof DOMException && (e.code === 22 || e.code === 1014 ||
             e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED');
         }
         
-        static refreshLabel(elem) {
-            var code = LabelManager.getData(elem.innerHTML);
-            if (code){
-                switch (code) {
-                    case "1": 
-                        elem.setAttribute("class", "highlight");
-                        break
-                    case "2": 
-                        elem.setAttribute("class", "fade");
-                        break
-                    default: 
-                        console.warn("Unknown code on '%s': %s", elem.innerHTML, code);
-                }
-            }
-        }
-        
-        static removeData(key) {
+        function removeData(key) {
             if (!localStorage){
                 return;
             }
             localStorage.removeItem(key);
         }
-
-        static saveLabel(elem) {
-            var key = elem.innerHTML;
-            var label = elem.getAttribute("class");
-            switch (label) {
-                case null:
-                    LabelManager.removeData(key);
-                    break;
-                case "highlight": 
-                    LabelManager.setData(key, "1");
-                    break;
-                case "fade": 
-                    LabelManager.setData(key, "2");
-                    break;
-                default:
-                    console.warn("Unknown label: '%s' on %s", label, key);
-                    return;
-            }
-        }
         
-        static setData(key, value) {
+        function setData(key, value) {
             if (!localStorage){
                 return;
             }
@@ -786,11 +750,47 @@
                     return; //Ignore, check this once at start up instead
                 }
                 //make a popup at bottom of page to notify users
-                if (LabelManager.isQuotaError(e) && localStorage.length > 0) {
+                if (isQuotaError(e) && localStorage.length > 0) {
                     console.warn("Could not save %s, browser storage exceeded", key);
                 } else {
                     console.warn("Could not save data: Error code %s %s", e.code, e.name);
                 }
+            }
+        }
+        
+    class LabelManager {
+        static refreshLabel(elem) {
+            var code = getData(elem.innerHTML);
+            if (code){
+                switch (code) {
+                    case "1": 
+                        elem.setAttribute("class", "highlight");
+                        break;
+                    case "2": 
+                        elem.setAttribute("class", "fade");
+                        break;
+                    default: 
+                        console.warn("Unknown code on '%s': %s", elem.innerHTML, code);
+                }
+            }
+        }
+        
+        static saveLabel(elem) {
+            var key = elem.innerHTML;
+            var label = elem.getAttribute("class");
+            switch (label) {
+                case null:
+                    removeData(key);
+                    break;
+                case "highlight": 
+                    setData(key, "1");
+                    break;
+                case "fade": 
+                    setData(key, "2");
+                    break;
+                default:
+                    console.warn("Unknown label: '%s' on %s", label, key);
+                    return;
             }
         }
         
