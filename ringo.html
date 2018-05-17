@@ -771,15 +771,18 @@
         } catch(e) {
             if (e.name === 'SecurityError') return;
         }
+    }
         
     function setData(key, value) {
         try {
             if (localStorage) localStorage.setItem(key, value);
         } catch(e) {
             if (e.name === 'SecurityError') return; 
-            //make a popup at bottom of page to notify users
-            if (isQuotaError(e) && localStorage.length > 0) {
-                console.warn("Could not save %s, browser storage exceeded", key);
+            if (isQuotaError(e)) {
+                if (localStorage.length > 0) {
+                    //replace with notification
+                    console.warn("Could not save %s, browser storage exceeded", key);
+                }
             } else {
                 console.warn("Could not save data: Error code %s %s", e.code, e.name);
             }
