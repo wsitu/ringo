@@ -751,43 +751,40 @@
         }
     }
 
-        function getData(key) {
-            if (!localStorage){
-                return null;
-            }
+    function getData(key) {
+        try {
+            if (!localStorage) return null;
             return localStorage.getItem(key);
+        } catch(e) {
+            if (e.name === 'SecurityError') return null;
+        }
+    }
+        
+    function isQuotaError(e) {
+        return e instanceof DOMException && (e.code === 22 || e.code === 1014 ||
+        e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED');
+    }
+        
+    function removeData(key) {
+        try {
+            if (localStorage) localStorage.removeItem(key);
+        } catch(e) {
+            if (e.name === 'SecurityError') return;
         }
         
-        function isQuotaError(e) {
-            return e instanceof DOMException && (e.code === 22 || e.code === 1014 ||
-            e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED');
-        }
-        
-        function removeData(key) {
-            if (!localStorage){
-                return;
-            }
-            localStorage.removeItem(key);
-        }
-        
-        function setData(key, value) {
-            if (!localStorage){
-                return;
-            }
-            try {
-                localStorage.setItem(key, value);
-            } catch(e) {
-                if (e.name === 'SecurityError') {
-                    return; //Ignore, check this once at start up instead
-                }
-                //make a popup at bottom of page to notify users
-                if (isQuotaError(e) && localStorage.length > 0) {
-                    console.warn("Could not save %s, browser storage exceeded", key);
-                } else {
-                    console.warn("Could not save data: Error code %s %s", e.code, e.name);
-                }
+    function setData(key, value) {
+        try {
+            if (localStorage) localStorage.setItem(key, value);
+        } catch(e) {
+            if (e.name === 'SecurityError') return; 
+            //make a popup at bottom of page to notify users
+            if (isQuotaError(e) && localStorage.length > 0) {
+                console.warn("Could not save %s, browser storage exceeded", key);
+            } else {
+                console.warn("Could not save data: Error code %s %s", e.code, e.name);
             }
         }
+    }
         
     class LabelManager {
         static refreshLabel(elem) {
