@@ -790,7 +790,7 @@
     }
         
     class LabelManager {
-        static refreshLabel(elem) {
+        static loadLabel(elem) {
             var code = getData(elem.innerHTML);
             if (code){
                 switch (code) {
@@ -867,7 +867,7 @@
             if (kanji_definition[words[j].innerHTML] == undefined) {
                 words[j].classList.add("no-data");
             }
-            LabelManager.refreshLabel(words[j]);
+            LabelManager.loadLabel(words[j]);
         }
     }
     
