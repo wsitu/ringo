@@ -729,6 +729,28 @@
 
 <script src="kanji.js"></script>
 <script>
+    //Replace console.warn with a notfication for user
+    function checkWebStorage() {
+        var testKey = "__TEST_KEY__";
+        var testValue = "data";
+        try {
+            if (localStorage){
+                localStorage.setItem(testKey, testValue);
+                localStorage.removeItem(testKey);
+            } else {
+                console.warn("disabled / not supported");
+            }
+        } catch(e) {
+            if (e.name === 'SecurityError') {
+                console.warn("web storage access denied (cookie policy)");
+            } else if (isQuotaError(e)) {
+                console.warn("storage full / quota 0");
+            } else {
+                console.warn("Could not access web storage. %s", e.toString());
+            }
+        }
+    }
+
         function getData(key) {
             if (!localStorage){
                 return null;
@@ -835,6 +857,7 @@
         }
     }
 
+    checkWebStorage();
     var containers = document.querySelectorAll(".kanzi-container");
     var wrapped = "<span onclick=\"showDetail(this)\">$1</span>";
     for (var i = 0; i < containers.length; i++) {
