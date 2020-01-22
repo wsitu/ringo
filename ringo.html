@@ -47,6 +47,11 @@
         .fade {
             color: #aaa;
         }
+        .hidden {
+            max-height: 0 !important;
+            opacity: 0 !important;
+            visiblity: hidden !important;
+        }
         .highlight {
             text-decoration: underline #d60838;
         }
@@ -138,6 +143,35 @@
             margin: 0 0 1em 0;
         }
         #external-search{
+            color: #ff4a90;
+        }
+        #notification {
+            background-color: rgb(255, 250, 240);
+            background-color: rgba(255, 250, 240, 0.9);
+            border: 0.2rem solid Crimson;
+            border-radius: 1rem;
+            bottom: 0;
+            margin: 1rem auto;
+            max-height: 20rem;
+            width: 48rem;
+            position: fixed;
+            transition: opacity 0.15s ease-in-out, max-height 0.2s ease-in-out;
+        }
+        #notification p {
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 1rem;
+            text-align: center;
+        }
+        #notification_close {
+            margin: 0.5rem;
+            float: right;
+            color: DarkRed;
+            font-size: 2em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #notification_close:hover {
             color: #ff4a90;
         }
         #resource-box li {
@@ -724,6 +758,10 @@
                 </tr>
             </table></div>
         </section>
+    <div class="hidden" id="notification">
+        <span id="notification_close" onclick="this.parentElement.classList.add('hidden');">&times;</span>
+        <p id="notification_text">Notification Box</p>
+    </div>
     </div>
 </body>
 
@@ -788,7 +826,12 @@
             }
         }
     }
-        
+    
+    function userNotification(text) {
+        document.getElementById("notification_text").innerHTML = text;
+        document.getElementById("notification").classList.remove("hidden");
+    }
+    
     class LabelManager {
         static loadLabel(elem) {
             var code = getData(elem.innerHTML);
