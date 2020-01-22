@@ -767,7 +767,6 @@
 
 <script src="kanji.js"></script>
 <script>
-    //Replace console.warn with a notfication for user
     function checkWebStorage() {
         var testKey = "__TEST_KEY__";
         var testValue = "data";
@@ -776,15 +775,15 @@
                 localStorage.setItem(testKey, testValue);
                 localStorage.removeItem(testKey);
             } else {
-                console.warn("disabled / not supported");
+                userNotification("Local storage is disabled or not supported on this device.")
             }
         } catch(e) {
             if (e.name === 'SecurityError') {
-                console.warn("web storage access denied (cookie policy)");
+                userNotification("Local storage access is denied; check cookie settings.");
             } else if (isQuotaError(e)) {
-                console.warn("storage full / quota 0");
+                userNotification("Local storage is full. The quota may also be set to 0.");
             } else {
-                console.warn("Could not access web storage. %s", e.toString());
+                userNotification("Could not access web storage. %s", e.toString());
             }
         }
     }
@@ -818,15 +817,16 @@
             if (e.name === 'SecurityError') return; 
             if (isQuotaError(e)) {
                 if (localStorage.length > 0) {
-                    //replace with notification
-                    console.warn("Could not save %s, browser storage exceeded", key);
+                    userNotification("Could not save %s, local storage exceeded.", key)
                 }
             } else {
-                console.warn("Could not save data: Error code %s %s", e.code, e.name);
+                userNotification("Could not save data: Error code %s %s", e.code, e.name)
             }
         }
     }
     
+    //TODO: Add a switch to only notifiy if the text is new to prevent spamming
+    //the same notification
     function userNotification(text) {
         document.getElementById("notification_text").innerHTML = text;
         document.getElementById("notification").classList.remove("hidden");
