@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>りんご</title>
+    <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+          border: none;
+        }
+        body {
+            background-color: #fff5e0;
+            color: #111;
+            margin: 0 auto;
+            max-width: 40rem;
+        }
+        noscript p {
+            background-color: white;
+            border: 0.5rem solid #d60838;
+            padding: 1rem;
+            width: 100%
+        }
+        .fade {
+            color: #aaa;
+        }
+        .hidden {
+            max-height: 0 !important;
+            opacity: 0 !important;
+            visiblity: hidden !important;
+        }
+        .highlight {
+            text-decoration: underline #d60838;
+        }
+        .main{
+            padding: 1rem;
+        }
+        .quiz{
+            list-style: none;
+        }
+        .quiz-answers li{
+            color: SeaGreen;
+            font-size: 1.25rem;
+            font-weight: bold;
+            list-style-type: none;
+            margin: 0.5rem, 0;
+            display: inline;
+        }
+        .quiz dt{
+            font-size: 3rem;
+            min-width: 5rem;
+            min-height: 5rem;
+            line-height: 5rem;
+            border: 0.1rem solid Red;
+            text-align: center;
+        }
+        .quiz dd{
+            border: 0.1rem solid Green;
+            padding: 1rem;
+        }
+        .quiz-question{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        #notification {
+            background-color: rgb(255, 250, 240);
+            background-color: rgba(255, 250, 240, 0.9);
+            border: 0.2rem solid Crimson;
+            border-radius: 1rem;
+            bottom: 0;
+            margin: 1rem auto;
+            max-height: 20rem;
+            width: 48rem;
+            position: fixed;
+            transition: opacity 0.15s ease-in-out, max-height 0.2s ease-in-out;
+        }
+        #notification p {
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 1rem;
+            text-align: center;
+        }
+        #notification_close {
+            margin: 0.5rem;
+            float: right;
+            color: DarkRed;
+            font-size: 2em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #notification_close:hover {
+            color: #ff4a90;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <noscript>
+            <p>This page requires javascript to function properly. Please enable it and refresh the page.</p>
+        </noscript>
+        <section>
+            <ol class="quiz">
+                <li class="quiz-entry">
+                    <dl class="quiz-question">
+                        <dt>1</dt>
+                        <dd>
+                            test test test test test test test<br>
+                            test test test test test test test<br>
+                            test test test test test test test
+                        </dd>
+                    </dl>
+                    <ul class="quiz-answers">
+                        <li>A</li>
+                        <li>B</li>
+                        <li>C</li>
+                        <li>D</li>
+                        <li>E</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+ 
+        <div class="hidden" id="notification">
+            <span id="notification_close" onclick="this.parentElement.classList.add('hidden');">&times;</span>
+            <p id="notification_text">Notification Box</p>
+        </div>
+    </div>
+</body>
+
+<script src="kanji.js"></script>
+<script>
+</script>
+
+</html>
