@@ -1,0 +1,17 @@
+===============================================================================
+----------------------------- Introduction ------------------------------------
+
+Background:
+    Learning kanji is a big hurdle for beginners in Japanese. Unlike English
+    with 26 letters, around 1000 kanji is taught in just elementary school.
+    Memorization requires constant and regular use but simply staring at a long
+    document of multiple readings and various meanings for 1000+ kanji can be
+    incredibly tedious and uninspiring.
+    
+Objective: 
+    Interactive quiz game to help memorize a reading of a kanji by associating
+    it with a word. Because the usage of kanji does not easily translate into
+    English, it is much more beginner friendly to focus on words that do.
+    Adding interaction will keep the learning process fresh and keeping it
+    simple will encourage regular use that strengthens the memorization.
+===============================================================================
