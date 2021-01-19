@@ -13,5 +13,40 @@ Objective:
     it with a word. Because the usage of kanji does not easily translate into
     English, it is much more beginner friendly to focus on words that do.
     Adding interaction will keep the learning process fresh and keeping it
-    simple will encourage regular use that strengthens the memorization.
+    simple will encourage regular use to improve retention.
+===============================================================================
+
+
+
+
+===============================================================================
+----------------------------- Feature List ------------------------------------
+
+Core:
+    Entries for grade 1 kanji
+    Basic quiz functionality
+        - Randomly select a kanji and randomly pick a word containing the kanji
+        - Randomly pick other kanjis
+        - Shuffle around the kanjis
+        - Graphically mark correct and incorrect choices
+High:
+    Entries for grade 2 kanji
+    Entries for grade 3 kanji
+    Change filters for selecting kanji
+    Record quiz results for each kanji in browser's localstorage
+    Prioritize the kanjis with higher fail rates
+    Adjust the number of words to pick
+    Adjust the number of extra kanji
+    
+Med:
+    User configurable tags
+    User configurable words
+    Entries for grade 4 kanji
+    Entries for grade 5 kanji
+    Entries for grade 6 kanji
+Low:
+    Adjust text size for quiz
+    Option to hide the furigana
+    Change furigana to hepburn or nihonsiki
+    Entries for jouyou kanji
 ===============================================================================
