@@ -50,3 +50,90 @@ Low:
     Change furigana to hepburn or nihonsiki
     Entries for jouyou kanji
 ===============================================================================
+
+
+
+
+===============================================================================
+----------------------------- Visual Layout -----------------------------------
+
+
+
+-------- Quiz Page --------
+
+1 2 3 4 5 6 Custom1 Custom2
+AdvancedOptions
+
+...........................
+. Furigana     Definition .
+.  Word 1                 .
+...........................
+...........................
+. Furigana     Definition .
+.  Word 2                 .
+...........................
+...........................
+. Furigana     Definition .
+.  Word X                 .
+...........................
+
+    ....... ....... 
+    .Reset. .  Go .
+    ....... .......
+        
+           |
+           v
+
+............................
+. Furigana     Definition 1.
+............................
+      x x x x x x
+      x x A x x x
+      x x x x x x
+      x x x x x B
+
+
+............................
+. Furigana     Definition 2.
+............................
+      x x x x x D
+      x x x x x x
+      x C x x x x
+      x x x x x x
+
+
+............................
+. Furigana     Definition X.                        .
+............................
+      x x x E x x
+      x x x x x x
+      x x x x x x
+      x x x x x x
+      
+        ....... 
+        .  Go .
+        .......
+      
+           | ( highlight correct/incorrect above )
+           V ( and fade all other choices        )
+           
+           
+       % choices 
+        correct
+        
+words (correct -> incorrect) 
+
+kanji (increase acc -> 
+acc %  decreased acc ) 
+
+      
+        ....... 
+        .  Go . (move above button down here)
+        .......
+        
+
+===============================================================================
+
+
+      
+
