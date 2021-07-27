@@ -130,10 +130,65 @@ acc %  decreased acc )
         ....... 
         .  Go . (move above button down here)
         .......
-        
 
 ===============================================================================
 
 
-      
 
+
+===============================================================================
+--------------------------- Data Organization ---------------------------------
+
+Definition - Words, their kanji readings, and the definition
+    name: dictionary_name
+    words: {dict of:
+        word_1: {
+            read: [array of:
+                {dict of: kanji: reading}
+                ...
+                {dict of: kanji: reading}
+            ]
+            def: definition_1
+        }
+        ...
+        word_n: {
+            read: [array of:
+                {dict of: kanji: reading}
+                ...
+                {dict of: kanji: reading}
+            ]
+            def: definition_n
+        }
+    }
+    
+    
+Label - Groups of kanji to use for filtering when choosing words
+    name: file_name
+    labels: {dict of:
+        label_1: {set of some kanjis}
+        ...
+        label_n: {set of some kanjis}
+    }
+    
+    
+localStorage - Save user settings and accuracy for each kanji
+    config: {dict of:
+        setting_1: value_1
+        ...
+        setting_n: value_n
+    }
+    kanji: {dict of:
+        kanji_1: [array of: right_1, wrong_1]
+        ...
+        kanji_n: [array of: right_n, wrong_n]
+    }
+    
+    
+Kanji - Words that uses the kanji
+    {dict of :
+        kanji_1: [array of: word_1, ..., word_n]
+        ...
+        kanji_n: [array of: word_1, ..., word_n]
+    }
+    
+    
