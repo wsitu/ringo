@@ -1,0 +1,85 @@
+一       一<いち>           one
+右       右<みぎ>           right (direction)
+雨       雨<あめ>           rain
+円       円<えん>           circle, yen(currency)
+王       王<おう>           king, ruler
+音       音<おと>           sound, noise, musical note
+下       下<した>           down, below, bottom
+火       火<ひ>            fire
+花       花<はな>          flower, petal
+貝       貝<かい>          shellfish
+文学     文<ぶん>学<がく>    literature
+気       気<き>            mood, mind
+九       九<きゅう>          nine
+休む     休<やす>む         to rest
+玉       玉<たま>           ball, bead, sphere
+金       金<きん>           gold
+お金      お<>金<かね>       money
+空       空<そら>           sky, air
+月       月<つき>           moon, month
+犬       犬<いぬ>           dog
+見る      見<み>る           to see, look
+五       五<ご>             five
+口       口<くち>            mouth, opening
+学校     学校<がっこう>       school
+校長     校<こう>長<ちょう>    principal (school)
+左       左<ひだり>          left
+三       三<さん>           three
+山       山<やま>           mountain, hill,
+子       子<こ>             a child, young woman
+四       四<よん>           four
+糸       糸<いと>            thread, string
+字       字<じ>             character, symbol
+耳       耳<みみ>           ear
+七       七<なな>           seven
+車       車<くるま>           car, vehicle
+手       手<て>             hand
+十       十<じゅう>           ten
+出る      出<で>る           leave, exit, go out
+女        女<おんな>         woman
+小さい     小<ちい>さい        small, minor
+上        上<うえ>           up, above
+森        森<もり>           forest
+人        人<ひと>           person
+水        水<みず>          water, liquid
+正しい     正<ただ>しい       correct, proper
+生きる     生<い>きる　　      to live, exist
+青い      青<あお>い         blue
+夕方     夕<ゆう>方<がた>    dusk
+石       石<いし>           stone
+赤い      赤<あか>い         red
+千       千<せん>           thousand
+川       川<かわ>           river, stream
+先       先<さき>           previous, before, point, tip
+先生     先<せん>生<せい>    teacher, instructor, master
+早い     早<はや>い          early, fast
+草       草<くさ>            grass, weed, herb
+足       足<あし>           foot, leg
+村       村<むら>           village
+大きい    大<おお>きい        big, large
+男       男<おとこ>          man (male)
+竹       竹<たけ>           bamboo
+中       中<なか>           middle, center, inside, within
+虫       虫<むし>           bug, insect
+町       町<まち>           town, city
+天       天<てん>           heaven, sky
+天気     天<てん>気<き>      weather
+田       田<た>　　　　       rice field
+土       土<つち>　　　　      soil, dirt, land
+二       二<に>            two
+日       日<ひ>            day, sunlight
+入る     入<はい>る          to enter, go into
+年      年<とし>            year
+白      白<しろ>い          white
+八      八<はち>           eight
+百      百<ひゃく>          hundred
+木      木<き>             tree, wood
+本      本<ほん<           book
+名前    名<な>前<まえ>      name, given name
+目      目<め>             eye, vision
+目玉    目<め>玉<だま>      eyeball
+立つ     立<た>つ           to stand
+力      力<ちから>          power, ability
+林      林<はやし>          woods, light forest
+六      六<ろく>            six
+
