@@ -74,7 +74,7 @@
 八      八<はち>           eight
 百      百<ひゃく>          hundred
 木      木<き>             tree, wood
-本      本<ほん<           book
+本      本<ほん>           book
 名前    名<な>前<まえ>      name, given name
 目      目<め>             eye, vision
 目玉    目<め>玉<だま>      eyeball

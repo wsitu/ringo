@@ -59,25 +59,26 @@
         //         or null if it could not be parsed
         function getReading(got, remaining) {
             if (!remaining) return got;
-            start = remaining.search("<");
-            end = remaining.search(">");
+            const start = remaining.search("<");
+            const end = remaining.search(">");
             
             // append everything with no reading
-            if (start < 0 || end < 0) {
+            if (start < 0 && end < 0) {
                 got.push({[remaining]: ""});
                 return got;
             }
             
             // take the target and its reading
-            target = remaining.slice(0, start);
-            reading = remaining.slice(start+1, end);
-            got.push({[target]: reading});
-            leftover = remaining.slice(end+1);
+            if (start >=0 && end > start) {
+                const target = remaining.slice(0, start);
+                const reading = remaining.slice(start+1, end);
+                got.push({[target]: reading});
+                const leftover = remaining.slice(end+1);
+                return getReading(got, leftover);
+            }
             
-            // prevent infinite recursion incase nothing was sliced
-            if (leftover.length >= remaining.length) return null;
-            
-            return getReading(got, leftover);
+            // incorrect formatting or something went wrong
+            return null;
         }
         return data;
     }
