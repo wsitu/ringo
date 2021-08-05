@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Default Words</title>
+</head>
+
+<body>
+    <noscript>
+        <p>This page requires javascript to function properly. Please enable it and refresh the page.</p>
+    </noscript>
+    <p>This page creates a JSON for the default words. Check the console for any errors.</p>
+    <input id="file-input" type="file" onchange="parseFile()"/>
+    <a id="download-output">Download</a>
+    <pre id="parsed-output">
+    </pre>
+</body>
+
+<script>
+    // Parses a string representing a file where each line is in the format:
+    // word, reading, definition
+    // each separated by 4 or more spaces where "reading" is in the format
+    // specified in getReading().
+    function parseData(input) {
+        var data = {};
+        var lines = input.split(/\r?\n/);
+        lines.forEach(parseLine);
+        
+        // separate the 3 components and store them in an object
+        function parseLine(value, index, array){
+            if (!value) return;
+            var x = value.split(/\s{4,}/);
+            if ( x.length != 3 || !(x[0] && x[1] && x[2])) {
+                console.error(`Incorrect format on line ${index+1}: ${value}`);
+                return;
+            }
+
+            var reading = getReading([], x[1]);
+            if (reading == null) {
+                console.error(`Incorrect reading on line ${index+1}: ${value}`);
+                return;
+            }
+            if (data[x[0]]) console.warn(`Duplicate word on line ${index+1}: ${value}`);
+            data[x[0]] = {"read" : reading, "def" : x[2]};
+        }
+        
+        // input: empty array and a string of format A<X>B<Y>N
+        // output: the array with {A: X}, {B: Y}, ... { N: ""}
+        //         or null if it could not be parsed
+        function getReading(got, remaining) {
+            if (!remaining) return got;
+            start = remaining.search("<");
+            end = remaining.search(">");
+            
+            // append everything with no reading
+            if (start < 0 || end < 0) {
+                got.push({[remaining]: ""});
+                return got;
+            }
+            
+            // take the target and its reading
+            target = remaining.slice(0, start);
+            reading = remaining.slice(start+1, end);
+            got.push({[target]: reading});
+            leftover = remaining.slice(end+1);
+            
+            // prevent infinite recursion incase nothing was sliced
+            if (leftover.length >= remaining.length) return null;
+            
+            return getReading(got, leftover);
+        }
+        return data;
+    }
+
+    async function parseFile() {
+        // get file
+        inputFile = document.getElementById('file-input').files[0];
+        inputData = await inputFile.text();
+        
+        // parse file
+        outputData = JSON.stringify(parseData(inputData), null, 4);
+        document.getElementById("parsed-output").textContent = outputData;
+        
+        // save file
+        var outputFile = new Blob([outputData], {type : 'application/json'});
+        var download = document.getElementById("download-output");
+        download.href = URL.createObjectURL(outputFile);
+        download.download = "default_words.json";
+    }
+</script>
+
+</html>
