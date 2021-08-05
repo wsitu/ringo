@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Default Words</title>
+    <style>rt{font-size: 0.75em;}</style>
 </head>
 
 <body>
@@ -12,8 +13,17 @@
     <p>This page creates a JSON for the default words. Check the console for any errors.</p>
     <input id="file-input" type="file" onchange="parseFile()"/>
     <a id="download-output">Download</a>
-    <pre id="parsed-output">
-    </pre>
+    <pre id="parsed-output"></pre>
+    <table>
+        <thead>
+            <tr>
+                <th>Word</th>
+                <th>Reading</th>
+                <th>Definition</th>
+            </tr>
+        </thead>
+        <tbody id="formatted-output"></tbody>
+    </table>
 </body>
 
 <script>
@@ -74,18 +84,36 @@
 
     async function parseFile() {
         // get file
-        inputFile = document.getElementById('file-input').files[0];
-        inputData = await inputFile.text();
+        var inputFile = document.getElementById('file-input').files[0];
+        var inputData = await inputFile.text();
         
-        // parse file
-        outputData = JSON.stringify(parseData(inputData), null, 4);
+        // parse & display file
+        var parsedData = parseData(inputData);
+        var outputData = JSON.stringify(parsedData, null, 4);
         document.getElementById("parsed-output").textContent = outputData;
+        document.getElementById("formatted-output").innerHTML = formatData(parsedData);
         
         // save file
         var outputFile = new Blob([outputData], {type : 'application/json'});
         var download = document.getElementById("download-output");
         download.href = URL.createObjectURL(outputFile);
         download.download = "default_words.json";
+    }
+    
+    // convert data into a human readable table
+    function formatData(inputData) {
+        var output = [];
+        for (const [word, data] of Object.entries(inputData)) {
+            let wordReading = []
+            for (const component of data.read) {
+                for (const [part, reading] of Object.entries(component)) {
+                    wordReading.push(`${part}<rt>${reading}</rt>`)
+                }
+            }
+            wordReading = `<ruby>${wordReading.join("")}</ruby>`;
+            output.push(`<tr><td>${word}</td><td>${wordReading}</td><td>${data.def}</td></tr>`);
+        }
+        return output.join("\n");
     }
 </script>
 
