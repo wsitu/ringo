@@ -143,19 +143,19 @@ Definition - Words, their kanji readings, and the definition
     name: dictionary_name
     words: {dict of:
         word_1: {
-            read: [array of:
-                {dict of: kanji: reading}
+            part: [array of:
+                {text: word_part, read: part_reading}
                 ...
-                {dict of: kanji: reading}
+                {text: word_part, read: part_reading}
             ]
             def: definition_1
         }
         ...
         word_n: {
-            read: [array of:
-                {dict of: kanji: reading}
+            part: [array of:
+                {text: word_part, read: part_reading}
                 ...
-                {dict of: kanji: reading}
+                {text: word_part, read: part_reading}
             ]
             def: definition_n
         }

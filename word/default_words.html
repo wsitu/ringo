@@ -51,7 +51,7 @@
                 return;
             }
             if (data[x[0]]) console.warn(`Duplicate word on line ${index+1}: ${value}`);
-            data[x[0]] = {"read" : reading, "def" : x[2]};
+            data[x[0]] = {"part" : reading, "def" : x[2]};
         }
         
         // input: empty array and a string of format A<X>B<Y>N
@@ -64,7 +64,7 @@
             
             // append everything with no reading
             if (start < 0 && end < 0) {
-                got.push({[remaining]: ""});
+                got.push({text: remaining, read: ""});
                 return got;
             }
             
@@ -72,7 +72,7 @@
             if (start >=0 && end > start) {
                 const target = remaining.slice(0, start);
                 const reading = remaining.slice(start+1, end);
-                got.push({[target]: reading});
+                got.push({text: target, read: reading});
                 const leftover = remaining.slice(end+1);
                 return getReading(got, leftover);
             }
@@ -105,12 +105,7 @@
     function formatData(inputData) {
         var output = [];
         for (const [word, data] of Object.entries(inputData)) {
-            let wordReading = []
-            for (const component of data.read) {
-                for (const [part, reading] of Object.entries(component)) {
-                    wordReading.push(`${part}<rt>${reading}</rt>`)
-                }
-            }
+            let wordReading = data.part.map((p)=>`${p.text}<rt>${p.read}</rt>`)
             wordReading = `<ruby>${wordReading.join("")}</ruby>`;
             output.push(`<tr><td>${word}</td><td>${wordReading}</td><td>${data.def}</td></tr>`);
         }
