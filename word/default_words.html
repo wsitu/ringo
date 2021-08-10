@@ -80,7 +80,7 @@
             // incorrect formatting or something went wrong
             return null;
         }
-        return data;
+        return {name: "Default", words: data};
     }
 
     async function parseFile() {
@@ -104,7 +104,7 @@
     // convert data into a human readable table
     function formatData(inputData) {
         var output = [];
-        for (const [word, data] of Object.entries(inputData)) {
+        for (const [word, data] of Object.entries(inputData.words)) {
             let wordReading = data.part.map((p)=>`${p.text}<rt>${p.read}</rt>`)
             wordReading = `<ruby>${wordReading.join("")}</ruby>`;
             output.push(`<tr><td>${word}</td><td>${wordReading}</td><td>${data.def}</td></tr>`);
