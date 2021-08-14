@@ -89,10 +89,10 @@
         var inputData = await inputFile.text();
         
         // parse & display file
-        var parsedData = parseData(inputData);
-        var outputData = JSON.stringify(parsedData, null, 4);
+        var outputData = formatJSON(parseData(inputData));
+        var reparsedData = JSON.parse(outputData);
         document.getElementById("parsed-output").textContent = outputData;
-        document.getElementById("formatted-output").innerHTML = formatData(parsedData);
+        document.getElementById("formatted-output").innerHTML = formatData(reparsedData);
         
         // save file
         var outputFile = new Blob([outputData], {type : 'application/json'});
@@ -110,6 +110,11 @@
             output.push(`<tr><td>${word}</td><td>${wordReading}</td><td>${data.def}</td></tr>`);
         }
         return output.join("\n");
+    }
+    
+    function formatJSON(obj) {
+        let oneWordPerLine = JSON.stringify(obj).replace(/("def":.*?"},)/g, "$1\n");
+        return oneWordPerLine.replace(/("words":{)/, "$1\n");
     }
 </script>
 
