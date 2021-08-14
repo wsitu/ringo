@@ -98,7 +98,7 @@
         var outputFile = new Blob([outputData], {type : 'application/json'});
         var download = document.getElementById("download-output");
         download.href = URL.createObjectURL(outputFile);
-        download.download = "default_words.json";
+        download.download = "default-words.json";
     }
     
     // convert data into a human readable table
