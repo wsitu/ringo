@@ -12,7 +12,8 @@
     </noscript>
     <p>This page creates a JSON for the default words. Check the console for any errors.</p>
     <input id="file-input" type="file" onchange="parseFile()"/>
-    <a id="download-output">Download</a>
+    <a id="download-output">JSON Download</a>
+    <a id="download-output-js">JS Download</a>
     <pre id="parsed-output"></pre>
     <table>
         <thead>
@@ -99,6 +100,12 @@
         var download = document.getElementById("download-output");
         download.href = URL.createObjectURL(outputFile);
         download.download = "default-words.json";
+        
+        var jsFile = `var defaultWords = ${outputData}`
+        outputFile = new Blob([jsFile], {type : 'application/javascript'});
+        download = document.getElementById("download-output-js");
+        download.href = URL.createObjectURL(outputFile);
+        download.download = "default-words.js";
     }
     
     // convert data into a human readable table
