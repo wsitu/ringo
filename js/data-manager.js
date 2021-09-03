@@ -17,14 +17,13 @@ split into read/write if implemented
 
 class DataManager {
     constructor(words, labels) {
+        this.dictionaries = {};
+        this.index = {};
         this.loadWords([words]);
     }
     
     addDictionary(dict) {
-        if (this.dictionaries)
-            this.dictionaries[dict.name] = dict;
-        else
-            this.dictionaries = {[dict.name]: dict};
+        this.dictionaries[dict.name] = dict;
     }
     
     getDictionary(name) {
