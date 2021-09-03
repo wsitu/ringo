@@ -36,7 +36,27 @@ class DataManager {
             this.addDictionary(dicts[i]);
     }
     
-    indexWords() {
+    // Ouput: an object with kanji and the the words it is found in
+    // Input: <dict> dictionary of words, <ignore> array of characters to ignore
+    /* For more flexibility this function indexes every character in a text
+       with a non empty reading, not in <ignore>. If necessary, filter
+       characters by kanji unicode value range instead. */
+    indexDictionary(dict, ignore = []) {
+        let index = {}
+        for (const [word, info] of Object.entries(dict.words)) {
+            for (let i = 0; i < info.part.length; i++) {
+                let part = info.part[i];
+                if (!part.read) continue;
+                for (let character of part.text) {
+                    if (ignore.includes(character)) continue;
+                    if (index[character])
+                        index[character].push(word);
+                    else
+                        index[character] = [word];
+                }
+            }
+        }
+        return index;
     }
     
 }
