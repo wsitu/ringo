@@ -24,6 +24,7 @@ class DataManager {
     
     addDictionary(dict) {
         this.dictionaries[dict.name] = dict;
+        this.index[dict.name] = {};
     }
     
     getDictionary(name) {
@@ -35,27 +36,42 @@ class DataManager {
             this.addDictionary(dicts[i]);
     }
     
-    // Ouput: an object with kanji and the the words it is found in
-    // Input: <dict> dictionary of words, <ignore> array of characters to ignore
+    getIndex(dictName) {
+        return this.index[dictName];
+    }
+    
+    // Indexes every word in the dictionary by the kanjis used
+    // * see indexWord for more details
+    // Input: <dictName> name of dictionary the word belongs to
+    //        <ignore> array of characters to ignore   
+    indexDictionary(dictName, ignore = []) {
+        let dict = this.getDictionary(dictName);
+        for (const [word] of Object.entries(dict.words))
+            this.indexWord(dictName, word, ignore);
+    }
+    
+    // Store an index of the word by the kanjis used in it
+    // Input: <dictName> name of dictionary the word belongs to
+    //        <word> the word to index
+    //        <ignore> array of characters to ignore    
     /* For more flexibility this function indexes every character in a text
        with a non empty reading, not in <ignore>. If necessary, filter
        characters by kanji unicode value range instead. */
-    indexDictionary(dict, ignore = []) {
-        let index = {}
-        for (const [word, info] of Object.entries(dict.words)) {
-            for (let i = 0; i < info.part.length; i++) {
-                let part = info.part[i];
-                if (!part.read) continue;
-                for (let character of part.text) {
-                    if (ignore.includes(character)) continue;
-                    if (index[character])
-                        index[character].push(word);
-                    else
-                        index[character] = [word];
-                }
+    indexWord(dictName, word, ignore = []) {
+        let dict = this.getDictionary(dictName);
+        let wordParts = dict.words[word].part;
+        let index = this.getIndex(dictName);
+        for (let i = 0; i < wordParts.length; i++) {
+            let part = wordParts[i];
+            if (!part.read) continue;
+            for (let character of part.text) {
+                if (ignore.includes(character)) continue;
+                if (index[character])
+                    index[character].push(word);
+                else
+                    index[character] = [word];
             }
         }
-        return index;
+        
     }
-    
 }
