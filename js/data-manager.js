@@ -18,6 +18,7 @@ split into read/write if implemented
 class DataManager {
     constructor(words, labels) {
         this.dictionaries = {};
+        this.dictOrder = [];
         this.index = {};
         this.loadWords([words]);
     }
@@ -25,10 +26,17 @@ class DataManager {
     addDictionary(dict) {
         this.dictionaries[dict.name] = dict;
         this.index[dict.name] = {};
+        let i = this.dictOrder.indexOf(dict.name);
+        if (i != -1) {this.dictOrder.splice(i, 1);}
+        this.dictOrder.push(dict.name);
     }
     
     getDictionary(name) {
         return this.dictionaries[name];
+    }
+    
+    getDictionaryOrder() {
+        return this.dictOrder;
     }
     
     loadWords(dicts) {
