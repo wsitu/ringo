@@ -23,16 +23,24 @@ class DataManager {
         this.loadWords([words]);
     }
     
+    
     addDictionary(dict) {
         this.dictionaries[dict.name] = dict;
-        this.index[dict.name] = {};
+        this.indexDictionary(dict.name);
         let i = this.dictOrder.indexOf(dict.name);
-        if (i != -1) {this.dictOrder.splice(i, 1);}
+        if (i != -1) this.dictOrder.splice(i, 1);
         this.dictOrder.push(dict.name);
     }
     
-    getDictionary(name) {
-        return this.dictionaries[name];
+    removeDictionary(dictName) {
+        delete this.dictionaries[dictName];
+        delete this.index[dictName];
+        let i = this.dictOrder.indexOf(dictName);
+        if (i != -1) this.dictOrder.splice(i, 1);
+    }
+    
+    getDictionary(dictName) {
+        return this.dictionaries[dictName];
     }
     
     getDictionaryOrder() {
@@ -54,6 +62,7 @@ class DataManager {
     //        <ignore> array of characters to ignore   
     indexDictionary(dictName, ignore = []) {
         let dict = this.getDictionary(dictName);
+        this.index[dict.name] = {};
         for (const [word] of Object.entries(dict.words))
             this.indexWord(dictName, word, ignore);
     }
