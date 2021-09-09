@@ -17,34 +17,38 @@ split into read/write if implemented
 
 class DataManager {
     constructor(words, labels) {
-        this.dictionaries = {};
-        this.dictOrder = [];
-        this.index = {};
+        this.dictionaries = [];
         this.loadWords([words]);
     }
     
     
-    addDictionary(data) {
-        let dict = new WordDictionary(data);
-        dict.indexDictionary();
-        this.dictionaries[dict.name] = dict;
-        let i = this.dictOrder.indexOf(dict.name);
-        if (i != -1) this.dictOrder.splice(i, 1);
-        this.dictOrder.push(dict.name);
+    addDictionary(dict) {
+        for (let i = 0; i < this.dictionaries.length; i++) {
+            if (this.dictionaries[i].name == dict.name) {
+                this.dictionaries.splice(i, 1);
+                break;
+            }
+        }
+        if (Object.keys(dict.index).length == 0) dict.indexDictionary();
+        this.dictionaries.push(dict);
     }
     
     removeDictionary(dictName) {
-        delete this.dictionaries[dictName];
-        let i = this.dictOrder.indexOf(dictName);
-        if (i != -1) this.dictOrder.splice(i, 1);
+        for (let i = 0; i < this.dictionaries.length; i++)
+            if (this.dictionaries[i].name == dictName)
+                return this.dictionaries.splice(i, 1)[0];
+        return null;
     }
     
     getDictionary(dictName) {
-        return this.dictionaries[dictName];
+        for (let i = 0; i < this.dictionaries.length; i++)
+            if (this.dictionaries[i].name == dictName)
+                return this.dictionaries[i];
+        return null;
     }
     
-    getDictionaryOrder() {
-        return this.dictOrder;
+    getDictionaryNames() {
+        return this.dictionaries.map(x => x.name);
     }
     
     loadWords(dicts) {
