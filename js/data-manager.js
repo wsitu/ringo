@@ -64,7 +64,7 @@ class WordDictionary {
         this.words = dict.words;
         this.index = {};
     }
-    
+
     getIndex() {
         return this.index;
     }
@@ -86,6 +86,19 @@ class WordDictionary {
             if (!this.index[c]) 
                 this.index[c] = new Set();
             this.index[c].add(word);
+        } 
+    }
+    
+    // Removes the index of the word
+    // Input: <word> string of the word to index
+    unindexWord(word) {
+        let characters = this.kanjiFromWord(word);
+        for (let c of characters){
+            if (this.index[c]) {
+                this.index[c].delete(word);
+                if (this.index[c].size == 0)
+                    delete this.index[c];
+            }
         } 
     }
     
