@@ -29,7 +29,7 @@ class DataManager {
                 break;
             }
         }
-        if (Object.keys(dict.index).length == 0) dict.indexDictionary();
+        if (Object.keys(dict._index).length == 0) dict.indexDictionary();
         this.dictionaries.push(dict);
     }
     
@@ -62,11 +62,11 @@ class WordDictionary {
     constructor(dict={name: "", words: {}}) {
         this.name = dict.name;
         this.words = dict.words;
-        this.index = {};
+        this._index = {};
     }
 
     getIndex() {
-        return this.index;
+        return this._index;
     }
     
     // Indexes every word in the dictionary by the kanjis used
@@ -83,9 +83,9 @@ class WordDictionary {
         let characters = this.kanjiFromWord(word);
         for (let c of characters){
             if (ignore.includes(c)) continue;
-            if (!this.index[c]) 
-                this.index[c] = new Set();
-            this.index[c].add(word);
+            if (!this._index[c]) 
+                this._index[c] = new Set();
+            this._index[c].add(word);
         } 
     }
     
@@ -94,10 +94,10 @@ class WordDictionary {
     unindexWord(word) {
         let characters = this.kanjiFromWord(word);
         for (let c of characters){
-            if (this.index[c]) {
-                this.index[c].delete(word);
-                if (this.index[c].size == 0)
-                    delete this.index[c];
+            if (this._index[c]) {
+                this._index[c].delete(word);
+                if (this._index[c].size == 0)
+                    delete this._index[c];
             }
         } 
     }
