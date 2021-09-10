@@ -70,7 +70,6 @@ class WordDictionary {
     }
     
     // Indexes every word in the dictionary by the kanjis used
-    // * see indexWord for more details
     // Input: <ignore> array of characters to ignore   
     indexDictionary(ignore = []) {
         for (const [word] of Object.entries(this.words))
@@ -80,23 +79,31 @@ class WordDictionary {
     // Store an index of the word by the kanjis used in it
     // Input: <word> the word to index
     //        <ignore> array of characters to ignore    
-    /* For more flexibility this function indexes every character in a text
-       with a non empty reading, not in <ignore>. If necessary, filter
-       characters by kanji unicode value range instead. */
     indexWord(word, ignore = []) {
+        let characters = this.kanjiFromWord(word);
+        for (let c of characters){
+            if (ignore.includes(c)) continue;
+            if (!this.index[c]) 
+                this.index[c] = new Set();
+            this.index[c].add(word);
+        } 
+    }
+    
+    // Returns a set of kanji used in the word
+    // Input: <word> string of the word in the dictionary 
+    /* For more flexibility this function indexes every character in a text
+       with a non empty reading. If necessary, filter characters by kanji
+       unicode value range instead. */
+    kanjiFromWord(word) {
+        let kanji = new Set();
         let wordParts = this.words[word].part;
         for (let i = 0; i < wordParts.length; i++) {
             let part = wordParts[i];
             if (!part.read) continue;
-            for (let character of part.text) {
-                if (ignore.includes(character)) continue;
-                if (this.index[character])
-                    this.index[character].push(word);
-                else
-                    this.index[character] = [word];
-            }
+            for (let character of part.text) 
+                kanji.add(character);   
         }
-        
+        return kanji;
     }
     
     /*
