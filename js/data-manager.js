@@ -29,7 +29,7 @@ class DataManager {
                 break;
             }
         }
-        if (Object.keys(dict._index).length == 0) dict.indexDictionary();
+        if (!dict.hasIndex()) dict.indexDictionary();
         this.dictionaries.push(dict);
     }
     
@@ -65,8 +65,10 @@ class WordDictionary {
         this._index = {};
     }
 
-    getIndex() {
-        return this._index;
+
+    // Returns true if the dictionary has been indexed, else false
+    hasIndex() {
+         return (Object.keys(this._index).length > 0);
     }
     
     // Indexes every word in the dictionary by the kanjis used
@@ -74,6 +76,11 @@ class WordDictionary {
     indexDictionary(ignore = []) {
         for (const [word] of Object.entries(this.words))
             this.indexWord(word, ignore);
+    }
+    
+    // Clears the entire index for the dictionary
+    unindexDictionary() {
+        this._index = {};
     }
     
     // Store an index of the word by the kanjis used in it
@@ -101,7 +108,7 @@ class WordDictionary {
             }
         } 
     }
-    
+
     // Returns a set of kanji used in the word
     // Input: <word> string of the word in the dictionary 
     /* For more flexibility this function indexes every character in a text
@@ -117,6 +124,18 @@ class WordDictionary {
                 kanji.add(character);   
         }
         return kanji;
+    }
+    
+    // Returns a set of words containing <character> or an empty set
+    // Input: <character> string of the character to search by
+    wordsWith(character) {
+        if (!this._index[character]) return new Set();
+        return new Set(this._index[character]);
+    }
+    
+    // Returns a set of every character used in all the words
+    allCharacters() {
+        return new Set(Object.keys(this._index));
     }
     
     /*
