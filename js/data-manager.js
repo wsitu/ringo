@@ -61,7 +61,7 @@ class DataManager {
 class WordDictionary {
     constructor(dict={name: "", words: {}}) {
         this.name = dict.name;
-        this.words = dict.words;
+        this._words = dict.words;
         this._index = {};
     }
 
@@ -74,7 +74,7 @@ class WordDictionary {
     // Indexes every word in the dictionary by the kanjis used
     // Input: <ignore> array of characters to ignore   
     indexDictionary(ignore = []) {
-        for (const [word] of Object.entries(this.words))
+        for (const [word] of Object.entries(this._words))
             this.indexWord(word, ignore);
     }
     
@@ -116,7 +116,7 @@ class WordDictionary {
        unicode value range instead. */
     kanjiFromWord(word) {
         let kanji = new Set();
-        let wordParts = this.words[word].part;
+        let wordParts = this._words[word].part;
         for (let i = 0; i < wordParts.length; i++) {
             let part = wordParts[i];
             if (!part.read) continue;
