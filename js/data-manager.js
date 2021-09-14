@@ -65,6 +65,55 @@ class WordDictionary {
         this._index = {};
     }
 
+    // Returns a set of every word in the dictionary
+    allWords() {
+        return new Set(Object.keys(this._words));
+    }
+    
+    // Returns true if the dictionary has the word else false
+    // Input: <word> string of the word to look for in the dictionary 
+    hasWord(word) {
+        return word in this._words;
+    }
+    
+    // Returns an object {part: [], def: ""} containing the data of word
+    //     part: an array of the text and reading components of the word
+    //     def: the definition of the word
+    // Input: <word> string of the word to get data from
+    getData(word) {
+        return {part: this.getReading(word), def: this.getDefinition(word)};
+    }
+    
+    // Returns the reading of the word in an array of {text: "", read: ""}
+    //     text: a character or characters of a part of the word
+    //     read: the reading of the text
+    // Input: <word> string of the word to get the reading from
+    getReading(word) {
+        return this._words[word].part.map( p => {return {...p}} );
+    }
+    
+    // Returns a string of the definition of the word
+    // Input: <word> string of the word to get the definition from
+    getDefinition(word) {
+        return this._words[word].def;
+    }
+    
+    // Adds a word to the dictionary
+    // Input: <word> string of the word to add
+    //        <parts> array of objects representing the reading of word
+    //        <definition> string of the word's definition
+    addWord(word, parts, definition) {
+        if (this.hasWord(word)) this.deleteWord(word);
+        this._words[word] = {part: parts, def: definition};
+        this.indexWord(word);
+    }
+    
+    // Deletes a word from the dictionary
+    // Input: <word> string of the word to be removed
+    deleteWord(word) {
+        this.unindexWord(word);
+        delete this._words[word];
+    }
 
     // Returns true if the dictionary has been indexed, else false
     hasIndex() {
@@ -137,7 +186,7 @@ class WordDictionary {
     allCharacters() {
         return new Set(Object.keys(this._index));
     }
-    
+
     /*
     toJSON() {
     }
