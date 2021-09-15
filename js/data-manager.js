@@ -192,3 +192,33 @@ class WordDictionary {
     }
     */
 }
+
+class WordData {
+    constructor(part = [], definition = "") {
+        this._part = part.map( p => {return {...p}} );
+        this._def = definition;
+    }
+    
+    get part() {
+        return this._part.map( p => {return {...p}} );
+    }
+    
+    get definition() {
+        return this._def;
+    }
+    
+    get text() {
+        return this._part.map(part => part.text).join("");
+    }
+    
+    get kanji() {
+        let hasReading = this._part.filter(part => part.read);
+        let characters = hasReading.flatMap(part => [...part.text]);
+        return new Set(characters);
+    }
+    
+    /*
+    toJSON() {
+    }
+    */
+}
