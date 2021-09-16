@@ -64,8 +64,10 @@ class WordDictionary {
         this._words = {}
         this._index = {};
         
-        for (const [word, data] of Object.entries(dict.words))
-            this._words[word] = new WordData(data.part, data.def);
+        for (const data of Object.values(dict.words)) {
+            let dataObj = new WordData(data.part, data.def);
+            this._words[dataObj.text] = dataObj;
+        }
     }
 
     // Returns a set of every word in the dictionary
@@ -86,11 +88,11 @@ class WordDictionary {
     }
     
     // Adds a word to the dictionary
-    // Input: <word> string of the word to add
-    //        <data> word data 
-    addWord(word, data) {
+    // Input: <data> word data to add
+    addWord(wordData) {
+        let word = wordData.text;
         if (this.hasWord(word)) this.deleteWord(word);
-        this._words[word] = data;
+        this._words[word] = wordData;
         this.indexWord(word);
     }
     
@@ -109,7 +111,7 @@ class WordDictionary {
     // Indexes every word in the dictionary by the kanjis used
     // Input: <ignore> array of characters to ignore   
     indexDictionary(ignore = []) {
-        for (const [word] of Object.entries(this._words))
+        for (const word of Object.keys(this._words))
             this.indexWord(word, ignore);
     }
     
@@ -134,6 +136,7 @@ class WordDictionary {
     // Removes the index of the word
     // Input: <word> string of the word to index
     unindexWord(word) {
+        if (!this._words[word]) return;
         let characters = this._words[word].kanji;
         for (let c of characters){
             if (this._index[c]) {
