@@ -61,8 +61,11 @@ class DataManager {
 class WordDictionary {
     constructor(dict={name: "", words: {}}) {
         this.name = dict.name;
-        this._words = dict.words;
+        this._words = {}
         this._index = {};
+        
+        for (const [word, data] of Object.entries(dict.words))
+            this._words[word] = new WordData(data.part, data.def);
     }
 
     // Returns a set of every word in the dictionary
@@ -76,35 +79,18 @@ class WordDictionary {
         return word in this._words;
     }
     
-    // Returns an object {part: [], def: ""} containing the data of word
-    //     part: an array of the text and reading components of the word
-    //     def: the definition of the word
+    // Returns the WordData of the word
     // Input: <word> string of the word to get data from
     getData(word) {
-        return {part: this.getReading(word), def: this.getDefinition(word)};
-    }
-    
-    // Returns the reading of the word in an array of {text: "", read: ""}
-    //     text: a character or characters of a part of the word
-    //     read: the reading of the text
-    // Input: <word> string of the word to get the reading from
-    getReading(word) {
-        return this._words[word].part.map( p => {return {...p}} );
-    }
-    
-    // Returns a string of the definition of the word
-    // Input: <word> string of the word to get the definition from
-    getDefinition(word) {
-        return this._words[word].def;
+        return this._words[word];
     }
     
     // Adds a word to the dictionary
     // Input: <word> string of the word to add
-    //        <parts> array of objects representing the reading of word
-    //        <definition> string of the word's definition
-    addWord(word, parts, definition) {
+    //        <data> word data 
+    addWord(word, data) {
         if (this.hasWord(word)) this.deleteWord(word);
-        this._words[word] = {part: parts, def: definition};
+        this._words[word] = data;
         this.indexWord(word);
     }
     
@@ -136,7 +122,7 @@ class WordDictionary {
     // Input: <word> the word to index
     //        <ignore> array of characters to ignore    
     indexWord(word, ignore = []) {
-        let characters = this.kanjiFromWord(word);
+        let characters = this._words[word].kanji;
         for (let c of characters){
             if (ignore.includes(c)) continue;
             if (!this._index[c]) 
@@ -148,7 +134,7 @@ class WordDictionary {
     // Removes the index of the word
     // Input: <word> string of the word to index
     unindexWord(word) {
-        let characters = this.kanjiFromWord(word);
+        let characters = this._words[word].kanji;
         for (let c of characters){
             if (this._index[c]) {
                 this._index[c].delete(word);
@@ -156,23 +142,6 @@ class WordDictionary {
                     delete this._index[c];
             }
         } 
-    }
-
-    // Returns a set of kanji used in the word
-    // Input: <word> string of the word in the dictionary 
-    /* For more flexibility this function indexes every character in a text
-       with a non empty reading. If necessary, filter characters by kanji
-       unicode value range instead. */
-    kanjiFromWord(word) {
-        let kanji = new Set();
-        let wordParts = this._words[word].part;
-        for (let i = 0; i < wordParts.length; i++) {
-            let part = wordParts[i];
-            if (!part.read) continue;
-            for (let character of part.text) 
-                kanji.add(character);   
-        }
-        return kanji;
     }
     
     // Returns a set of words containing <character> or an empty set
@@ -211,6 +180,9 @@ class WordData {
         return this._part.map(part => part.text).join("");
     }
     
+    // Returns a set of kanji used in the word
+    // For flexibility a kanji is any char in .text with a non empty reading
+    // if there are complications restrict it to unicode value range instead.
     get kanji() {
         let hasReading = this._part.filter(part => part.read);
         let characters = hasReading.flatMap(part => [...part.text]);
