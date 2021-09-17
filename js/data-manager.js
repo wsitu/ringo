@@ -90,20 +90,31 @@ class WordDictionary {
         let word = wordData.text;
         if (this.has(word)) this.delete(word);
         this._words[word] = wordData;
-        this.indexWord(word);
+        this._indexWord(word);
     }
     
     // Removes the word and its data from the dictionary
     delete(wordString) {
-        this.unindexWord(wordString);
+        this._unindexWord(wordString);
         delete this._words[wordString];
     }
 
+    // Returns a set of words containing <character> or an empty set
+    // Input: <character> string of the character to search by
+    wordsWith(character) {
+        if (!this._index[character]) return new Set();
+        return new Set(this._index[character]);
+    }
+    
+    // Returns a set of every character used in all the words
+    allCharacters() {
+        return new Set(Object.keys(this._index));
+    }
     
     // Store an index of the word by the kanjis used in it
     // Input: <word> the word to index
     //        <ignore> array of characters to ignore    
-    indexWord(word, ignore = []) {
+    _indexWord(word, ignore = []) {
         let characters = this._words[word].kanji;
         for (let c of characters){
             if (ignore.includes(c)) continue;
@@ -115,7 +126,7 @@ class WordDictionary {
     
     // Removes the index of the word
     // Input: <word> string of the word to index
-    unindexWord(word) {
+    _unindexWord(word) {
         if (!this._words[word]) return;
         let characters = this._words[word].kanji;
         for (let c of characters){
@@ -125,18 +136,6 @@ class WordDictionary {
                     delete this._index[c];
             }
         } 
-    }
-    
-    // Returns a set of words containing <character> or an empty set
-    // Input: <character> string of the character to search by
-    wordsWith(character) {
-        if (!this._index[character]) return new Set();
-        return new Set(this._index[character]);
-    }
-    
-    // Returns a set of every character used in all the words
-    allCharacters() {
-        return new Set(Object.keys(this._index));
     }
 
     /*
