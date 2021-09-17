@@ -70,16 +70,16 @@ class WordDictionary {
     }
 
     // Returns a set of every word in the dictionary
-    words() {
+    get words() {
         return new Set(Object.keys(this._words));
     }
     
-    // Returns true if the dictionary has an entry for the string
+    // Returns true if the dictionary has an entry for wordString
     has(wordString) {
         return wordString in this._words;
     }
     
-    // Returns the WordData if found or undefined
+    // Returns the WordData of wordString if found or undefined
     getData(wordString) {
         return this._words[wordString];
     }
@@ -98,42 +98,40 @@ class WordDictionary {
         this._unindexWord(wordString);
         delete this._words[wordString];
     }
-
-    // Returns a set of words containing <character> or an empty set
-    // Input: <character> string of the character to search by
-    wordsWith(character) {
-        if (!this._index[character]) return new Set();
-        return new Set(this._index[character]);
-    }
     
-    // Returns a set of every character used in all the words
-    allCharacters() {
+    // Returns a set of kanji from every word in the dictionary or empty set
+    //  * see WordData.kanji() for more
+    get kanjis() {
         return new Set(Object.keys(this._index));
     }
     
-    // Store an index of the word by the kanjis used in it
-    // Input: <word> the word to index
-    //        <ignore> array of characters to ignore    
-    _indexWord(word, ignore = []) {
-        let characters = this._words[word].kanji;
-        for (let c of characters){
-            if (ignore.includes(c)) continue;
-            if (!this._index[c]) 
-                this._index[c] = new Set();
-            this._index[c].add(word);
+    // Returns a set of words that kanjiString is in or empty set
+    wordsWith(kanjiString) {
+        if (!this._index[kanjiString]) return new Set();
+        return new Set(this._index[kanjiString]);
+    }
+
+    // Store an index of the kanji in wordString
+    // Input: <ignore> array of characters to ignore    
+    _indexWord(wordString, ignore = []) {
+        let data = this.getData(wordString);
+        for (let character of data.kanji){
+            if (ignore.includes(character)) continue;
+            if (!this._index[character]) 
+                this._index[character] = new Set();
+            this._index[character].add(wordString);
         } 
     }
     
-    // Removes the index of the word
-    // Input: <word> string of the word to index
-    _unindexWord(word) {
-        if (!this._words[word]) return;
-        let characters = this._words[word].kanji;
-        for (let c of characters){
-            if (this._index[c]) {
-                this._index[c].delete(word);
-                if (this._index[c].size == 0)
-                    delete this._index[c];
+    // Removes the index of wordString
+    _unindexWord(wordString) {
+        let data = this.getData(wordString);
+        if (!data) return;
+        for (let character of data.kanji){
+            if (this._index[character]) {
+                this._index[character].delete(wordString);
+                if (this._index[character].size == 0)
+                    delete this._index[character];
             }
         } 
     }
