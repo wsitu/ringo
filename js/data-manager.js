@@ -29,7 +29,6 @@ class DataManager {
                 break;
             }
         }
-        if (!dict.hasIndex()) dict.indexDictionary();
         this.dictionaries.push(dict);
     }
     
@@ -64,9 +63,9 @@ class WordDictionary {
         this._words = {}
         this._index = {};
         
+        
         for (const data of Object.values(dict.words)) {
-            let dataObj = new WordData(data.part, data.def);
-            this._words[dataObj.text] = dataObj;
+            this.add(new WordData(data.part, data.def));
         }
     }
 
