@@ -71,36 +71,33 @@ class WordDictionary {
     }
 
     // Returns a set of every word in the dictionary
-    allWords() {
+    words() {
         return new Set(Object.keys(this._words));
     }
     
-    // Returns true if the dictionary has the word else false
-    // Input: <word> string of the word to look for in the dictionary 
-    hasWord(word) {
-        return word in this._words;
+    // Returns true if the dictionary has an entry for the string
+    has(wordString) {
+        return wordString in this._words;
     }
     
-    // Returns the WordData of the word
-    // Input: <word> string of the word to get data from
-    getData(word) {
-        return this._words[word];
+    // Returns the WordData if found or undefined
+    getData(wordString) {
+        return this._words[wordString];
     }
     
-    // Adds a word to the dictionary
-    // Input: <data> word data to add
-    addWord(wordData) {
+    // Adds the WordData to the dictionary located by its word text
+    // Overwrites previous entries with the same word text
+    add(wordData) {
         let word = wordData.text;
-        if (this.hasWord(word)) this.deleteWord(word);
+        if (this.has(word)) this.delete(word);
         this._words[word] = wordData;
         this.indexWord(word);
     }
     
-    // Deletes a word from the dictionary
-    // Input: <word> string of the word to be removed
-    deleteWord(word) {
-        this.unindexWord(word);
-        delete this._words[word];
+    // Removes the word and its data from the dictionary
+    delete(wordString) {
+        this.unindexWord(wordString);
+        delete this._words[wordString];
     }
 
     // Returns true if the dictionary has been indexed, else false
