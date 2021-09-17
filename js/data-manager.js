@@ -99,22 +99,6 @@ class WordDictionary {
         delete this._words[wordString];
     }
 
-    // Returns true if the dictionary has been indexed, else false
-    hasIndex() {
-         return (Object.keys(this._index).length > 0);
-    }
-    
-    // Indexes every word in the dictionary by the kanjis used
-    // Input: <ignore> array of characters to ignore   
-    indexDictionary(ignore = []) {
-        for (const word of Object.keys(this._words))
-            this.indexWord(word, ignore);
-    }
-    
-    // Clears the entire index for the dictionary
-    unindexDictionary() {
-        this._index = {};
-    }
     
     // Store an index of the word by the kanjis used in it
     // Input: <word> the word to index
