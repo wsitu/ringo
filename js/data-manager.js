@@ -64,9 +64,8 @@ class WordDictionary {
         this._index = {};
         
         
-        for (const data of Object.values(dict.words)) {
-            this.add(new WordData(data.part, data.def));
-        }
+        for (const data of Object.values(dict.words))
+            this.add(new WordData(data));
     }
 
     // Returns a set of every word in the dictionary
@@ -143,9 +142,10 @@ class WordDictionary {
 }
 
 class WordData {
-    constructor(part = [], definition = "") {
+    constructor(data = {part: [], def: ""}) {
+        let part = (data._part) ? data._part : data.part;
         this._part = part.map( p => {return {...p}} );
-        this._def = definition;
+        this._def = (data._def) ? data._def : data.def;
     }
     
     get part() {
