@@ -58,13 +58,22 @@ class DataManager {
 }
 
 class WordDictionary {
+    
+    /* Takes in another WordDictionary or object with name and words keys where:
+           name stores a string identifier for the dictionary
+           words stores an object { aWord: { part: {}, def: ""}, ... }
+           * for more info on part and def see WordData's part and definition
+       The input is deep copied but if the input is another WordDictionary, the
+       _index is recreated as the words are added. Note that the aWord keys in
+       words is ignored and only the data is added. See this.add for more.
+    */
     constructor(dict={name: "", words: {}}) {
         this.name = dict.name;
         this._words = {}
         this._index = {};
         
-        
-        for (const data of Object.values(dict.words))
+        let words = (dict._words) ? dict._words : dict.words
+        for (const data of Object.values(words))
             this.add(new WordData(data));
     }
 
@@ -104,7 +113,7 @@ class WordDictionary {
         return new Set(Object.keys(this._index));
     }
     
-    // Returns a set of words that kanjiString is in or empty set
+    // Returns a set of words that kanjiString is in or an empty set
     wordsWith(kanjiString) {
         if (!this._index[kanjiString]) return new Set();
         return new Set(this._index[kanjiString]);
