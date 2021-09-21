@@ -142,25 +142,32 @@ class WordDictionary {
 }
 
 class WordData {
+    
+    // Takes in an object with part and def keys (raw data) or another WordData
+    // The part and def data are copied, see the getter of each for more info
     constructor(data = {part: [], def: ""}) {
         let part = (data._part) ? data._part : data.part;
         this._part = part.map( p => {return {...p}} );
         this._def = (data._def) ? data._def : data.def;
     }
     
+    // Returns a copy of the array of text and reading data of the format:
+    // [{text: string_part_of_word, read: string_reading_of_text}, ... ]
     get part() {
         return this._part.map( p => {return {...p}} );
     }
     
+    // Returns a string of the definition of the word
     get definition() {
         return this._def;
     }
     
+    // Returns a string of the word represented by this data
     get text() {
         return this._part.map(part => part.text).join("");
     }
     
-    // Returns a set of kanji used in the word
+    // Returns a set of kanji(string) used in the word
     // For flexibility a kanji is any char in .text with a non empty reading
     // if there are complications restrict it to unicode value range instead.
     get kanji() {
