@@ -71,6 +71,7 @@ class WordDictionary {
         this.name = dict.name;
         this._words = {}
         this._index = {};
+        // apply changes to this.JSON
         
         let words = (dict._words) ? dict._words : dict.words
         for (const data of Object.values(words))
@@ -144,10 +145,11 @@ class WordDictionary {
         } 
     }
 
-    /*
+    // This class is a wrapper for data so output as it was input
     toJSON() {
+        return {name: this.name, words: this._words};
     }
-    */
+    
 }
 
 class WordData {
@@ -158,6 +160,7 @@ class WordData {
         let part = (data._part) ? data._part : data.part;
         this._part = part.map( p => {return {...p}} );
         this._def = (data._def) ? data._def : data.def;
+        // apply changes to this.JSON
     }
     
     // Returns a copy of the array of text and reading data of the format:
@@ -185,8 +188,9 @@ class WordData {
         return new Set(characters);
     }
     
-    /*
+    // This class is a wrapper for data so output as it was input
     toJSON() {
-    }
-    */
+        return {part: this._part, def: this._def};
+   }
+    
 }
