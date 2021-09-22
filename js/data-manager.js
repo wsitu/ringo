@@ -62,7 +62,7 @@ class WordDictionary {
     /* Takes in another WordDictionary or object with name and words keys where:
            name stores a string identifier for the dictionary
            words stores an object { aWord: { part: {}, def: ""}, ... }
-           * for more info on part and def see WordData's part and definition
+           * for more info on part and def see WordData's parts and definition
        The input is deep copied but if the input is another WordDictionary, the
        _index is recreated as the words are added. Note that the aWord keys in
        words is ignored and only the data is added. See this.add for more.
@@ -165,7 +165,7 @@ class WordData {
     
     // Returns a copy of the array of text and reading data of the format:
     // [{text: string_part_of_word, read: string_reading_of_text}, ... ]
-    get part() {
+    get parts() {
         return this._part.map( p => {return {...p}} );
     }
     
