@@ -21,12 +21,11 @@ class DataManager {
         this.loadWords([words]);
     }
     
-    
     addDictionary(dict) {
         for (let i = 0; i < this.dictionaries.length; i++) {
             if (this.dictionaries[i].name == dict.name) {
-                this.dictionaries.splice(i, 1);
-                break;
+                this.dictionaries[i] = dict;
+                return;
             }
         }
         this.dictionaries.push(dict);
