@@ -120,12 +120,10 @@ class WordDictionary {
         return new Set(this._index[kanjiString]);
     }
 
-    // Store an index of the kanji in wordString
-    // Input: <ignore> array of characters to ignore    
-    _indexWord(wordString, ignore = []) {
+    // Store an index of the kanji in wordString 
+    _indexWord(wordString) {
         let data = this.getData(wordString);
         for (let character of data.kanji){
-            if (ignore.includes(character)) continue;
             if (!this._index[character]) 
                 this._index[character] = new Set();
             this._index[character].add(wordString);
