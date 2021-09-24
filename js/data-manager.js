@@ -17,25 +17,38 @@ split into read/write if implemented
 
 class DataManager {
     constructor(words, labels) {
-        this.dictionaries = [];
+        this.default = {};
+        this.user = {};
+        for (const setting of [this.default, this.user]) {
+            setting.dictionaries = [];
+        }
+        
         this.loadWords([words]);
     }
     
-    addDictionary(dict) {
-        for (let i = 0; i < this.dictionaries.length; i++) {
-            if (this.dictionaries[i].name == dict.name) {
-                this.dictionaries[i] = dict;
-                return;
-            }
-        }
-        this.dictionaries.push(dict);
+    get settings() {
+        return [this.default, this.user];
+    }
+    
+    get dictionaries() {
+        return this.default.dictionaries.concat(this.user.dictionaries);
+    }
+    
+    addDictionary(wordDictionary, isUser = true) {
+        this.removeDictionary(wordDictionary.name);
+        if (isUser)
+            this.user.dictionaries.push(wordDictionary);
+        else
+            this.default.dictionaries.push(wordDictionary);
     }
     
     removeDictionary(dictName) {
-        for (let i = 0; i < this.dictionaries.length; i++)
-            if (this.dictionaries[i].name == dictName)
-                return this.dictionaries.splice(i, 1)[0];
-        return null;
+        for (const setting of this.settings) {
+            let dicts = setting.dictionaries;
+            for (let i = 0; i < dicts.length; i++)
+                if (dicts[i].name == dictName)
+                    dicts.splice(i, 1);
+        }
     }
     
     getDictionary(dictName) {
@@ -51,7 +64,7 @@ class DataManager {
     
     loadWords(dicts) {
         for (let i = 0; i < dicts.length; i++)
-            this.addDictionary(dicts[i]);
+            this.addDictionary(dicts[i], false);
     }
 
 }
