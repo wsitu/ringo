@@ -35,6 +35,8 @@ class DataManager {
     }
     
     addDictionary(wordDictionary, isUser = true) {
+        if( !(wordDictionary instanceof WordDictionary))
+            wordDictionary = new WordDictionary(wordDictionary);
         this.removeDictionary(wordDictionary.name);
         if (isUser)
             this.user.dictionaries.push(wordDictionary);
