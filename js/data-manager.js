@@ -124,7 +124,7 @@ class WordDictionary {
     
     // Returns a set of kanji from every word in the dictionary or empty set
     //  * see WordData.kanji() for more
-    get kanjis() {
+    get kanjiList() {
         return new Set(Object.keys(this._index));
     }
     
