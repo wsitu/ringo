@@ -1,19 +1,25 @@
-/*
-Custom errors necessary?
-    + encapsulation to localStorage and file i/o if it will be under this class
-    + typing compared to listing multiple errors everytime 
-    - self documentation, more generalization = inferring meaning of error by context
-    - time designing around all relevant effors for a small application
+
 
 class DataManagerError extends Error {
     constructor(message) {
-        super.message = message;
+        super(message);
         this.name = this.constructor.name;
     }
 }
 
-split into read/write if implemented
-*/
+class DataManagerGetError extends DataManagerError {
+    constructor(message) {
+        super(message);
+        this.name = this.constructor.name;
+    }
+}
+
+class DataManagerWriteError extends DataManagerError {
+    constructor(message) {
+        super(message);
+        this.name = this.constructor.name;
+    }
+}
 
 class DataManager {
     constructor(words, labels) {
