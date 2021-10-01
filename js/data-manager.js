@@ -22,6 +22,7 @@ class DataManagerWriteError extends DataManagerError {
 }
 
 class DataManager {
+
     constructor(words, labels) {
         this.default = {};
         this.user = {};
@@ -31,6 +32,10 @@ class DataManager {
         
         this.loadWords([words]);
     }
+    
+    static _TESTSTORAGEKEY = "__TESTSTORAGEKEY__";
+    static _TESTSTORAGEVALUE = "テst";
+    
     
     get settings() {
         return [this.default, this.user];
@@ -75,6 +80,25 @@ class DataManager {
             this.addDictionary(dicts[i], false);
     }
 
+    hasUserStorage() {
+        let storage = localStorage;
+        try {
+            storage.setItem(DataManager._TESTSTORAGEKEY, 
+                            DataManager._TESTSTORAGEVALUE);
+            storage.getItem(DataManager._TESTSTORAGEKEY);
+            storage.removeItem(DataManager._TESTSTORAGEKEY);
+            return true;
+        } catch(err) {
+            // May be useable if there is a storage full error but is not empty
+            if (err instanceof DOMException) {
+                // QuotaExceededError is experimental and code is deprecated
+                if (err.name == "QuotaExceededError" || err.code == 22)
+                    if (storage && storage.length > 0)
+                        return true;
+            }
+            return false;
+        }
+    }
 }
 
 class WordDictionary {
