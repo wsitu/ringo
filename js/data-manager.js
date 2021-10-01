@@ -86,6 +86,38 @@ class DataManager {
         }
     }
     
+    clearUserStorage() {
+        try {
+            localStorage.clear();
+        } catch (err) {
+            throw new DataManagerError(err);
+        }
+    }
+    
+    _getUser(keyString) {
+        try {
+            return localStorage.getItem(keyString);
+        } catch (err) {
+            throw new DataManagerError(err);
+        }
+    }
+    
+    _setUser(keyString, valueString) {
+        try {
+            localStorage.setItem(keyString, valueString);
+        } catch (err) {
+            throw new DataManagerError(err);
+        }
+    }
+    
+    _removeUser(keyString) {
+        try {
+            localStorage.removeItem(keyString);
+        } catch (err) {
+            throw new DataManagerError(err);
+        }
+    }
+    
 }
 
 class WordDictionary {
