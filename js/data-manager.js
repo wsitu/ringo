@@ -1,22 +1,8 @@
 
 
 class DataManagerError extends Error {
-    constructor(message) {
-        super(message);
-        this.name = this.constructor.name;
-    }
-}
-
-class DataManagerGetError extends DataManagerError {
-    constructor(message) {
-        super(message);
-        this.name = this.constructor.name;
-    }
-}
-
-class DataManagerWriteError extends DataManagerError {
-    constructor(message) {
-        super(message);
+    constructor(errorObj) {
+        super(`[${errorObj.name}] ${errorObj.message}`);
         this.name = this.constructor.name;
     }
 }
@@ -88,7 +74,7 @@ class DataManager {
             storage.getItem(DataManager._TESTSTORAGEKEY);
             storage.removeItem(DataManager._TESTSTORAGEKEY);
             return true;
-        } catch(err) {
+        } catch (err) {
             // May be useable if there is a storage full error but is not empty
             if (err instanceof DOMException) {
                 // QuotaExceededError is experimental and code is deprecated
@@ -99,6 +85,7 @@ class DataManager {
             return false;
         }
     }
+    
 }
 
 class WordDictionary {
