@@ -21,7 +21,7 @@ class DataManager {
     
     static _TESTSTORAGEKEY = "__TESTSTORAGEKEY__";
     static _TESTSTORAGEVALUE = "テst";
-    
+    static DICTIONARY_KEY = "dict"
     
     get settings() {
         return [this.default, this.user];
@@ -84,6 +84,21 @@ class DataManager {
             }
             return false;
         }
+    }
+    
+    loadUserDictionaries() {
+        let data = JSON.parse(this._getUser(DataManager.DICTIONARY_KEY));
+        if (!data) return;
+        this.user.dictionaries = data.map(dict => new WordDictionary(dict));
+    }
+    
+    saveUserDictionaries() {
+        if (this.user.dictionaries.length == 0) {
+            this._removeUser(DataManager.DICTIONARY_KEY);
+            return;
+        }
+        let data = JSON.stringify(this.user.dictionaries);
+        this._setUser(DataManager.DICTIONARY_KEY, data);
     }
     
     clearUserStorage() {
