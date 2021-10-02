@@ -15,8 +15,6 @@ class DataManager {
         for (const setting of [this.default, this.user]) {
             setting.dictionaries = [];
         }
-        
-        this.loadWords([words]);
     }
     
     static _TESTSTORAGEKEY = "__TESTSTORAGEKEY__";
@@ -61,10 +59,6 @@ class DataManager {
         return this.dictionaries.map(x => x.name);
     }
     
-    loadWords(dicts) {
-        for (let i = 0; i < dicts.length; i++)
-            this.addDictionary(dicts[i], false);
-    }
 
     hasUserStorage() {
         let storage = localStorage;
