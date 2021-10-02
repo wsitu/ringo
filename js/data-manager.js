@@ -17,9 +17,9 @@ class DataManager {
         }
     }
     
-    static _TESTSTORAGEKEY = "__TESTSTORAGEKEY__";
-    static _TESTSTORAGEVALUE = "テst";
-    static DICTIONARY_KEY = "dict"
+    static _TEST_STORAGE_KEY = "__TESTSTORAGEKEY__";
+    static _TEST_STORAGE_VALUE = "テst";
+    static _DICTIONARY_KEY = "dict"
     
     get settings() {
         return [this.default, this.user];
@@ -63,10 +63,10 @@ class DataManager {
     hasUserStorage() {
         let storage = localStorage;
         try {
-            storage.setItem(DataManager._TESTSTORAGEKEY, 
-                            DataManager._TESTSTORAGEVALUE);
-            storage.getItem(DataManager._TESTSTORAGEKEY);
-            storage.removeItem(DataManager._TESTSTORAGEKEY);
+            storage.setItem(DataManager._TEST_STORAGE_KEY, 
+                            DataManager._TEST_STORAGE_VALUE);
+            storage.getItem(DataManager._TEST_STORAGE_KEY);
+            storage.removeItem(DataManager._TEST_STORAGE_KEY);
             return true;
         } catch (err) {
             // May be useable if there is a storage full error but is not empty
@@ -81,18 +81,18 @@ class DataManager {
     }
     
     loadUserDictionaries() {
-        let data = JSON.parse(this._getUser(DataManager.DICTIONARY_KEY));
+        let data = JSON.parse(this._getUser(DataManager._DICTIONARY_KEY));
         if (!data) return;
         this.user.dictionaries = data.map(dict => new WordDictionary(dict));
     }
     
     saveUserDictionaries() {
         if (this.user.dictionaries.length == 0) {
-            this._removeUser(DataManager.DICTIONARY_KEY);
+            this._removeUser(DataManager._DICTIONARY_KEY);
             return;
         }
         let data = JSON.stringify(this.user.dictionaries);
-        this._setUser(DataManager.DICTIONARY_KEY, data);
+        this._setUser(DataManager._DICTIONARY_KEY, data);
     }
     
     clearUserStorage() {
