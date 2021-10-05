@@ -29,17 +29,28 @@ class DataManager {
         return this.default.dictionaries.concat(this.user.dictionaries);
     }
     
-    addDictionary(wordDictionary, isUser = true) {
+    get dictNames() {
+        return this.dictionaries.map(x => x.name);
+    }
+    
+    getDict(dictName) {
+        for (let i = 0; i < this.dictionaries.length; i++)
+            if (this.dictionaries[i].name == dictName)
+                return this.dictionaries[i];
+        return null;
+    }
+    
+    addDict(wordDictionary, isUser = true) {
         if( !(wordDictionary instanceof WordDictionary))
             wordDictionary = new WordDictionary(wordDictionary);
-        this.removeDictionary(wordDictionary.name);
+        this.removeDict(wordDictionary.name);
         if (isUser)
             this.user.dictionaries.push(wordDictionary);
         else
             this.default.dictionaries.push(wordDictionary);
     }
     
-    removeDictionary(dictName) {
+    removeDict(dictName) {
         for (const setting of this.settings) {
             let dicts = setting.dictionaries;
             for (let i = 0; i < dicts.length; i++)
@@ -47,18 +58,7 @@ class DataManager {
                     dicts.splice(i, 1);
         }
     }
-    
-    getDictionary(dictName) {
-        for (let i = 0; i < this.dictionaries.length; i++)
-            if (this.dictionaries[i].name == dictName)
-                return this.dictionaries[i];
-        return null;
-    }
-    
-    getDictionaryNames() {
-        return this.dictionaries.map(x => x.name);
-    }
-    
+
 
     hasUserStorage() {
         let storage = localStorage;
@@ -80,13 +80,13 @@ class DataManager {
         }
     }
     
-    loadUserDictionaries() {
+    loadUserDict() {
         let data = JSON.parse(this._getUser(DataManager._DICTIONARY_KEY));
         if (!data) return;
         this.user.dictionaries = data.map(dict => new WordDictionary(dict));
     }
     
-    saveUserDictionaries() {
+    saveUserDict() {
         if (this.user.dictionaries.length == 0) {
             this._removeUser(DataManager._DICTIONARY_KEY);
             return;
