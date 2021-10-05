@@ -9,7 +9,7 @@ class DataManagerError extends Error {
 
 class DataManager {
 
-    constructor(words, labels) {
+    constructor() {
         this.default = {};
         this.user = {};
         for (const setting of [this.default, this.user]) {
