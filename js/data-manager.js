@@ -1,5 +1,5 @@
 
-
+// Wrapper for errors related to usage of local DOM storage or files
 class DataManagerError extends Error {
     constructor(errorObj) {
         super(`[${errorObj.name}] ${errorObj.message}`);
