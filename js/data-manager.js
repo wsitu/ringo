@@ -8,7 +8,15 @@ class DataManagerError extends Error {
 }
 
 class DataManager {
-
+    /* Manages data to be split between those that are default and those that
+       are user loaded. Additionally provides an interface to save and load 
+       user data.
+       
+       The user data should be loaded before modification, then saved. 
+       Multiple instances of DataManager will access and modify the same user
+       data in local storage.
+    */
+    
     constructor() {
         this.default = {};
         this.user = {};
@@ -25,21 +33,28 @@ class DataManager {
         return [this.default, this.user];
     }
     
+    // Return a new array of all the dictionaries added
     get dictionaries() {
         return this.default.dictionaries.concat(this.user.dictionaries);
     }
     
+    // Return a new array of the names of all the dictionaries added
     get dictNames() {
         return this.dictionaries.map(x => x.name);
     }
     
-    getDict(dictName) {
+    // Return the dictionary named nameString or null
+    getDict(nameString) {
         for (let i = 0; i < this.dictionaries.length; i++)
-            if (this.dictionaries[i].name == dictName)
+            if (this.dictionaries[i].name == nameString)
                 return this.dictionaries[i];
         return null;
     }
     
+    /* Add wordDictionary to user dictionaries if isUser otherwise to default
+       If wordDictionary is not a WordDictionary object, it will copy it and 
+       create one to be added.
+    */
     addDict(wordDictionary, isUser = true) {
         if( !(wordDictionary instanceof WordDictionary))
             wordDictionary = new WordDictionary(wordDictionary);
@@ -50,16 +65,18 @@ class DataManager {
             this.default.dictionaries.push(wordDictionary);
     }
     
-    removeDict(dictName) {
+    // Remove the dictionary named nameString if there is one
+    removeDict(nameString) {
         for (const setting of this.settings) {
             let dicts = setting.dictionaries;
             for (let i = 0; i < dicts.length; i++)
-                if (dicts[i].name == dictName)
+                if (dicts[i].name == nameString)
                     dicts.splice(i, 1);
         }
     }
 
-
+    // Return true if the user's local storage is accessible or full
+    // otherwise false
     hasUserStorage() {
         let storage = localStorage;
         try {
@@ -80,12 +97,17 @@ class DataManager {
         }
     }
     
+    // Parse and cache the user dictionary data stored in local storage 
     loadUserDict() {
         let data = JSON.parse(this._getUser(DataManager._DICTIONARY_KEY));
         if (!data) return;
         this.user.dictionaries = data.map(dict => new WordDictionary(dict));
     }
     
+    /* Save the cached user dictionaries into local storage or throws a 
+       DataManagerError. Will delete the stored dictionaries if loaduserDict()
+       is not called first.
+    */
     saveUserDict() {
         if (this.user.dictionaries.length == 0) {
             this._removeUser(DataManager._DICTIONARY_KEY);
@@ -103,6 +125,7 @@ class DataManager {
         }
     }
     
+    // Return the value stored in local storage at keyString or null
     _getUser(keyString) {
         try {
             return localStorage.getItem(keyString);
@@ -111,6 +134,8 @@ class DataManager {
         }
     }
     
+    // Store valueString at keyString in local storage or throw a
+    // DataManagerError containing the message of the original error
     _setUser(keyString, valueString) {
         try {
             localStorage.setItem(keyString, valueString);
@@ -119,6 +144,7 @@ class DataManager {
         }
     }
     
+    // Remove keyString from local storage or do nothing
     _removeUser(keyString) {
         try {
             localStorage.removeItem(keyString);
