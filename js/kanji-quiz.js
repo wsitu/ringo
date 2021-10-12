@@ -23,5 +23,18 @@ class KanjiQuiz {
         }
         return total;
     }
-    
+ 
+    // Randomly shuffles array and optinally cuts the array to length num
+    // Returns the modified array for convencience
+    shuffle(array, num = Infinity) {
+        let max = Math.min(num, array.length - 1);
+        for (let i = 0; i < max; i++) {
+            const j = Math.floor(Math.random() * (array.length - i) + i);
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        console.log(array);
+        if (num < array.length)
+            array.splice(num);
+        return array;
+    }
 }
