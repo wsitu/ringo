@@ -30,9 +30,12 @@ class KanjiQuiz {
         return total;
     }
  
-    // Randomly shuffles array and optinally cuts the array to length num
+    // Randomly shuffles array and optionally cuts the array to length num
+    //    If num <= 0 then all contents of array will be deleted
+    //    If num >= array.length nothing will be cut from the array
     // Returns the modified array for convencience
     shuffle(array, num = Infinity) {
+        if (num < 0) num = 0;
         let max = Math.min(num, array.length - 1);
         for (let i = 0; i < max; i++) {
             const j = Math.floor(Math.random() * (array.length - i) + i);
