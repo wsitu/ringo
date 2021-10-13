@@ -9,6 +9,10 @@ class KanjiQuiz {
         this.createEntries();
     }
     
+    addTo(parentElement) {
+        parentElement.appendChild(this.container);
+    }
+    
     createEntries() {
         let list = this.createElem("ul"); 
         let words = this.randomed();
