@@ -10,9 +10,15 @@ class KanjiQuiz {
     }
     
     createEntries() {
-        let entry = document.createElement("p"); 
-        entry.innerHTML = "entries go here";
-        this.container.appendChild(entry);
+        let list = this.createElem("ul"); 
+        let words = this.randomed();
+        for (const data of words) {
+            let entry = this.createElem("li");
+            entry.innerHTML = `${data.text} - ${data.definition}`;
+            entry.innerHTML += ` [${this.randomChoices(10, data.kanji)}]`;
+            list.appendChild(entry);
+        }
+        this.container.appendChild(list);
     }
     
     allKanji() {
@@ -49,8 +55,25 @@ class KanjiQuiz {
         return data[randomWord];
     }
     
+    randomChoices(totalNum, includeSet=new Set()) {
+        let others = this.allKanji();
+        for (const kanji in includeSet)
+            others.delete(kanji)
+        
+        let random = this.shuffle([...others], totalNum - includeSet.size);
+        let choices = random.concat([...includeSet]);
+        return this.shuffle(choices);
+    }
+    
     randomed() {
         let words = this.shuffle([...this.allKanji()], this.entries);
         return words.map( word => this.randomWordData(word) );
+    }
+    
+    createElem(tagString, classString=null, idString="") {
+        let e = document.createElement(tagString);
+        if (classString) e.classList.add(classString);
+        e.id = idString;
+        return e;
     }
 }
