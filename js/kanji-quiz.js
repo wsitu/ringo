@@ -18,11 +18,46 @@ class KanjiQuiz {
         let words = this.randomed();
         for (const data of words) {
             let entry = this.createElem("li");
-            entry.innerHTML = `${data.text} - ${data.definition}`;
-            entry.innerHTML += ` [${this.randomChoices(10, data.kanji)}]`;
+            entry.appendChild(this.createWord(data));
+            entry.appendChild(this.createDefinition(data));
+            entry.appendChild(this.createChoices(data));
             list.appendChild(entry);
         }
         this.container.appendChild(list);
+    }
+    
+    createWord(wordData) {
+        let wordBox = this.createElem("div");
+        let word = this.createElem("ruby");
+        for (const part of wordData.parts) {
+            let txt = this.createElem("span");
+            txt.textContent = part.text;
+            word.appendChild(txt);
+            let read = this.createElem("rt");
+            read.textContent = part.read;
+            word.appendChild(read);
+        }
+        wordBox.appendChild(word);
+        return wordBox;
+    }
+    
+    createDefinition(wordData) {
+        let defBox = this.createElem("div");
+        let def = this.createElem("p");
+        def.textContent = wordData.definition;
+        defBox.appendChild(def);
+        return defBox;
+    }
+    
+    createChoices(wordData) {
+        let choiceBox = this.createElem("div");
+        let choices = this.randomChoices(10, wordData.kanji);
+        for (const choice of choices) {
+            let btn = this.createElem("button");
+            btn.textContent = choice;
+            choiceBox.appendChild(btn);
+        }
+        return choiceBox;
     }
     
     allKanji() {
