@@ -1,0 +1,24 @@
+.quiz-entry {
+    margin: 24px 0;
+}
+
+.entry-body {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.entry-def {
+    margin: auto 0;
+}
+
+.entry-choices {
+    margin-top: 16px;
+}
+
+.entry-word {
+    font-size: 1.5em;
+    margin-right: 32px;
+}
+.entry-word rt {
+    font-size: 0.8em;
+}

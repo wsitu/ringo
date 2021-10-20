@@ -17,17 +17,29 @@ class KanjiQuiz {
         let list = this.createElem("ul"); 
         let words = this.randomed();
         for (const data of words) {
-            let entry = this.createElem("li");
-            entry.appendChild(this.createWord(data));
-            entry.appendChild(this.createDefinition(data));
-            entry.appendChild(this.createChoices(data));
+            let entry = this.createElem("li", "quiz-entry");
+            entry.appendChild(this.createHeader(data));
+            let bodyBox = this.createElem("div", "entry-body");
+            let infoBox = this.createElem("div");
+            infoBox.appendChild(this.createWord(data));
+            infoBox.appendChild(this.createDefinition(data));
+            bodyBox.appendChild(infoBox);
+            bodyBox.appendChild(this.createChoices(data));
+            entry.appendChild(bodyBox);
             list.appendChild(entry);
         }
         this.container.appendChild(list);
     }
     
+    createHeader(wordData) {
+        let header = this.createElem("h1", "entry-header");
+        let read = wordData.parts.map(part => {return part.read || part.text});
+        header.textContent = read.join("");
+        return header;
+    }
+    
     createWord(wordData) {
-        let wordBox = this.createElem("div");
+        let wordBox = this.createElem("div", "entry-word");
         let word = this.createElem("ruby");
         for (const part of wordData.parts) {
             let txt = this.createElem("span");
@@ -42,7 +54,7 @@ class KanjiQuiz {
     }
     
     createDefinition(wordData) {
-        let defBox = this.createElem("div");
+        let defBox = this.createElem("div", "entry-def");
         let def = this.createElem("p");
         def.textContent = wordData.definition;
         defBox.appendChild(def);
@@ -50,7 +62,7 @@ class KanjiQuiz {
     }
     
     createChoices(wordData) {
-        let choiceBox = this.createElem("div");
+        let choiceBox = this.createElem("div", "entry-choices");
         let choices = this.randomChoices(10, wordData.kanji);
         for (const choice of choices) {
             let btn = this.createElem("button");
