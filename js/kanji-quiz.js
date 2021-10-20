@@ -20,7 +20,7 @@ class KanjiQuiz {
             let entry = this.createElem("li", "quiz-entry");
             entry.appendChild(this.createHeader(data));
             let bodyBox = this.createElem("div", "entry-body");
-            let infoBox = this.createElem("div");
+            let infoBox = this.createElem("div", "entry-info");
             infoBox.appendChild(this.createWord(data));
             infoBox.appendChild(this.createDefinition(data));
             bodyBox.appendChild(infoBox);
@@ -63,7 +63,7 @@ class KanjiQuiz {
     
     createChoices(wordData) {
         let choiceBox = this.createElem("div", "entry-choices");
-        let choices = this.randomChoices(10, wordData.kanji);
+        let choices = this.randomChoices(40, wordData.kanji);
         for (const choice of choices) {
             let btn = this.createElem("button");
             btn.textContent = choice;

@@ -4,15 +4,36 @@
 
 .entry-body {
     display: flex;
-    flex-wrap: wrap;
 }
 
 .entry-def {
-    margin: auto 0;
+
 }
 
 .entry-choices {
-    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.entry-choices button {
+    align-items: center;
+    display: flex;
+    flex-basis: 9%;
+    font-size: 1.25rem;
+    justify-content: center;
+    margin: 0.5%;
+}
+
+.entry-choices button:before {
+    content:'';
+    float:left;
+    padding-top:100%;
+}
+
+.entry-info {
+    padding-right: 24px;
+    flex-basis: 30%;
+    flex-shrink: 0;
 }
 
 .entry-word {
