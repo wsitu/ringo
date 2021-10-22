@@ -14,7 +14,7 @@ class KanjiQuiz {
     }
     
     createEntries() {
-        let list = this.createElem("ul"); 
+        let list = this.createElem("ul", "quiz"); 
         let words = this.randomed();
         for (const data of words) {
             let entry = this.createElem("li", "quiz-entry");

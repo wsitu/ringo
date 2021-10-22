@@ -58,3 +58,7 @@
 .entry-word rt {
     font-size: 0.8em;
 }
+
+.quiz {
+    list-style: none;
+}
