@@ -42,9 +42,15 @@ class KanjiQuiz {
         let wordBox = this.createElem("div", "entry-word");
         let word = this.createElem("ruby");
         for (const part of wordData.parts) {
-            let txt = this.createElem("span");
-            txt.textContent = part.text;
-            word.appendChild(txt);
+            if (part.read) {
+                let txt = this.createElem("span", "quiz-hidden-kanji");
+                txt.textContent = "〇".repeat(part.text.length);
+                word.appendChild(txt);
+            } else {
+                let txt = this.createElem("span");
+                txt.textContent = part.text;
+                word.appendChild(txt);
+            }
             let read = this.createElem("rt");
             read.textContent = part.read;
             word.appendChild(read);
