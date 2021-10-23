@@ -53,10 +53,12 @@
 
 .entry-word {
     font-size: 1.5em;
-    margin-right: 32px;
+    margin-bottom: 10px;
 }
 .entry-word rt {
-    font-size: 0.8em;
+    color: rgba(0,0,0,0.625);
+    font-size: 0.625em;
+    margin: 0 0.15em;
 }
 
 .quiz {
