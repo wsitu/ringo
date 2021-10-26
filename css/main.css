@@ -53,7 +53,7 @@
 
 .entry-word {
     font-size: 1.5em;
-    margin-bottom: 10px;
+    margin: 4px 0 10px 0;
 }
 .entry-word rt {
     color: rgba(0,0,0,0.625);
