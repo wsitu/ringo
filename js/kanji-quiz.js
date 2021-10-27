@@ -5,6 +5,7 @@ class KanjiQuiz {
         this.container = document.createElement("div"); 
         this.entries = 4;
         this.dictionaries = this.dataManager.dictionaries;
+        this.selections = [];
         
         this.createEntries();
     }
@@ -16,6 +17,7 @@ class KanjiQuiz {
     createEntries() {
         let list = this.createElem("ul", "quiz"); 
         let words = this.randomed();
+        this.selections = [];
         for (const data of words) {
             let entry = this.createElem("li", "quiz-entry");
             entry.appendChild(this.createHeader(data));
@@ -41,11 +43,16 @@ class KanjiQuiz {
     createWord(wordData) {
         let wordBox = this.createElem("div", "entry-word");
         let word = this.createElem("ruby");
+        let selectData = {input:[], pointer: 0};
+        this.selections.push(selectData);
         for (const part of wordData.parts) {
             if (part.read) {
-                let txt = this.createElem("span", "quiz-hidden-kanji");
-                txt.textContent = "〇".repeat(part.text.length);
-                word.appendChild(txt);
+                for (const character of part.text) {
+                    let txt = this.createElem("span", "quiz-hidden-kanji");
+                    txt.textContent = "〇";
+                    word.appendChild(txt);
+                    selectData.input.push(txt);
+                }
             } else {
                 let txt = this.createElem("span");
                 txt.textContent = part.text;
@@ -70,9 +77,14 @@ class KanjiQuiz {
     createChoices(wordData) {
         let choiceBox = this.createElem("div", "entry-choices");
         let choices = this.randomChoices(40, wordData.kanji);
+        let currSelect = this.selections[this.selections.length -1 ];
         for (const choice of choices) {
             let btn = this.createElem("button");
             btn.textContent = choice;
+            btn.onclick = (e) => {
+                currSelect.input[currSelect.pointer].innerText = e.target.innerText;
+                currSelect.pointer = (currSelect.pointer + 1) % currSelect.input.length;
+            };
             choiceBox.appendChild(btn);
         }
         return choiceBox;
