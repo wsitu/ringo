@@ -1,5 +1,6 @@
+const mainPage = {};
 
-class KanjiQuiz {
+mainPage.Quiz = class {
     constructor(dataManager) {
         this.dataManager = dataManager;
         this.container = document.createElement("div"); 
