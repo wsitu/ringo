@@ -150,3 +150,54 @@ mainPage.Quiz = class {
         return e;
     }
 }
+
+mainPage.Shuffler = class {
+    /* Shuffles a copy of an array and provides random elements one at a time.
+       Best used for obtaining a small subset of random elements from a larger
+       array. Shuffling an entire array is only recommended on small sizes as
+       it performs slower compared to a normal shuffle.
+    */
+    
+    constructor(iterableObj) {
+        this.data = [...iterableObj];
+        this.generator = undefined;
+        this.reset();
+    }
+    
+    /* Returns an array of the next <length> random elements of this.data
+           returns all remaining elements by default or length >= data.length
+           returns an empty array if length is <= 0
+           <length> is a max value the returned array may be smaller
+    */
+    random(length=null) {
+        let shuffled = []
+        if (length == null) length = this.data.length;
+        for (let i = 0; i < length; i++) {
+            let next = this.shuffle.next();
+            if (next.done) break;
+            shuffled.push(next.value);
+        }
+        return shuffled;
+    }
+    
+    // Discard current shuffle process and restart
+    //  * this will not unshuffle this.data
+    reset() {
+        this.generator = this._randomGenerator(this.data);
+    }
+    
+    // Generator for a shuffle function yielding a random shuffled element 
+    // or null if arrayObj is an empty array.
+    * _randomGenerator(arrayObj) {
+        let length = arrayObj.length;
+        for (let i = 0; i < length - 1; i++) {
+            const j = Math.floor(Math.random() * (length - i) + i);
+            [arrayObj[i], arrayObj[j]] = [arrayObj[j], arrayObj[i]];
+            yield arrayObj[i];
+        }
+        if (length > 0) 
+            yield arrayObj[length - 1];
+        else 
+            yield null;
+    }
+}
