@@ -100,22 +100,6 @@ mainPage.Quiz = class {
         return total;
     }
  
-    // Randomly shuffles array and optionally cuts the array to length num
-    //    If num <= 0 then all contents of array will be deleted
-    //    If num >= array.length nothing will be cut from the array
-    // Returns the modified array for convencience
-    shuffle(array, num = Infinity) {
-        if (num < 0) num = 0;
-        let max = Math.min(num, array.length - 1);
-        for (let i = 0; i < max; i++) {
-            const j = Math.floor(Math.random() * (array.length - i) + i);
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        if (num < array.length)
-            array.splice(num);
-        return array;
-    }
-    
     randomWordData(kanjiString) {
         let data = {}
         for (const dict of this.dictionaries) {
@@ -133,13 +117,14 @@ mainPage.Quiz = class {
         for (const kanji in includeSet)
             others.delete(kanji)
         
-        let random = this.shuffle([...others], totalNum - includeSet.size);
-        let choices = random.concat([...includeSet]);
-        return this.shuffle(choices);
+        let falseNum = totalNum - includeSet.size;
+        let wrong = new this.Shuffler(others).random(falseNum);
+        let choices = new this.Shuffler(wrong.concat(...includeSet));
+        return choices.random();
     }
     
     randomed() {
-        let words = this.shuffle([...this.allKanji()], this.entries);
+        let words = new this.Shuffler(this.allKanji()).random(this.entries);
         return words.map( word => this.randomWordData(word) );
     }
     
@@ -149,6 +134,8 @@ mainPage.Quiz = class {
         e.id = idString;
         return e;
     }
+    
+    Shuffler = mainPage.Shuffler;
 }
 
 mainPage.Shuffler = class {
