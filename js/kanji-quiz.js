@@ -173,7 +173,7 @@ mainPage.Shuffler = class {
         let shuffled = []
         if (length == null) length = this.data.length;
         for (let i = 0; i < length; i++) {
-            let next = this.shuffle.next();
+            let next = this.generator.next();
             if (next.done) break;
             shuffled.push(next.value);
         }
