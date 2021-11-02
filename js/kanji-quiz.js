@@ -28,72 +28,12 @@ mainPage.Quiz = class {
         let words = this.randomed();
         this.selections = [];
         for (const data of words) {
-            let entry = new this.Entry(data);
+            let entry = new this.Entry(data, 40, this.allKanji());
             entry.addTo(list);
-            /*
-            let bodyBox = this.createElem("div", "entry-body");
-            let infoBox = this.createElem("div", "entry-info");
-            infoBox.appendChild(this.createWord(data));
-            infoBox.appendChild(this.createDefinition(data));
-            bodyBox.appendChild(infoBox);
-            bodyBox.appendChild(this.createChoices(data));
-            entry.appendChild(bodyBox);
-            list.appendChild(entry);
-            */
         }
         this.container.appendChild(list);
     }
-    
-    createWord(wordData) {
-        let wordBox = this.createElem("div", "entry-word");
-        let word = this.createElem("ruby");
-        let selectData = {input:[], pointer: 0};
-        this.selections.push(selectData);
-        for (const part of wordData.parts) {
-            if (part.read) {
-                for (const character of part.text) {
-                    let txt = this.createElem("span", "quiz-hidden-kanji");
-                    txt.textContent = "〇";
-                    word.appendChild(txt);
-                    selectData.input.push(txt);
-                }
-            } else {
-                let txt = this.createElem("span");
-                txt.textContent = part.text;
-                word.appendChild(txt);
-            }
-            let read = this.createElem("rt");
-            read.textContent = part.read;
-            word.appendChild(read);
-        }
-        wordBox.appendChild(word);
-        return wordBox;
-    }
-    
-    createDefinition(wordData) {
-        let defBox = this.createElem("div", "entry-def");
-        let def = this.createElem("p");
-        def.textContent = wordData.definition;
-        defBox.appendChild(def);
-        return defBox;
-    }
-    
-    createChoices(wordData) {
-        let choiceBox = this.createElem("div", "entry-choices");
-        let choices = this.randomChoices(40, wordData.kanji);
-        let currSelect = this.selections[this.selections.length -1 ];
-        for (const choice of choices) {
-            let btn = this.createElem("button");
-            btn.textContent = choice;
-            btn.onclick = (e) => {
-                currSelect.input[currSelect.pointer].innerText = e.target.innerText;
-                currSelect.pointer = (currSelect.pointer + 1) % currSelect.input.length;
-            };
-            choiceBox.appendChild(btn);
-        }
-        return choiceBox;
-    }
-    
+
     allKanji() {
         let total = new Set();
         for (const dict of this.dictionaries) {
@@ -115,17 +55,6 @@ mainPage.Quiz = class {
         return data[randomWord];
     }
     
-    randomChoices(totalNum, includeSet=new Set()) {
-        let others = this.allKanji();
-        for (const kanji in includeSet)
-            others.delete(kanji)
-        
-        let falseNum = totalNum - includeSet.size;
-        let wrong = new this.Shuffler(others).random(falseNum);
-        let choices = new this.Shuffler(wrong.concat(...includeSet));
-        return choices.random();
-    }
-    
     randomed() {
         let words = new this.Shuffler(this.allKanji()).random(this.entries);
         return words.map( word => this.randomWordData(word) );
@@ -143,14 +72,30 @@ mainPage.Quiz = class {
 
 mainPage.Quiz.prototype.Entry = class {
     
-    constructor(wordData) {
+    constructor(wordData, choiceNum, choiceSet) {
         this.container = this.createElem("li", "quiz-entry");
+        this.choices;
+        this.choiceNum = choiceNum;
+        this.choiceSet = choiceSet;
+        this.definition;
         this.header;
-        this.selections;
+        this.selections = [];
         this.word = wordData;
-
+        this.wordDisplay;
         
         this.createHeader();
+        this.createWord();
+        this.createDefinition();
+        this.createChoices();
+        
+        this.container.appendChild(this.header);
+        let bodyBox = this.createElem("div", "entry-body");
+        let infoBox = this.createElem("div", "entry-info");
+        infoBox.appendChild(this.wordDisplay);
+        infoBox.appendChild(this.definition);
+        bodyBox.appendChild(infoBox);
+        bodyBox.appendChild(this.choices);
+        this.container.appendChild(bodyBox);
     }
     
     addTo(parentElement) {
@@ -159,12 +104,71 @@ mainPage.Quiz.prototype.Entry = class {
     
     createElem = mainPage.createElem;
     
+    createChoices() {
+        this.choices = this.createElem("div", "entry-choices");
+        let choices = this.randomChoices(this.choiceNum, this.word.kanji);
+        let currSelect = this.selections[this.selections.length -1 ];
+        for (const choice of choices) {
+            let btn = this.createElem("button");
+            btn.textContent = choice;
+            btn.onclick = (e) => {
+                currSelect.input[currSelect.pointer].innerText = e.target.innerText;
+                currSelect.pointer = (currSelect.pointer + 1) % currSelect.input.length;
+            };
+            this.choices.appendChild(btn);
+        }
+    }
+    
+    createDefinition() {
+        this.definition = this.createElem("div", "entry-def");
+        let def = this.createElem("p");
+        def.textContent = this.word.definition;
+        this.definition.appendChild(def);
+    }
+    
     createHeader() {
         this.header = this.createElem("h1", "entry-header");
         let notHidden = (part) => {return part.read || part.text};
         this.header.textContent = this.word.parts.map(notHidden).join("");
-        this.container.appendChild(this.header);
     }
+    
+    createWord() {
+        this.wordDisplay = this.createElem("div", "entry-word");
+        let word = this.createElem("ruby");
+        let selectData = {input:[], pointer: 0};
+        this.selections.push(selectData);
+        for (const part of this.word.parts) {
+            if (part.read) {
+                for (const character of part.text) {
+                    let txt = this.createElem("span", "quiz-hidden-kanji");
+                    txt.textContent = "〇";
+                    word.appendChild(txt);
+                    selectData.input.push(txt);
+                }
+            } else {
+                let txt = this.createElem("span");
+                txt.textContent = part.text;
+                word.appendChild(txt);
+            }
+            let read = this.createElem("rt");
+            read.textContent = part.read;
+            word.appendChild(read);
+        }
+        this.wordDisplay.appendChild(word);
+    }
+    
+    randomChoices(totalNum, includeSet=new Set()) {
+        let others = this.choiceSet;
+        for (const kanji in includeSet)
+            others.delete(kanji)
+        
+        let falseNum = totalNum - includeSet.size;
+        let wrong = new this.Shuffler(others).random(falseNum);
+        let choices = new this.Shuffler(wrong.concat(...includeSet));
+        return choices.random();
+    }
+    
+    Shuffler = mainPage.Shuffler;
 }
 
 
