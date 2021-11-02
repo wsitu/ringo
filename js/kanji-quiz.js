@@ -1,4 +1,12 @@
-const mainPage = {};
+const mainPage = {
+    
+    createElem(tagString, classString=null, idString="") {
+        let e = document.createElement(tagString);
+        if (classString) e.classList.add(classString);
+        e.id = idString;
+        return e;
+    }
+};
 
 mainPage.Quiz = class {
     constructor(dataManager) {
@@ -20,8 +28,9 @@ mainPage.Quiz = class {
         let words = this.randomed();
         this.selections = [];
         for (const data of words) {
-            let entry = this.createElem("li", "quiz-entry");
-            entry.appendChild(this.createHeader(data));
+            let entry = new this.Entry(data);
+            entry.addTo(list);
+            /*
             let bodyBox = this.createElem("div", "entry-body");
             let infoBox = this.createElem("div", "entry-info");
             infoBox.appendChild(this.createWord(data));
@@ -30,15 +39,9 @@ mainPage.Quiz = class {
             bodyBox.appendChild(this.createChoices(data));
             entry.appendChild(bodyBox);
             list.appendChild(entry);
+            */
         }
         this.container.appendChild(list);
-    }
-    
-    createHeader(wordData) {
-        let header = this.createElem("h1", "entry-header");
-        let read = wordData.parts.map(part => {return part.read || part.text});
-        header.textContent = read.join("");
-        return header;
     }
     
     createWord(wordData) {
@@ -137,6 +140,33 @@ mainPage.Quiz = class {
     
     Shuffler = mainPage.Shuffler;
 }
+
+mainPage.Quiz.prototype.Entry = class {
+    
+    constructor(wordData) {
+        this.container = this.createElem("li", "quiz-entry");
+        this.header;
+        this.selections;
+        this.word = wordData;
+
+        
+        this.createHeader();
+    }
+    
+    addTo(parentElement) {
+        parentElement.appendChild(this.container);
+    }
+    
+    createElem = mainPage.createElem;
+    
+    createHeader() {
+        this.header = this.createElem("h1", "entry-header");
+        let notHidden = (part) => {return part.read || part.text};
+        this.header.textContent = this.word.parts.map(notHidden).join("");
+        this.container.appendChild(this.header);
+    }
+}
+
 
 mainPage.Shuffler = class {
     /* Shuffles a copy of an array and provides random elements one at a time.
