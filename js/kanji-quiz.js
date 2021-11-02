@@ -77,22 +77,19 @@ mainPage.Quiz.prototype.Entry = class {
         this.choices;
         this.choiceNum = choiceNum;
         this.choiceSet = choiceSet;
-        this.definition;
-        this.header;
         this.selections = [];
         this.word = wordData;
         this.wordDisplay;
         
-        this.createHeader();
+        
         this.createWord();
-        this.createDefinition();
         this.createChoices();
         
-        this.container.appendChild(this.header);
+        this.container.appendChild(this.createHeader());
         let bodyBox = this.createElem("div", "entry-body");
         let infoBox = this.createElem("div", "entry-info");
         infoBox.appendChild(this.wordDisplay);
-        infoBox.appendChild(this.definition);
+        infoBox.appendChild(this.createDefinition());
         bodyBox.appendChild(infoBox);
         bodyBox.appendChild(this.choices);
         this.container.appendChild(bodyBox);
@@ -120,16 +117,18 @@ mainPage.Quiz.prototype.Entry = class {
     }
     
     createDefinition() {
-        this.definition = this.createElem("div", "entry-def");
+        let defBox = this.createElem("div", "entry-def");
         let def = this.createElem("p");
         def.textContent = this.word.definition;
-        this.definition.appendChild(def);
+        defBox.appendChild(def);
+        return defBox;
     }
     
     createHeader() {
-        this.header = this.createElem("h1", "entry-header");
+        let header = this.createElem("h1", "entry-header");
         let notHidden = (part) => {return part.read || part.text};
-        this.header.textContent = this.word.parts.map(notHidden).join("");
+        header.textContent = this.word.parts.map(notHidden).join("");
+        return header;
     }
     
     createWord() {
