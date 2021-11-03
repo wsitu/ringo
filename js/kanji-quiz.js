@@ -74,25 +74,22 @@ mainPage.Quiz.prototype.Entry = class {
     
     constructor(wordData, choiceNum, choiceSet) {
         this.container = this.createElem("li", "quiz-entry");
-        this.choices;
         this.choiceNum = choiceNum;
         this.choiceSet = choiceSet;
         this.selections = [];
         this.word = wordData;
-        this.wordDisplay;
-        
-        
-        this.createWord();
-        this.createChoices();
+
+
         
         this.container.appendChild(this.createHeader());
         let bodyBox = this.createElem("div", "entry-body");
         let infoBox = this.createElem("div", "entry-info");
-        infoBox.appendChild(this.wordDisplay);
+        infoBox.appendChild(this.createWord());
         infoBox.appendChild(this.createDefinition());
         bodyBox.appendChild(infoBox);
-        bodyBox.appendChild(this.choices);
+        bodyBox.appendChild(this.createChoices());
         this.container.appendChild(bodyBox);
+
     }
     
     addTo(parentElement) {
@@ -102,7 +99,7 @@ mainPage.Quiz.prototype.Entry = class {
     createElem = mainPage.createElem;
     
     createChoices() {
-        this.choices = this.createElem("div", "entry-choices");
+        let choiceBox = this.createElem("div", "entry-choices");
         let choices = this.randomChoices(this.choiceNum, this.word.kanji);
         let currSelect = this.selections[this.selections.length -1 ];
         for (const choice of choices) {
@@ -112,8 +109,9 @@ mainPage.Quiz.prototype.Entry = class {
                 currSelect.input[currSelect.pointer].innerText = e.target.innerText;
                 currSelect.pointer = (currSelect.pointer + 1) % currSelect.input.length;
             };
-            this.choices.appendChild(btn);
+            choiceBox.appendChild(btn);
         }
+        return choiceBox;
     }
     
     createDefinition() {
@@ -132,7 +130,7 @@ mainPage.Quiz.prototype.Entry = class {
     }
     
     createWord() {
-        this.wordDisplay = this.createElem("div", "entry-word");
+        let wordBox = this.createElem("div", "entry-word");
         let word = this.createElem("ruby");
         let selectData = {input:[], pointer: 0};
         this.selections.push(selectData);
@@ -153,7 +151,8 @@ mainPage.Quiz.prototype.Entry = class {
             read.textContent = part.read;
             word.appendChild(read);
         }
-        this.wordDisplay.appendChild(word);
+        wordBox.appendChild(word);
+        return wordBox;
     }
     
     randomChoices(totalNum, includeSet=new Set()) {
