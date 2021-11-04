@@ -77,6 +77,7 @@ mainPage.Quiz.prototype.Entry = class {
         this.choiceNum = choiceNum;
         this.choiceSet = choiceSet;
         this.selections = [];
+        this.userInput = new this.InputHandler();
         this.word = wordData;
 
 
@@ -102,13 +103,11 @@ mainPage.Quiz.prototype.Entry = class {
         let choiceBox = this.createElem("div", "entry-choices");
         let choices = this.randomChoices(this.choiceNum, this.word.kanji);
         let currSelect = this.selections[this.selections.length -1 ];
+        let inputButtonText = (e) => this.userInput.set(e.target.textContent);
         for (const choice of choices) {
             let btn = this.createElem("button");
             btn.textContent = choice;
-            btn.onclick = (e) => {
-                currSelect.input[currSelect.pointer].innerText = e.target.innerText;
-                currSelect.pointer = (currSelect.pointer + 1) % currSelect.input.length;
-            };
+            btn.onclick = inputButtonText;
             choiceBox.appendChild(btn);
         }
         return choiceBox;
@@ -137,10 +136,7 @@ mainPage.Quiz.prototype.Entry = class {
         for (const part of this.word.parts) {
             if (part.read) {
                 for (const character of part.text) {
-                    let txt = this.createElem("span", "quiz-hidden-kanji");
-                    txt.textContent = "〇";
-                    word.appendChild(txt);
-                    selectData.input.push(txt);
+                    word.appendChild(this.userInput.newInput());
                 }
             } else {
                 let txt = this.createElem("span");
@@ -154,7 +150,7 @@ mainPage.Quiz.prototype.Entry = class {
         wordBox.appendChild(word);
         return wordBox;
     }
-    
+
     randomChoices(totalNum, includeSet=new Set()) {
         let others = this.choiceSet;
         for (const kanji in includeSet)
@@ -169,6 +165,39 @@ mainPage.Quiz.prototype.Entry = class {
     Shuffler = mainPage.Shuffler;
 }
 
+mainPage.Quiz.prototype.Entry.prototype.InputHandler = class {
+    constructor() {
+        this.inputs = [];
+        this.cursor = 0;
+        
+        this.UNSETCLASS = "quiz-hidden-kanji";
+        this.UNSETTEXT = "〇"
+    }
+    
+    createElem = mainPage.createElem;
+    
+    moveCursor(index=null) {
+        if(this.inputs.length == 0) return;
+        if(index)
+            this.cursor = index;
+        else
+            this.cursor++;
+        this.cursor = this.cursor % this.inputs.length;
+    }
+    
+    newInput() {
+        let input = this.createElem("span", this.UNSETCLASS);
+        input.textContent = this.UNSETTEXT;
+        this.inputs.push(input);
+        return input;
+    }
+    
+    set(inputText) {
+        this.inputs[this.cursor].textContent = inputText;
+        this.inputs[this.cursor].classList.remove(this.UNSETCLASS);
+        this.moveCursor();
+    }
+}
 
 mainPage.Shuffler = class {
     /* Shuffles a copy of an array and provides random elements one at a time.
