@@ -76,7 +76,6 @@ mainPage.Quiz.prototype.Entry = class {
         this.container = this.createElem("li", "quiz-entry");
         this.choiceNum = choiceNum;
         this.choiceSet = choiceSet;
-        this.selections = [];
         this.userInput = new this.InputHandler();
         this.word = wordData;
 
@@ -102,7 +101,6 @@ mainPage.Quiz.prototype.Entry = class {
     createChoices() {
         let choiceBox = this.createElem("div", "entry-choices");
         let choices = this.randomChoices(this.choiceNum, this.word.kanji);
-        let currSelect = this.selections[this.selections.length -1 ];
         let inputButtonText = (e) => this.userInput.set(e.target.textContent);
         for (const choice of choices) {
             let btn = this.createElem("button");
@@ -129,24 +127,28 @@ mainPage.Quiz.prototype.Entry = class {
     }
     
     createWord() {
-        let wordBox = this.createElem("div", "entry-word");
         let word = this.createElem("ruby");
-        let selectData = {input:[], pointer: 0};
-        this.selections.push(selectData);
+        let addAsInput = (textToQuizOn) => {
+            for (const character of textToQuizOn)
+                word.appendChild(this.userInput.newInput());
+        }
+        let addAsIs = (textToKeep) => {
+            let txt = this.createElem("span");
+            txt.textContent = textToKeep;
+            word.appendChild(txt);
+        }
+        
         for (const part of this.word.parts) {
-            if (part.read) {
-                for (const character of part.text) {
-                    word.appendChild(this.userInput.newInput());
-                }
-            } else {
-                let txt = this.createElem("span");
-                txt.textContent = part.text;
-                word.appendChild(txt);
-            }
+            if (part.read)
+                addAsInput(part.text);
+            else 
+                addAsIs(part.text);
             let read = this.createElem("rt");
             read.textContent = part.read;
             word.appendChild(read);
         }
+        
+        let wordBox = this.createElem("div", "entry-word");
         wordBox.appendChild(word);
         return wordBox;
     }
