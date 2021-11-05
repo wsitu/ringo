@@ -79,17 +79,7 @@ mainPage.Quiz.prototype.Entry = class {
         this.userInput = new this.InputHandler();
         this.word = wordData;
 
-
-        
-        this.container.appendChild(this.createHeader());
-        let bodyBox = this.createElem("div", "entry-body");
-        let infoBox = this.createElem("div", "entry-info");
-        infoBox.appendChild(this.createWord());
-        infoBox.appendChild(this.createDefinition());
-        bodyBox.appendChild(infoBox);
-        bodyBox.appendChild(this.createChoices());
-        this.container.appendChild(bodyBox);
-
+        this.init();
     }
     
     addTo(parentElement) {
@@ -128,8 +118,8 @@ mainPage.Quiz.prototype.Entry = class {
     
     createWord() {
         let word = this.createElem("ruby");
-        let addAsInput = (textToQuizOn) => {
-            for (const character of textToQuizOn)
+        let addAsInput = (textToHide) => {
+            for (const character of textToHide)
                 word.appendChild(this.userInput.newInput());
         }
         let addAsIs = (textToKeep) => {
@@ -151,6 +141,17 @@ mainPage.Quiz.prototype.Entry = class {
         let wordBox = this.createElem("div", "entry-word");
         wordBox.appendChild(word);
         return wordBox;
+    }
+
+    init() {
+        this.container.appendChild(this.createHeader());
+        let bodyBox = this.createElem("div", "entry-body");
+        let infoBox = this.createElem("div", "entry-info");
+        infoBox.appendChild(this.createWord());
+        infoBox.appendChild(this.createDefinition());
+        bodyBox.appendChild(infoBox);
+        bodyBox.appendChild(this.createChoices());
+        this.container.appendChild(bodyBox);
     }
 
     randomChoices(totalNum, includeSet=new Set()) {
