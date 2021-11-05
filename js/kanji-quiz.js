@@ -74,12 +74,10 @@ mainPage.Quiz.prototype.Entry = class {
     
     constructor(wordData, choiceNum, choiceSet) {
         this.container = this.createElem("li", "quiz-entry");
-        this.choiceNum = choiceNum;
-        this.choiceSet = choiceSet;
         this.userInput = new this.InputHandler();
         this.word = wordData;
 
-        this.init();
+        this.init(choiceNum, choiceSet);
     }
     
     addTo(parentElement) {
@@ -88,9 +86,9 @@ mainPage.Quiz.prototype.Entry = class {
     
     createElem = mainPage.createElem;
     
-    createChoices() {
+    createChoices(totalNum, choiceSet) {
         let choiceBox = this.createElem("div", "entry-choices");
-        let choices = this.randomChoices(this.choiceNum, this.word.kanji);
+        let choices = this.randomChoices(totalNum, choiceSet);
         let inputButtonText = (e) => this.userInput.set(e.target.textContent);
         for (const choice of choices) {
             let btn = this.createElem("button");
@@ -143,25 +141,26 @@ mainPage.Quiz.prototype.Entry = class {
         return wordBox;
     }
 
-    init() {
+    init(totalNum, choiceSet) {
         this.container.appendChild(this.createHeader());
         let bodyBox = this.createElem("div", "entry-body");
         let infoBox = this.createElem("div", "entry-info");
         infoBox.appendChild(this.createWord());
         infoBox.appendChild(this.createDefinition());
         bodyBox.appendChild(infoBox);
-        bodyBox.appendChild(this.createChoices());
+        bodyBox.appendChild(this.createChoices(totalNum, choiceSet));
         this.container.appendChild(bodyBox);
     }
 
-    randomChoices(totalNum, includeSet=new Set()) {
-        let others = this.choiceSet;
-        for (const kanji in includeSet)
+    randomChoices(totalNum, choiceSet) {
+        let others = new Set(choiceSet);
+        let correct = this.word.kanji;
+        for (const kanji in correct)
             others.delete(kanji)
         
-        let falseNum = totalNum - includeSet.size;
+        let falseNum = totalNum - correct.size;
         let wrong = new this.Shuffler(others).random(falseNum);
-        let choices = new this.Shuffler(wrong.concat(...includeSet));
+        let choices = new this.Shuffler(wrong.concat(...correct));
         return choices.random();
     }
     
