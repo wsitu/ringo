@@ -74,7 +74,7 @@ mainPage.Quiz.prototype.Entry = class {
     
     constructor(wordData, choiceNum, choiceSet) {
         this.container = this.createElem("li", "quiz-entry");
-        this.userInput = new this.InputHandler();
+        this.userInput = new this.AnswerHandler();
         this.word = wordData;
 
         this.init(choiceNum, choiceSet);
@@ -167,7 +167,7 @@ mainPage.Quiz.prototype.Entry = class {
     Shuffler = mainPage.Shuffler;
 }
 
-mainPage.Quiz.prototype.Entry.prototype.InputHandler = class {
+mainPage.Quiz.prototype.Entry.prototype.AnswerHandler = class {
     constructor() {
         this.inputs = [];
         this.cursor = 0;
@@ -177,7 +177,7 @@ mainPage.Quiz.prototype.Entry.prototype.InputHandler = class {
     }
     
     createElem = mainPage.createElem;
-    
+
     moveCursor(index=null) {
         if(this.inputs.length == 0) return;
         if(index)
@@ -199,6 +199,7 @@ mainPage.Quiz.prototype.Entry.prototype.InputHandler = class {
         this.inputs[this.cursor].classList.remove(this.UNSETCLASS);
         this.moveCursor();
     }
+    
 }
 
 mainPage.Shuffler = class {
