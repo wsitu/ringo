@@ -147,8 +147,7 @@ mainPage.Quiz.prototype.Entry.prototype.AnswerHandler = class {
         this.UNSETCLASS = "quiz-hidden-kanji";
         this.UNSETTEXT = "〇"
         
-        this.answers = [];
-        this.inputs = [];
+        this.sections = [];
         this.container = this.createElem("ruby");
         this.cursor = 0;
         
@@ -170,19 +169,19 @@ mainPage.Quiz.prototype.Entry.prototype.AnswerHandler = class {
     createElem = mainPage.createElem;
 
     moveCursor(index=null) {
-        if(this.inputs.length == 0) return;
+        if(this.sections.length == 0) return;
         if(index)
             this.cursor = index;
         else
             this.cursor++;
-        this.cursor = this.cursor % this.inputs.length;
+        this.cursor = this.cursor % this.sections.length;
     }
     
     addInput(textToHide) {
         for (const character of textToHide) {
             let input = this.createElem("span", this.UNSETCLASS);
             input.textContent = this.UNSETTEXT;
-            this.inputs.push(input);
+            this.sections.push({answer: character, input: input});
             this.container.appendChild(input);
         }
     }
@@ -194,8 +193,9 @@ mainPage.Quiz.prototype.Entry.prototype.AnswerHandler = class {
     }
     
     set(inputText) {
-        this.inputs[this.cursor].textContent = inputText;
-        this.inputs[this.cursor].classList.remove(this.UNSETCLASS);
+        let selected = this.sections[this.cursor].input;
+        selected.textContent = inputText;
+        selected.classList.remove(this.UNSETCLASS);
         this.moveCursor();
     }
     
