@@ -74,7 +74,7 @@ mainPage.Quiz.prototype.Entry = class {
     
     constructor(wordData, choiceNum, choiceSet) {
         this.container = this.createElem("li", "quiz-entry");
-        this.userInput = new this.AnswerHandler();
+        this.userInput = new this.AnswerHandler(wordData);
         this.word = wordData;
 
         this.init(choiceNum, choiceSet);
@@ -113,39 +113,14 @@ mainPage.Quiz.prototype.Entry = class {
         header.textContent = this.word.parts.map(notHidden).join("");
         return header;
     }
-    
-    createWord() {
-        let word = this.createElem("ruby");
-        let addAsInput = (textToHide) => {
-            for (const character of textToHide)
-                word.appendChild(this.userInput.newInput());
-        }
-        let addAsIs = (textToKeep) => {
-            let txt = this.createElem("span");
-            txt.textContent = textToKeep;
-            word.appendChild(txt);
-        }
-        
-        for (const part of this.word.parts) {
-            if (part.read)
-                addAsInput(part.text);
-            else 
-                addAsIs(part.text);
-            let read = this.createElem("rt");
-            read.textContent = part.read;
-            word.appendChild(read);
-        }
-        
-        let wordBox = this.createElem("div", "entry-word");
-        wordBox.appendChild(word);
-        return wordBox;
-    }
 
     init(totalNum, choiceSet) {
         this.container.appendChild(this.createHeader());
         let bodyBox = this.createElem("div", "entry-body");
         let infoBox = this.createElem("div", "entry-info");
-        infoBox.appendChild(this.createWord());
+        let wordBox = this.createElem("div", "entry-word")
+        this.userInput.addTo(wordBox);
+        infoBox.appendChild(wordBox);
         infoBox.appendChild(this.createDefinition());
         bodyBox.appendChild(infoBox);
         bodyBox.appendChild(this.createChoices(totalNum, choiceSet));
@@ -168,12 +143,28 @@ mainPage.Quiz.prototype.Entry = class {
 }
 
 mainPage.Quiz.prototype.Entry.prototype.AnswerHandler = class {
-    constructor() {
-        this.inputs = [];
-        this.cursor = 0;
-        
+    constructor(wordData) {   
         this.UNSETCLASS = "quiz-hidden-kanji";
         this.UNSETTEXT = "〇"
+        
+        this.answers = [];
+        this.inputs = [];
+        this.container = this.createElem("ruby");
+        this.cursor = 0;
+        
+        for (const part of wordData.parts) {
+            if (part.read)
+                this.addInput(part.text);
+            else 
+                this.addText(part.text);
+            let reading = this.createElem("rt");
+            reading.textContent = part.read;
+            this.container.appendChild(reading);
+        }
+    }
+    
+    addTo(parentElement) {
+        parentElement.appendChild(this.container);
     }
     
     createElem = mainPage.createElem;
@@ -187,11 +178,19 @@ mainPage.Quiz.prototype.Entry.prototype.AnswerHandler = class {
         this.cursor = this.cursor % this.inputs.length;
     }
     
-    newInput() {
-        let input = this.createElem("span", this.UNSETCLASS);
-        input.textContent = this.UNSETTEXT;
-        this.inputs.push(input);
-        return input;
+    addInput(textToHide) {
+        for (const character of textToHide) {
+            let input = this.createElem("span", this.UNSETCLASS);
+            input.textContent = this.UNSETTEXT;
+            this.inputs.push(input);
+            this.container.appendChild(input);
+        }
+    }
+    
+    addText(textToDisplay) {
+        let txt = this.createElem("span");
+        txt.textContent = textToDisplay;
+        this.container.appendChild(txt);
     }
     
     set(inputText) {
