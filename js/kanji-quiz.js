@@ -192,11 +192,34 @@ mainPage.Quiz.prototype.Entry.prototype.AnswerHandler = class {
         this.container.appendChild(txt);
     }
     
+    check() {
+        let results = {right: [], wrong: []};
+        for (const sect of this.sections) {
+            if (sect.input.classList.contains(this.UNSETCLASS))
+                continue;
+            let user = sect.input.textContent;
+            if (user == sect.answer)
+                results.right.push(user);
+            else
+                results.wrong.push(user, sect.answer);
+        }
+        return results;
+    }
+    
+    hasAllSet() {
+        for (const sect of this.sections)
+            if (sect.input.classList.contains(this.UNSETCLASS))
+                return false;
+        return true;
+    }
+    
     set(inputText) {
         let selected = this.sections[this.cursor].input;
         selected.textContent = inputText;
         selected.classList.remove(this.UNSETCLASS);
         this.moveCursor();
+        if(this.hasAllSet())
+            console.log(this.check());
     }
     
 }
