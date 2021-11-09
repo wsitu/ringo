@@ -130,7 +130,7 @@ mainPage.Quiz.prototype.Entry = class {
     randomChoices(totalNum, choiceSet) {
         let others = new Set(choiceSet);
         let correct = this.word.kanji;
-        for (const kanji in correct)
+        for (const kanji of correct)
             others.delete(kanji)
         
         let falseNum = totalNum - correct.size;
