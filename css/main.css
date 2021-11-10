@@ -56,10 +56,18 @@
     font-size: 1.5em;
     margin: 4px 0 10px 0;
 }
+
 .entry-word rt {
     color: rgba(0,0,0,0.625);
     font-size: 0.625em;
     margin: 0 0.15em;
+}
+
+.entry-word button {
+    background-color: inherit;
+    border-style: none;
+    font-size: inherit;
+    display: inline;
 }
 
 .quiz {

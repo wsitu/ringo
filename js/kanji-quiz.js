@@ -170,17 +170,19 @@ mainPage.Quiz.prototype.Entry.prototype.AnswerHandler = class {
 
     moveCursor(index=null) {
         if(this.sections.length == 0) return;
-        if(index)
-            this.cursor = index;
-        else
+        if(index == null)
             this.cursor++;
+        else
+            this.cursor = index;
         this.cursor = this.cursor % this.sections.length;
     }
     
     addInput(textToHide) {
         for (const character of textToHide) {
-            let input = this.createElem("span", this.UNSETCLASS);
+            let input = this.createElem("button", this.UNSETCLASS);
+            let position = this.sections.length;
             input.textContent = this.UNSETTEXT;
+            input.addEventListener("click", () => {this.moveCursor(position);} )
             this.sections.push({answer: character, input: input});
             this.container.appendChild(input);
         }
@@ -218,8 +220,6 @@ mainPage.Quiz.prototype.Entry.prototype.AnswerHandler = class {
         selected.textContent = inputText;
         selected.classList.remove(this.UNSETCLASS);
         this.moveCursor();
-        if(this.hasAllSet())
-            console.log(this.check());
     }
     
 }
