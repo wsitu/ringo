@@ -179,10 +179,8 @@ mainPage.Quiz.prototype.Entry.prototype.AnswerHandler = class {
     
     addInput(textToHide) {
         for (const character of textToHide) {
-            let input = this.createElem("button", this.UNSETCLASS);
-            let position = this.sections.length;
-            input.textContent = this.UNSETTEXT;
-            input.addEventListener("click", () => {this.moveCursor(position);} )
+            let input = this.createElem("span");
+            this.resetInput(input);
             this.sections.push({answer: character, input: input});
             this.container.appendChild(input);
         }
@@ -215,8 +213,17 @@ mainPage.Quiz.prototype.Entry.prototype.AnswerHandler = class {
         return true;
     }
     
+    resetInput(inputElement) {
+        inputElement.textContent = this.UNSETTEXT;
+        inputElement.classList.add(this.UNSETCLASS);
+    }
+    
     set(inputText) {
         let selected = this.sections[this.cursor].input;
+        if (this.cursor == 0 && !selected.classList.contains(this.UNSETCLASS))
+            for (let i=1; i < this.sections.length; i++)
+                this.resetInput(this.sections[i].input);
+        
         selected.textContent = inputText;
         selected.classList.remove(this.UNSETCLASS);
         this.moveCursor();
