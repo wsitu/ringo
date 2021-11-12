@@ -74,7 +74,7 @@ mainPage.Quiz.prototype.Entry = class {
     
     constructor(wordData, choiceNum, choiceSet) {
         this.container = this.createElem("li", "quiz-entry");
-        this.userInput = new this.AnswerHandler(wordData);
+        this.userInput = new this.Solution(wordData);
         this.word = wordData;
 
         this.init(choiceNum, choiceSet);
@@ -142,7 +142,7 @@ mainPage.Quiz.prototype.Entry = class {
     Shuffler = mainPage.Shuffler;
 }
 
-mainPage.Quiz.prototype.Entry.prototype.AnswerHandler = class {
+mainPage.Quiz.prototype.Entry.prototype.Solution = class {
     constructor(wordData) {   
         this.UNSETCLASS = "quiz-hidden-kanji";
         this.UNSETTEXT = "〇"
