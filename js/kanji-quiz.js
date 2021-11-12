@@ -246,7 +246,7 @@ mainPage.Shuffler = class {
     
     /* Returns an array of the next <length> random elements of this.data
            returns all remaining elements by default or length >= data.length
-           returns an empty array if length is <= 0
+           returns an empty array if length is <= 0 or no remaining elements
            <length> is a max value the returned array may be smaller
     */
     random(length=null) {
@@ -267,7 +267,6 @@ mainPage.Shuffler = class {
     }
     
     // Generator for a shuffle function yielding a random shuffled element 
-    // or null if arrayObj is an empty array.
     * _randomGenerator(arrayObj) {
         let length = arrayObj.length;
         for (let i = 0; i < length - 1; i++) {
@@ -277,7 +276,5 @@ mainPage.Shuffler = class {
         }
         if (length > 0) 
             yield arrayObj[length - 1];
-        else 
-            yield null;
     }
 }
