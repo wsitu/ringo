@@ -168,13 +168,9 @@ mainPage.Quiz.prototype.Entry.prototype.AnswerHandler = class {
     
     createElem = mainPage.createElem;
 
-    moveCursor(index=null) {
+    moveCursor() {
         if(this.sections.length == 0) return;
-        if(index == null)
-            this.cursor++;
-        else
-            this.cursor = index;
-        this.cursor = this.cursor % this.sections.length;
+        this.cursor = (this.cursor + 1) % this.sections.length;
     }
     
     addInput(textToHide) {
