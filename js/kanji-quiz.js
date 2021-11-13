@@ -168,13 +168,7 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
 
     addTo = mainPage.addTo;
     createElem = mainPage.createElem;
-    
-    // Selects the next input for this.set wrapping back to the first input
-    moveCursor() {
-        if(this.sections.length == 0) return;
-        this.cursor = (this.cursor + 1) % this.sections.length;
-    }
-    
+     
     // Adds each character in textToHide as an input and hides it
     addInput(textToHide) {
         for (const character of textToHide) {
@@ -215,6 +209,12 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
             if (sect.input.classList.contains(this.UNSETCLASS))
                 return false;
         return true;
+    }
+    
+    // Selects the next input for this.set wrapping back to the first input
+    moveCursor() {
+        if(this.sections.length == 0) return;
+        this.cursor = (this.cursor + 1) % this.sections.length;
     }
     
     // Resets the text and class of inputElement to be unset
