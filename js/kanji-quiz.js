@@ -143,6 +143,10 @@ mainPage.Quiz.prototype.Entry = class {
 }
 
 mainPage.Quiz.prototype.Entry.prototype.Solution = class {
+    /* Creates a partial display of the WordData and provides a method
+       to set and check the input of a solution. Parts of WordData with a
+       non empty read will be hidden and converted into an input field.
+    */
     constructor(wordData) {   
         this.UNSETCLASS = "quiz-hidden-kanji";
         this.UNSETTEXT = "〇"
@@ -167,12 +171,14 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
     }
     
     createElem = mainPage.createElem;
-
+    
+    // Selects the next input for this.set wrapping back to the first input
     moveCursor() {
         if(this.sections.length == 0) return;
         this.cursor = (this.cursor + 1) % this.sections.length;
     }
     
+    // Adds each character in textToHide as an input and hides it
     addInput(textToHide) {
         for (const character of textToHide) {
             let input = this.createElem("span");
@@ -182,12 +188,16 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
         }
     }
     
+    // Adds textToDisplay as normal text to be shown
     addText(textToDisplay) {
         let txt = this.createElem("span");
         txt.textContent = textToDisplay;
         this.container.appendChild(txt);
     }
     
+    // Returns an object with an array of the right and wrong inputs
+    //     .right contains the input that matched the answers
+    //     .wrong contains both the mismatched input and the answer
     check() {
         let results = {right: [], wrong: []};
         for (const sect of this.sections) {
@@ -202,6 +212,7 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
         return results;
     }
     
+    // Returns true if every input has been set else false
     hasAllSet() {
         for (const sect of this.sections)
             if (sect.input.classList.contains(this.UNSETCLASS))
@@ -209,11 +220,13 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
         return true;
     }
     
+    // Resets the text and class of inputElement to be unset
     resetInput(inputElement) {
         inputElement.textContent = this.UNSETTEXT;
         inputElement.classList.add(this.UNSETCLASS);
     }
     
+    // Sets the current input to inputText and moves the cursor to the next one
     set(inputText) {
         let selected = this.sections[this.cursor].input;
         if (this.cursor == 0 && !selected.classList.contains(this.UNSETCLASS))
