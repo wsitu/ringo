@@ -1,5 +1,10 @@
 const mainPage = {
     
+    // Adds an object with a container HTML element to parentElement
+    addTo(parentElement) {
+        parentElement.appendChild(this.container);
+    },
+    
     createElem(tagString, classString=null, idString="") {
         let e = document.createElement(tagString);
         if (classString) e.classList.add(classString);
@@ -19,9 +24,7 @@ mainPage.Quiz = class {
         this.createEntries();
     }
     
-    addTo(parentElement) {
-        parentElement.appendChild(this.container);
-    }
+    addTo = mainPage.addTo;
     
     createEntries() {
         let list = this.createElem("ul", "quiz"); 
@@ -80,10 +83,7 @@ mainPage.Quiz.prototype.Entry = class {
         this.init(choiceNum, choiceSet);
     }
     
-    addTo(parentElement) {
-        parentElement.appendChild(this.container);
-    }
-    
+    addTo = mainPage.addTo;
     createElem = mainPage.createElem;
     
     createChoices(totalNum, choiceSet) {
@@ -165,11 +165,8 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
             this.container.appendChild(reading);
         }
     }
-    
-    addTo(parentElement) {
-        parentElement.appendChild(this.container);
-    }
-    
+
+    addTo = mainPage.addTo;
     createElem = mainPage.createElem;
     
     // Selects the next input for this.set wrapping back to the first input
