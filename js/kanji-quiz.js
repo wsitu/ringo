@@ -74,17 +74,48 @@ mainPage.Quiz = class {
 }
 
 mainPage.Quiz.prototype.Entry = class {
-    
+
     constructor(wordData, choiceNum, choiceSet) {
         this.container = this.createElem("li", "quiz-entry");
         this.userInput = new this.Solution(wordData);
+        
+        this._choiceBox = this.createElem("div", "entry-choices");
+        this._defBox = this.createElem("p", "entry-def");
+        this._headerBox = this.createElem("h1", "entry-header");
+        this._wordBox = this.createElem("div", "entry-word");
+        
+        this._arrangeLayout();
         this.word = wordData;
-
-        this.init(choiceNum, choiceSet);
     }
     
     addTo = mainPage.addTo;
     createElem = mainPage.createElem;
+    Shuffler = mainPage.Shuffler;
+    
+    get definition() {
+        return this._defBox.textContent;
+    }
+    set definition(textContent) {
+        this._defBox.textContent = textContent;
+    }
+    
+    get header() {
+        return this._headerBox.textContent;
+    }
+    set header(textContent) {
+        this._headerBox.textContent = textContent;
+    }
+    
+    get word() {
+        return this._wordData;
+    }
+    set word(wordData) {
+        this._wordData = wordData;
+        
+        let notHidden = (part) => {return part.read || part.text};
+        this.header = wordData.parts.map(notHidden).join("");
+        this.definition = wordData.definition;
+    }
     
     createChoices(totalNum, choiceSet) {
         let choiceBox = this.createElem("div", "entry-choices");
@@ -97,34 +128,6 @@ mainPage.Quiz.prototype.Entry = class {
             choiceBox.appendChild(btn);
         }
         return choiceBox;
-    }
-    
-    createDefinition() {
-        let defBox = this.createElem("div", "entry-def");
-        let def = this.createElem("p");
-        def.textContent = this.word.definition;
-        defBox.appendChild(def);
-        return defBox;
-    }
-    
-    createHeader() {
-        let header = this.createElem("h1", "entry-header");
-        let notHidden = (part) => {return part.read || part.text};
-        header.textContent = this.word.parts.map(notHidden).join("");
-        return header;
-    }
-
-    init(totalNum, choiceSet) {
-        this.container.appendChild(this.createHeader());
-        let bodyBox = this.createElem("div", "entry-body");
-        let infoBox = this.createElem("div", "entry-info");
-        let wordBox = this.createElem("div", "entry-word")
-        this.userInput.addTo(wordBox);
-        infoBox.appendChild(wordBox);
-        infoBox.appendChild(this.createDefinition());
-        bodyBox.appendChild(infoBox);
-        bodyBox.appendChild(this.createChoices(totalNum, choiceSet));
-        this.container.appendChild(bodyBox);
     }
 
     randomChoices(totalNum, choiceSet) {
@@ -139,7 +142,16 @@ mainPage.Quiz.prototype.Entry = class {
         return choices.random();
     }
     
-    Shuffler = mainPage.Shuffler;
+    _arrangeLayout() {
+        let bodyBox = this.createElem("div", "entry-body");
+        let infoBox = this.createElem("div", "entry-info");
+        infoBox.appendChild(this._wordBox);
+        infoBox.appendChild(this._defBox);
+        bodyBox.appendChild(infoBox);
+        bodyBox.appendChild(this._choiceBox);
+        this.container.appendChild(this._headerBox);
+        this.container.appendChild(bodyBox);
+    }
 }
 
 mainPage.Quiz.prototype.Entry.prototype.Solution = class {
