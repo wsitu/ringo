@@ -77,7 +77,7 @@ mainPage.Quiz.prototype.Entry = class {
 
     constructor(wordData, choiceNum, choiceSet) {
         this.container = this.createElem("li", "quiz-entry");
-        this.userInput = new this.Solution(wordData);
+        this.userInput; // Solution object
         
         this._choiceBox = this.createElem("div", "entry-choices");
         this._defBox = this.createElem("p", "entry-def");
@@ -86,11 +86,35 @@ mainPage.Quiz.prototype.Entry = class {
         
         this._arrangeLayout();
         this.word = wordData;
+        this.choices = this.randomChoices(choiceNum, choiceSet);
     }
     
     addTo = mainPage.addTo;
     createElem = mainPage.createElem;
     Shuffler = mainPage.Shuffler;
+    
+    get choices() {
+        return Array.from(this._choiceBox.children, (e) => e.textContent);
+    }
+    
+    set choices(arrayOfString) {
+        let inputButtonText = (e) => this.userInput.set(e.target.textContent);
+        let buttons = this._choiceBox;
+        let buttonsToAdd = arrayOfString.length - buttons.children.length;
+        if (buttonsToAdd > 0) {
+            for (let i = 0; i < buttonsToAdd; i++) {
+                let btn = this.createElem("button");
+                btn.addEventListener("click", inputButtonText);
+                buttons.appendChild(btn);
+            }
+        } else {
+            for (let i = 0; i > buttonsToAdd; i--)
+                buttons.lastElementChild.remove();
+        }
+        
+        for (let i = 0; i < buttons.children.length; i++)
+            buttons.children[i].textContent = arrayOfString[i];
+    }
     
     get definition() {
         return this._defBox.textContent;
@@ -111,23 +135,12 @@ mainPage.Quiz.prototype.Entry = class {
     }
     set word(wordData) {
         this._wordData = wordData;
-        
         let notHidden = (part) => {return part.read || part.text};
         this.header = wordData.parts.map(notHidden).join("");
         this.definition = wordData.definition;
-    }
-    
-    createChoices(totalNum, choiceSet) {
-        let choiceBox = this.createElem("div", "entry-choices");
-        let choices = this.randomChoices(totalNum, choiceSet);
-        let inputButtonText = (e) => this.userInput.set(e.target.textContent);
-        for (const choice of choices) {
-            let btn = this.createElem("button");
-            btn.textContent = choice;
-            btn.onclick = inputButtonText;
-            choiceBox.appendChild(btn);
-        }
-        return choiceBox;
+        this._wordBox.replaceChildren();
+        this.userInput = new this.Solution(wordData);
+        this.userInput.addTo(this._wordBox);
     }
 
     randomChoices(totalNum, choiceSet) {
