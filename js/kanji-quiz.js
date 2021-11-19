@@ -30,9 +30,12 @@ mainPage.Quiz = class {
         let list = this.createElem("ul", "quiz"); 
         let words = this.randomed();
         this.selections = [];
+        let allKanji = new this.Shuffler(this.allKanji());
         for (const data of words) {
-            let entry = new this.Entry(data, 40, this.allKanji());
+            let entry = new this.Entry(data);
             entry.addTo(list);
+            entry.shuffleInChoices(allKanji.random(40));
+            allKanji.reset();
         }
         this.container.appendChild(list);
     }
@@ -75,7 +78,7 @@ mainPage.Quiz = class {
 
 mainPage.Quiz.prototype.Entry = class {
 
-    constructor(wordData, choiceNum, choiceSet) {
+    constructor(wordData) {
         this.container = this.createElem("li", "quiz-entry");
         this.userInput; // Solution object
         
@@ -86,7 +89,6 @@ mainPage.Quiz.prototype.Entry = class {
         
         this._arrangeLayout();
         this.word = wordData;
-        this.choices = this.randomChoices(choiceNum, choiceSet);
     }
     
     addTo = mainPage.addTo;
@@ -141,18 +143,25 @@ mainPage.Quiz.prototype.Entry = class {
         this._wordBox.replaceChildren();
         this.userInput = new this.Solution(wordData);
         this.userInput.addTo(this._wordBox);
+        this.shuffleInChoices();
     }
 
-    randomChoices(totalNum, choiceSet) {
-        let others = new Set(choiceSet);
-        let correct = this.word.kanji;
-        for (const kanji of correct)
-            others.delete(kanji)
-        
-        let falseNum = totalNum - correct.size;
-        let wrong = new this.Shuffler(others).random(falseNum);
-        let choices = new this.Shuffler(wrong.concat(...correct));
-        return choices.random();
+    shuffleInChoices(arrayOfString=this.choices) {
+        let targetLength = arrayOfString.length;
+        let shuffle = new this.Shuffler(arrayOfString);
+        let required = new Set();
+        for (const section of this.userInput.sections)
+            required.add(section.answer);
+        let inserted = [...required];
+        while (inserted.length < targetLength) {
+            let next = shuffle.generator.next();
+            if (next.done) break;
+            if (required.has(next.value)) 
+                required.delete(next.value);
+            else
+                inserted.push(next.value);
+        }
+        this.choices = new this.Shuffler(inserted).random();
     }
     
     _arrangeLayout() {
