@@ -274,13 +274,17 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
 mainPage.Shuffler = class {
     /* Shuffles a copy of an array and provides random elements one at a time.
        Best used for obtaining a small subset of random elements from a larger
-       array. Shuffling an entire array is only recommended on small sizes as
-       it performs slower compared to a normal shuffle.
+       array. Performs slower than a normal shuffle, use a simpler
+       implementation when performance is critical.
     */
     
-    constructor(iterableObj) {
-        this.data = [...iterableObj];
-        this.generator = undefined;
+    /* Copies iterableObj into an array at this.data shuffled starting at 0
+       If copy = false, iterableObj must be array like and will not be copied
+       To iterate with more control use this.generator.next()
+    */
+    constructor(iterableObj, copy=true) {
+        this.data = (copy) ? [...iterableObj] : iterableObj;
+        this.generator;
         this.reset();
     }
     
