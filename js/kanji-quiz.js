@@ -150,7 +150,7 @@ mainPage.Quiz.prototype.Entry = class {
         let targetLength = arrayOfString.length;
         let shuffle = new this.Shuffler(arrayOfString);
         let required = new Set();
-        for (const section of this.userInput.sections)
+        for (const section of this.userInput._sections)
             required.add(section.answer);
         let inserted = [...required];
         while (inserted.length < targetLength) {
@@ -182,18 +182,18 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
        non empty read will be hidden and converted into an input field.
     */
     constructor(wordData) {   
-        this.UNSETCLASS = "quiz-hidden-kanji";
-        this.UNSETTEXT = "〇"
-        
-        this.sections = [];
         this.container = this.createElem("ruby");
         this.cursor = 0;
         
+        this._UNSETCLASS = "quiz-hidden-kanji";
+        this._UNSETTEXT = "〇"
+        this._sections = [];
+
         for (const part of wordData.parts) {
             if (part.read)
-                this.addInput(part.text);
+                this._addInput(part.text);
             else 
-                this.addText(part.text);
+                this._addText(part.text);
             let reading = this.createElem("rt");
             reading.textContent = part.read;
             this.container.appendChild(reading);
@@ -202,31 +202,14 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
 
     addTo = mainPage.addTo;
     createElem = mainPage.createElem;
-     
-    // Adds each character in textToHide as an input and hides it
-    addInput(textToHide) {
-        for (const character of textToHide) {
-            let input = this.createElem("span");
-            this.resetInput(input);
-            this.sections.push({answer: character, input: input});
-            this.container.appendChild(input);
-        }
-    }
-    
-    // Adds textToDisplay as normal text to be shown
-    addText(textToDisplay) {
-        let txt = this.createElem("span");
-        txt.textContent = textToDisplay;
-        this.container.appendChild(txt);
-    }
     
     // Returns an object with an array of the right and wrong inputs
     //     .right contains the input that matched the answers
     //     .wrong contains both the mismatched input and the answer
     check() {
         let results = {right: [], wrong: []};
-        for (const sect of this.sections) {
-            if (sect.input.classList.contains(this.UNSETCLASS))
+        for (const sect of this._sections) {
+            if (sect.input.classList.contains(this._UNSETCLASS))
                 continue;
             let user = sect.input.textContent;
             if (user == sect.answer)
@@ -239,34 +222,51 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
     
     // Returns true if every input has been set else false
     hasAllSet() {
-        for (const sect of this.sections)
-            if (sect.input.classList.contains(this.UNSETCLASS))
+        for (const sect of this._sections)
+            if (sect.input.classList.contains(this._UNSETCLASS))
                 return false;
         return true;
     }
     
     // Selects the next input for this.set wrapping back to the first input
     moveCursor() {
-        if(this.sections.length == 0) return;
-        this.cursor = (this.cursor + 1) % this.sections.length;
+        if(this._sections.length == 0) return;
+        this.cursor = (this.cursor + 1) % this._sections.length;
     }
-    
-    // Resets the text and class of inputElement to be unset
-    resetInput(inputElement) {
-        inputElement.textContent = this.UNSETTEXT;
-        inputElement.classList.add(this.UNSETCLASS);
-    }
-    
+        
     // Sets the current input to inputText and moves the cursor to the next one
     set(inputText) {
-        let selected = this.sections[this.cursor].input;
-        if (this.cursor == 0 && !selected.classList.contains(this.UNSETCLASS))
-            for (let i=1; i < this.sections.length; i++)
-                this.resetInput(this.sections[i].input);
+        let selected = this._sections[this.cursor].input;
+        if (this.cursor == 0 && !selected.classList.contains(this._UNSETCLASS))
+            for (let i=1; i < this._sections.length; i++)
+                this._resetInput(this._sections[i].input);
         
         selected.textContent = inputText;
-        selected.classList.remove(this.UNSETCLASS);
+        selected.classList.remove(this._UNSETCLASS);
         this.moveCursor();
+    }
+    
+    // Adds each character in textToHide as an input and hides it
+    _addInput(textToHide) {
+        for (const character of textToHide) {
+            let input = this.createElem("span");
+            this._resetInput(input);
+            this._sections.push({answer: character, input: input});
+            this.container.appendChild(input);
+        }
+    }
+    
+    // Adds textToDisplay as normal text to be shown
+    _addText(textToDisplay) {
+        let txt = this.createElem("span");
+        txt.textContent = textToDisplay;
+        this.container.appendChild(txt);
+    }
+
+    // Resets the text and class of inputElement to be unset
+    _resetInput(inputElement) {
+        inputElement.textContent = this._UNSETTEXT;
+        inputElement.classList.add(this._UNSETCLASS);
     }
     
 }
