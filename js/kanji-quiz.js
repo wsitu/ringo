@@ -149,9 +149,7 @@ mainPage.Quiz.prototype.Entry = class {
     shuffleInChoices(arrayOfString=this.choices) {
         let targetLength = arrayOfString.length;
         let shuffle = new this.Shuffler(arrayOfString);
-        let required = new Set();
-        for (const section of this.userInput._sections)
-            required.add(section.answer);
+        let required = new Set(this.userInput.answers);
         let inserted = [...required];
         while (inserted.length < targetLength) {
             let next = shuffle.generator.next();
@@ -203,14 +201,24 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
     addTo = mainPage.addTo;
     createElem = mainPage.createElem;
     
+    // Returns an array of the correct characters to be inputted
+    get answers() {
+        return this._sections.map( (e) => e.answer );
+    }
+    
+    // Returns an array of the input text or empty string if unset
+    get inputs() {
+        let inputText = (e) => this._isUnset(e.input) ? "" : e.input.textContent;
+        return this._sections.map(inputText);
+    }
+    
     // Returns an object with an array of the right and wrong inputs
     //     .right contains the input that matched the answers
     //     .wrong contains both the mismatched input and the answer
     check() {
         let results = {right: [], wrong: []};
         for (const sect of this._sections) {
-            if (sect.input.classList.contains(this._UNSETCLASS))
-                continue;
+            if (this._isUnset(sect.input)) continue;
             let user = sect.input.textContent;
             if (user == sect.answer)
                 results.right.push(user);
@@ -223,8 +231,7 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
     // Returns true if every input has been set else false
     hasAllSet() {
         for (const sect of this._sections)
-            if (sect.input.classList.contains(this._UNSETCLASS))
-                return false;
+            if (this._isUnset(sect.input)) return false;
         return true;
     }
     
@@ -237,8 +244,8 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
     // Sets the current input to inputText and moves the cursor to the next one
     set(inputText) {
         let selected = this._sections[this.cursor].input;
-        if (this.cursor == 0 && !selected.classList.contains(this._UNSETCLASS))
-            for (let i=1; i < this._sections.length; i++)
+        if (this.cursor == 0 && !this._isUnset(selected))
+            for (let i = 1; i < this._sections.length; i++)
                 this._resetInput(this._sections[i].input);
         
         selected.textContent = inputText;
@@ -262,7 +269,11 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
         txt.textContent = textToDisplay;
         this.container.appendChild(txt);
     }
-
+    
+    _isUnset(inputElement) {
+        return inputElement.classList.contains(this._UNSETCLASS);
+    }
+    
     // Resets the text and class of inputElement to be unset
     _resetInput(inputElement) {
         inputElement.textContent = this._UNSETTEXT;
