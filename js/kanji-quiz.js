@@ -137,6 +137,7 @@ mainPage.Quiz.prototype.Entry = class {
     }
     set word(wordData) {
         this._wordData = wordData;
+        if (!wordData) return;
         let notHidden = (part) => {return part.read || part.text};
         this.header = wordData.parts.map(notHidden).join("");
         this.definition = wordData.definition;
