@@ -80,7 +80,7 @@ mainPage.Quiz.prototype.Entry = class {
 
     constructor(wordData) {
         this.container = this.createElem("li", "quiz-entry");
-        this.userInput; // Solution object
+        this.userInput = new this.Solution();
         
         this._choiceBox = this.createElem("div", "entry-choices");
         this._defBox = this.createElem("p", "entry-def");
@@ -140,9 +140,7 @@ mainPage.Quiz.prototype.Entry = class {
         let notHidden = (part) => {return part.read || part.text};
         this.header = wordData.parts.map(notHidden).join("");
         this.definition = wordData.definition;
-        this._wordBox.replaceChildren();
-        this.userInput = new this.Solution(wordData);
-        this.userInput.addTo(this._wordBox);
+        this.userInput.word = wordData;
         this.shuffleInChoices();
     }
 
@@ -166,6 +164,7 @@ mainPage.Quiz.prototype.Entry = class {
         let bodyBox = this.createElem("div", "entry-body");
         let infoBox = this.createElem("div", "entry-info");
         infoBox.appendChild(this._wordBox);
+        this.userInput.addTo(this._wordBox);
         infoBox.appendChild(this._defBox);
         bodyBox.appendChild(infoBox);
         bodyBox.appendChild(this._choiceBox);
@@ -181,21 +180,14 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
     */
     constructor(wordData) {   
         this.container = this.createElem("ruby");
-        this.cursor = 0;
+        this.cursor = 0; // Points at the input for this.set()
         
         this._UNSETCLASS = "quiz-hidden-kanji";
         this._UNSETTEXT = "〇"
-        this._sections = [];
-
-        for (const part of wordData.parts) {
-            if (part.read)
-                this._addInput(part.text);
-            else 
-                this._addText(part.text);
-            let reading = this.createElem("rt");
-            reading.textContent = part.read;
-            this.container.appendChild(reading);
-        }
+        this._sections;
+        this._wordData;
+        
+        this.word = wordData;
     }
 
     addTo = mainPage.addTo;
@@ -210,6 +202,29 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
     get inputs() {
         let inputText = (e) => this._isUnset(e.input) ? "" : e.input.textContent;
         return this._sections.map(inputText);
+    }
+    
+    // Returns the WordData that the solution represents
+    get word() {
+        return this._wordData;
+    }
+    
+    // Resets and initializes the solution to represent wordData
+    set word(wordData) {
+        this.container.replaceChildren();
+        this.cursor = 0;
+        this._sections = [];
+        this._wordData = wordData;
+        if (!wordData) return;
+        for (const part of wordData.parts) {
+            if (part.read)
+                this._addInput(part.text);
+            else
+                this._addText(part.text);
+            let reading = this.createElem("rt");
+            reading.textContent = part.read;
+            this.container.appendChild(reading);
+        }
     }
     
     // Returns an object with an array of the right and wrong inputs
@@ -229,6 +244,7 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
     }
     
     // Returns true if every input has been set else false
+    // Returns true if there are no input elements
     hasAllSet() {
         for (const sect of this._sections)
             if (this._isUnset(sect.input)) return false;
@@ -242,7 +258,9 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
     }
         
     // Sets the current input to inputText and moves the cursor to the next one
+    // Changes nothing if there are no input elements
     set(inputText) {
+        if(this._sections.length == 0) return;
         let selected = this._sections[this.cursor].input;
         if (this.cursor == 0 && !this._isUnset(selected))
             for (let i = 1; i < this._sections.length; i++)
