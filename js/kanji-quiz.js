@@ -77,7 +77,10 @@ mainPage.Quiz = class {
 }
 
 mainPage.Quiz.prototype.Entry = class {
-
+    
+    /* Creates an entry to display wordData's information but hides the
+       components of the word among other false buttons.
+    */
     constructor(wordData) {
         this.container = this.createElem("li", "quiz-entry");
         this.userInput = new this.Solution();
@@ -95,10 +98,13 @@ mainPage.Quiz.prototype.Entry = class {
     createElem = mainPage.createElem;
     Shuffler = mainPage.Shuffler;
     
+    // Returns an array containing the string of each choice
     get choices() {
         return Array.from(this._choiceBox.children, (e) => e.textContent);
     }
     
+    // Sets each button's text in choices to those of arrayOfString
+    // Will add or remove buttons to match the size of the array
     set choices(arrayOfString) {
         let inputButtonText = (e) => this.userInput.set(e.target.textContent);
         let buttons = this._choiceBox;
@@ -118,23 +124,32 @@ mainPage.Quiz.prototype.Entry = class {
             buttons.children[i].textContent = arrayOfString[i];
     }
     
+    // Returns the definition's string or ""
     get definition() {
         return this._defBox.textContent;
     }
+    
+    // Sets the definition's text
     set definition(textContent) {
         this._defBox.textContent = textContent;
     }
     
+    // Returns the header's string or ""
     get header() {
         return this._headerBox.textContent;
     }
+    
+    // Sets the header's text
     set header(textContent) {
         this._headerBox.textContent = textContent;
     }
     
+    // Returns the WordData associated with the Entry
     get word() {
         return this._wordData;
     }
+    
+    // Sets the entry and all relevant properties to those of wordData
     set word(wordData) {
         this._wordData = wordData;
         if (!wordData) return;
@@ -145,6 +160,14 @@ mainPage.Quiz.prototype.Entry = class {
         this.shuffleInChoices();
     }
 
+    /* Shuffles in the answers with arrayOfString into the choices
+    
+       If no array is passed it will shuffle with the current choices.
+       The choices will be at least the length of arrayOfString but may be
+       longer if the length of array is smaller than the answers in which case
+       the choices will only contain answers.
+
+    */
     shuffleInChoices(arrayOfString=this.choices) {
         let targetLength = arrayOfString.length;
         let shuffle = new this.Shuffler(arrayOfString);
