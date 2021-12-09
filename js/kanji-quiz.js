@@ -114,6 +114,7 @@ mainPage.Quiz.prototype.Entry = class {
             for (let i = 0; i < buttonsToAdd; i++) {
                 let listElement = this.createElem("li");
                 let btn = this.createElem("button");
+                btn.type = "button";
                 btn.addEventListener("click", inputButtonText);
                 listElement.appendChild(btn);
                 buttons.appendChild(listElement);
