@@ -85,7 +85,7 @@ mainPage.Quiz.prototype.Entry = class {
         this.container = this.createElem("li", "quiz-entry");
         this.userInput = new this.Solution();
         
-        this._choiceBox = this.createElem("div", "entry-choices");
+        this._choiceBox = this.createElem("ul", "entry-choices");
         this._defBox = this.createElem("p", "entry-def");
         this._headerBox = this.createElem("h1", "entry-header");
         this._wordBox = this.createElem("div", "entry-word");
@@ -100,7 +100,8 @@ mainPage.Quiz.prototype.Entry = class {
     
     // Returns an array containing the string of each choice
     get choices() {
-        return Array.from(this._choiceBox.children, (e) => e.textContent);
+        let getButtonText = (e) => e.children[0].textContent;
+        return Array.from(this._choiceBox.children, getButtonText);
     }
     
     // Sets each button's text in choices to those of arrayOfString
@@ -111,9 +112,11 @@ mainPage.Quiz.prototype.Entry = class {
         let buttonsToAdd = arrayOfString.length - buttons.children.length;
         if (buttonsToAdd > 0) {
             for (let i = 0; i < buttonsToAdd; i++) {
+                let listElement = this.createElem("li");
                 let btn = this.createElem("button");
                 btn.addEventListener("click", inputButtonText);
-                buttons.appendChild(btn);
+                listElement.appendChild(btn);
+                buttons.appendChild(listElement);
             }
         } else {
             for (let i = 0; i > buttonsToAdd; i--)
@@ -121,7 +124,7 @@ mainPage.Quiz.prototype.Entry = class {
         }
         
         for (let i = 0; i < buttons.children.length; i++)
-            buttons.children[i].textContent = arrayOfString[i];
+            buttons.children[i].children[0].textContent = arrayOfString[i];
     }
     
     // Returns the definition's string or ""
