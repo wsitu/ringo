@@ -6,10 +6,6 @@
     display: flex;
 }
 
-.entry-def {
-
-}
-
 .entry-choices {
     align-content: start;
     display: flex;
@@ -53,19 +49,20 @@
     margin: 0.5%;
 }
 
-.entry-info {
-    padding-right: 24px;
-    flex-basis: 30%;
-    flex-shrink: 0;
+.entry-def {
+    font-size: 0.75em;
+}
+
+.entry-header {
+    align-items: center;
+    display: flex;
 }
 
 .entry-word {
-    font-size: 1.5em;
-    margin: 4px 0 10px 0;
+    margin-right: 0.5em;
 }
 
 .entry-word rt {
-    color: rgba(0,0,0,0.625);
     font-size: 0.625em;
     margin: 0 0.15em;
 }

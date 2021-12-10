@@ -138,16 +138,6 @@ mainPage.Quiz.prototype.Entry = class {
         this._defBox.textContent = textContent;
     }
     
-    // Returns the header's string or ""
-    get header() {
-        return this._headerBox.textContent;
-    }
-    
-    // Sets the header's text
-    set header(textContent) {
-        this._headerBox.textContent = textContent;
-    }
-    
     // Returns the WordData associated with the Entry
     get word() {
         return this._wordData;
@@ -158,7 +148,6 @@ mainPage.Quiz.prototype.Entry = class {
         this._wordData = wordData;
         if (!wordData) return;
         let notHidden = (part) => {return part.read || part.text};
-        this.header = wordData.parts.map(notHidden).join("");
         this.definition = wordData.definition;
         this.userInput.word = wordData;
         this.shuffleInChoices();
@@ -170,7 +159,6 @@ mainPage.Quiz.prototype.Entry = class {
        The choices will be at least the length of arrayOfString but may be
        longer if the length of array is smaller than the answers in which case
        the choices will only contain answers.
-
     */
     shuffleInChoices(arrayOfString=this.choices) {
         let targetLength = arrayOfString.length;
@@ -189,12 +177,10 @@ mainPage.Quiz.prototype.Entry = class {
     }
     
     _arrangeLayout() {
-        let bodyBox = this.createElem("div", "entry-body");
-        let infoBox = this.createElem("div", "entry-info");
-        infoBox.appendChild(this._wordBox);
         this.userInput.addTo(this._wordBox);
-        infoBox.appendChild(this._defBox);
-        bodyBox.appendChild(infoBox);
+        this._headerBox.appendChild(this._wordBox);
+        this._headerBox.appendChild(this._defBox);
+        let bodyBox = this.createElem("div", "entry-body");
         bodyBox.appendChild(this._choiceBox);
         this.container.appendChild(this._headerBox);
         this.container.appendChild(bodyBox);
