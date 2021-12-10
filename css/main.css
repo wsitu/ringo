@@ -59,7 +59,9 @@
 }
 
 .entry-word {
-    margin-right: 0.5em;
+    font-size: 0.75em;
+    margin: 0 0.5em;
+    min-width: 8em;
 }
 
 .entry-word rt {
