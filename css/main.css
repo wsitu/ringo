@@ -1,7 +1,3 @@
-.quiz-entry {
-    margin: 24px 0;
-}
-
 .entry-body {
     display: flex;
 }
@@ -80,6 +76,10 @@
     list-style: none;
     margin: 0 auto;
     max-width: 800px;
+}
+
+.quiz-entry {
+    margin: 36px 0;
 }
 
 .quiz-hidden-kanji {
