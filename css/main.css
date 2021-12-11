@@ -51,6 +51,7 @@
 
 .entry-header {
     align-items: center;
+    border-bottom: solid 2px seagreen;
     display: flex;
 }
 
