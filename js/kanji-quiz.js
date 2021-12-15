@@ -88,6 +88,7 @@ mainPage.Quiz.prototype.Entry = class {
         this._choiceBox = this.createElem("ul", "entry-choices");
         this._defBox = this.createElem("p", "entry-def");
         this._headerBox = this.createElem("h1", "entry-header");
+        this._resultBox = this.createElem("table", "entry-result");
         this._wordBox = this.createElem("div", "entry-word");
         
         this._arrangeLayout();
@@ -108,6 +109,9 @@ mainPage.Quiz.prototype.Entry = class {
     // Will add or remove buttons to match the size of the array
     set choices(arrayOfString) {
         let inputButtonText = (e) => this.userInput.set(e.target.textContent);
+        inputButtonText = (e) => {this.userInput.set(e.target.textContent);
+            this.displayResult(); // here for now until proper implementation
+        }
         let buttons = this._choiceBox;
         let buttonsToAdd = arrayOfString.length - buttons.children.length;
         if (buttonsToAdd > 0) {
@@ -153,6 +157,29 @@ mainPage.Quiz.prototype.Entry = class {
         this.shuffleInChoices();
     }
 
+    displayResult() {
+        this._resultBox.replaceChildren();
+        let answers = this.userInput.answers;
+        let inputs = this.userInput.inputs;
+        for (let i = 0; i < answers.length; i++) {
+            let part = this.createElem("tr");
+            let input = this.createElem("td");
+            if (inputs[i] != answers[i]) {
+                let highlight = this.createElem("strong");
+                highlight.textContent = inputs[i];
+                input.appendChild(highlight);
+            }
+            else
+                input.textContent = inputs[i];
+            let answer = this.createElem("td");
+            answer.textContent = answers[i];
+
+            part.appendChild(input);
+            part.appendChild(answer);
+            this._resultBox.appendChild(part);
+        }
+    }
+
     /* Shuffles in the answers with arrayOfString into the choices
     
        If no array is passed it will shuffle with the current choices.
@@ -182,6 +209,7 @@ mainPage.Quiz.prototype.Entry = class {
         this._headerBox.appendChild(this._defBox);
         let bodyBox = this.createElem("div", "entry-body");
         bodyBox.appendChild(this._choiceBox);
+        bodyBox.appendChild(this._resultBox);
         this.container.appendChild(this._headerBox);
         this.container.appendChild(bodyBox);
     }

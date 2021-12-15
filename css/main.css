@@ -1,5 +1,4 @@
 .entry-body {
-    display: flex;
 }
 
 .entry-choices {
@@ -47,6 +46,20 @@
 
 .entry-def {
     font-size: 0.75em;
+}
+
+.entry-result {
+    font-size: 1.5em;
+    margin: 0 auto;
+}
+
+.entry-result strong {
+    font-weight: normal;
+    color: #d60838;
+}
+
+.entry-result td {
+    padding: 0.125em;
 }
 
 .entry-header {
