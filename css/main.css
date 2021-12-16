@@ -80,6 +80,10 @@
     margin: 0 0.15em;
 }
 
+.entry-word strong {
+    color: #d60838;
+}
+
 .entry-word button {
     background-color: inherit;
     border-style: none;

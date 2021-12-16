@@ -293,6 +293,20 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
         return true;
     }
     
+    // Wraps incorrect user inputs inside a <strong>
+    // Will be overwritten if the input is set again
+    markIncorrect() {
+         for (const sect of this._sections) {
+            if (this._isUnset(sect.input)) continue;
+            let user = sect.input.textContent;
+            if (user != sect.answer) {
+                let highlight = this.createElem("strong");
+                highlight.textContent = user;
+                sect.input.replaceChildren(highlight);
+            }
+        }
+    }
+    
     // Selects the next input for this.set wrapping back to the first input
     moveCursor() {
         if(this._sections.length == 0) return;
