@@ -10,6 +10,19 @@ const mainPage = {
         if (classString) e.classList.add(classString);
         e.id = idString;
         return e;
+    },
+    
+    wordDataToRuby(wordData) {
+        let ruby = document.createElement("ruby");
+        if (wordData && wordData.parts) {
+            for (const part of wordData.parts) {
+                ruby.appendChild(document.createTextNode(part.text));
+                let reading = document.createElement("rt");
+                reading.textContent = part.read;
+                ruby.appendChild(reading);
+            }
+        }
+        return ruby;
     }
 };
 
@@ -88,7 +101,7 @@ mainPage.Quiz.prototype.Entry = class {
         this._choiceBox = this.createElem("ul", "entry-choices");
         this._defBox = this.createElem("p", "entry-def");
         this._headerBox = this.createElem("h1", "entry-header");
-        this._resultBox = this.createElem("table", "entry-result");
+        this._resultBox = this.createElem("div", "entry-result");
         this._wordBox = this.createElem("div", "entry-word");
         
         this._arrangeLayout();
@@ -158,26 +171,15 @@ mainPage.Quiz.prototype.Entry = class {
     }
 
     displayResult() {
+        let header = this.createElem("h3");
+        header.appendChild(mainPage.wordDataToRuby(this.word));
+        let body = this.createElem("p");
+        this.userInput.markIncorrect();
+        body.appendChild(this.userInput.container.cloneNode(true));
+        
         this._resultBox.replaceChildren();
-        let answers = this.userInput.answers;
-        let inputs = this.userInput.inputs;
-        for (let i = 0; i < answers.length; i++) {
-            let part = this.createElem("tr");
-            let input = this.createElem("td");
-            if (inputs[i] != answers[i]) {
-                let highlight = this.createElem("strong");
-                highlight.textContent = inputs[i];
-                input.appendChild(highlight);
-            }
-            else
-                input.textContent = inputs[i];
-            let answer = this.createElem("td");
-            answer.textContent = answers[i];
-
-            part.appendChild(input);
-            part.appendChild(answer);
-            this._resultBox.appendChild(part);
-        }
+        this._resultBox.appendChild(header);
+        this._resultBox.appendChild(body);
     }
 
     /* Shuffles in the answers with arrayOfString into the choices

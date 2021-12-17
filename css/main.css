@@ -49,17 +49,24 @@
 }
 
 .entry-result {
+    color: seagreen;
     font-size: 1.5em;
     margin: 0 auto;
+    text-align: center;
+}
+
+.entry-result p rt {
+    display: none;
+}
+
+.entry-result rt {
+    font-size: 0.5em;
+    font-weight: normal;
 }
 
 .entry-result strong {
     font-weight: normal;
     color: #d60838;
-}
-
-.entry-result td {
-    padding: 0.125em;
 }
 
 .entry-header {
