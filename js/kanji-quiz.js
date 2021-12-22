@@ -12,6 +12,33 @@ const mainPage = {
         return e;
     },
     
+    fadeOut(elementToRemove, callbackFunc, totalSeconds = 0.25) {
+        let runOnce = {
+            ran: false,
+            run: function() {
+                if (this.ran == false) {
+                    this.ran = true;
+                    elementToRemove.style.display = "none";
+                    if (callbackFunc)
+                        callbackFunc();
+                }
+            }
+        };
+        elementToRemove.style.opacity = "0";
+        elementToRemove.style.transition = `opacity ${totalSeconds}s`
+        elementToRemove.addEventListener("transitionend", () => runOnce.run());
+        setTimeout(() => runOnce.run(), totalSeconds*1000);
+    },
+    
+    fadeIn(elementToRestore) {
+        elementToRestore.style.removeProperty("display");
+        elementToRestore.style.removeProperty("opacity");
+        let removeTransition = () => {
+            elementToRestore.style.removeProperty("transition");
+        }
+        elementToRestore.addEventListener("transitionend", removeTransition);
+    },
+    
     wordDataToRuby(wordData) {
         let ruby = document.createElement("ruby");
         if (wordData && wordData.parts) {
@@ -98,6 +125,8 @@ mainPage.Quiz.prototype.Entry = class {
         this.container = this.createElem("li", "quiz-entry");
         this.userInput = new this.Solution();
         
+        this._isLocked = false;
+        
         this._choiceBox = this.createElem("ul", "entry-choices");
         this._defBox = this.createElem("p", "entry-def");
         this._headerBox = this.createElem("h1", "entry-header");
@@ -110,6 +139,7 @@ mainPage.Quiz.prototype.Entry = class {
     
     addTo = mainPage.addTo;
     createElem = mainPage.createElem;
+    fadeOut = mainPage.fadeOut;
     Shuffler = mainPage.Shuffler;
     
     // Returns an array containing the string of each choice
@@ -121,9 +151,12 @@ mainPage.Quiz.prototype.Entry = class {
     // Sets each button's text in choices to those of arrayOfString
     // Will add or remove buttons to match the size of the array
     set choices(arrayOfString) {
-        let inputButtonText = (e) => this.userInput.set(e.target.textContent);
-        inputButtonText = (e) => {this.userInput.set(e.target.textContent);
-            this.displayResult(); // here for now until proper implementation
+        let inputButtonText = (e) => {
+            if (this.locked) return;
+            this.userInput.set(e.target.textContent);
+            if (this.userInput.hasAllSet()) {
+                this.locked = true;
+            }
         }
         let buttons = this._choiceBox;
         let buttonsToAdd = arrayOfString.length - buttons.children.length;
@@ -153,6 +186,20 @@ mainPage.Quiz.prototype.Entry = class {
     // Sets the definition's text
     set definition(textContent) {
         this._defBox.textContent = textContent;
+    }
+    
+    get locked() {
+        return this._isLocked;
+    }
+    
+    set locked(aBool) {
+        if (this._isLocked == aBool) return;
+        this._isLocked = aBool;
+        if (aBool == true) {
+            this.fadeOut(this._choiceBox, () => this.displayResult());
+        } else {
+            // undo locking
+        }
     }
     
     // Returns the WordData associated with the Entry
