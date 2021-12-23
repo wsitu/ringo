@@ -49,6 +49,14 @@
     font-size: 0.75em;
 }
 
+.entry-header {
+    border-bottom: solid 2px seagreen;
+}
+
+.entry-header::first-letter {
+    text-transform: capitalize;
+}
+
 .entry-result {
     color: seagreen;
     font-size: 1.5em;
@@ -68,12 +76,6 @@
 .entry-result strong {
     font-weight: normal;
     color: #d60838;
-}
-
-.entry-header {
-    align-items: center;
-    border-bottom: solid 2px seagreen;
-    display: flex;
 }
 
 .entry-word {
