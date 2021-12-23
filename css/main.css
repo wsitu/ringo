@@ -1,4 +1,5 @@
 .entry-body {
+    display: flex;
 }
 
 .entry-choices {
@@ -76,13 +77,17 @@
 }
 
 .entry-word {
-    font-size: 0.75em;
+    align-items: center;
+    border-right: solid 1px rgba(46, 139, 87, 0.25);
+    display: flex;
+    font-size: 2rem;
+    justify-content: center;
     margin: 0 0.5em;
-    min-width: 8em;
+    min-width: 6em;
 }
 
 .entry-word rt {
-    font-size: 0.625em;
+    font-size: 0.5em;
     font-weight: normal;
     margin: 0 0.15em;
 }

@@ -128,10 +128,9 @@ mainPage.Quiz.prototype.Entry = class {
         this._isLocked = false;
         
         this._choiceBox = this.createElem("ul", "entry-choices");
-        this._defBox = this.createElem("p", "entry-def");
         this._headerBox = this.createElem("h1", "entry-header");
         this._resultBox = this.createElem("div", "entry-result");
-        this._wordBox = this.createElem("div", "entry-word");
+        this._wordBox = this.createElem("p", "entry-word");
         
         this._arrangeLayout();
         this.word = wordData;
@@ -178,14 +177,14 @@ mainPage.Quiz.prototype.Entry = class {
             buttons.children[i].children[0].textContent = arrayOfString[i];
     }
     
-    // Returns the definition's string or ""
-    get definition() {
-        return this._defBox.textContent;
+    // Returns the header text of the entry
+    get header() {
+        return this._headerBox.textContent;
     }
     
-    // Sets the definition's text
-    set definition(textContent) {
-        this._defBox.textContent = textContent;
+    // Sets the header text for the entry
+    set header(textContent) {
+        this._headerBox.textContent = textContent;
     }
     
     get locked() {
@@ -212,7 +211,7 @@ mainPage.Quiz.prototype.Entry = class {
         this._wordData = wordData;
         if (!wordData) return;
         let notHidden = (part) => {return part.read || part.text};
-        this.definition = wordData.definition;
+        this.header = wordData.definition;
         this.userInput.word = wordData;
         this.shuffleInChoices();
     }
@@ -254,9 +253,8 @@ mainPage.Quiz.prototype.Entry = class {
     
     _arrangeLayout() {
         this.userInput.addTo(this._wordBox);
-        this._headerBox.appendChild(this._wordBox);
-        this._headerBox.appendChild(this._defBox);
         let bodyBox = this.createElem("div", "entry-body");
+        bodyBox.appendChild(this._wordBox);
         bodyBox.appendChild(this._choiceBox);
         bodyBox.appendChild(this._resultBox);
         this.container.appendChild(this._headerBox);
