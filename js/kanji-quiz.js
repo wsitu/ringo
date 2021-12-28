@@ -125,11 +125,13 @@ mainPage.Quiz.prototype.Entry = class {
         this.container = this.createElem("li", "quiz-entry");
         this.userInput = new this.Solution();
         
+        this._CORRECTTEXT = "\u2714"; //check mark
+        this._INCORRECTTEXT = "\u2716"; //X mark
         this._isLocked = false;
         
         this._choiceBox = this.createElem("ul", "entry-choices");
         this._headerBox = this.createElem("h1", "entry-header");
-        this._resultBox = this.createElem("div", "entry-result");
+        this._resultBox = this.createElem("p", "entry-result");
         this._wordBox = this.createElem("p", "entry-word");
         
         this._arrangeLayout();
@@ -217,15 +219,22 @@ mainPage.Quiz.prototype.Entry = class {
     }
 
     displayResult() {
-        let header = this.createElem("h3");
-        header.appendChild(mainPage.wordDataToRuby(this.word));
-        let body = this.createElem("p");
-        this.userInput.markIncorrect();
-        body.appendChild(this.userInput.container.cloneNode(true));
-        
-        this._resultBox.replaceChildren();
-        this._resultBox.appendChild(header);
-        this._resultBox.appendChild(body);
+        if (this.userInput.check().wrong.length == 0) {
+            this._resultBox.textContent = this._CORRECTTEXT;
+        } else {
+            let replaceWithAnswer = () => { 
+                this.fadeOut(this._resultBox, this.displayAnswer);
+            }
+            let btn = this.createElem("button");
+            btn.textContent = this._INCORRECTTEXT;
+            btn.addEventListener("click", replaceWithAnswer);
+            this._resultBox.replaceChildren(btn);
+        }
+
+    }
+    
+    displayAnswer() {
+        console.log("display answer");
     }
 
     /* Shuffles in the answers with arrayOfString into the choices
