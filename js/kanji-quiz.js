@@ -129,6 +129,7 @@ mainPage.Quiz.prototype.Entry = class {
         this._INCORRECTTEXT = "\u2716"; //X mark
         this._isLocked = false;
         
+        this._answerBox = this.createElem("p", "entry-answer");
         this._choiceBox = this.createElem("ul", "entry-choices");
         this._headerBox = this.createElem("h1", "entry-header");
         this._resultBox = this.createElem("p", "entry-result");
@@ -223,7 +224,7 @@ mainPage.Quiz.prototype.Entry = class {
             this._resultBox.textContent = this._CORRECTTEXT;
         } else {
             let replaceWithAnswer = () => { 
-                this.fadeOut(this._resultBox, this.displayAnswer);
+                this.fadeOut(this._resultBox, () => this.displayAnswer());
             }
             let btn = this.createElem("button");
             btn.textContent = this._INCORRECTTEXT;
@@ -234,7 +235,8 @@ mainPage.Quiz.prototype.Entry = class {
     }
     
     displayAnswer() {
-        console.log("display answer");
+        this.userInput.markIncorrect();
+        this._answerBox.replaceChildren(mainPage.wordDataToRuby(this.word));
     }
 
     /* Shuffles in the answers with arrayOfString into the choices
@@ -266,6 +268,7 @@ mainPage.Quiz.prototype.Entry = class {
         bodyBox.appendChild(this._wordBox);
         bodyBox.appendChild(this._choiceBox);
         bodyBox.appendChild(this._resultBox);
+        bodyBox.appendChild(this._answerBox);
         this.container.appendChild(this._headerBox);
         this.container.appendChild(bodyBox);
     }

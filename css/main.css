@@ -1,3 +1,8 @@
+.entry-answer {
+    color: seagreen;
+    font-size: 3rem;
+}
+
 .entry-body {
     display: flex;
 }
@@ -116,6 +121,7 @@
 
 .entry-word strong {
     color: #d60838;
+    font-weight: normal;
 }
 
 .entry-word button {
