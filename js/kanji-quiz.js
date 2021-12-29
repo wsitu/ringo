@@ -32,11 +32,12 @@ const mainPage = {
     
     fadeIn(elementToRestore) {
         elementToRestore.style.removeProperty("display");
-        elementToRestore.style.removeProperty("opacity");
         let removeTransition = () => {
             elementToRestore.style.removeProperty("transition");
         }
         elementToRestore.addEventListener("transitionend", removeTransition);
+        // delayed to work around display:none disabling transitions
+        setTimeout(() => elementToRestore.style.removeProperty("opacity"), 5);
     },
     
     wordDataToRuby(wordData) {
@@ -137,10 +138,14 @@ mainPage.Quiz.prototype.Entry = class {
         
         this._arrangeLayout();
         this.word = wordData;
+        this._answerBox.style.display = "none";
+        this._resultBox.style.display = "none";
+        
     }
     
     addTo = mainPage.addTo;
     createElem = mainPage.createElem;
+    fadeIn = mainPage.fadeIn;
     fadeOut = mainPage.fadeOut;
     Shuffler = mainPage.Shuffler;
     
@@ -231,12 +236,13 @@ mainPage.Quiz.prototype.Entry = class {
             btn.addEventListener("click", replaceWithAnswer);
             this._resultBox.replaceChildren(btn);
         }
-
+        this.fadeIn(this._resultBox);
     }
     
     displayAnswer() {
         this.userInput.markIncorrect();
         this._answerBox.replaceChildren(mainPage.wordDataToRuby(this.word));
+        this.fadeIn(this._answerBox);
     }
 
     /* Shuffles in the answers with arrayOfString into the choices
