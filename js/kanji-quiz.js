@@ -361,7 +361,7 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
     // Wraps incorrect user inputs inside a <strong>
     // Will be overwritten if the input is set again
     markIncorrect() {
-         for (const sect of this._sections) {
+        for (const sect of this._sections) {
             if (this._isUnset(sect.input)) continue;
             let user = sect.input.textContent;
             if (user != sect.answer) {
@@ -377,7 +377,14 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
         if(this._sections.length == 0) return;
         this.cursor = (this.cursor + 1) % this._sections.length;
     }
-        
+    
+    // Resets the cursor and clears every input
+    resetInput() {
+        for (const section of this._sections)
+            this._resetInput(section.input);
+        this.cursor = 0;
+    }
+    
     // Sets the current input to inputText and moves the cursor to the next one
     // Changes nothing if there are no input elements
     set(inputText) {
