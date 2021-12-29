@@ -205,7 +205,14 @@ mainPage.Quiz.prototype.Entry = class {
         if (aBool == true) {
             this.fadeOut(this._choiceBox, () => this.displayResult());
         } else {
-            // undo locking
+            let restoreUserInput = () => {
+                this.fadeIn(this._choiceBox);
+                this.userInput.resetInput();
+            }
+            if (this._answerBox.style.display != "none")
+                this.fadeOut(this._answerBox, restoreUserInput);
+            else if (this._resultBox.style.display != "none")
+                this.fadeOut(this._resultBox, restoreUserInput);
         }
     }
     
