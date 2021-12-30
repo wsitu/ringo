@@ -5,10 +5,11 @@ const mainPage = {
         parentElement.appendChild(this.container);
     },
     
-    createElem(tagString, classString=null, idString="") {
+    // Returns a tagString element with the remaining args added as classes
+    createElem(tagString /*and class strings*/) {
         let e = document.createElement(tagString);
-        if (classString) e.classList.add(classString);
-        e.id = idString;
+        let classes = Array.prototype.slice.call(arguments, 1);
+        if (classes.length > 0) e.classList.add(...classes);
         return e;
     },
     
