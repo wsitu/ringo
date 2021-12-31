@@ -135,7 +135,7 @@ mainPage.Quiz.prototype.Entry = class {
         this._choiceBox = this.createElem("ul", "entry-choices");
         this._headerBox = this.createElem("h2", "entry-header");
         this._resultBox = this.createElem("p", "entry-result");
-        this._wordBox = this.createElem("p", "entry-word");
+        this._wordBox = this.createElem("div", "entry-word");
         
         this._arrangeLayout();
         this.word = wordData;
@@ -277,7 +277,11 @@ mainPage.Quiz.prototype.Entry = class {
     }
     
     _arrangeLayout() {
-        this.userInput.addTo(this._wordBox);
+        //fix ruby not wrapping when it is a flex item
+        let wordContainer = this.createElem("p");
+        this._wordBox.appendChild(wordContainer);
+        
+        this.userInput.addTo(wordContainer);
         let bodyBox = this.createElem("div", "entry-body");
         bodyBox.appendChild(this._wordBox);
         bodyBox.appendChild(this._choiceBox);
