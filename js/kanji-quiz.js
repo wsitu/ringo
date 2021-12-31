@@ -133,7 +133,7 @@ mainPage.Quiz.prototype.Entry = class {
         
         this._answerBox = this.createElem("p", "entry-answer");
         this._choiceBox = this.createElem("ul", "entry-choices");
-        this._headerBox = this.createElem("h1", "entry-header");
+        this._headerBox = this.createElem("h2", "entry-header");
         this._resultBox = this.createElem("p", "entry-result");
         this._wordBox = this.createElem("p", "entry-word");
         
