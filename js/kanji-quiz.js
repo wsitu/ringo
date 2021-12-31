@@ -298,7 +298,7 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
         this.cursor = 0; // Points at the input for this.set()
         
         this._UNSETCLASS = "quiz-hidden-kanji";
-        this._UNSETTEXT = "〇"
+        this._UNSETTEXT = ""
         this._sections;
         this._wordData;
         

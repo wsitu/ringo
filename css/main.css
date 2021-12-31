@@ -149,5 +149,10 @@
 }
 
 .quiz-hidden-kanji {
+    border: 2px solid;
+    border-radius: 10%;
     color: rgba(46, 139, 87, 0.25);
+    display: inline-block;
+    min-height: 0.75em;
+    min-width: 0.75em;
 }
