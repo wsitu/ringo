@@ -13,6 +13,8 @@ const mainPage = {
         return e;
     },
     
+    // Fades out elementToRemove over totalSeconds then runs callbackFunc
+    //  * overwrites the inline display, opacity, and transition style
     fadeOut(elementToRemove, callbackFunc, totalSeconds = 0.25) {
         let runOnce = {
             ran: false,
@@ -27,10 +29,12 @@ const mainPage = {
         };
         elementToRemove.style.opacity = "0";
         elementToRemove.style.transition = `opacity ${totalSeconds}s`
+        // Transition may not be available, setTimeout may not match the visual
         elementToRemove.addEventListener("transitionend", () => runOnce.run());
         setTimeout(() => runOnce.run(), totalSeconds*1000);
     },
     
+    // Remove and transition from the inline properties used by fadeOut
     fadeIn(elementToRestore) {
         elementToRestore.style.removeProperty("display");
         let removeTransition = () => {
@@ -41,6 +45,7 @@ const mainPage = {
         setTimeout(() => elementToRestore.style.removeProperty("opacity"), 5);
     },
     
+    // Return the wordData represented as a ruby element
     wordDataToRuby(wordData) {
         let ruby = document.createElement("ruby");
         if (wordData && wordData.parts) {
