@@ -148,6 +148,22 @@
     margin: 36px 0;
 }
 
+.quiz-footer {
+    align-items: center;
+    color: seagreen;
+    display: flex;
+    font-size: 2rem;
+    justify-content: center;
+}
+
+.quiz-footer button {
+    background-color: transparent;
+    border: solid 2px;
+    border-radius: 5%;
+    color: inherit;
+    font-size: inherit;
+}
+
 .quiz-hidden-kanji {
     border: 2px solid;
     border-radius: 10%;
@@ -156,3 +172,4 @@
     min-height: 0.75em;
     min-width: 0.75em;
 }
+

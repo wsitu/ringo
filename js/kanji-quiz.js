@@ -67,9 +67,15 @@ mainPage.Quiz = class {
         this.dictionaries = this.dataManager.dictionaries;
         this.entries = [];
 
-        this._entriesBox = this.createElem("ul", "quiz-entries"); 
+        this._entriesBox = this.createElem("ul", "quiz-entries");
+        this._footerBox = this.createElem("div", "quiz-footer");
+        this._submitBtn = this.createElem("button");
+        this._submitBtn.textContent = "Reset";
+        this._submitBtn.addEventListener("click", () => this.processEntries());
         
         this.container.appendChild(this._entriesBox);
+        this.container.appendChild(this._footerBox);
+        this._footerBox.appendChild(this._submitBtn);
         this.createEntries(4, 40);
     }
     
@@ -90,7 +96,6 @@ mainPage.Quiz = class {
             this.entries.push(entry);
             allKanji.reset();
         }
-        console.log(this.entries);
     }
 
     allKanji() {
@@ -101,7 +106,14 @@ mainPage.Quiz = class {
         }
         return total;
     }
- 
+    
+    processEntries() {
+        for (const entry of this.entries) {
+            console.log(entry.userInput.check());
+        }
+        this.createEntries(4, 40);
+    }
+    
     randomWordData(kanjiString) {
         let data = {}
         for (const dict of this.dictionaries) {
