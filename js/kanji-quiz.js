@@ -135,18 +135,18 @@ mainPage.Quiz.prototype.Entry = class {
         this._CORRECTTEXT = "\u2714"; //check mark
         this._INCORRECTTEXT = "\u2716"; //X mark
         this._isLocked = false;
+        this._wordData;
         
-        this._answerBox = this.createElem("p", "entry-answer");
-        this._choiceBox = this.createElem("ul", "entry-choices");
-        this._headerBox = this.createElem("h2", "entry-header");
-        this._resultBox = this.createElem("p", "entry-result");
-        this._wordBox = this.createElem("div", "entry-word");
+        this._answerBox = this.createElem("p",   "entry-answer");
+        this._choiceBox = this.createElem("ul",  "entry-choices");
+        this._headerBox = this.createElem("h2",  "entry-header");
+        this._resultBox = this.createElem("p",   "entry-result");
+        this._wordBox   = this.createElem("div", "entry-word");
         
         this._arrangeLayout();
         this.word = wordData;
         this._answerBox.style.display = "none";
         this._resultBox.style.display = "none";
-        
     }
     
     addTo = mainPage.addTo;
@@ -201,10 +201,13 @@ mainPage.Quiz.prototype.Entry = class {
         this._headerBox.textContent = textContent;
     }
     
+    // Returns whether the user can input to this entry
     get locked() {
         return this._isLocked;
     }
     
+    // If true, prevents further user input and shows if the input is correct
+    // If false, allows user input again
     set locked(aBool) {
         if (this._isLocked == aBool) return;
         this._isLocked = aBool;
@@ -231,12 +234,12 @@ mainPage.Quiz.prototype.Entry = class {
     set word(wordData) {
         this._wordData = wordData;
         if (!wordData) return;
-        let notHidden = (part) => {return part.read || part.text};
         this.header = wordData.definition;
         this.userInput.word = wordData;
         this.shuffleInChoices();
     }
 
+    // Hides the choices and shows whethter the user input was correct or not
     displayResult() {
         if (this.userInput.check().wrong.length == 0) {
             this._resultBox.textContent = this._CORRECTTEXT;
@@ -252,6 +255,7 @@ mainPage.Quiz.prototype.Entry = class {
         this.fadeIn(this._resultBox);
     }
     
+    // Shows the word in the answer element
     displayAnswer() {
         this.userInput.markIncorrect();
         this._answerBox.replaceChildren(mainPage.wordDataToRuby(this.word));
