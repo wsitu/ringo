@@ -62,29 +62,35 @@ const mainPage = {
 
 mainPage.Quiz = class {
     constructor(dataManager) {
+        this.container = this.createElem("ul", "quiz"); 
         this.dataManager = dataManager;
-        this.container = document.createElement("div"); 
-        this.entries = 4;
         this.dictionaries = this.dataManager.dictionaries;
-        this.selections = [];
+        this.entries = [];
+
+        this._entriesBox = this.createElem("ul", "quiz-entries"); 
         
-        this.createEntries();
+        this.container.appendChild(this._entriesBox);
+        this.createEntries(4, 40);
     }
     
     addTo = mainPage.addTo;
+    createElem = mainPage.createElem;
+    Shuffler = mainPage.Shuffler;
     
-    createEntries() {
-        let list = this.createElem("ul", "quiz"); 
-        let words = this.randomed();
-        this.selections = [];
+    // Replaces the current entries with new ones
+    createEntries(numberOfEntries, numberOfChoices) {
+        this._entriesBox.replaceChildren();
+        this.entries = [];
+        let words = this.randomed(numberOfEntries);
         let allKanji = new this.Shuffler(this.allKanji());
         for (const data of words) {
             let entry = new this.Entry(data);
-            entry.addTo(list);
-            entry.shuffleInChoices(allKanji.random(40));
+            entry.addTo(this._entriesBox);
+            entry.shuffleInChoices(allKanji.random(numberOfChoices));
+            this.entries.push(entry);
             allKanji.reset();
         }
-        this.container.appendChild(list);
+        console.log(this.entries);
     }
 
     allKanji() {
@@ -108,19 +114,11 @@ mainPage.Quiz = class {
         return data[randomWord];
     }
     
-    randomed() {
-        let words = new this.Shuffler(this.allKanji()).random(this.entries);
+    randomed(numberOfWords) {
+        let words = new this.Shuffler(this.allKanji()).random(numberOfWords);
         return words.map( word => this.randomWordData(word) );
     }
-    
-    createElem(tagString, classString=null, idString="") {
-        let e = document.createElement(tagString);
-        if (classString) e.classList.add(classString);
-        e.id = idString;
-        return e;
-    }
-    
-    Shuffler = mainPage.Shuffler;
+
 }
 
 mainPage.Quiz.prototype.Entry = class {
