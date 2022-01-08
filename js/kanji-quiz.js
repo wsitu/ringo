@@ -70,7 +70,7 @@ mainPage.Quiz = class {
         this._entriesBox = this.createElem("ul", "quiz-entries");
         this._footerBox = this.createElem("div", "quiz-footer");
         this._submitBtn = this.createElem("button");
-        this._submitBtn.textContent = "Reset";
+        this._submitBtn.innerHTML = "<ruby>次<rt>Next</rt></ruby>";
         this._submitBtn.addEventListener("click", () => this.processEntries());
         
         this.container.appendChild(this._entriesBox);
@@ -109,9 +109,29 @@ mainPage.Quiz = class {
     
     processEntries() {
         for (const entry of this.entries) {
-            console.log(entry.userInput.check());
+            if (!entry.userInput.hasAllSet()) {
+                // add visual
+                let headers = entry.container.getElementsByTagName("h2");
+                if (headers.length > 0) headers[0].scrollIntoView();
+                return;
+            }
         }
-        this.createEntries(4, 40);
+        let rightTotal = {};
+        let addRightTotal = function (key, right, total) {
+            if (key in rightTotal) {
+                rightTotal[key].right += right;
+                rightTotal[key].total += total;
+            } else
+                rightTotal[key] = {right: right, total: total};
+        }
+        for (const entry of this.entries) {
+            let result = entry.userInput.check();
+            for (const part of result.right)
+                addRightTotal(part, 1, 1);
+            for (const part of result.wrong)
+                addRightTotal(part, 0, 1);
+        }
+        console.log(rightTotal);
     }
     
     randomWordData(kanjiString) {

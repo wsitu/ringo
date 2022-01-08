@@ -152,16 +152,25 @@
     align-items: center;
     color: seagreen;
     display: flex;
-    font-size: 2rem;
+    font-size: 1.5rem;
     justify-content: center;
 }
 
 .quiz-footer button {
     background-color: transparent;
     border: solid 2px;
-    border-radius: 5%;
+    border-radius: 128px;
     color: inherit;
     font-size: inherit;
+    min-width: 256px;
+    padding: 4px;
+    ruby-position: under;
+}
+
+.quiz-footer button:hover {
+    background-color: seagreen;
+    border-style: hidden;
+    color: #fff5e0;
 }
 
 .quiz-hidden-kanji {
