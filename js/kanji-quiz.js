@@ -67,13 +67,16 @@ mainPage.Quiz = class {
         this.dictionaries = this.dataManager.dictionaries;
         this.entries = [];
 
-        this._entriesBox = this.createElem("ul", "quiz-entries");
-        this._footerBox = this.createElem("div", "quiz-footer");
+        this._entriesBox = this.createElem("ul",  "quiz-entries");
+        this._footerBox  = this.createElem("div", "quiz-footer");
+        this._resultBox  = this.createElem("div",  "quiz-result");
+        
         this._submitBtn = this.createElem("button");
         this._submitBtn.innerHTML = "<ruby>次<rt>Next</rt></ruby>";
         this._submitBtn.addEventListener("click", () => this.processEntries());
         
         this.container.appendChild(this._entriesBox);
+        this.container.appendChild(this._resultBox);
         this.container.appendChild(this._footerBox);
         this._footerBox.appendChild(this._submitBtn);
         this.createEntries(4, 40);
@@ -107,6 +110,22 @@ mainPage.Quiz = class {
         return total;
     }
     
+    displayResult(rightTotalObj) {
+        let results = this.createElem("dl");
+        for (const part of Object.keys(rightTotalObj)) {
+            let key = this.createElem("dt");
+            key.textContent = part;
+            let ratio = rightTotalObj[part].right / rightTotalObj[part].total;
+            let accuracy = this.createElem("dd");
+            accuracy.textContent = `${ratio * 100}%`;
+            let wrapper = this.createElem("div");
+            wrapper.appendChild(key);
+            wrapper.appendChild(accuracy);
+            results.appendChild(wrapper);
+        }
+        this._resultBox.replaceChildren(results);
+    }
+    
     processEntries() {
         for (const entry of this.entries) {
             if (!entry.userInput.hasAllSet()) {
@@ -131,7 +150,7 @@ mainPage.Quiz = class {
             for (const part of result.wrong)
                 addRightTotal(part, 0, 1);
         }
-        console.log(rightTotal);
+        this.displayResult(rightTotal);
     }
     
     randomWordData(kanjiString) {
