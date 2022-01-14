@@ -69,12 +69,14 @@ mainPage.Quiz = class {
 
         this._entriesBox = this.createElem("ul",  "quiz-entries");
         this._footerBox  = this.createElem("div", "quiz-footer");
+        this._introBox   = this.createElem("div", "quiz-intro");
         this._resultBox  = this.createElem("div",  "quiz-result");
         
         this._submitBtn = this.createElem("button");
         this._submitBtn.innerHTML = "<ruby>次<rt>Next</rt></ruby>";
         this._submitBtn.addEventListener("click", () => this.processEntries());
         
+        this.container.appendChild(this._introBox);
         this.container.appendChild(this._entriesBox);
         this.container.appendChild(this._resultBox);
         this.container.appendChild(this._footerBox);
@@ -91,6 +93,7 @@ mainPage.Quiz = class {
         this._entriesBox.replaceChildren();
         this.entries = [];
         let words = this.randomed(numberOfEntries);
+        this.displayIntro(words);
         let allKanji = new this.Shuffler(this.allKanji());
         for (const data of words) {
             let entry = new this.Entry(data);
@@ -108,6 +111,23 @@ mainPage.Quiz = class {
                 total.add(kanji);
         }
         return total;
+    }
+    
+    displayIntro(wordDataArray = []) {
+        let container = this.createElem("table");
+        let words = this.createElem("tbody");
+        for (const data of wordDataArray) {
+            let row = this.createElem("tr");
+            let wordText = this.createElem("th");
+            wordText.appendChild(mainPage.wordDataToRuby(data));
+            let wordDef = this.createElem("td");
+            wordDef.textContent = data.definition;
+            row.appendChild(wordText);
+            row.appendChild(wordDef);
+            words.appendChild(row);
+        }
+        container.appendChild(words);
+        this._introBox.replaceChildren(container);
     }
     
     displayResult(rightTotalObj) {

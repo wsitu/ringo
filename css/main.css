@@ -182,6 +182,18 @@
     min-width: 0.75em;
 }
 
+.quiz-intro table {
+    margin: 0 auto;
+}
+
+.quiz-intro td, .quiz-intro th{
+    padding: 8px 16px;
+}
+.quiz-intro th {
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
 .quiz-result dl{
     display: flex;
     flex-wrap: wrap;
