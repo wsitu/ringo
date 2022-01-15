@@ -194,21 +194,3 @@
     font-weight: normal;
 }
 
-.quiz-result dl{
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-}
-
-.quiz-result dd {
-}
-
-.quiz-result div {
-    margin: 4px;
-}
-
-.quiz-result dt {
-    font-size: 1.5rem;
-}
-
-
