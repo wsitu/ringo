@@ -73,17 +73,13 @@ mainPage.Quiz = class {
         
         this._submitBtn = this.createElem("button");
         this._submitBtn.innerHTML = "<ruby>次<rt>Next</rt></ruby>";
-        this._submitBtn.onclick = () => this._startQuiz();
         
         this.container.appendChild(this._introBox);
         this.container.appendChild(this._entriesBox);
         this.container.appendChild(this._footerBox);
         this._footerBox.appendChild(this._submitBtn);
         
-        this._entriesBox.style.display = "none";
-        let randomWords = this.randomed(4);
-        this.displayIntro(randomWords);
-        this.createEntries(randomWords, 40);
+        this.restart(true);
     }
     
     addTo = mainPage.addTo;
@@ -168,6 +164,22 @@ mainPage.Quiz = class {
         return words.map( word => this.randomWordData(word) );
     }
     
+    restart(isFirstRestart = false) {
+        let setupQuiz = () => {
+            let randomWords = this.randomed(4);
+            this.displayIntro(randomWords);
+            this.fadeIn(this._introBox);
+            this.createEntries(randomWords, 40);
+            this._submitBtn.onclick = () => this._startQuiz();
+        }
+        if (isFirstRestart) {
+            this._entriesBox.style.display = "none";
+            setupQuiz();
+        }
+        else
+            this.fadeOut(this._entriesBox, setupQuiz);
+    }
+    
     _startQuiz() {
         let addSubmitEvent = () => {
             this.fadeIn(this._entriesBox);
@@ -188,7 +200,7 @@ mainPage.Quiz = class {
         }
         this._submitBtn.onclick = undefined;
         this.processEntries();
-        // reset quiz
+        this.restart();
     }
 }
 
