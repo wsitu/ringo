@@ -73,27 +73,31 @@ mainPage.Quiz = class {
         
         this._submitBtn = this.createElem("button");
         this._submitBtn.innerHTML = "<ruby>次<rt>Next</rt></ruby>";
-        this._submitBtn.addEventListener("click", () => this.processEntries());
+        this._submitBtn.onclick = () => this._startQuiz();
         
         this.container.appendChild(this._introBox);
         this.container.appendChild(this._entriesBox);
         this.container.appendChild(this._footerBox);
         this._footerBox.appendChild(this._submitBtn);
-        this.createEntries(4, 40);
+        
+        this._entriesBox.style.display = "none";
+        let randomWords = this.randomed(4);
+        this.displayIntro(randomWords);
+        this.createEntries(randomWords, 40);
     }
     
     addTo = mainPage.addTo;
     createElem = mainPage.createElem;
+    fadeIn = mainPage.fadeIn;
+    fadeOut = mainPage.fadeOut;
     Shuffler = mainPage.Shuffler;
     
     // Replaces the current entries with new ones
-    createEntries(numberOfEntries, numberOfChoices) {
+    createEntries(wordDataArray, numberOfChoices) {
         this._entriesBox.replaceChildren();
         this.entries = [];
-        let words = this.randomed(numberOfEntries);
-        this.displayIntro(words);
         let allKanji = new this.Shuffler(this.allKanji());
-        for (const data of words) {
+        for (const data of wordDataArray) {
             let entry = new this.Entry(data);
             entry.addTo(this._entriesBox);
             entry.shuffleInChoices(allKanji.random(numberOfChoices));
@@ -129,14 +133,6 @@ mainPage.Quiz = class {
     }
     
     processEntries() {
-        for (const entry of this.entries) {
-            if (!entry.userInput.hasAllSet()) {
-                // add visual
-                let headers = entry.container.getElementsByTagName("h2");
-                if (headers.length > 0) headers[0].scrollIntoView();
-                return;
-            }
-        }
         let rightTotal = {};
         let addRightTotal = function (key, right, total) {
             if (key in rightTotal) {
@@ -171,7 +167,29 @@ mainPage.Quiz = class {
         let words = new this.Shuffler(this.allKanji()).random(numberOfWords);
         return words.map( word => this.randomWordData(word) );
     }
-
+    
+    _startQuiz() {
+        let addSubmitEvent = () => {
+            this.fadeIn(this._entriesBox);
+            this._submitBtn.onclick = () => this._submitQuiz();
+        }
+        this._submitBtn.onclick = undefined;
+        this.fadeOut(this._introBox, addSubmitEvent);
+    }
+    
+    _submitQuiz() {
+        for (const entry of this.entries) {
+            if (!entry.userInput.hasAllSet()) {
+                // add visual
+                let headers = entry.container.getElementsByTagName("h2");
+                if (headers.length > 0) headers[0].scrollIntoView();
+                return;
+            }
+        }
+        this._submitBtn.onclick = undefined;
+        this.processEntries();
+        // reset quiz
+    }
 }
 
 mainPage.Quiz.prototype.Entry = class {
