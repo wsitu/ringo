@@ -66,6 +66,7 @@ mainPage.Quiz = class {
         this.dataManager = dataManager;
         this.dictionaries = this.dataManager.dictionaries;
         this.entries = [];
+        this.tempAccuracy = {};
 
         this._entriesBox = this.createElem("ul",  "quiz-entries");
         this._footerBox  = this.createElem("div", "quiz-footer");
@@ -144,7 +145,7 @@ mainPage.Quiz = class {
             for (const part of result.wrong)
                 addRightTotal(part, 0, 1);
         }
-        console.log(rightTotal);
+        return rightTotal;
     }
     
     randomWordData(kanjiString) {
@@ -180,6 +181,16 @@ mainPage.Quiz = class {
             this.fadeOut(this._entriesBox, setupQuiz);
     }
     
+    saveAccuracy(accData) {
+        for (const kanji of Object.keys(accData)) {
+            if (!(kanji in this.tempAccuracy))
+                this.tempAccuracy[kanji] = {right: 0, total: 0};
+            this.tempAccuracy[kanji].right += accData[kanji].right;
+            this.tempAccuracy[kanji].total += accData[kanji].total;
+            // add to local storage here when ready to implement
+        }
+    }
+    
     _startQuiz() {
         let addSubmitEvent = () => {
             this.fadeIn(this._entriesBox);
@@ -199,7 +210,7 @@ mainPage.Quiz = class {
             }
         }
         this._submitBtn.onclick = undefined;
-        this.processEntries();
+        this.saveAccuracy(this.processEntries());
         this.restart();
     }
 }
