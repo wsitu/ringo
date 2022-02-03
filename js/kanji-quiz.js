@@ -129,6 +129,9 @@ mainPage.Quiz = class {
         this._introBox.replaceChildren(container);
     }
     
+    wordsByAccuracy(numberOfWords, chance = 0.90) {
+    }
+    
     processEntries() {
         let rightTotal = {};
         let addRightTotal = function (key, right, total) {
@@ -540,6 +543,78 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
     }
     
 }
+
+
+mainPage.AccuracyShuffler = class {
+    
+    constructor() {
+        this.shuffled = new Map();
+        this.total = 0;
+        this.weights = new Map();
+    }
+    
+    random(length=this.weights.size) {
+        let selected = [];
+        for (let i = 0; i < length; i++) {
+            let targetWeight = Math.random() * this.total;
+            let currentWeight = 0;
+            for (const [key, weight] of this.weights) {
+                if (weight <= 0) continue;
+                currentWeight += weight;
+                if (currentWeight > targetWeight) {
+                    selected.push(key);
+                    this.shuffle(key);
+                    break;
+                }
+            }
+        }
+        return selected;
+    }
+    
+    reset() {
+        for (const key of this.shuffled.keys())
+            this.unshuffle(key);
+    }
+    
+    set(key, weight) {
+        if (this.shuffled.has(key)) {
+            this.shuffled.set(key, weight);
+            return;
+        }
+        this.total += weight;
+        if (this.weights.has(key))
+            this.total -= this.weights.get(key)
+        this.weights.set(key, weight);
+    }
+    
+    delete(key) {
+        if (this.shuffled.has(key)) {
+            this.shuffled.delete(key);
+            return;
+        }
+        if (this.weights.has(key)) {
+            this.total -= this.weights.get(key);
+            this.weights.delete(key);
+        }
+    }
+    
+    shuffle(key) {
+        if (this.weights.has(key)) {
+            this.shuffled.set(key, this.weights.get(key));
+            this.total -= this.weights.get(key);
+            this.weights.delete(key);
+        }
+    }
+    
+    unshuffle(key) {
+        if (this.shuffled.has(key)) {
+            this.weights.set(key, this.shuffled.get(key));
+            this.total += this.weights.get(key);
+            this.shuffled.delete(key);
+        }
+    }
+}
+
 
 mainPage.Shuffler = class {
     /* Shuffles a copy of an array and provides random elements one at a time.
