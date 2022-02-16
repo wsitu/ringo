@@ -45,6 +45,32 @@ const mainPage = {
         setTimeout(() => elementToRestore.style.removeProperty("opacity"), 5);
     },
     
+    /* Returns an array of random weight shuffled mapObject keys 
+       <mapobject> is a Map or object with a [key, value] iterator 
+            value is the weight of key and is a real between [10^-4, 10^15]
+    */
+    weightedShuffle(mapObject) {
+        let weightedOrder = x => [x[0], Math.pow(Math.random(), 1/x[1])];
+        let shuffled = Array.from(mapObject, weightedOrder);
+        shuffled.sort( (a, b) => b[1] - a[1] ); // High to low weightedOrder
+        return shuffled.map(x => x[0]);
+        
+    /* Efraimidis & Spirakis: Weighted random sampling with a reservoir (2006)
+       Probablity of random_1^(1 / weight_1) >= random_2^(1 / weight_2) is
+       equal to weight_1 / (weight_1 + weight_2) so applying this function to
+       every weight and sorting it descending produces a permutation of the
+       keys without calculating the total weight.
+       
+       If slow use resevoir version that doesn't need to sort.
+       
+       If wider range of input is needed, use ln(random)/weight instead, seen
+       in the blog post by Tim Vieira "Gumbel-max trick and weighted reservoir
+       sampling (2014)." I don't know enough in this area to confirm the
+       correctness but tests over 1 million iterations in JS show similar
+       results while allowing weights around [10^-300, 10^300].
+    */
+    },
+    
     // Return the wordData represented as a ruby element
     wordDataToRuby(wordData) {
         let ruby = document.createElement("ruby");
@@ -543,78 +569,6 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
     }
     
 }
-
-
-mainPage.AccuracyShuffler = class {
-    
-    constructor() {
-        this.shuffled = new Map();
-        this.total = 0;
-        this.weights = new Map();
-    }
-    
-    random(length=this.weights.size) {
-        let selected = [];
-        for (let i = 0; i < length; i++) {
-            let targetWeight = Math.random() * this.total;
-            let currentWeight = 0;
-            for (const [key, weight] of this.weights) {
-                if (weight <= 0) continue;
-                currentWeight += weight;
-                if (currentWeight > targetWeight) {
-                    selected.push(key);
-                    this.shuffle(key);
-                    break;
-                }
-            }
-        }
-        return selected;
-    }
-    
-    reset() {
-        for (const key of this.shuffled.keys())
-            this.unshuffle(key);
-    }
-    
-    set(key, weight) {
-        if (this.shuffled.has(key)) {
-            this.shuffled.set(key, weight);
-            return;
-        }
-        this.total += weight;
-        if (this.weights.has(key))
-            this.total -= this.weights.get(key)
-        this.weights.set(key, weight);
-    }
-    
-    delete(key) {
-        if (this.shuffled.has(key)) {
-            this.shuffled.delete(key);
-            return;
-        }
-        if (this.weights.has(key)) {
-            this.total -= this.weights.get(key);
-            this.weights.delete(key);
-        }
-    }
-    
-    shuffle(key) {
-        if (this.weights.has(key)) {
-            this.shuffled.set(key, this.weights.get(key));
-            this.total -= this.weights.get(key);
-            this.weights.delete(key);
-        }
-    }
-    
-    unshuffle(key) {
-        if (this.shuffled.has(key)) {
-            this.weights.set(key, this.shuffled.get(key));
-            this.total += this.weights.get(key);
-            this.shuffled.delete(key);
-        }
-    }
-}
-
 
 mainPage.Shuffler = class {
     /* Shuffles a copy of an array and provides random elements one at a time.
