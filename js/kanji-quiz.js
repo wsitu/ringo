@@ -92,7 +92,7 @@ mainPage.Quiz = class {
         this.dataManager = dataManager;
         this.dictionaries = this.dataManager.dictionaries;
         this.entries = [];
-        this.tempAccuracy = {};
+        this.tempAccuracy = new Map();
 
         this._entriesBox = this.createElem("ul",  "quiz-entries");
         this._footerBox  = this.createElem("div", "quiz-footer");
@@ -113,7 +113,17 @@ mainPage.Quiz = class {
     createElem = mainPage.createElem;
     fadeIn = mainPage.fadeIn;
     fadeOut = mainPage.fadeOut;
+    weightedShuffle = mainPage.weightedShuffle;
     Shuffler = mainPage.Shuffler;
+    
+    /* Returns a weight between [1, 3 000 000 000] when
+       1 <= totalNum <= 1 000 000 000  and 0 <= rightNum <= totalNum
+       A low totalNum or accuracy results in a higher weight
+    */
+    accuracyWeight(rightNum, totalNum) {
+        let wrongRatio = (totalNum - rightNum)/totalNum;
+        return (wrongRatio * wrongRatio + 0.5/totalNum) * 2000000000;
+    }
     
     // Replaces the current entries with new ones
     createEntries(wordDataArray, numberOfChoices) {
@@ -155,7 +165,34 @@ mainPage.Quiz = class {
         this._introBox.replaceChildren(container);
     }
     
-    wordsByAccuracy(numberOfWords, chance = 0.90) {
+    newWords(numberOfWords, weightedChance = 0.90) {
+        let numOfWeighted = 0;
+        for (let i = 0; i < numberOfWords; i++) {
+            if (Math.random() < weightedChance)
+                numOfWeighted++;
+        }
+        let words = new Map();
+        let weightedKanji = [];
+        if (numOfWeighted > 0) {
+            let weights = new Map();
+            for (const [key, data] of this.tempAccuracy) 
+                weights.set(key, this.accuracyWeight(data.right, data.total));
+            weightedKanji = this.weightedShuffle(weights);
+        }
+        for (let i = 0; i < weightedKanji.length; i++) {
+            if (words.size >= numOfWeighted) break;
+            let wordData = this.randomWordData(weightedKanji[i])
+            words.set(wordData.text, wordData);
+        }
+        let randomNum = numberOfWords - words.size;
+        let randomed = new this.Shuffler(this.allKanji());
+        while (words.size < numberOfWords) {
+            let nextKanji = randomed.random(1);
+            if (nextKanji.length < 1) break;
+            let wordData = this.randomWordData(nextKanji[0]);
+            words.set(wordData.text, wordData);
+        }
+        return Array.from(words.values());
     }
     
     processEntries() {
@@ -189,17 +226,12 @@ mainPage.Quiz = class {
         return data[randomWord];
     }
     
-    randomed(numberOfWords) {
-        let words = new this.Shuffler(this.allKanji()).random(numberOfWords);
-        return words.map( word => this.randomWordData(word) );
-    }
-    
     restart(isFirstRestart = false) {
         let setupQuiz = () => {
-            let randomWords = this.randomed(4);
-            this.displayIntro(randomWords);
+            let chosenWords = this.newWords(4);
+            this.displayIntro(chosenWords);
             this.fadeIn(this._introBox);
-            this.createEntries(randomWords, 40);
+            this.createEntries(chosenWords, 40);
             this._submitBtn.onclick = () => this._startQuiz();
         }
         if (isFirstRestart) {
@@ -212,10 +244,11 @@ mainPage.Quiz = class {
     
     saveAccuracy(accData) {
         for (const kanji of Object.keys(accData)) {
-            if (!(kanji in this.tempAccuracy))
-                this.tempAccuracy[kanji] = {right: 0, total: 0};
-            this.tempAccuracy[kanji].right += accData[kanji].right;
-            this.tempAccuracy[kanji].total += accData[kanji].total;
+            if (!this.tempAccuracy.has(kanji))
+                this.tempAccuracy.set(kanji, {right: 0, total: 0});
+            let data = this.tempAccuracy.get(kanji);
+            data.right += accData[kanji].right;
+            data.total += accData[kanji].total;
             // add to local storage here when ready to implement
         }
     }
