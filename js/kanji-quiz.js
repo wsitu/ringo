@@ -94,6 +94,8 @@ mainPage.Quiz = class {
         this.entries      = [];
         this.tempAccuracy = new Map();
 
+        this._kanjiCache = new Set();
+
         this._entriesBox = this.createElem("ul",  "quiz-entries");
         this._footerBox  = this.createElem("div", "quiz-footer");
         this._introBox   = this.createElem("div", "quiz-intro");
@@ -120,20 +122,7 @@ mainPage.Quiz = class {
         return (wrongRatio * wrongRatio + 0.5/totalNum) * 2000000000;
     }
     
-    // Replaces the current entries with new ones
-    createEntries(wordDataArray, numberOfChoices) {
-        this._entriesBox.replaceChildren();
-        this.entries = [];
-        let allKanji = new this.Shuffler(this.allKanji());
-        for (const data of wordDataArray) {
-            let entry = new this.Entry(data);
-            entry.addTo(this._entriesBox);
-            entry.shuffleInChoices(allKanji.random(numberOfChoices));
-            this.entries.push(entry);
-            allKanji.reset();
-        }
-    }
-
+    // Returns a set of every kanji used in all words of the dictionaries
     allKanji() {
         let total = new Set();
         for (const dict of this.dictionaries) {
@@ -141,6 +130,20 @@ mainPage.Quiz = class {
                 total.add(kanji);
         }
         return total;
+    }
+    
+    // Replaces the current entries with new ones
+    createEntries(wordDataArray, numberOfChoices) {
+        this._entriesBox.replaceChildren();
+        this.entries = [];
+        let allKanji = new this.Shuffler(this._kanjiCache);
+        for (const data of wordDataArray) {
+            let entry = new this.Entry(data);
+            entry.addTo(this._entriesBox);
+            entry.shuffleInChoices(allKanji.random(numberOfChoices));
+            this.entries.push(entry);
+            allKanji.reset();
+        }
     }
     
     displayIntro(wordDataArray = []) {
@@ -180,7 +183,7 @@ mainPage.Quiz = class {
             words.set(wordData.text, wordData);
         }
         let randomNum = numberOfWords - words.size;
-        let randomed = new this.Shuffler(this.allKanji());
+        let randomed = new this.Shuffler(this._kanjiCache);
         while (words.size < numberOfWords) {
             let nextKanji = randomed.random(1);
             if (nextKanji.length < 1) break;
@@ -223,6 +226,7 @@ mainPage.Quiz = class {
     
     restart(isFirstRestart = false) {
         let setupQuiz = () => {
+            this._kanjiCache = this.allKanji();
             let chosenWords = this.newWords(4);
             this.displayIntro(chosenWords);
             this.fadeIn(this._introBox);
