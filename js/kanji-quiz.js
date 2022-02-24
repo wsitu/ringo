@@ -88,23 +88,18 @@ const mainPage = {
 
 mainPage.Quiz = class {
     constructor(dataManager) {
-        this.container = this.createElem("ul", "quiz"); 
-        this.dataManager = dataManager;
+        this.container    = this.createElem("div", "quiz"); 
+        this.dataManager  = dataManager;
         this.dictionaries = this.dataManager.dictionaries;
-        this.entries = [];
+        this.entries      = [];
         this.tempAccuracy = new Map();
 
         this._entriesBox = this.createElem("ul",  "quiz-entries");
         this._footerBox  = this.createElem("div", "quiz-footer");
         this._introBox   = this.createElem("div", "quiz-intro");
-        
-        this._submitBtn = this.createElem("button");
+        this._submitBtn  = this.createElem("button");
         this._submitBtn.innerHTML = "<ruby>次<rt>Next</rt></ruby>";
-        
-        this.container.appendChild(this._introBox);
-        this.container.appendChild(this._entriesBox);
-        this.container.appendChild(this._footerBox);
-        this._footerBox.appendChild(this._submitBtn);
+        this._arrangeLayout();
         
         this.restart(true);
     }
@@ -251,6 +246,13 @@ mainPage.Quiz = class {
             data.total += accData[kanji].total;
             // add to local storage here when ready to implement
         }
+    }
+    
+    _arrangeLayout() {
+        this.container.appendChild(this._introBox);
+        this.container.appendChild(this._entriesBox);
+        this.container.appendChild(this._footerBox);
+        this._footerBox.appendChild(this._submitBtn);
     }
     
     _startQuiz() {
