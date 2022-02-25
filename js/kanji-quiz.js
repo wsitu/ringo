@@ -169,27 +169,9 @@ mainPage.Quiz = class {
             if (Math.random() < weightedChance)
                 numOfWeighted++;
         }
-        let words = new Map();
-        let weightedKanji = [];
-        if (numOfWeighted > 0) {
-            let weights = new Map();
-            for (const [key, data] of this.tempAccuracy) 
-                weights.set(key, this.accuracyWeight(data.right, data.total));
-            weightedKanji = this.weightedShuffle(weights);
-        }
-        for (let i = 0; i < weightedKanji.length; i++) {
-            if (words.size >= numOfWeighted) break;
-            let wordData = this.randomWordData(weightedKanji[i])
-            words.set(wordData.text, wordData);
-        }
-        let randomNum = numberOfWords - words.size;
-        let randomed = new this.Shuffler(this._kanjiCache);
-        while (words.size < numberOfWords) {
-            let nextKanji = randomed.random(1);
-            if (nextKanji.length < 1) break;
-            let wordData = this.randomWordData(nextKanji[0]);
-            words.set(wordData.text, wordData);
-        }
+        let words = this.weightedWords(numOfWeighted);
+        let randomed = this.randomWords(numberOfWords - words.size, words);
+        randomed.forEach( (value, key) => words.set(key, value) );
         return Array.from(words.values());
     }
     
@@ -224,6 +206,21 @@ mainPage.Quiz = class {
         return data[randomWord];
     }
     
+    // Returns a map of WordData.text : WordData randomly from random kanjis
+    // exclude is a Set or Map whose keys are strings of words to exclude
+    randomWords(numberOfWords, exclude = new Map()) {
+        let words = new Map();
+        let randomed = new this.Shuffler(this._kanjiCache);
+        while (words.size < numberOfWords) {
+            let nextKanji = randomed.random(1);
+            if (nextKanji.length < 1) break;
+            let wordData = this.randomWordData(nextKanji[0]);
+            if(!exclude.has(wordData.text))
+                words.set(wordData.text, wordData);
+        }
+        return words;
+    }
+    
     restart(isFirstRestart = false) {
         let setupQuiz = () => {
             this._kanjiCache = this.allKanji();
@@ -250,6 +247,26 @@ mainPage.Quiz = class {
             data.total += accData[kanji].total;
             // add to local storage here when ready to implement
         }
+    }
+    
+    // Returns a map of WordData.text : WordData randomly from kanjis by weight
+    // exclude is a Set or Map whose keys are strings of words to exclude
+    weightedWords(numberOfWords, exclude = new Map()) {
+        let words = new Map();
+        let weightedKanji = [];
+        if (numberOfWords > 0) {
+            let weights = new Map();
+            for (const [key, data] of this.tempAccuracy) 
+                weights.set(key, this.accuracyWeight(data.right, data.total));
+            weightedKanji = this.weightedShuffle(weights);
+        }
+        for (let i = 0; i < weightedKanji.length; i++) {
+            if (words.size >= numberOfWords) break;
+            let wordData = this.randomWordData(weightedKanji[i])
+            if (!exclude.has(wordData.text))
+                words.set(wordData.text, wordData);
+        }
+        return words;
     }
     
     _arrangeLayout() {
