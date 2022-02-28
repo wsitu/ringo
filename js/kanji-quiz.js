@@ -194,29 +194,40 @@ mainPage.Quiz = class {
         return rightTotal;
     }
     
-    randomWordData(kanjiString) {
-        let data = {}
+    /* Returns a Map of WordData.text : WordData in random order by kanji
+       <kanjiString> only returns WordDatas whose .kanji contains this string
+       <maxLength> the max number of words in the return
+       <filters> array of Map(keys) or Set(values) of WordData.text to exclude
+    */
+    shuffledWordData(kanjiString, maxLength = Infinity, filters = []) {
+        let data = new Map();
         for (const dict of this.dictionaries) {
             let words = dict.wordsWith(kanjiString);
-            for (const word of words)
-                data[word] = dict.getData(word);
+            words.forEach( (word) => data.set(word, dict.getData(word)) );
         }
-        let words = Object.keys(data);
-        let randomWord = words[Math.floor(Math.random() * words.length)];
-        return data[randomWord];
+        for (const word of data.keys()) {
+            for (const filter of filters) {
+                if (filter.has(word)){
+                    data.delete(word);
+                    break;
+                }
+            }
+        }
+        let shuffler = new this.Shuffler(Array.from(data.values()), false);
+        return shuffler.random(maxLength);
     }
     
     // Returns a map of WordData.text : WordData randomly from random kanjis
     // exclude is a Set or Map whose keys are strings of words to exclude
     randomWords(numberOfWords, exclude = new Map()) {
         let words = new Map();
+        let blacklists = [words, exclude];
         let randomed = new this.Shuffler(this._kanjiCache);
         while (words.size < numberOfWords) {
             let nextKanji = randomed.random(1);
             if (nextKanji.length < 1) break;
-            let wordData = this.randomWordData(nextKanji[0]);
-            if(!exclude.has(wordData.text))
-                words.set(wordData.text, wordData);
+            let wordDatas = this.shuffledWordData(nextKanji[0], 1, blacklists)
+            wordDatas.forEach( (wdData) => words.set(wdData.text, wdData) );
         }
         return words;
     }
@@ -260,11 +271,11 @@ mainPage.Quiz = class {
                 weights.set(key, this.accuracyWeight(data.right, data.total));
             weightedKanji = this.weightedShuffle(weights);
         }
+        let blacklists = [words, exclude];
         for (let i = 0; i < weightedKanji.length; i++) {
             if (words.size >= numberOfWords) break;
-            let wordData = this.randomWordData(weightedKanji[i])
-            if (!exclude.has(wordData.text))
-                words.set(wordData.text, wordData);
+            let wordDatas = this.shuffledWordData(weightedKanji[i], 1, blacklists);
+            wordDatas.forEach( (wdData) => words.set(wdData.text, wdData) );
         }
         return words;
     }
