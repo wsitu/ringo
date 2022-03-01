@@ -169,8 +169,8 @@ mainPage.Quiz = class {
             if (Math.random() < weightedChance)
                 numOfWeighted++;
         }
-        let words = this.weightedWords(numOfWeighted);
-        let randomed = this.randomWords(numberOfWords - words.size, words);
+        let words = this.weightedWords(numOfWeighted,);
+        let randomed = this.randomWords(numberOfWords - words.size, [words]);
         randomed.forEach( (value, key) => words.set(key, value) );
         return Array.from(words.values());
     }
@@ -194,7 +194,8 @@ mainPage.Quiz = class {
         return rightTotal;
     }
     
-    /* Returns a Map of WordData.text : WordData in random order by kanji
+    /* Returns a Map of WordData.text : WordData of all WordDatas from the
+       dictionaries that contain the input kanji.
        <kanjiString> only returns WordDatas whose .kanji contains this string
        <maxLength> the max number of words in the return
        <filters> array of Map(keys) or Set(values) of WordData.text to exclude
@@ -217,13 +218,15 @@ mainPage.Quiz = class {
         return shuffler.random(maxLength);
     }
     
-    // Returns a map of WordData.text : WordData randomly from random kanjis
-    // exclude is a Set or Map whose keys are strings of words to exclude
-    randomWords(numberOfWords, exclude = new Map()) {
+    /* Returns a map of WordData.text : WordData randomly from random kanjis
+       <maxLength> the max number of words in the return
+       <filters> array of Map(keys) or Set(values) of WordData.text to exclude
+    */
+    randomWords(maxLength, filters = []) {
         let words = new Map();
-        let blacklists = [words, exclude];
+        let blacklists = filters.concat(words);
         let randomed = new this.Shuffler(this._kanjiCache);
-        while (words.size < numberOfWords) {
+        while (words.size < maxLength) {
             let nextKanji = randomed.random(1);
             if (nextKanji.length < 1) break;
             let wordDatas = this.shuffledWordData(nextKanji[0], 1, blacklists)
@@ -260,20 +263,22 @@ mainPage.Quiz = class {
         }
     }
     
-    // Returns a map of WordData.text : WordData randomly from kanjis by weight
-    // exclude is a Set or Map whose keys are strings of words to exclude
-    weightedWords(numberOfWords, exclude = new Map()) {
+    /* Returns a map of WordData.text : WordData randomly from kanjis by weight
+       <maxLength> the max number of words in the return
+       <filters> array of Map(keys) or Set(values) of WordData.text to exclude
+    */
+    weightedWords(maxLength, filters = []) {
         let words = new Map();
         let weightedKanji = [];
-        if (numberOfWords > 0) {
+        if (maxLength > 0) {
             let weights = new Map();
             for (const [key, data] of this.tempAccuracy) 
                 weights.set(key, this.accuracyWeight(data.right, data.total));
             weightedKanji = this.weightedShuffle(weights);
         }
-        let blacklists = [words, exclude];
+        let blacklists = filters.concat(words);
         for (let i = 0; i < weightedKanji.length; i++) {
-            if (words.size >= numberOfWords) break;
+            if (words.size >= maxLength) break;
             let wordDatas = this.shuffledWordData(weightedKanji[i], 1, blacklists);
             wordDatas.forEach( (wdData) => words.set(wdData.text, wdData) );
         }
