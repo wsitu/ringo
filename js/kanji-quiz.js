@@ -125,14 +125,13 @@ mainPage.Quiz = class {
     // Returns a set of every kanji used in all words of the dictionaries
     allKanji() {
         let total = new Set();
-        for (const dict of this.dictionaries) {
-            for (const kanji of dict.kanjiList)
-                total.add(kanji);
-        }
+        for (const dict of this.dictionaries)
+            dict.kanjiList.forEach( (kanji) => total.add(kanji) );
         return total;
     }
     
-    // Replaces the current entries with new ones
+    // Replace current entries with ones from each wordDataArray element
+    // each with random numberOfChoices 
     createEntries(wordDataArray, numberOfChoices) {
         this._entriesBox.replaceChildren();
         this.entries = [];
@@ -146,6 +145,7 @@ mainPage.Quiz = class {
         }
     }
     
+    // Fill the quiz intro with the information of each word in wordDataArray
     displayIntro(wordDataArray = []) {
         let container = this.createElem("table");
         let words = this.createElem("tbody");
@@ -163,6 +163,10 @@ mainPage.Quiz = class {
         this._introBox.replaceChildren(container);
     }
     
+    /* Returns an array of WordData from a mix of weighted and randomed kanji
+       <numberOfWords> max number of words in the return
+       <weightedChance> [0, 1.0] chance that a word comes from weighted shuffle
+    */
     newWords(numberOfWords, weightedChance = 0.90) {
         let numOfWeighted = 0;
         for (let i = 0; i < numberOfWords; i++) {
@@ -175,6 +179,8 @@ mainPage.Quiz = class {
         return Array.from(words.values());
     }
     
+    // Returns an object containing the corrected of each fully set entry
+    // in the format of { <kanji>: {right: #, total: #} }
     processEntries() {
         let rightTotal = {};
         let addRightTotal = function (key, right, total) {
@@ -235,6 +241,7 @@ mainPage.Quiz = class {
         return words;
     }
     
+    // Starts a new quiz or if isFirstRestart = true, initializes the first one
     restart(isFirstRestart = false) {
         let setupQuiz = () => {
             this._kanjiCache = this.allKanji();
@@ -252,6 +259,8 @@ mainPage.Quiz = class {
             this.fadeOut(this._entriesBox, setupQuiz);
     }
     
+    // Saves accuracy data of entries for weighted shuffling
+    // <accData> object in the same format as the return of processEntries()
     saveAccuracy(accData) {
         for (const kanji of Object.keys(accData)) {
             if (!this.tempAccuracy.has(kanji))
