@@ -103,14 +103,7 @@ mainPage.Quiz = class {
         this._mainBox    = this.createElem("div");
         this._submitBtn  = this.createElem("button", "quiz-control-button");
         
-        this._arrangeLayout();
-        let buttonText = "<ruby>次<rt>Next</rt></ruby>"
-        this._beginBtn.innerHTML = buttonText;
-        this._beginBtn.addEventListener("click", () => this._startQuiz());
-        this._submitBtn.innerHTML = buttonText;
-        this._submitBtn.addEventListener("click", () => this._submitQuiz());
-        this._mainBox.style.display = "none";
-        this.restart();
+        this._init();
     }
     
     addTo = mainPage.addTo;
@@ -300,6 +293,17 @@ mainPage.Quiz = class {
         this._introBox.appendChild(this._beginBtn);
         this._mainBox.appendChild(this._entriesBox);
         this._mainBox.appendChild(this._submitBtn);
+    }
+    
+    _init() {
+        let buttonText = "<ruby>次<rt>Next</rt></ruby>"
+        this._beginBtn.innerHTML  = buttonText;
+        this._submitBtn.innerHTML = buttonText;
+        this._beginBtn.addEventListener("click", () => this._startQuiz());
+        this._submitBtn.addEventListener("click", () => this._submitQuiz());
+        this._mainBox.style.display = "none";
+        this._arrangeLayout();
+        this.restart();
     }
     
     _startQuiz() {
