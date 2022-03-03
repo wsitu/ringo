@@ -286,6 +286,7 @@ mainPage.Quiz = class {
         return words;
     }
     
+    // Parent child hierarchy setup
     _arrangeLayout() {
         this.container.appendChild(this._introBox);
         this.container.appendChild(this._mainBox);
@@ -295,6 +296,7 @@ mainPage.Quiz = class {
         this._mainBox.appendChild(this._submitBtn);
     }
     
+    // One time setup on constructor
     _init() {
         let buttonText = "<ruby>次<rt>Next</rt></ruby>"
         this._beginBtn.innerHTML  = buttonText;
@@ -306,11 +308,14 @@ mainPage.Quiz = class {
         this.restart();
     }
     
+    // Hides the intro, displays the entries, and enables the submit button
     _startQuiz() {
         this._submitBtn.disabled = false;
         this.fadeOut(this._introBox, () => this.fadeIn(this._mainBox) );
     }
     
+    // If all entries are set, processes the input on entries and restarts
+    // Disables itself to prevent multiple calls on the same entries
     _submitQuiz() {
         for (const entry of this.entries) {
             if (!entry.userInput.hasAllSet()) {
