@@ -138,6 +138,25 @@
     display: inline;
 }
 
+.quiz-control-button {
+    background-color: transparent;
+    border: solid 2px;
+    border-radius: 128px;
+    color: seagreen;
+    display: block;
+    font-size: 1.5rem;
+    margin: 16px auto;
+    min-width: 256px;
+    padding: 4px;
+    ruby-position: under;
+}
+
+.quiz-control-button:hover {
+    background-color: seagreen;
+    border-color: seagreen;
+    color: #fff5e0;
+}
+
 .quiz-entries {
     list-style: none;
     margin: 0 auto;
@@ -146,31 +165,6 @@
 
 .quiz-entry {
     margin: 36px 0;
-}
-
-.quiz-footer {
-    align-items: center;
-    color: seagreen;
-    display: flex;
-    font-size: 1.5rem;
-    justify-content: center;
-}
-
-.quiz-footer button {
-    background-color: transparent;
-    border: solid 2px;
-    border-radius: 128px;
-    color: inherit;
-    font-size: inherit;
-    min-width: 256px;
-    padding: 4px;
-    ruby-position: under;
-}
-
-.quiz-footer button:hover {
-    background-color: seagreen;
-    border-style: hidden;
-    color: #fff5e0;
 }
 
 .quiz-hidden-kanji {

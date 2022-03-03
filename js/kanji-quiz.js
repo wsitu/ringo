@@ -96,14 +96,21 @@ mainPage.Quiz = class {
 
         this._kanjiCache = new Set();
 
+        this._beginBtn   = this.createElem("button", "quiz-control-button");
         this._entriesBox = this.createElem("ul",  "quiz-entries");
-        this._footerBox  = this.createElem("div", "quiz-footer");
+        this._intro      = this.createElem("table");
         this._introBox   = this.createElem("div", "quiz-intro");
-        this._submitBtn  = this.createElem("button");
-        this._submitBtn.innerHTML = "<ruby>次<rt>Next</rt></ruby>";
-        this._arrangeLayout();
+        this._mainBox    = this.createElem("div");
+        this._submitBtn  = this.createElem("button", "quiz-control-button");
         
-        this.restart(true);
+        this._arrangeLayout();
+        let buttonText = "<ruby>次<rt>Next</rt></ruby>"
+        this._beginBtn.innerHTML = buttonText;
+        this._beginBtn.addEventListener("click", () => this._startQuiz());
+        this._submitBtn.innerHTML = buttonText;
+        this._submitBtn.addEventListener("click", () => this._submitQuiz());
+        this._mainBox.style.display = "none";
+        this.restart();
     }
     
     addTo = mainPage.addTo;
@@ -147,7 +154,6 @@ mainPage.Quiz = class {
     
     // Fill the quiz intro with the information of each word in wordDataArray
     displayIntro(wordDataArray = []) {
-        let container = this.createElem("table");
         let words = this.createElem("tbody");
         for (const data of wordDataArray) {
             let row = this.createElem("tr");
@@ -159,8 +165,7 @@ mainPage.Quiz = class {
             row.appendChild(wordDef);
             words.appendChild(row);
         }
-        container.appendChild(words);
-        this._introBox.replaceChildren(container);
+        this._intro.replaceChildren(words);
     }
     
     /* Returns an array of WordData from a mix of weighted and randomed kanji
@@ -241,22 +246,16 @@ mainPage.Quiz = class {
         return words;
     }
     
-    // Starts a new quiz or if isFirstRestart = true, initializes the first one
-    restart(isFirstRestart = false) {
-        let setupQuiz = () => {
-            this._kanjiCache = this.allKanji();
-            let chosenWords = this.newWords(4);
-            this.displayIntro(chosenWords);
+    // Sets up a new quiz with new words
+    restart() {
+        let delayedSetup = () => {
             this.fadeIn(this._introBox);
             this.createEntries(chosenWords, 40);
-            this._submitBtn.onclick = () => this._startQuiz();
         }
-        if (isFirstRestart) {
-            this._entriesBox.style.display = "none";
-            setupQuiz();
-        }
-        else
-            this.fadeOut(this._entriesBox, setupQuiz);
+        this._kanjiCache = this.allKanji();
+        let chosenWords = this.newWords(4);
+        this.displayIntro(chosenWords);
+        this.fadeOut(this._mainBox, delayedSetup);
     }
     
     // Saves accuracy data of entries for weighted shuffling
@@ -296,18 +295,16 @@ mainPage.Quiz = class {
     
     _arrangeLayout() {
         this.container.appendChild(this._introBox);
-        this.container.appendChild(this._entriesBox);
-        this.container.appendChild(this._footerBox);
-        this._footerBox.appendChild(this._submitBtn);
+        this.container.appendChild(this._mainBox);
+        this._introBox.appendChild(this._intro);
+        this._introBox.appendChild(this._beginBtn);
+        this._mainBox.appendChild(this._entriesBox);
+        this._mainBox.appendChild(this._submitBtn);
     }
     
     _startQuiz() {
-        let addSubmitEvent = () => {
-            this.fadeIn(this._entriesBox);
-            this._submitBtn.onclick = () => this._submitQuiz();
-        }
-        this._submitBtn.onclick = undefined;
-        this.fadeOut(this._introBox, addSubmitEvent);
+        this._submitBtn.disabled = false;
+        this.fadeOut(this._introBox, () => this.fadeIn(this._mainBox) );
     }
     
     _submitQuiz() {
@@ -319,7 +316,7 @@ mainPage.Quiz = class {
                 return;
             }
         }
-        this._submitBtn.onclick = undefined;
+        this._submitBtn.disabled = true;
         this.saveAccuracy(this.processEntries());
         this.restart();
     }
