@@ -87,14 +87,26 @@ const mainPage = {
 };
 
 mainPage.Quiz = class {
+    
+    /* Creates a quiz for users to interact with from the dictionaries of words
+       in the DataManager class passed in. Records the accuracy of each kanji
+       based of the correctness of the user input and assigns a larger weight 
+       to lower accuracy kanjis for future word selection.
+       
+       container    | parent element of all elements created by this
+       dataManager  | source of WordData and interaction with local storage
+       dictionaries | array of dictionaries to get WordData from
+       entries      | array of current Entry that users can input to
+       tempAccuracy | kanji accuracy of the current session(reset on page load)
+    */
     constructor(dataManager) {
-        this.container    = this.createElem("div", "quiz"); 
+        this.container    = this.createElem("div", "quiz");
         this.dataManager  = dataManager;
         this.dictionaries = this.dataManager.dictionaries;
         this.entries      = [];
         this.tempAccuracy = new Map();
 
-        this._kanjiCache = new Set();
+        this._kanjiCache; // reuse same copy of all kanjis per restart
 
         this._beginBtn   = this.createElem("button", "quiz-control-button");
         this._entriesBox = this.createElem("ul",  "quiz-entries");
