@@ -93,17 +93,24 @@ mainPage.Quiz = class {
        based of the correctness of the user input and assigns a larger weight 
        to lower accuracy kanjis for future word selection.
        
+       choiceRange  | object with {div: , min: , max: } where # of choices is
+                    | floor(<score>/<div>) + <min> capped at <max>
        container    | parent element of all elements created by this
        dataManager  | source of WordData and interaction with local storage
        dictionaries | array of dictionaries to get WordData from
        entries      | array of current Entry that users can input to
+       entryRange   | same as choiceRange but for the # of entries
+       score        | number of times a quiz was submit as 100% correct 
        tempAccuracy | kanji accuracy of the current session(reset on page load)
     */
     constructor(dataManager) {
+        this.choiceRange  = {div: 2, min: 8, max: 20};
         this.container    = this.createElem("div", "quiz");
         this.dataManager  = dataManager;
         this.dictionaries = this.dataManager.dictionaries;
         this.entries      = [];
+        this.entryRange   = {div: 4, min: 1, max: 10};
+        this.score        = 0;
         this.tempAccuracy = new Map();
 
         this._kanjiCache; // reuse same copy of all kanjis per restart
@@ -253,12 +260,16 @@ mainPage.Quiz = class {
     
     // Sets up a new quiz with new words
     restart() {
+        let numFromScore = (rangeObj) => {
+            return Math.min(rangeObj.max, 
+                Math.floor(this.score/rangeObj.div) + rangeObj.min);
+        }
         let delayedSetup = () => {
             this.fadeIn(this._introBox);
-            this.createEntries(chosenWords, 40);
+            this.createEntries(chosenWords, numFromScore(this.choiceRange));
         }
         this._kanjiCache = this.allKanji();
-        let chosenWords = this.newWords(4);
+        let chosenWords = this.newWords(numFromScore(this.entryRange));
         this.displayIntro(chosenWords);
         this.fadeOut(this._mainBox, delayedSetup);
     }
@@ -338,7 +349,16 @@ mainPage.Quiz = class {
             }
         }
         this._submitBtn.disabled = true;
-        this.saveAccuracy(this.processEntries());
+        let result = this.processEntries();
+        this.saveAccuracy(result);
+        
+        this.score++;
+        for (const accuracy of Object.values(result)) {
+            if (accuracy.right < accuracy.total) {
+                this.score--;
+                break;
+            }  
+        }
         this.restart();
     }
 }
