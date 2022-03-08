@@ -93,6 +93,7 @@ mainPage.Quiz = class {
        based of the correctness of the user input and assigns a larger weight 
        to lower accuracy kanjis for future word selection.
        
+       accChance    | [0, 1] chance that words are picked by kanji accuracy
        choiceRange  | object with {div: , min: , max: } where # of choices is
                     | floor(<score>/<div>) + <min> capped at <max>
        container    | parent element of all elements created by this
@@ -104,6 +105,7 @@ mainPage.Quiz = class {
        tempAccuracy | kanji accuracy of the current session(reset on page load)
     */
     constructor(dataManager) {
+        this.accChance = 0.75;
         this.choiceRange  = {div: 2, min: 8, max: 20};
         this.container    = this.createElem("div", "quiz");
         this.dataManager  = dataManager;
@@ -184,7 +186,7 @@ mainPage.Quiz = class {
        <numberOfWords> max number of words in the return
        <weightedChance> [0, 1.0] chance that a word comes from weighted shuffle
     */
-    newWords(numberOfWords, weightedChance = 0.90) {
+    newWords(numberOfWords, weightedChance = 0.75) {
         let numOfWeighted = 0;
         for (let i = 0; i < numberOfWords; i++) {
             if (Math.random() < weightedChance)
@@ -269,7 +271,8 @@ mainPage.Quiz = class {
             this.createEntries(chosenWords, numFromScore(this.choiceRange));
         }
         this._kanjiCache = this.allKanji();
-        let chosenWords = this.newWords(numFromScore(this.entryRange));
+        let entryNum = numFromScore(this.entryRange);
+        let chosenWords = this.newWords(entryNum, this.accChance);
         this.displayIntro(chosenWords);
         this.fadeOut(this._mainBox, delayedSetup);
     }
