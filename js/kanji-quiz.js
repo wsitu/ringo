@@ -4,12 +4,21 @@ const mainPage = {
     addTo(parentElement) {
         parentElement.appendChild(this.container);
     },
-    
-    // Returns a tagString element with the remaining args added as classes
-    createElem(tagString /*and class strings*/) {
-        let e = document.createElement(tagString);
-        let classes = Array.prototype.slice.call(arguments, 1);
-        if (classes.length > 0) e.classList.add(...classes);
+
+    /* Returns an element of the given tag, attribute, and content
+       <elConfig> element config with the following keys
+           tag:  (required) string of the type of html element to return
+           attr: (optional) object representing html attribute: value
+           text: (optional) string of the text content (not tml)
+           html: (optional) string of the html content (overwrites text)
+    */
+    createElem(elConfig = {tag: "div", attr: {}, html: "", text: ""}) {
+        let e = document.createElement(elConfig.tag);
+        if (elConfig.text) e.textContent = elConfig.text;
+        if (elConfig.html) e.innerHTML = elConfig.html;
+        let attributes = elConfig.attr || {};
+        for (const [key, value] of Object.entries(attributes))
+            e.setAttribute(key, value);
         return e;
     },
     
@@ -107,7 +116,7 @@ mainPage.Quiz = class {
     constructor(dataManager) {
         this.accChance = 0.75;
         this.choiceRange  = {div: 2, min: 8, max: 20};
-        this.container    = this.createElem("div", "quiz");
+        this.container    = this.createElem("div", {class: "quiz"});
         this.dataManager  = dataManager;
         this.dictionaries = this.dataManager.dictionaries;
         this.entries      = [];
@@ -117,12 +126,12 @@ mainPage.Quiz = class {
 
         this._kanjiCache; // reuse same copy of all kanjis per restart
 
-        this._beginBtn   = this.createElem("button", "quiz-control-button");
-        this._entriesBox = this.createElem("ul",  "quiz-entries");
-        this._intro      = this.createElem("table");
-        this._introBox   = this.createElem("div", "quiz-intro");
-        this._mainBox    = this.createElem("div");
-        this._submitBtn  = this.createElem("button", "quiz-control-button");
+        this._beginBtn   = this.createElem({tag: "button", attr: {class: "quiz-control-button"}});
+        this._entriesBox = this.createElem({tag: "ul",  attr: {class: "quiz-entries"}});
+        this._intro      = this.createElem({tag: "table"});
+        this._introBox   = this.createElem({tag: "div", attr: {class: "quiz-intro"}});
+        this._mainBox    = this.createElem({tag: "div"});
+        this._submitBtn  = this.createElem({tag: "button", attr: {class: "quiz-control-button"}});
         
         this._init();
     }
@@ -168,12 +177,12 @@ mainPage.Quiz = class {
     
     // Fill the quiz intro with the information of each word in wordDataArray
     displayIntro(wordDataArray = []) {
-        let words = this.createElem("tbody");
+        let words = this.createElem({tag: "tbody"});
         for (const data of wordDataArray) {
-            let row = this.createElem("tr");
-            let wordText = this.createElem("th");
+            let row = this.createElem({tag: "tr"});
+            let wordText = this.createElem({tag: "th"});
             wordText.appendChild(mainPage.wordDataToRuby(data));
-            let wordDef = this.createElem("td");
+            let wordDef = this.createElem({tag: "td"});
             wordDef.textContent = data.definition;
             row.appendChild(wordText);
             row.appendChild(wordDef);
@@ -372,7 +381,7 @@ mainPage.Quiz.prototype.Entry = class {
        components of the word among other false buttons.
     */
     constructor(wordData) {
-        this.container = this.createElem("li", "quiz-entry");
+        this.container = this.createElem({tag: "li", attr: {class: "quiz-entry"}});
         this.userInput = new this.Solution();
         
         this._CORRECTTEXT = "\u2714"; //check mark
@@ -380,11 +389,11 @@ mainPage.Quiz.prototype.Entry = class {
         this._isLocked = false;
         this._wordData;
         
-        this._answerBox = this.createElem("p",   "entry-answer");
-        this._choiceBox = this.createElem("ul",  "entry-choices");
-        this._headerBox = this.createElem("h2",  "entry-header");
-        this._resultBox = this.createElem("p",   "entry-result");
-        this._wordBox   = this.createElem("div", "entry-word");
+        this._answerBox = this.createElem({tag: "p",   attr: {class: "entry-answer"}});
+        this._choiceBox = this.createElem({tag: "ul",  attr: {class: "entry-choices"}});
+        this._headerBox = this.createElem({tag: "h2",  attr: {class: "entry-header"}});
+        this._resultBox = this.createElem({tag: "p",   attr: {class: "entry-result"}});
+        this._wordBox   = this.createElem({tag: "div", attr: {class: "entry-word"}});
         
         this._arrangeLayout();
         this.word = wordData;
@@ -418,8 +427,8 @@ mainPage.Quiz.prototype.Entry = class {
         let buttonsToAdd = arrayOfString.length - buttons.children.length;
         if (buttonsToAdd > 0) {
             for (let i = 0; i < buttonsToAdd; i++) {
-                let listElement = this.createElem("li");
-                let btn = this.createElem("button");
+                let listElement = this.createElem({tag: "li"});
+                let btn = this.createElem({tag: "button"});
                 btn.type = "button";
                 btn.addEventListener("click", inputButtonText);
                 listElement.appendChild(btn);
@@ -490,7 +499,7 @@ mainPage.Quiz.prototype.Entry = class {
             let replaceWithAnswer = () => { 
                 this.fadeOut(this._resultBox, () => this.displayAnswer());
             }
-            let btn = this.createElem("button");
+            let btn = this.createElem({tag: "button"});
             btn.textContent = this._INCORRECTTEXT;
             btn.addEventListener("click", replaceWithAnswer);
             this._resultBox.replaceChildren(btn);
@@ -530,11 +539,11 @@ mainPage.Quiz.prototype.Entry = class {
     
     _arrangeLayout() {
         //fix ruby not wrapping when it is a flex item
-        let wordContainer = this.createElem("p");
+        let wordContainer = this.createElem({tag: "p"});
         this._wordBox.appendChild(wordContainer);
         
         this.userInput.addTo(wordContainer);
-        let bodyBox = this.createElem("div", "entry-body");
+        let bodyBox = this.createElem({tag: "div", attr: {class: "entry-body"}});
         bodyBox.appendChild(this._wordBox);
         bodyBox.appendChild(this._choiceBox);
         bodyBox.appendChild(this._resultBox);
@@ -550,7 +559,7 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
        non empty read will be hidden and converted into an input field.
     */
     constructor(wordData) {   
-        this.container = this.createElem("ruby");
+        this.container = this.createElem({tag: "ruby"});
         this.cursor = 0; // Points at the input for this.set()
         
         this._UNSETCLASS = "quiz-hidden-kanji";
@@ -592,7 +601,7 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
                 this._addInput(part.text);
             else
                 this._addText(part.text);
-            let reading = this.createElem("rt");
+            let reading = this.createElem({tag: "rt"});
             reading.textContent = part.read;
             this.container.appendChild(reading);
         }
@@ -629,7 +638,7 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
             if (this._isUnset(sect.input)) continue;
             let user = sect.input.textContent;
             if (user != sect.answer) {
-                let highlight = this.createElem("strong");
+                let highlight = this.createElem({tag: "strong"});
                 highlight.textContent = user;
                 sect.input.replaceChildren(highlight);
             }
@@ -666,7 +675,7 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
     // Adds each character in textToHide as an input and hides it
     _addInput(textToHide) {
         for (const character of textToHide) {
-            let input = this.createElem("span");
+            let input = this.createElem({tag: "span"});
             this._resetInput(input);
             this._sections.push({answer: character, input: input});
             this.container.appendChild(input);
@@ -675,7 +684,7 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
     
     // Adds textToDisplay as normal text to be shown
     _addText(textToDisplay) {
-        let txt = this.createElem("span");
+        let txt = this.createElem({tag: "span"});
         txt.textContent = textToDisplay;
         this.container.appendChild(txt);
     }
