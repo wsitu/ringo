@@ -1,4 +1,4 @@
-const mainPage = {
+const kanjiQuiz = {
     
     // Adds an object with a container HTML element to parentElement
     addTo(parentElement) {
@@ -95,7 +95,7 @@ const mainPage = {
     }
 };
 
-mainPage.Quiz = class {
+kanjiQuiz.Quiz = class {
     
     /* Creates a quiz for users to interact with from the dictionaries of words
        in the DataManager class passed in. Records the accuracy of each kanji
@@ -136,12 +136,12 @@ mainPage.Quiz = class {
         this._init();
     }
     
-    addTo = mainPage.addTo;
-    createElem = mainPage.createElem;
-    fadeIn = mainPage.fadeIn;
-    fadeOut = mainPage.fadeOut;
-    weightedShuffle = mainPage.weightedShuffle;
-    Shuffler = mainPage.Shuffler;
+    addTo = kanjiQuiz.addTo;
+    createElem = kanjiQuiz.createElem;
+    fadeIn = kanjiQuiz.fadeIn;
+    fadeOut = kanjiQuiz.fadeOut;
+    weightedShuffle = kanjiQuiz.weightedShuffle;
+    Shuffler = kanjiQuiz.Shuffler;
     
     /* Returns a weight between [1, 3 000 000 000] when
        1 <= totalNum <= 1 000 000 000  and 0 <= rightNum <= totalNum
@@ -181,7 +181,7 @@ mainPage.Quiz = class {
         for (const data of wordDataArray) {
             let row = this.createElem({tag: "tr"});
             let wordText = this.createElem({tag: "th"});
-            wordText.appendChild(mainPage.wordDataToRuby(data));
+            wordText.appendChild(kanjiQuiz.wordDataToRuby(data));
             let wordDef = this.createElem({tag: "td"});
             wordDef.textContent = data.definition;
             row.appendChild(wordText);
@@ -375,7 +375,7 @@ mainPage.Quiz = class {
     }
 }
 
-mainPage.Quiz.prototype.Entry = class {
+kanjiQuiz.Quiz.prototype.Entry = class {
     
     /* Creates an entry to display wordData's information but hides the
        components of the word among other false buttons.
@@ -401,11 +401,11 @@ mainPage.Quiz.prototype.Entry = class {
         this._resultBox.style.display = "none";
     }
     
-    addTo = mainPage.addTo;
-    createElem = mainPage.createElem;
-    fadeIn = mainPage.fadeIn;
-    fadeOut = mainPage.fadeOut;
-    Shuffler = mainPage.Shuffler;
+    addTo = kanjiQuiz.addTo;
+    createElem = kanjiQuiz.createElem;
+    fadeIn = kanjiQuiz.fadeIn;
+    fadeOut = kanjiQuiz.fadeOut;
+    Shuffler = kanjiQuiz.Shuffler;
     
     // Returns an array containing the string of each choice
     get choices() {
@@ -510,7 +510,7 @@ mainPage.Quiz.prototype.Entry = class {
     // Shows the word in the answer element
     displayAnswer() {
         this.userInput.markIncorrect();
-        this._answerBox.replaceChildren(mainPage.wordDataToRuby(this.word));
+        this._answerBox.replaceChildren(kanjiQuiz.wordDataToRuby(this.word));
         this.fadeIn(this._answerBox);
     }
 
@@ -553,7 +553,7 @@ mainPage.Quiz.prototype.Entry = class {
     }
 }
 
-mainPage.Quiz.prototype.Entry.prototype.Solution = class {
+kanjiQuiz.Quiz.prototype.Entry.prototype.Solution = class {
     /* Creates a partial display of the WordData and provides a method
        to set and check the input of a solution. Parts of WordData with a
        non empty read will be hidden and converted into an input field.
@@ -570,8 +570,8 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
         this.word = wordData;
     }
 
-    addTo = mainPage.addTo;
-    createElem = mainPage.createElem;
+    addTo = kanjiQuiz.addTo;
+    createElem = kanjiQuiz.createElem;
     
     // Returns an array of the correct characters to be inputted
     get answers() {
@@ -701,7 +701,7 @@ mainPage.Quiz.prototype.Entry.prototype.Solution = class {
     
 }
 
-mainPage.Shuffler = class {
+kanjiQuiz.Shuffler = class {
     /* Shuffles a copy of an array and provides random elements one at a time.
        Best used for obtaining a small subset of random elements from a larger
        array. Performs slower than a normal shuffle, use a simpler
