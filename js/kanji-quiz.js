@@ -1,5 +1,7 @@
 const kanjiQuiz = {
     
+    settings: settings.kanjiQuiz,
+    
     // Adds an object with a container HTML element to parentElement
     addTo(parentElement) {
         parentElement.appendChild(this.container);
@@ -114,30 +116,31 @@ kanjiQuiz.Quiz = class {
        tempAccuracy | kanji accuracy of the current session(reset on page load)
     */
     constructor(dataManager) {
-        this.accChance = 0.75;
-        this.choiceRange  = {div: 2, min: 8, max: 20};
-        this.container    = this.createElem("div", {class: "quiz"});
+        this.accChance    = this.settings.js.weightedWordRatio;
+        this.choiceRange  = this.settings.js.entryChoices;
+        this.container    = this.createElem(this.settings.html.container);
         this.dataManager  = dataManager;
         this.dictionaries = this.dataManager.dictionaries;
         this.entries      = [];
-        this.entryRange   = {div: 4, min: 1, max: 10};
+        this.entryRange   = this.settings.js.entries;
         this.score        = 0;
         this.tempAccuracy = new Map();
 
         this._kanjiCache; // reuse same copy of all kanjis per restart
 
-        this._beginBtn   = this.createElem({tag: "button", attr: {class: "quiz-control-button"}});
-        this._entriesBox = this.createElem({tag: "ul",  attr: {class: "quiz-entries"}});
-        this._intro      = this.createElem({tag: "table"});
-        this._introBox   = this.createElem({tag: "div", attr: {class: "quiz-intro"}});
-        this._mainBox    = this.createElem({tag: "div"});
-        this._submitBtn  = this.createElem({tag: "button", attr: {class: "quiz-control-button"}});
+        this._beginBtn   = this.createElem(this.settings.html.beginBtn);
+        this._entriesBox = this.createElem(this.settings.html.entries);
+        this._intro      = this.createElem(this.settings.html.wordsBox);
+        this._introBox   = this.createElem(this.settings.html.intro);
+        this._mainBox    = this.createElem(this.settings.html.body);
+        this._submitBtn  = this.createElem(this.settings.html.submitBtn);
         
         this._init();
     }
     
     addTo = kanjiQuiz.addTo;
     createElem = kanjiQuiz.createElem;
+    settings = kanjiQuiz.settings.quiz;
     fadeIn = kanjiQuiz.fadeIn;
     fadeOut = kanjiQuiz.fadeOut;
     weightedShuffle = kanjiQuiz.weightedShuffle;
@@ -177,12 +180,12 @@ kanjiQuiz.Quiz = class {
     
     // Fill the quiz intro with the information of each word in wordDataArray
     displayIntro(wordDataArray = []) {
-        let words = this.createElem({tag: "tbody"});
+        let words = this.createElem(this.settings.html.wordsBody);
         for (const data of wordDataArray) {
-            let row = this.createElem({tag: "tr"});
-            let wordText = this.createElem({tag: "th"});
+            let row = this.createElem(this.settings.html.word);
+            let wordText = this.createElem(this.settings.html.wordText);
             wordText.appendChild(kanjiQuiz.wordDataToRuby(data));
-            let wordDef = this.createElem({tag: "td"});
+            let wordDef = this.createElem(this.settings.html.wordDef);
             wordDef.textContent = data.definition;
             row.appendChild(wordText);
             row.appendChild(wordDef);
