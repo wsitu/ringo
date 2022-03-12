@@ -5,12 +5,20 @@ const settings = {
 };
 
 settings.kanjiQuiz.quiz.html = {
-    beginBtn: {tag : "button", attr: { class: "quiz-control-button"}},
-    body: {tag : "div"},
+    beginBtn: {
+        tag : "button",
+        attr: {class: "quiz-control-button"},
+        html: "<ruby>次<rt>Next</rt></ruby>"
+    },
+    body: {tag : "div", attr: {style: "display: none"}},
     container: {tag : "div", attr: {class: "quiz"}},
     entries: {tag : "ul", attr: {class: "quiz-entries"}},
     intro: {tag : "div", attr: {class: "quiz-intro"}},
-    submitBtn: {tag : "button", attr: {class: "quiz-control-button"}},
+    submitBtn: {
+        tag : "button",
+        attr: {class: "quiz-control-button"},
+        html: "<ruby>次<rt>Next</rt></ruby>"
+    },
     word: {tag: "tr"},
     wordsBody: {tag: "tbody"},
     wordsBox: {tag: "table"},

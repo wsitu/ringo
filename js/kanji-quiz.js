@@ -336,12 +336,8 @@ kanjiQuiz.Quiz = class {
     
     // One time setup on constructor
     _init() {
-        let buttonText = "<ruby>次<rt>Next</rt></ruby>"
-        this._beginBtn.innerHTML  = buttonText;
-        this._submitBtn.innerHTML = buttonText;
         this._beginBtn.addEventListener("click", () => this._startQuiz());
         this._submitBtn.addEventListener("click", () => this._submitQuiz());
-        this._mainBox.style.display = "none";
         this._arrangeLayout();
         this.restart();
     }
@@ -358,6 +354,7 @@ kanjiQuiz.Quiz = class {
         for (const entry of this.entries) {
             if (!entry.userInput.hasAllSet()) {
                 // add visual
+                // get entry header element from settings
                 let headers = entry.container.getElementsByTagName("h2");
                 if (headers.length > 0) headers[0].scrollIntoView();
                 return;
