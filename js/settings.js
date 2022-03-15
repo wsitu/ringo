@@ -47,10 +47,13 @@ settings.kanjiQuiz.entry.html = {
     choice: {tag: "li", attr: {class: "quiz-entry"}},
     choicesBox: {tag: "ul",  attr: {class: "entry-choices"}},
     choiceBtn: {tag: "button"},
+    correct: {tag: "span", attr: {style: "display: none"}},
     container: {tag: "li", attr: {class: "quiz-entry"}},
     header: {tag: "h2",  attr: {class: "entry-header"}},
+    incorrect: {tag: "button", attr: {style: "display: none"}},
     result: {tag: "p",   attr: {class: "entry-result"}},
+    ui: {tag: "div", attr: {class: "entry-ui"}},
     word: {tag: "p"},
     wordBox: {tag: "div", attr: {class: "entry-word"}},
-    wrongBtn: {tag: "button"}
+
 };

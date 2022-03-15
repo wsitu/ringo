@@ -11,10 +11,11 @@
     display: flex;
 }
 
+
 .entry-choices {
     align-content: start;
-    display: flex;
-    flex-basis: 75%;
+    display: flex; 
+    flex-basis: 100%;
     flex-wrap: wrap;
     list-style: none;
 }
@@ -107,6 +108,10 @@
 .entry-result strong {
     font-weight: normal;
     color: #d60838;
+}
+
+.entry-ui {
+    flex-basis: 75%;
 }
 
 .entry-word {
