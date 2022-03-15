@@ -1,5 +1,6 @@
 const settings = {
     kanjiQuiz : {
+        entry: {},
         quiz: {}
     }
 };
@@ -38,4 +39,18 @@ settings.kanjiQuiz.quiz.js = {
     // Number between 0 and 1 that represents the chance that quiz words are
     // picked by its kanji accuracy (lower accuracy = higher chance)
     weightedWordRatio : 0.75
+};
+
+settings.kanjiQuiz.entry.html = {
+    answer: {tag: "p",   attr: {class: "entry-answer"}},
+    body: {tag: "div", attr: {class: "entry-body"}},
+    choice: {tag: "li", attr: {class: "quiz-entry"}},
+    choicesBox: {tag: "ul",  attr: {class: "entry-choices"}},
+    choiceBtn: {tag: "button"},
+    container: {tag: "li", attr: {class: "quiz-entry"}},
+    header: {tag: "h2",  attr: {class: "entry-header"}},
+    result: {tag: "p",   attr: {class: "entry-result"}},
+    word: {tag: "p"},
+    wordBox: {tag: "div", attr: {class: "entry-word"}},
+    wrongBtn: {tag: "button"}
 };

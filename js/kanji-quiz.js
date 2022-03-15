@@ -381,7 +381,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
        components of the word among other false buttons.
     */
     constructor(wordData) {
-        this.container = this.createElem({tag: "li", attr: {class: "quiz-entry"}});
+        this.container = this.createElem(this.settings.html.container);
         this.userInput = new this.Solution();
         
         this._CORRECTTEXT = "\u2714"; //check mark
@@ -389,11 +389,11 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._isLocked = false;
         this._wordData;
         
-        this._answerBox = this.createElem({tag: "p",   attr: {class: "entry-answer"}});
-        this._choiceBox = this.createElem({tag: "ul",  attr: {class: "entry-choices"}});
-        this._headerBox = this.createElem({tag: "h2",  attr: {class: "entry-header"}});
-        this._resultBox = this.createElem({tag: "p",   attr: {class: "entry-result"}});
-        this._wordBox   = this.createElem({tag: "div", attr: {class: "entry-word"}});
+        this._answerBox = this.createElem(this.settings.html.answer);
+        this._choiceBox = this.createElem(this.settings.html.choicesBox);
+        this._headerBox = this.createElem(this.settings.html.header);
+        this._resultBox = this.createElem(this.settings.html.result);
+        this._wordBox   = this.createElem(this.settings.html.wordBox);
         
         this._arrangeLayout();
         this.word = wordData;
@@ -405,6 +405,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
     createElem = kanjiQuiz.createElem;
     fadeIn = kanjiQuiz.fadeIn;
     fadeOut = kanjiQuiz.fadeOut;
+    settings = kanjiQuiz.settings.entry;
     Shuffler = kanjiQuiz.Shuffler;
     
     // Returns an array containing the string of each choice
@@ -427,8 +428,8 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         let buttonsToAdd = arrayOfString.length - buttons.children.length;
         if (buttonsToAdd > 0) {
             for (let i = 0; i < buttonsToAdd; i++) {
-                let listElement = this.createElem({tag: "li"});
-                let btn = this.createElem({tag: "button"});
+                let listElement = this.createElem(this.settings.html.choice);
+                let btn = this.createElem(this.settings.html.choiceBtn);
                 btn.type = "button";
                 btn.addEventListener("click", inputButtonText);
                 listElement.appendChild(btn);
@@ -499,7 +500,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
             let replaceWithAnswer = () => { 
                 this.fadeOut(this._resultBox, () => this.displayAnswer());
             }
-            let btn = this.createElem({tag: "button"});
+            let btn = this.createElem(this.settings.html.wrongBtn);
             btn.textContent = this._INCORRECTTEXT;
             btn.addEventListener("click", replaceWithAnswer);
             this._resultBox.replaceChildren(btn);
@@ -539,11 +540,11 @@ kanjiQuiz.Quiz.prototype.Entry = class {
     
     _arrangeLayout() {
         //fix ruby not wrapping when it is a flex item
-        let wordContainer = this.createElem({tag: "p"});
+        let wordContainer = this.createElem(this.settings.html.word);
         this._wordBox.appendChild(wordContainer);
         
         this.userInput.addTo(wordContainer);
-        let bodyBox = this.createElem({tag: "div", attr: {class: "entry-body"}});
+        let bodyBox = this.createElem(this.settings.html.body);
         bodyBox.appendChild(this._wordBox);
         bodyBox.appendChild(this._choiceBox);
         bodyBox.appendChild(this._resultBox);
