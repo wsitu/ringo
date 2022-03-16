@@ -8,7 +8,7 @@ const settings = {
 settings.kanjiQuiz.quiz.html = {
     beginBtn: {
         tag : "button",
-        attr: {class: "quiz-control-button"},
+        attr: {class: "quiz-control-button", type: "button"},
         html: "<ruby>次<rt>Next</rt></ruby>"
     },
     body: {tag : "div", attr: {style: "display: none"}},
@@ -17,7 +17,7 @@ settings.kanjiQuiz.quiz.html = {
     intro: {tag : "div", attr: {class: "quiz-intro"}},
     submitBtn: {
         tag : "button",
-        attr: {class: "quiz-control-button"},
+        attr: {class: "quiz-control-button", type: "button"},
         html: "<ruby>次<rt>Next</rt></ruby>"
     },
     word: {tag: "tr"},
@@ -59,7 +59,7 @@ settings.kanjiQuiz.entry.html = {
     header: {tag: "h2",  attr: {class: "entry-header"}},
     incorrect: {
         tag : "button",
-        attr: {style: "display: none"},
+        attr: {style: "display: none", type: "button"},
         text: "\u2716", //cross mark
     },
     result: {
