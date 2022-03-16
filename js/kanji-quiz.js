@@ -396,13 +396,10 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._uiBox     = this.createElem(this.settings.html.ui);
         this._wordBox   = this.createElem(this.settings.html.wordBox);
 
+        this._incorrect.addEventListener("click", () => this.displayAnswer());
         this._arrangeLayout();
         this.word = wordData;
 
-        let replaceWithAnswer = () => { 
-            this.fadeOut(this._incorrect, () => this.displayAnswer());
-        }
-        this._incorrect.addEventListener("click", replaceWithAnswer);
     }
     
     addTo = kanjiQuiz.addTo;
@@ -505,11 +502,11 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this.fadeIn(this._resultBox);
     }
     
-    // Shows the word in the answer element
+    // Hides the incorrect element and shows the answer
     displayAnswer() {
         this.userInput.markIncorrect();
         this._answerBox.replaceChildren(kanjiQuiz.wordDataToRuby(this.word));
-        this.fadeIn(this._answerBox);
+        this.fadeOut(this._incorrect, () => this.fadeIn(this._answerBox));
     }
 
     /* Shuffles in the answers with arrayOfString into the choices
