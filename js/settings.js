@@ -48,7 +48,7 @@ settings.kanjiQuiz.entry.html = {
     },
     body: {tag: "div", attr: {class: "entry-body"}},
     choice: {tag: "li", attr: {class: "quiz-entry"}},
-    choicesBox: {tag: "ul",  attr: {class: "entry-choices"}},
+    choices: {tag: "ul",  attr: {class: "entry-choices"}},
     choiceBtn: {tag: "button", attr: {type: "button"},},
     correct: {
         tag : "span",

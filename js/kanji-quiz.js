@@ -388,7 +388,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._wordData;
         
         this._answerBox = this.createElem(this.settings.html.answer);
-        this._choiceBox = this.createElem(this.settings.html.choicesBox);
+        this._choices   = this.createElem(this.settings.html.choices);
         this._correct   = this.createElem(this.settings.html.correct);
         this._headerBox = this.createElem(this.settings.html.header);
         this._incorrect = this.createElem(this.settings.html.incorrect);
@@ -396,7 +396,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._uiBox     = this.createElem(this.settings.html.ui);
         this._wordBox   = this.createElem(this.settings.html.wordBox);
 
-        this._choiceBox.addEventListener("click", (e) => this._handleClick(e));
+        this._choices.addEventListener("click", (e) => this._handleClick(e));
         this._incorrect.addEventListener("click", () => this.displayAnswer());
         this._arrangeLayout();
         this.word = wordData;
@@ -412,13 +412,13 @@ kanjiQuiz.Quiz.prototype.Entry = class {
     // Returns an array containing the string of each choice
     get choices() {
         let getButtonText = (e) => e.children[0].textContent;
-        return Array.from(this._choiceBox.children, getButtonText);
+        return Array.from(this._choices.children, getButtonText);
     }
     
     // Sets each button's text in choices to those of arrayOfString
     // Will add or remove buttons to match the size of the array
     set choices(arrayOfString) {
-        let buttons = this._choiceBox;
+        let buttons = this._choices;
         let buttonsToAdd = arrayOfString.length - buttons.children.length;
         let newButton = () => {
             let box = this.createElem(this.settings.html.choice);
@@ -457,10 +457,10 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         if (this._isLocked == aBool) return;
         this._isLocked = aBool;
         if (aBool == true) {
-            this.fadeOut(this._choiceBox, () => this.displayResult());
+            this.fadeOut(this._choices, () => this.displayResult());
         } else {
             let restoreUserInput = () => {
-                this.fadeIn(this._choiceBox);
+                this.fadeIn(this._choices);
                 this.userInput.resetInput();
             }
             if (this._answerBox.style.display != "none")
@@ -533,7 +533,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         let bodyBox = this.createElem(this.settings.html.body);
         bodyBox.appendChild(this._wordBox);
         bodyBox.appendChild(this._uiBox);
-        this._uiBox.appendChild(this._choiceBox)
+        this._uiBox.appendChild(this._choices)
         this._uiBox.appendChild(this._resultBox);
         this._uiBox.appendChild(this._answerBox);
         this._resultBox.appendChild(this._correct);
