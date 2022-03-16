@@ -384,8 +384,6 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this.container = this.createElem(this.settings.html.container);
         this.userInput = new this.Solution();
         
-        this._CORRECTTEXT = "\u2714"; //check mark
-        this._INCORRECTTEXT = "\u2716"; //X mark
         this._isLocked = false;
         this._wordData;
         
@@ -400,11 +398,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
 
         this._arrangeLayout();
         this.word = wordData;
-        this._answerBox.style.display = "none";
-        this._resultBox.style.display = "none";
-        
-        this._correct.textContent = this._CORRECTTEXT;
-        this._incorrect.textContent = this._INCORRECTTEXT;
+
         let replaceWithAnswer = () => { 
             this.fadeOut(this._incorrect, () => this.displayAnswer());
         }
@@ -440,7 +434,6 @@ kanjiQuiz.Quiz.prototype.Entry = class {
             for (let i = 0; i < buttonsToAdd; i++) {
                 let listElement = this.createElem(this.settings.html.choice);
                 let btn = this.createElem(this.settings.html.choiceBtn);
-                btn.type = "button";
                 btn.addEventListener("click", inputButtonText);
                 listElement.appendChild(btn);
                 buttons.appendChild(listElement);

@@ -42,16 +42,30 @@ settings.kanjiQuiz.quiz.js = {
 };
 
 settings.kanjiQuiz.entry.html = {
-    answer: {tag: "p",   attr: {class: "entry-answer"}},
+    answer: {
+        tag : "p",
+        attr: {class: "entry-answer", style: "display: none"},
+    },
     body: {tag: "div", attr: {class: "entry-body"}},
     choice: {tag: "li", attr: {class: "quiz-entry"}},
     choicesBox: {tag: "ul",  attr: {class: "entry-choices"}},
-    choiceBtn: {tag: "button"},
-    correct: {tag: "span", attr: {style: "display: none"}},
+    choiceBtn: {tag: "button", attr: {type: "button"},},
+    correct: {
+        tag : "span",
+        attr: {style: "display: none"},
+        text: "\u2714", //check mark
+    },
     container: {tag: "li", attr: {class: "quiz-entry"}},
     header: {tag: "h2",  attr: {class: "entry-header"}},
-    incorrect: {tag: "button", attr: {style: "display: none"}},
-    result: {tag: "p",   attr: {class: "entry-result"}},
+    incorrect: {
+        tag : "button",
+        attr: {style: "display: none"},
+        text: "\u2716", //cross mark
+    },
+    result: {
+        tag : "p",
+        attr: {class: "entry-result", style: "display: none"},
+    },
     ui: {tag: "div", attr: {class: "entry-ui"}},
     word: {tag: "p"},
     wordBox: {tag: "div", attr: {class: "entry-word"}},
