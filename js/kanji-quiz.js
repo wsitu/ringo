@@ -396,10 +396,10 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._uiBox     = this.createElem(this.settings.html.ui);
         this._wordBox   = this.createElem(this.settings.html.wordBox);
 
+        this._choiceBox.addEventListener("click", (e) => this._handleClick(e));
         this._incorrect.addEventListener("click", () => this.displayAnswer());
         this._arrangeLayout();
         this.word = wordData;
-
     }
     
     addTo = kanjiQuiz.addTo;
@@ -418,28 +418,20 @@ kanjiQuiz.Quiz.prototype.Entry = class {
     // Sets each button's text in choices to those of arrayOfString
     // Will add or remove buttons to match the size of the array
     set choices(arrayOfString) {
-        let inputButtonText = (e) => {
-            if (this.locked) return;
-            this.userInput.set(e.target.textContent);
-            if (this.userInput.hasAllSet()) {
-                this.locked = true;
-            }
-        }
         let buttons = this._choiceBox;
         let buttonsToAdd = arrayOfString.length - buttons.children.length;
+        let newButton = () => {
+            let box = this.createElem(this.settings.html.choice);
+            box.appendChild(this.createElem(this.settings.html.choiceBtn));
+            return box;
+        }
         if (buttonsToAdd > 0) {
-            for (let i = 0; i < buttonsToAdd; i++) {
-                let listElement = this.createElem(this.settings.html.choice);
-                let btn = this.createElem(this.settings.html.choiceBtn);
-                btn.addEventListener("click", inputButtonText);
-                listElement.appendChild(btn);
-                buttons.appendChild(listElement);
-            }
+            for (let i = 0; i < buttonsToAdd; i++)
+                buttons.appendChild(newButton());
         } else {
             for (let i = 0; i > buttonsToAdd; i--)
                 buttons.lastElementChild.remove();
         }
-        
         for (let i = 0; i < buttons.children.length; i++)
             buttons.children[i].children[0].textContent = arrayOfString[i];
     }
@@ -549,6 +541,17 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this.container.appendChild(this._headerBox);
         this.container.appendChild(bodyBox);
     }
+    
+    _handleClick(e) {
+        let correctTag = this.settings.html.choiceBtn.tag;
+        if (e.target.tagName != correctTag.toUpperCase()) return;
+        if (this.locked) return;
+        this.userInput.set(e.target.textContent);
+        if (this.userInput.hasAllSet()) {
+            this.locked = true;
+        }
+    }
+
 }
 
 kanjiQuiz.Quiz.prototype.Entry.prototype.Solution = class {
