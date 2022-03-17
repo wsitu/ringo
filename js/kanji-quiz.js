@@ -397,14 +397,8 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._uiBox     = this.createElem(this.settings.html.ui);
         this._word      = this.createElem(this.settings.html.word);
         this._wordBox   = this.createElem(this.settings.html.wordBox);
-        
-        
-        
 
-        this._choices.addEventListener("click", (e) => this._handleClick(e));
-        this._incorrect.addEventListener("click", () => this.displayAnswer());
-        this._arrangeLayout();
-        this.word = wordData;
+        this._init();
     }
     
     addTo = kanjiQuiz.addTo;
@@ -543,8 +537,12 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._resultBox.appendChild(this._incorrect);
     }
     
+    // Sets the next input as the button's textContent and locks entry if full
+    // Does nothing if already locked or the clicked element is not a choiceBtn
     _handleClick(e) {
         let correctTag = this.settings.html.choiceBtn.tag;
+        // change to class check after revamping the css since this will
+        // prevent the delegate from having child elements same as choiceBtn
         if (e.target.tagName != correctTag.toUpperCase()) return;
         if (this.locked) return;
         this.userInput.set(e.target.textContent);
@@ -553,6 +551,12 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         }
     }
 
+    _init() {
+        this._choices.addEventListener("click", (e) => this._handleClick(e));
+        this._incorrect.addEventListener("click", () => this.displayAnswer());
+        this._arrangeLayout();
+        this.word = wordData;
+    }
 }
 
 kanjiQuiz.Quiz.prototype.Entry.prototype.Solution = class {
