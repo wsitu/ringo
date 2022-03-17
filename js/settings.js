@@ -1,7 +1,8 @@
 const settings = {
     kanjiQuiz : {
         entry: {},
-        quiz: {}
+        quiz: {},
+        solution: {},
     }
 };
 
@@ -70,4 +71,17 @@ settings.kanjiQuiz.entry.html = {
     word: {tag: "p"},
     wordBox: {tag: "div", attr: {class: "entry-word"}},
 
+};
+
+settings.kanjiQuiz.solution.html = {
+    container: {tag: "ruby"},
+    input: {tag: "span"},
+    marked: {tag: "strong"},
+    reading: {tag: "rt"},
+    text: {tag: "span"},
+};
+
+settings.kanjiQuiz.solution.js = {
+    // css class for styling the parts of a word replaced by user input
+    unsetClass: "quiz-hidden-kanji",
 };

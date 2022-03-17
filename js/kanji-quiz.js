@@ -398,7 +398,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._word      = this.createElem(this.settings.html.word);
         this._wordBox   = this.createElem(this.settings.html.wordBox);
 
-        this._init();
+        this._init(wordData);
     }
     
     addTo = kanjiQuiz.addTo;
@@ -551,7 +551,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         }
     }
 
-    _init() {
+    _init(wordData) {
         this._choices.addEventListener("click", (e) => this._handleClick(e));
         this._incorrect.addEventListener("click", () => this.displayAnswer());
         this._arrangeLayout();
@@ -565,11 +565,11 @@ kanjiQuiz.Quiz.prototype.Entry.prototype.Solution = class {
        non empty read will be hidden and converted into an input field.
     */
     constructor(wordData) {   
-        this.container = this.createElem({tag: "ruby"});
+        this.container = this.createElem(this.settings.html.container);
         this.cursor = 0; // Points at the input for this.set()
         
-        this._UNSETCLASS = "quiz-hidden-kanji";
-        this._UNSETTEXT = ""
+        this._UNSETCLASS = this.settings.js.unsetClass;
+        this._UNSETTEXT = "";
         this._sections;
         this._wordData;
         
@@ -578,6 +578,7 @@ kanjiQuiz.Quiz.prototype.Entry.prototype.Solution = class {
 
     addTo = kanjiQuiz.addTo;
     createElem = kanjiQuiz.createElem;
+    settings = kanjiQuiz.settings.solution;
     
     // Returns an array of the correct characters to be inputted
     get answers() {
@@ -607,7 +608,7 @@ kanjiQuiz.Quiz.prototype.Entry.prototype.Solution = class {
                 this._addInput(part.text);
             else
                 this._addText(part.text);
-            let reading = this.createElem({tag: "rt"});
+            let reading = this.createElem(this.settings.html.reading);
             reading.textContent = part.read;
             this.container.appendChild(reading);
         }
@@ -644,7 +645,7 @@ kanjiQuiz.Quiz.prototype.Entry.prototype.Solution = class {
             if (this._isUnset(sect.input)) continue;
             let user = sect.input.textContent;
             if (user != sect.answer) {
-                let highlight = this.createElem({tag: "strong"});
+                let highlight = this.createElem(this.settings.html.marked);
                 highlight.textContent = user;
                 sect.input.replaceChildren(highlight);
             }
@@ -681,7 +682,7 @@ kanjiQuiz.Quiz.prototype.Entry.prototype.Solution = class {
     // Adds each character in textToHide as an input and hides it
     _addInput(textToHide) {
         for (const character of textToHide) {
-            let input = this.createElem({tag: "span"});
+            let input = this.createElem(this.settings.html.input);
             this._resetInput(input);
             this._sections.push({answer: character, input: input});
             this.container.appendChild(input);
@@ -690,7 +691,7 @@ kanjiQuiz.Quiz.prototype.Entry.prototype.Solution = class {
     
     // Adds textToDisplay as normal text to be shown
     _addText(textToDisplay) {
-        let txt = this.createElem({tag: "span"});
+        let txt = this.createElem(this.settings.html.text);
         txt.textContent = textToDisplay;
         this.container.appendChild(txt);
     }
