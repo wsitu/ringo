@@ -388,13 +388,18 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._wordData;
         
         this._answerBox = this.createElem(this.settings.html.answer);
+        this._body      = this.createElem(this.settings.html.body);
         this._choices   = this.createElem(this.settings.html.choices);
         this._correct   = this.createElem(this.settings.html.correct);
         this._headerBox = this.createElem(this.settings.html.header);
         this._incorrect = this.createElem(this.settings.html.incorrect);
         this._resultBox = this.createElem(this.settings.html.result);
         this._uiBox     = this.createElem(this.settings.html.ui);
+        this._word      = this.createElem(this.settings.html.word);
         this._wordBox   = this.createElem(this.settings.html.wordBox);
+        
+        
+        
 
         this._choices.addEventListener("click", (e) => this._handleClick(e));
         this._incorrect.addEventListener("click", () => this.displayAnswer());
@@ -525,21 +530,17 @@ kanjiQuiz.Quiz.prototype.Entry = class {
     }
     
     _arrangeLayout() {
-        //fix ruby not wrapping when it is a flex item
-        let wordContainer = this.createElem(this.settings.html.word);
-        this._wordBox.appendChild(wordContainer);
-        
-        this.userInput.addTo(wordContainer);
-        let bodyBox = this.createElem(this.settings.html.body);
-        bodyBox.appendChild(this._wordBox);
-        bodyBox.appendChild(this._uiBox);
+        this.container.appendChild(this._headerBox);
+        this.container.appendChild(this._body);
+        this._body.appendChild(this._wordBox);
+        this._body.appendChild(this._uiBox);
+        this._wordBox.appendChild(this._word); // without this wrapper 
+        this.userInput.addTo(this._word);      // userInput's ruby won't wrap
         this._uiBox.appendChild(this._choices)
         this._uiBox.appendChild(this._resultBox);
         this._uiBox.appendChild(this._answerBox);
         this._resultBox.appendChild(this._correct);
         this._resultBox.appendChild(this._incorrect);
-        this.container.appendChild(this._headerBox);
-        this.container.appendChild(bodyBox);
     }
     
     _handleClick(e) {
