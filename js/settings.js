@@ -9,7 +9,11 @@ const settings = {
 settings.kanjiQuiz.quiz.html = {
     beginBtn: {
         tag : "button",
-        attr: {class: "quiz-control-button", type: "button"},
+        attr: {
+            class: "quiz-control-button a-background-bg0 a-color-fg1 " +
+            "b-hover-invert",
+            type: "button",
+        },
         html: "<ruby>次<rt>Next</rt></ruby>"
     },
     body: {tag : "div", attr: {style: "display: none"}},
@@ -18,7 +22,11 @@ settings.kanjiQuiz.quiz.html = {
     intro: {tag : "div", attr: {class: "quiz-intro"}},
     submitBtn: {
         tag : "button",
-        attr: {class: "quiz-control-button", type: "button"},
+        attr: {
+            class: "quiz-control-button a-background-bg0 a-color-fg1 " +
+            "b-hover-invert",
+            type: "button",
+        },
         html: "<ruby>次<rt>Next</rt></ruby>"
     },
     word: {tag: "tr"},
@@ -45,12 +53,21 @@ settings.kanjiQuiz.quiz.js = {
 settings.kanjiQuiz.entry.html = {
     answer: {
         tag : "p",
-        attr: {class: "entry-answer", style: "display: none"},
+        attr: {
+            class: "entry-answer a-color-fg1",
+            style: "display: none",
+        },
     },
     body: {tag: "div", attr: {class: "entry-body"}},
     choice: {tag: "li", attr: {class: "quiz-entry"}},
     choices: {tag: "ul",  attr: {class: "entry-choices"}},
-    choiceBtn: {tag: "button", attr: {type: "button"},},
+    choiceBtn: {
+        tag : "button",
+        attr: {
+            class: "a-background-bg1 a-color-fg2 b-hover-invert",
+            type: "button",
+        },
+    },
     correct: {
         tag : "span",
         attr: {style: "display: none"},
@@ -60,12 +77,19 @@ settings.kanjiQuiz.entry.html = {
     header: {tag: "h2",  attr: {class: "entry-header"}},
     incorrect: {
         tag : "button",
-        attr: {style: "display: none", type: "button"},
+        attr: {
+            class: "a-background-bg0 a-color-fg3 b-hover-invert",
+            style: "display: none",
+            type: "button",
+        },
         text: "\u2716", //cross mark
     },
     result: {
         tag : "p",
-        attr: {class: "entry-result", style: "display: none"},
+        attr: {
+            class: "entry-result a-color-fg1",
+            style: "display: none",
+        },
     },
     ui: {tag: "div", attr: {class: "entry-ui"}},
     word: {tag: "p"},
@@ -76,7 +100,7 @@ settings.kanjiQuiz.entry.html = {
 settings.kanjiQuiz.solution.html = {
     container: {tag: "ruby"},
     input: {tag: "span"},
-    marked: {tag: "strong"},
+    marked: {tag: "strong", attr:{class:"a-color-fg3"}},
     reading: {tag: "rt"},
     text: {tag: "span"},
 };
