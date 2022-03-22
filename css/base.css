@@ -70,10 +70,13 @@ h6{
 .a-color-fg2.b-hover-invert {--default-color: var(--color-dark-pink);}
 .a-color-fg3.b-hover-invert {--default-color: var(--color-dark-red);}
 
+/* On hover, switches the background and border color to the font color set by
+   an a-color-... class, and the font color with the background color set in an
+   a-background-... class.
+*/
 .b-hover-invert:hover {
     background-color: var(--default-color);
     border-color: var(--default-color);
     color: var(--default-bg-color);
 }
 
-.

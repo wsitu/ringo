@@ -39,10 +39,6 @@
     transform: scale(0.9);
 }
 
-.entry-choices button:hover {
-    border-style: hidden;
-}
-
 .entry-choices li {
     display: flex;
     flex-basis: 9%;
@@ -79,10 +75,6 @@
 
 .entry-result button:active {
     transform: scale(0.9);
-}
-
-.entry-result button:hover {
-    border-style: hidden;
 }
 
 .entry-result p rt {
