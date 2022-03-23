@@ -64,7 +64,7 @@ settings.kanjiQuiz.entry.html = {
     choiceBtn: {
         tag : "button",
         attr: {
-            class: "a-background-bg1 a-color-fg2 b-hover-invert",
+            class: "a-background-bg0 a-color-fg2 b-hover-invert",
             type: "button",
         },
     },

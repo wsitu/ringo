@@ -42,29 +42,29 @@ h6{
 }
 
 /* Mirror color changes to hover-invert version */
-.a-background-bg0, body {background-color: var(--color-tan);}
-.a-background-bg1 {background-color: var(--color-white);}
+.a-background-bg0, body {background-color: var(--color-white);}
+.a-background-bg1 {background-color: var(--color-tan);}
 .a-background-fg0 {background-color: var(--color-black);}
 .a-background-fg1 {background-color: var(--color-dark-green);}
 .a-background-fg2 {background-color: var(--color-dark-pink);}
 .a-background-fg3 {background-color: var(--color-dark-red);}
 
-.a-background-bg0.b-hover-invert {--default-bg-color: var(--color-tan);}
-.a-background-bg1.b-hover-invert {--default-bg-color: var(--color-white);}
+.a-background-bg0.b-hover-invert {--default-bg-color: var(--color-white);}
+.a-background-bg1.b-hover-invert {--default-bg-color: var(--color-tan);}
 .a-background-fg0.b-hover-invert {--default-bg-color: var(--color-black);}
 .a-background-fg1.b-hover-invert {--default-bg-color: var(--color-dark-green);}
 .a-background-fg2.b-hover-invert {--default-bg-color: var(--color-dark-pink);}
 .a-background-fg3.b-hover-invert {--default-bg-color: var(--color-dark-red);}
 
-.a-color-bg0 {color: var(--color-tan);}
-.a-color-bg1 {color: var(--color-white);}
+.a-color-bg0 {color: var(--color-white);}
+.a-color-bg1 {color: var(--color-tan);}
 .a-color-fg0, body {color: var(--color-black);}
 .a-color-fg1, h1, h2, h3, h4, h5, h6 {color: var(--color-dark-green);}
 .a-color-fg2 {color: var(--color-dark-pink);}
 .a-color-fg3 {color: var(--color-dark-red);}
 
-.a-color-bg0.b-hover-invert {--default-color: var(--color-tan);}
-.a-color-bg1.b-hover-invert {--default-color: var(--color-white);}
+.a-color-bg0.b-hover-invert {--default-color: var(--color-white);}
+.a-color-bg1.b-hover-invert {--default-color: var(--color-tan);}
 .a-color-fg0.b-hover-invert {--default-color: var(--color-black);}
 .a-color-fg1.b-hover-invert {--default-color: var(--color-dark-green);}
 .a-color-fg2.b-hover-invert {--default-color: var(--color-dark-pink);}
