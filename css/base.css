@@ -47,46 +47,45 @@ h6{
 /* The background (bg) and foreground (fg) colors are numbered and correspond
    to the same hue but all background colors must contrast to the primary
    foreground color bg0, while all foreground colors must contrast with the
-   primary background color bg0. Each color group may have variations by
-   appending a letter suffix but note that background colors start from the
-   brightest while foreground colors start from the darkest.
+   primary background color bg0. Each color group varies with a letter but note
+   bg#a goes from brightest to darkest while fg#a is darkest to brightest.
    
    * Mirror all color modification to hover-invert version *
 */
-.a-background-bg0, body {background-color: var(--color-white);}
-.a-background-fg0   {background-color: var(--color-black);}
-.a-background-fg1   {background-color: var(--color-dark-pink);}
-.a-background-fg1b  {background-color: var(--color-pink);}
-.a-background-fg2   {background-color: var(--color-dark-green);}
-.a-background-fg2b  {background-color: var(--color-green);}
-.a-background-fg3   {background-color: var(--color-dark-red);}
-.a-background-fg3b  {background-color: var(--color-red);}
+.a-background-bg0a, body {background-color: var(--color-white);}
+.a-background-fg0a {background-color: var(--color-black);}
+.a-background-fg1a {background-color: var(--color-dark-pink);}
+.a-background-fg1b {background-color: var(--color-pink);}
+.a-background-fg2a {background-color: var(--color-dark-green);}
+.a-background-fg2b {background-color: var(--color-green);}
+.a-background-fg3a {background-color: var(--color-dark-red);}
+.a-background-fg3b {background-color: var(--color-red);}
 
-.a-background-bg0.b-hover-invert  {--default-bg-color: var(--color-white);}
-.a-background-fg0.b-hover-invert  {--default-bg-color: var(--color-black);}
-.a-background-fg1.b-hover-invert  {--default-bg-color: var(--color-dark-pink);}
+.a-background-bg0a.b-hover-invert {--default-bg-color: var(--color-white);}
+.a-background-fg0a.b-hover-invert {--default-bg-color: var(--color-black);}
+.a-background-fg1a.b-hover-invert {--default-bg-color: var(--color-dark-pink);}
 .a-background-fg1b.b-hover-invert {--default-bg-color: var(--color-pink);}
-.a-background-fg2.b-hover-invert  {--default-bg-color: var(--color-dark-green);}
+.a-background-fg2a.b-hover-invert {--default-bg-color: var(--color-dark-green);}
 .a-background-fg2b.b-hover-invert {--default-bg-color: var(--color-green);}
-.a-background-fg3.b-hover-invert  {--default-bg-color: var(--color-dark-red);}
+.a-background-fg3a.b-hover-invert {--default-bg-color: var(--color-dark-red);}
 .a-background-fg3b.b-hover-invert {--default-bg-color: var(--color-red);}
 
-.a-color-bg0   {color: var(--color-white);}
-.a-color-fg0,  body {color: var(--color-black);}
-.a-color-fg1,  h1, h2, h3, h4, h5, h6 {color: var(--color-dark-pink);}
-.a-color-fg1b  {color: var(--color-pink);}
-.a-color-fg2   {color: var(--color-dark-green);}
-.a-color-fg2b  {color: var(--color-green);}
-.a-color-fg3   {color: var(--color-dark-red);}
-.a-color-fg3b  {color: var(--color-red);}
+.a-color-bg0a {color: var(--color-white);}
+.a-color-fg0a, body {color: var(--color-black);}
+.a-color-fg1a, h1, h2, h3, h4, h5, h6 {color: var(--color-dark-pink);}
+.a-color-fg1b {color: var(--color-pink);}
+.a-color-fg2a {color: var(--color-dark-green);}
+.a-color-fg2b {color: var(--color-green);}
+.a-color-fg3a {color: var(--color-dark-red);}
+.a-color-fg3b {color: var(--color-red);}
 
-.a-color-bg0.b-hover-invert  {--default-color: var(--color-white);}
-.a-color-fg0.b-hover-invert  {--default-color: var(--color-black);}
-.a-color-fg1.b-hover-invert  {--default-color: var(--color-dark-pink);}
+.a-color-bg0a.b-hover-invert {--default-color: var(--color-white);}
+.a-color-fg0a.b-hover-invert {--default-color: var(--color-black);}
+.a-color-fg1a.b-hover-invert {--default-color: var(--color-dark-pink);}
 .a-color-fg1b.b-hover-invert {--default-color: var(--color-pink);}
-.a-color-fg2.b-hover-invert  {--default-color: var(--color-dark-green);}
+.a-color-fg2a.b-hover-invert {--default-color: var(--color-dark-green);}
 .a-color-fg2b.b-hover-invert {--default-color: var(--color-green);}
-.a-color-fg3.b-hover-invert  {--default-color: var(--color-dark-red);}
+.a-color-fg3a.b-hover-invert {--default-color: var(--color-dark-red);}
 .a-color-fg3b.b-hover-invert {--default-color: var(--color-red);}
 
 

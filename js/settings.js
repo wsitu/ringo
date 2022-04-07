@@ -10,7 +10,7 @@ settings.kanjiQuiz.quiz.html = {
     beginBtn: {
         tag : "button",
         attr: {
-            class: "quiz-control-button a-background-bg0 a-color-fg2 " +
+            class: "quiz-control-button a-background-bg0a a-color-fg2a " +
             "b-hover-invert",
             type: "button",
         },
@@ -23,7 +23,7 @@ settings.kanjiQuiz.quiz.html = {
     submitBtn: {
         tag : "button",
         attr: {
-            class: "quiz-control-button a-background-bg0 a-color-fg2 " +
+            class: "quiz-control-button a-background-bg0a a-color-fg2a " +
             "b-hover-invert",
             type: "button",
         },
@@ -54,7 +54,7 @@ settings.kanjiQuiz.entry.html = {
     answer: {
         tag : "p",
         attr: {
-            class: "entry-answer a-color-fg1",
+            class: "entry-answer a-color-fg1a",
             style: "display: none",
         },
     },
@@ -64,7 +64,7 @@ settings.kanjiQuiz.entry.html = {
     choiceBtn: {
         tag : "button",
         attr: {
-            class: "a-background-bg0 a-color-fg1b b-hover-invert",
+            class: "a-background-bg0a a-color-fg1b b-hover-invert",
             type: "button",
         },
     },
@@ -78,7 +78,7 @@ settings.kanjiQuiz.entry.html = {
     incorrect: {
         tag : "button",
         attr: {
-            class: "a-background-bg0 a-color-fg3 b-hover-invert",
+            class: "a-background-bg0a a-color-fg3a b-hover-invert",
             style: "display: none",
             type: "button",
         },
@@ -87,7 +87,7 @@ settings.kanjiQuiz.entry.html = {
     result: {
         tag : "p",
         attr: {
-            class: "entry-result a-color-fg1",
+            class: "entry-result a-color-fg1a",
             style: "display: none",
         },
     },
@@ -100,7 +100,7 @@ settings.kanjiQuiz.entry.html = {
 settings.kanjiQuiz.solution.html = {
     container: {tag: "ruby"},
     input: {tag: "span"},
-    marked: {tag: "strong", attr:{class:"a-color-fg3"}},
+    marked: {tag: "strong", attr:{class:"a-color-fg3a"}},
     reading: {tag: "rt"},
     text: {tag: "span"},
 };
