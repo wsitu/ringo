@@ -10,7 +10,7 @@ settings.kanjiQuiz.quiz.html = {
     beginBtn: {
         tag : "button",
         attr: {
-            class: "quiz-control-button a-background-bg0 a-color-fg1 " +
+            class: "quiz-control-button a-background-bg0 a-color-fg2 " +
             "b-hover-invert",
             type: "button",
         },
@@ -23,7 +23,7 @@ settings.kanjiQuiz.quiz.html = {
     submitBtn: {
         tag : "button",
         attr: {
-            class: "quiz-control-button a-background-bg0 a-color-fg1 " +
+            class: "quiz-control-button a-background-bg0 a-color-fg2 " +
             "b-hover-invert",
             type: "button",
         },
@@ -64,7 +64,7 @@ settings.kanjiQuiz.entry.html = {
     choiceBtn: {
         tag : "button",
         attr: {
-            class: "a-background-bg0 a-color-fg2 b-hover-invert",
+            class: "a-background-bg0 a-color-fg1b b-hover-invert",
             type: "button",
         },
     },
