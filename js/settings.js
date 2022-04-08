@@ -54,7 +54,7 @@ settings.kanjiQuiz.entry.html = {
     answer: {
         tag : "p",
         attr: {
-            class: "entry-answer a-color-fg1a",
+            class: "entry-answer a-color-fg2a",
             style: "display: none",
         },
     },
@@ -87,7 +87,7 @@ settings.kanjiQuiz.entry.html = {
     result: {
         tag : "p",
         attr: {
-            class: "entry-result a-color-fg1a",
+            class: "entry-result a-color-fg2b",
             style: "display: none",
         },
     },
