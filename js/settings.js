@@ -109,3 +109,15 @@ settings.kanjiQuiz.solution.js = {
     // css class for styling the parts of a word replaced by user input
     unsetClass: "quiz-hidden-kanji",
 };
+
+// Labels each element with a data-setting attribute to help locate which
+// setting is used to configure it
+for (const [moduleName, module] of Object.entries(settings)) {
+    for (const [compName, component] of Object.entries(module)) {
+        for (const [item, htmlSetting] of Object.entries(component.html)) {
+            if (htmlSetting.attr == undefined) htmlSetting.attr = {};
+            let settingPath = `${moduleName}.${compName}.html.${item}`;
+            htmlSetting.attr["data-setting"] = settingPath;
+        }
+    }
+}
