@@ -391,12 +391,13 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._body      = this.createElem(this.settings.html.body);
         this._choices   = this.createElem(this.settings.html.choices);
         this._correct   = this.createElem(this.settings.html.correct);
-        this._headerBox = this.createElem(this.settings.html.header);
+        this._defBox    = this.createElem(this.settings.html.definition);
         this._incorrect = this.createElem(this.settings.html.incorrect);
         this._resultBox = this.createElem(this.settings.html.result);
         this._uiBox     = this.createElem(this.settings.html.ui);
         this._word      = this.createElem(this.settings.html.word);
         this._wordBox   = this.createElem(this.settings.html.wordBox);
+        this._wordData  = this.createElem(this.settings.html.wordData);
 
         this._init(wordData);
     }
@@ -435,14 +436,14 @@ kanjiQuiz.Quiz.prototype.Entry = class {
             buttons.children[i].children[0].textContent = arrayOfString[i];
     }
     
-    // Returns the header text of the entry
-    get header() {
-        return this._headerBox.textContent;
+    // Returns the text of the definition element
+    get definition() {
+        return this._defBox.textContent;
     }
     
-    // Sets the header text for the entry
-    set header(textContent) {
-        this._headerBox.textContent = textContent;
+    // Sets the text of the definition element
+    set definition(textContent) {
+        this._defBox.textContent = textContent;
     }
     
     // Returns whether the user can input to this entry
@@ -478,7 +479,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
     set word(wordData) {
         this._wordData = wordData;
         if (!wordData) return;
-        this.header = wordData.definition;
+        this.definition = wordData.definition;
         this.userInput.word = wordData;
         this.shuffleInChoices();
     }
@@ -524,10 +525,12 @@ kanjiQuiz.Quiz.prototype.Entry = class {
     }
     
     _arrangeLayout() {
-        this.container.appendChild(this._headerBox);
+        //this.container.appendChild(this._headerBox);
         this.container.appendChild(this._body);
-        this._body.appendChild(this._wordBox);
+        this._body.appendChild(this._wordData);
         this._body.appendChild(this._uiBox);
+        this._wordData.appendChild(this._wordBox);
+        this._wordData.appendChild(this._defBox);
         this._wordBox.appendChild(this._word); // without this wrapper 
         this.userInput.addTo(this._word);      // userInput's ruby won't wrap
         this._uiBox.appendChild(this._choices)

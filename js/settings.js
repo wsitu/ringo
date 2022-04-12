@@ -74,7 +74,7 @@ settings.kanjiQuiz.entry.html = {
         text: "\u2714", //check mark
     },
     container: {tag: "li", attr: {class: "quiz-entry"}},
-    header: {tag: "h2",  attr: {class: "entry-header"}},
+    definition: {tag: "p",  attr: {class: ""}},
     incorrect: {
         tag : "button",
         attr: {
@@ -94,7 +94,7 @@ settings.kanjiQuiz.entry.html = {
     ui: {tag: "div", attr: {class: "entry-ui"}},
     word: {tag: "p"},
     wordBox: {tag: "div", attr: {class: "entry-word"}},
-
+    wordData: {tag: "div"},
 };
 
 settings.kanjiQuiz.solution.html = {
