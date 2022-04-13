@@ -92,10 +92,9 @@
 
 .entry-word {
     align-items: center;
-    border-right: solid 1px rgba(102, 55, 78, 0.25);
     display: flex;
     flex-basis: 50%;
-    font-size: 2rem;
+    font-size: 3rem;
     justify-content: center;
     margin: 0 0.5em;
     min-width: 6em;
@@ -154,3 +153,6 @@
     font-weight: normal;
 }
 
+.kanjiQuiz-entry-wordData {
+    flex-basis: 50%;
+}
