@@ -30,8 +30,8 @@
 
 .entry-choices li {
     display: flex;
-    flex-basis: 15%;
-    margin: 0.8333%;
+    flex-basis: 23%;
+    margin: 1%;
 }
 
 .entry-def {
@@ -137,6 +137,10 @@
 .kanjiQuiz-entry-body {
     border: solid 2px;
     display: flex;
+}
+
+.kanjiQuiz-entry-choices {
+    margin: 16px;
 }
 
 .kanjiQuiz-entry-definition {
