@@ -6,10 +6,6 @@
     justify-content: center;
 }
 
-.entry-body {
-    display: flex;
-}
-
 .entry-choices {
     align-content: start;
     display: flex; 
@@ -96,7 +92,7 @@
     flex-basis: 50%;
     font-size: 3rem;
     justify-content: center;
-    margin: 0 0.5em;
+    margin: 4px;
     min-width: 6em;
 }
 
@@ -153,6 +149,18 @@
     font-weight: normal;
 }
 
+.kanjiQuiz-entry-body {
+    border: solid 2px;
+    display: flex;
+}
+
+.kanjiQuiz-entry-definition {
+    font-size: 1.5rem;
+    margin: 4px;
+}
+
 .kanjiQuiz-entry-wordData {
     flex-basis: 50%;
+    margin: 16px;
+    padding: 16px;
 }

@@ -58,7 +58,7 @@ settings.kanjiQuiz.entry.html = {
             style: "display: none",
         },
     },
-    body: {tag: "div", attr: {class: "entry-body"}},
+    body: {tag: "div", attr: {class: "a-background-bg1a a-color-bg1b"}},
     choice: {tag: "li",},
     choices: {tag: "ul",  attr: {class: "entry-choices"}},
     choiceBtn: {
@@ -94,7 +94,7 @@ settings.kanjiQuiz.entry.html = {
     ui: {tag: "div", attr: {class: "entry-ui"}},
     word: {tag: "p"},
     wordBox: {tag: "div", attr: {class: "entry-word"}},
-    wordData: {tag: "div"},
+    wordData: {tag: "div", attr: {class: "a-background-bg0a a-color-fg1a"}},
 };
 
 settings.kanjiQuiz.solution.html = {
