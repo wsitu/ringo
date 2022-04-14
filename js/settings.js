@@ -64,7 +64,7 @@ settings.kanjiQuiz.entry.html = {
     choiceBtn: {
         tag : "button",
         attr: {
-            class: "a-background-bg0a a-color-fg1b b-hover-invert",
+            class: "a-background-bg0a a-color-fg1b b-center b-hover-invert",
             type: "button",
         },
     },
@@ -93,7 +93,7 @@ settings.kanjiQuiz.entry.html = {
     },
     ui: {tag: "div", attr: {class: "entry-ui b-center"}},
     word: {tag: "p"},
-    wordBox: {tag: "div", attr: {class: "entry-word"}},
+    wordBox: {tag: "div", attr: {class: "entry-word b-center"}},
     wordData: {tag: "div", attr: {class: "a-background-bg0a a-color-fg1a b-center"}},
 };
 
