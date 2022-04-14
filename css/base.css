@@ -8,6 +8,8 @@
     --color-pink: #dd0071;
     --color-dark-red: #810320;
     --color-dark-red: #c7153f;
+    --color-lightest-pink: #ffeaf0;
+    --color-light-pink: #f4cdd8;
 }
 
 * {
@@ -53,6 +55,8 @@ h6{
    * Mirror all color modification to hover-invert version *
 */
 .a-background-bg0a, body {background-color: var(--color-white);}
+.a-background-bg1a {background-color: var(--color-lightest-pink);}
+.a-background-bg1b {background-color: var(--color-light-pink);}
 .a-background-fg0a {background-color: var(--color-black);}
 .a-background-fg1a {background-color: var(--color-dark-pink);}
 .a-background-fg1b {background-color: var(--color-pink);}
@@ -62,6 +66,8 @@ h6{
 .a-background-fg3b {background-color: var(--color-red);}
 
 .a-background-bg0a.b-hover-invert {--default-bg-color: var(--color-white);}
+.a-background-bg1a.b-hover-invert {--default-bg-color: var(--color-lightest-pink);}
+.a-background-bg1b.b-hover-invert {--default-bg-color: var(--color-light-pink);}
 .a-background-fg0a.b-hover-invert {--default-bg-color: var(--color-black);}
 .a-background-fg1a.b-hover-invert {--default-bg-color: var(--color-dark-pink);}
 .a-background-fg1b.b-hover-invert {--default-bg-color: var(--color-pink);}
@@ -71,6 +77,8 @@ h6{
 .a-background-fg3b.b-hover-invert {--default-bg-color: var(--color-red);}
 
 .a-color-bg0a {color: var(--color-white);}
+.a-color-bg1a {color: var(--color-lightest-pink);}
+.a-color-bg1b {color: var(--color-light-pink);}
 .a-color-fg0a, body {color: var(--color-black);}
 .a-color-fg1a, h1, h2, h3, h4, h5, h6 {color: var(--color-dark-pink);}
 .a-color-fg1b {color: var(--color-pink);}
@@ -80,6 +88,8 @@ h6{
 .a-color-fg3b {color: var(--color-red);}
 
 .a-color-bg0a.b-hover-invert {--default-color: var(--color-white);}
+.a-color-bg1a.b-hover-invert {--default-color: var(--color-lightest-pink);}
+.a-color-bg1b.b-hover-invert {--default-color: var(--color-light-pink);}
 .a-color-fg0a.b-hover-invert {--default-color: var(--color-black);}
 .a-color-fg1a.b-hover-invert {--default-color: var(--color-dark-pink);}
 .a-color-fg1b.b-hover-invert {--default-color: var(--color-pink);}
