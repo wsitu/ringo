@@ -161,6 +161,7 @@
 
 .kanjiQuiz-entry-wordData {
     flex-basis: 50%;
+    flex-direction: column;
     margin: 16px;
     padding: 16px;
 }

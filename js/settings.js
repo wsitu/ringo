@@ -91,10 +91,10 @@ settings.kanjiQuiz.entry.html = {
             style: "display: none",
         },
     },
-    ui: {tag: "div", attr: {class: "entry-ui"}},
+    ui: {tag: "div", attr: {class: "entry-ui b-center"}},
     word: {tag: "p"},
     wordBox: {tag: "div", attr: {class: "entry-word"}},
-    wordData: {tag: "div", attr: {class: "a-background-bg0a a-color-fg1a"}},
+    wordData: {tag: "div", attr: {class: "a-background-bg0a a-color-fg1a b-center"}},
 };
 
 settings.kanjiQuiz.solution.html = {

@@ -109,3 +109,9 @@ h6{
     color: var(--default-bg-color);
 }
 
+.b-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
