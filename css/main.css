@@ -11,8 +11,9 @@
 }
 
 .entry-choices button {
+    border: solid 1px;
     border-radius: 20%;
-    border-style: none;
+    border-color: var(--color-light-pink);
     flex-grow: 1;
     font-size: 1.25rem;
 }
@@ -135,7 +136,6 @@
 }
 
 .kanjiQuiz-entry-body {
-    border: solid 2px;
     display: flex;
 }
 
@@ -149,6 +149,7 @@
 }
 
 .kanjiQuiz-entry-wordData {
+    border: solid 1px;
     flex-basis: 50%;
     flex-direction: column;
     margin: 16px;
