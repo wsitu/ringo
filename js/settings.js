@@ -18,6 +18,13 @@ settings.kanjiQuiz.quiz.html = {
     },
     body: {tag : "div", attr: {style: "display: none"}},
     container: {tag : "div", attr: {class: "quiz"}},
+    difficulty: {
+        tag : "input", 
+        attr: {
+            class: "a-color-fg2a",
+            type: "range",
+        },
+    },
     entries: {tag : "ul", attr: {class: "quiz-entries"}},
     intro: {tag : "div", attr: {class: "quiz-intro"}},
     submitBtn: {

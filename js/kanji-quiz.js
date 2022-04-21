@@ -133,6 +133,7 @@ kanjiQuiz.Quiz = class {
         this._intro      = this.createElem(this.settings.html.wordsBox);
         this._introBox   = this.createElem(this.settings.html.intro);
         this._mainBox    = this.createElem(this.settings.html.body);
+        this._difficulty = this.createElem(this.settings.html.difficulty);
         this._submitBtn  = this.createElem(this.settings.html.submitBtn);
         
         this._init();
@@ -145,6 +146,7 @@ kanjiQuiz.Quiz = class {
     fadeOut = kanjiQuiz.fadeOut;
     weightedShuffle = kanjiQuiz.weightedShuffle;
     Shuffler = kanjiQuiz.Shuffler;
+    
     
     /* Returns a weight between [1, 3 000 000 000] when
        1 <= totalNum <= 1 000 000 000  and 0 <= rightNum <= totalNum
@@ -278,11 +280,18 @@ kanjiQuiz.Quiz = class {
             return Math.min(rangeObj.max, 
                 Math.floor(this.score/rangeObj.div) + rangeObj.min);
         }
+        let highestScoreNeeded = () => {
+            let highest = (rangeObj) => (rangeObj.max - rangeObj.min) * rangeObj.div;
+            return Math.max(highest(this.choiceRange), highest(this.entryRange));
+        }
         let delayedSetup = () => {
             this.fadeIn(this._introBox);
             this.createEntries(chosenWords, numFromScore(this.choiceRange));
         }
+
         this._kanjiCache = this.allKanji();
+        this._difficulty.max = highestScoreNeeded();
+        this._difficulty.value = this.score;
         let entryNum = numFromScore(this.entryRange);
         let chosenWords = this.newWords(entryNum, this.accChance);
         this.displayIntro(chosenWords);
@@ -328,6 +337,7 @@ kanjiQuiz.Quiz = class {
     _arrangeLayout() {
         this.container.appendChild(this._introBox);
         this.container.appendChild(this._mainBox);
+        this._introBox.appendChild(this._difficulty);
         this._introBox.appendChild(this._intro);
         this._introBox.appendChild(this._beginBtn);
         this._mainBox.appendChild(this._entriesBox);
@@ -338,6 +348,7 @@ kanjiQuiz.Quiz = class {
     _init() {
         this._beginBtn.addEventListener("click", () => this._startQuiz());
         this._submitBtn.addEventListener("click", () => this._submitQuiz());
+        this._difficulty.oninput = (e) => this.score = e.target.value;
         this._arrangeLayout();
         this.restart();
     }

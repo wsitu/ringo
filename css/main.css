@@ -148,9 +148,16 @@
     margin: 4px;
 }
 
- .kanjiQuiz-entry-ui {
+.kanjiQuiz-quiz-difficulty {
+    accent-color: currentcolor;
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+}
+
+.kanjiQuiz-entry-ui {
     margin: 16px;
- }
+}
 
 .kanjiQuiz-entry-wordData {
     border: solid 1px;
