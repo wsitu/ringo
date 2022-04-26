@@ -722,6 +722,41 @@ kanjiQuiz.Quiz.prototype.Entry.prototype.Solution = class {
     
 }
 
+kanjiQuiz.Quiz.prototype.UpdateSlider = class {
+    constructor() {
+        this.callback = (e) => this.display.textContent = e.target.value;
+        this.container = this.createElem(this.settings.html.container);
+        this.delay = 0.25;
+        this.display = this.createElem(this.settings.html.display);
+        this.slider = this.createElem(this.settings.html.slider);
+        this.throttled = (e) => console.log(`Slider value: ${e.target.value}`);
+
+        this._currentCall = undefined;
+        this._handleInput = (e) => {
+            this.callback(e);
+            this.throttledUpdate(e);
+        }
+
+        this.container.appendChild(this.slider);
+        this.container.appendChild(this.display);
+        this.slider.addEventListener("input", this._handleInput);
+    }
+    
+    addTo = kanjiQuiz.addTo;
+    createElem = kanjiQuiz.createElem;
+    settings = kanjiQuiz.settings.updateSlider;
+    
+    throttledUpdate(eventObj) {
+        if (this._currentCall == undefined) {
+            let executeThrottled = () => {
+                this._currentCall = undefined;
+                this.throttled(eventObj);
+            }
+            this._currentCall = setTimeout(executeThrottled, this.delay*1000);
+        }
+    }
+}
+
 kanjiQuiz.Shuffler = class {
     /* Shuffles a copy of an array and provides random elements one at a time.
        Best used for obtaining a small subset of random elements from a larger

@@ -3,6 +3,7 @@ const settings = {
         entry: {},
         quiz: {},
         solution: {},
+        updateSlider: {},
     }
 };
 
@@ -115,6 +116,18 @@ settings.kanjiQuiz.solution.html = {
 settings.kanjiQuiz.solution.js = {
     // css class for styling the parts of a word replaced by user input
     unsetClass: "quiz-hidden-kanji",
+};
+
+settings.kanjiQuiz.updateSlider.html = {
+    container: {tag: "div"},
+    display: {tag: "p"},
+    slider: {
+        tag : "input",
+        attr: {
+            class: "a-color-fg2a",
+            type: "range",
+        },
+    },
 };
 
 // Appends a class that resembles the setting location on each html element
