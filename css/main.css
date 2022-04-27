@@ -148,13 +148,6 @@
     margin: 4px;
 }
 
-.kanjiQuiz-quiz-difficulty {
-    accent-color: currentcolor;
-    display: block;
-    margin: 0 auto;
-    width: 50%;
-}
-
 .kanjiQuiz-entry-ui {
     margin: 16px;
 }
@@ -165,4 +158,11 @@
     flex-direction: column;
     margin: 16px;
     padding: 16px;
+}
+
+.kanjiQuiz-updateSlider-slider {
+    accent-color: currentcolor;
+    display: block;
+    margin: 0 auto;
+    width: 50%;
 }

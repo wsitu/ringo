@@ -126,6 +126,7 @@ kanjiQuiz.Quiz = class {
         this.score        = 0;
         this.tempAccuracy = new Map();
 
+        this._difficulty = new this.UpdateSlider();
         this._kanjiCache; // reuse same copy of all kanjis per restart
 
         this._beginBtn   = this.createElem(this.settings.html.beginBtn);
@@ -133,7 +134,6 @@ kanjiQuiz.Quiz = class {
         this._intro      = this.createElem(this.settings.html.wordsBox);
         this._introBox   = this.createElem(this.settings.html.intro);
         this._mainBox    = this.createElem(this.settings.html.body);
-        this._difficulty = this.createElem(this.settings.html.difficulty);
         this._submitBtn  = this.createElem(this.settings.html.submitBtn);
         
         this._init();
@@ -337,7 +337,7 @@ kanjiQuiz.Quiz = class {
     _arrangeLayout() {
         this.container.appendChild(this._introBox);
         this.container.appendChild(this._mainBox);
-        this._introBox.appendChild(this._difficulty);
+        this._difficulty.addTo(this._introBox);
         this._introBox.appendChild(this._intro);
         this._introBox.appendChild(this._beginBtn);
         this._mainBox.appendChild(this._entriesBox);
