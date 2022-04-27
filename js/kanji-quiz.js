@@ -724,12 +724,12 @@ kanjiQuiz.Quiz.prototype.Entry.prototype.Solution = class {
 
 kanjiQuiz.Quiz.prototype.UpdateSlider = class {
     constructor() {
-        this.callback = (e) => this.display.textContent = e.target.value;
+        this.callback = function () {};
         this.container = this.createElem(this.settings.html.container);
         this.delay = 0.25;
         this.display = this.createElem(this.settings.html.display);
         this.slider = this.createElem(this.settings.html.slider);
-        this.throttled = (e) => console.log(`Slider value: ${e.target.value}`);
+        this.throttled = function () {};
 
         this._currentCall = undefined;
         this._handleInput = (e) => {
