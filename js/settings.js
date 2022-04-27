@@ -119,7 +119,7 @@ settings.kanjiQuiz.solution.js = {
 };
 
 settings.kanjiQuiz.updateSlider.html = {
-    container: {tag: "div"},
+    container: {tag: "div", attr: {class: "b-center"},},
     display: {tag: "p"},
     slider: {
         tag : "input",

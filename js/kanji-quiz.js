@@ -290,8 +290,8 @@ kanjiQuiz.Quiz = class {
         }
 
         this._kanjiCache = this.allKanji();
-        this._difficulty.max = highestScoreNeeded();
-        this._difficulty.value = this.score;
+        this._difficulty.slider.max = highestScoreNeeded();
+        this._difficulty.slider.value = this.score;
         let entryNum = numFromScore(this.entryRange);
         let chosenWords = this.newWords(entryNum, this.accChance);
         this.displayIntro(chosenWords);
@@ -348,7 +348,7 @@ kanjiQuiz.Quiz = class {
     _init() {
         this._beginBtn.addEventListener("click", () => this._startQuiz());
         this._submitBtn.addEventListener("click", () => this._submitQuiz());
-        this._difficulty.oninput = (e) => this.score = e.target.value;
+        this._difficulty.callback = (e) => this.score = e.target.value;
         this._arrangeLayout();
         this.restart();
     }

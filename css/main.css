@@ -160,9 +160,11 @@
     padding: 16px;
 }
 
+.kanjiQuiz-updateSlider-container {
+    flex-direction: column;
+}
+
 .kanjiQuiz-updateSlider-slider {
     accent-color: currentcolor;
-    display: block;
-    margin: 0 auto;
     width: 50%;
 }
