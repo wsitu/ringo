@@ -147,6 +147,15 @@ kanjiQuiz.Quiz = class {
     weightedShuffle = kanjiQuiz.weightedShuffle;
     Shuffler = kanjiQuiz.Shuffler;
     
+    // Returns the number of entries to create based on the score
+    get entryCount() {
+        return this._numFromScore(this.settings.js.entries);
+    }
+    
+    // Returns the number of entry choices to create based on the score
+    get choiceCount() {
+        return this._numFromScore(this.settings.js.entryChoices);
+    }
     
     /* Returns a weight between [1, 3 000 000 000] when
        1 <= totalNum <= 1 000 000 000  and 0 <= rightNum <= totalNum
@@ -276,24 +285,20 @@ kanjiQuiz.Quiz = class {
     
     // Sets up a new quiz with new words
     restart() {
-        let numFromScore = (rangeObj) => {
-            return Math.min(rangeObj.max, 
-                Math.floor(this.score/rangeObj.div) + rangeObj.min);
-        }
         let highestScoreNeeded = () => {
             let highest = (rangeObj) => (rangeObj.max - rangeObj.min) * rangeObj.div;
             return Math.max(highest(this.choiceRange), highest(this.entryRange));
         }
         let delayedSetup = () => {
             this.fadeIn(this._introBox);
-            this.createEntries(chosenWords, numFromScore(this.choiceRange));
+            // delayed or you can see old words replaced before faded out
+            this.createEntries(chosenWords, this.choiceCount);
         }
 
         this._kanjiCache = this.allKanji();
         this._difficulty.slider.max = highestScoreNeeded();
         this._difficulty.slider.value = this.score;
-        let entryNum = numFromScore(this.entryRange);
-        let chosenWords = this.newWords(entryNum, this.accChance);
+        let chosenWords = this.newWords(this.entryCount, this.accChance);
         this.displayIntro(chosenWords);
         this.fadeOut(this._mainBox, delayedSetup);
     }
@@ -349,8 +354,18 @@ kanjiQuiz.Quiz = class {
         this._beginBtn.addEventListener("click", () => this._startQuiz());
         this._submitBtn.addEventListener("click", () => this._submitQuiz());
         this._difficulty.callback = (e) => this.score = e.target.value;
+        this._difficulty.throttled = () => {
+            let chosenWords = this.newWords(this.entryCount, this.accChance);
+            this.displayIntro(chosenWords);
+            this.createEntries(chosenWords, this.choiceCount);
+        }
         this._arrangeLayout();
         this.restart();
+    }
+    
+    _numFromScore(rangeObj) {
+        let num = Math.floor(this.score/rangeObj.div) + rangeObj.min;
+        return Math.min(rangeObj.max, Math.max(rangeObj.min, num));
     }
     
     // Hides the intro, displays the entries, and enables the submit button
