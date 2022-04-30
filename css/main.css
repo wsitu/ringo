@@ -160,6 +160,29 @@
     padding: 16px;
 }
 
+.kanjiQuiz-quiz-word {
+    border: solid 1px;
+    flex: 1 1 49%;
+    flex-direction: column;
+    margin: 0.5%;
+    padding: 16px;
+}
+
+.kanjiQuiz-quiz-wordsBody {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.5%;
+}
+
+.kanjiQuiz-quiz-wordDef {
+    font-size: 1.5rem;
+    margin: 4px;
+}
+
+.kanjiQuiz-quiz-wordText {
+    text-align: center;
+}
+
 .kanjiQuiz-updateSlider-container {
     flex-direction: column;
 }

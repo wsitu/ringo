@@ -37,11 +37,11 @@ settings.kanjiQuiz.quiz.html = {
         },
         html: "<ruby>次<rt>Next</rt></ruby>"
     },
-    word: {tag: "tr"},
-    wordsBody: {tag: "tbody"},
-    wordsBox: {tag: "table"},
-    wordDef: {tag: "td"},
-    wordText: {tag: "th"}
+    word: {tag: "div", attr: {class: "a-background-bg0a a-color-bg1b b-center"},},
+    wordsBody: {tag: "dl", attr: {class: "a-background-bg1a"},},
+    wordsBox: {tag: "div"},
+    wordDef: {tag: "dd", attr: {class: "a-color-fg1a"},},
+    wordText: {tag: "dt", attr: {class: "a-color-fg1a entry-word"},},
 };
 
 settings.kanjiQuiz.quiz.js = {
