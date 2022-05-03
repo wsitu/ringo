@@ -97,7 +97,7 @@
     border-radius: 128px;
     display: block;
     font-size: 1.5rem;
-    margin: 16px auto;
+    margin: 0.5% auto;
     min-width: 256px;
     padding: 4px;
     ruby-position: under;
@@ -160,6 +160,10 @@
     padding: 16px;
 }
 
+.kanjiQuiz-quiz-intro {
+    padding: 0.5%;
+}
+
 .kanjiQuiz-quiz-word {
     border: solid 1px;
     flex: 1 1 49%;
@@ -171,7 +175,6 @@
 .kanjiQuiz-quiz-wordsBody {
     display: flex;
     flex-wrap: wrap;
-    padding: 0.5%;
 }
 
 .kanjiQuiz-quiz-wordDef {
@@ -185,6 +188,7 @@
 
 .kanjiQuiz-updateSlider-container {
     flex-direction: column;
+    margin: 0.5%;
 }
 
 .kanjiQuiz-updateSlider-slider {

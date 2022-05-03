@@ -11,8 +11,8 @@ settings.kanjiQuiz.quiz.html = {
     beginBtn: {
         tag : "button",
         attr: {
-            class: "quiz-control-button a-background-bg0a a-color-fg2a " +
-            "b-hover-invert",
+            class: "quiz-control-button a-background-fg1a a-color-bg0a " +
+            "",
             type: "button",
         },
         html: "<ruby>次<rt>Next</rt></ruby>"
@@ -27,7 +27,7 @@ settings.kanjiQuiz.quiz.html = {
         },
     },
     entries: {tag : "ul", attr: {class: "quiz-entries"}},
-    intro: {tag : "div", attr: {class: "quiz-intro"}},
+    intro: {tag : "div", attr: {class: "a-background-bg1a quiz-intro"}},
     submitBtn: {
         tag : "button",
         attr: {
@@ -38,7 +38,7 @@ settings.kanjiQuiz.quiz.html = {
         html: "<ruby>次<rt>Next</rt></ruby>"
     },
     word: {tag: "div", attr: {class: "a-background-bg0a a-color-bg1b b-center"},},
-    wordsBody: {tag: "dl", attr: {class: "a-background-bg1a"},},
+    wordsBody: {tag: "dl", attr: {class: ""},},
     wordsBox: {tag: "div"},
     wordDef: {tag: "dd", attr: {class: "a-color-fg1a"},},
     wordText: {tag: "dt", attr: {class: "a-color-fg1a entry-word"},},
@@ -124,7 +124,7 @@ settings.kanjiQuiz.updateSlider.html = {
     slider: {
         tag : "input",
         attr: {
-            class: "a-color-fg2a",
+            class: "a-color-bg0a",
             type: "range",
         },
     },
