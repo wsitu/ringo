@@ -97,7 +97,7 @@
     border-style: none;
     display: block;
     font-size: 1.5rem;
-    margin: 0.5% auto;
+    margin: 1.5% auto;
     min-width: 256px;
     padding: 4px;
     position: relative;
@@ -127,10 +127,6 @@
     list-style: none;
 }
 
-.quiz-entry {
-    margin: 36px 0;
-}
-
 .quiz-hidden-kanji {
     border: 2px solid;
     border-radius: 10%;
@@ -153,17 +149,16 @@
     font-weight: normal;
 }
 
-.kanjiQuiz-quiz-container {
-    margin: 0 auto;
-    max-width: 720px;
-}
-
 .kanjiQuiz-entry-body {
     display: flex;
 }
 
 .kanjiQuiz-entry-choices {
     margin: -1%; /*compensate for the button margins*/
+}
+
+.kanjiQuiz-entry-container {
+    border-bottom: double 4px;
 }
 
 .kanjiQuiz-entry-definition {
@@ -181,6 +176,15 @@
     flex-direction: column;
     margin: 16px;
     padding: 16px;
+}
+
+.kanjiQuiz-quiz-body {
+    padding: 0.5%;
+}
+
+.kanjiQuiz-quiz-container {
+    margin: 0 auto;
+    max-width: 720px;
 }
 
 .kanjiQuiz-quiz-intro {

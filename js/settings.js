@@ -17,7 +17,13 @@ settings.kanjiQuiz.quiz.html = {
         },
         html: "<ruby>次<rt>Next</rt></ruby>"
     },
-    body: {tag : "div", attr: {style: "display: none"}},
+    body: {
+        tag : "div",
+        attr: {
+            class: "a-background-bg1a",
+            style: "display: none",
+        },
+    },
     container: {tag : "div", attr: {class: "quiz"}},
     difficulty: {
         tag : "input", 
@@ -26,13 +32,13 @@ settings.kanjiQuiz.quiz.html = {
             type: "range",
         },
     },
-    entries: {tag : "ul", attr: {class: "quiz-entries"}},
+    entries: {tag : "ul", attr: {class: "a-color-bg1b quiz-entries"}},
     intro: {tag : "div", attr: {class: "a-background-bg1a quiz-intro"}},
     submitBtn: {
         tag : "button",
         attr: {
-            class: "quiz-control-button a-background-bg0a a-color-fg2a " +
-            "b-hover-invert",
+            class: "quiz-control-button a-background-fg1a a-color-bg0a " +
+            "",
             type: "button",
         },
         html: "<ruby>次<rt>Next</rt></ruby>"
