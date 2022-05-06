@@ -125,8 +125,6 @@
 
 .quiz-entries {
     list-style: none;
-    margin: 0 auto;
-    max-width: 800px;
 }
 
 .quiz-entry {
@@ -153,6 +151,11 @@
 .quiz-intro th {
     font-size: 1.5rem;
     font-weight: normal;
+}
+
+.kanjiQuiz-quiz-container {
+    margin: 0 auto;
+    max-width: 720px;
 }
 
 .kanjiQuiz-entry-body {
