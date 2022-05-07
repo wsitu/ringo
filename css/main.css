@@ -1,97 +1,3 @@
-.entry-answer {
-    font-size: 3rem;
-}
-
-.entry-choices {
-    align-content: start;
-    display: flex; 
-    flex-basis: 100%;
-    flex-wrap: wrap;
-    list-style: none;
-}
-
-.entry-choices button {
-    border: solid 1px;
-    border-radius: 20%;
-    border-color: var(--color-light-pink);
-    flex-grow: 1;
-    font-size: 1.25rem;
-}
-
-/* make them square */
-.entry-choices button:before {
-    content:'';
-    float:left;
-    padding-top:100%;
-}
-
-.entry-choices button:active {
-    transform: scale(0.9);
-}
-
-.entry-choices li {
-    display: flex;
-    flex-basis: 23%;
-    margin: 1%;
-}
-
-.entry-def {
-    font-size: 0.75em;
-}
-
-.entry-header {
-    border-bottom: solid 2px;
-}
-
-.entry-header::first-letter {
-    text-transform: capitalize;
-}
-
-.entry-result {
-    font-size: 4rem;
-}
-
-.entry-result button {
-    border: solid 2px;
-    border-radius: 50%;
-    font-size: inherit;
-    min-width: 100px;
-    min-height: 100px;
-}
-
-.entry-result button:active {
-    transform: scale(0.9);
-}
-
-.entry-result p rt {
-    display: none;
-}
-
-.entry-result rt {
-    font-size: 0.5em;
-    font-weight: normal;
-}
-
-.entry-ui {
-    flex-basis: 50%;
-}
-
-.entry-word {
-    font-size: 3rem;
-    margin: 4px;
-    min-width: 6em;
-}
-
-.entry-word rt {
-    font-size: 0.5em;
-    font-weight: normal;
-    margin: 0 0.15em;
-}
-
-.entry-word strong {
-    font-weight: normal;
-}
-
 .quiz-control-button {
     border-radius: 128px;
     border-style: none;
@@ -123,38 +29,46 @@
     opacity: 1;
 }
 
-.quiz-entries {
-    list-style: none;
-}
-
-.quiz-hidden-kanji {
-    border: 2px solid;
-    border-radius: 10%;
-    color: var(--color-dark-pink);
-    display: inline-block;
-    min-height: 0.75em;
-    min-width: 0.75em;
-    opacity: 0.25;
-}
-
-.quiz-intro table {
-    margin: 0 auto;
-}
-
-.quiz-intro td, .quiz-intro th{
-    padding: 8px 16px;
-}
-.quiz-intro th {
-    font-size: 1.5rem;
-    font-weight: normal;
+.kanjiQuiz-entry-answer {
+    font-size: 3rem;
 }
 
 .kanjiQuiz-entry-body {
     display: flex;
 }
 
+.kanjiQuiz-entry-choice {
+    display: flex;
+    flex-basis: 23%;
+    margin: 1%;
+}
+
 .kanjiQuiz-entry-choices {
+    align-content: start;
+    display: flex; 
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    list-style: none;
     margin: -1%; /*compensate for the button margins*/
+}
+
+.kanjiQuiz-entry-choiceBtn {
+    border: solid 1px;
+    border-radius: 20%;
+    border-color: var(--color-light-pink);
+    flex-grow: 1;
+    font-size: 1.25rem;
+}
+
+.kanjiQuiz-entry-choiceBtn:active {
+    transform: scale(0.9);
+}
+
+/* make them square */
+.kanjiQuiz-entry-choiceBtn:before {
+    content:'';
+    float:left;
+    padding-top:100%;
 }
 
 .kanjiQuiz-entry-container {
@@ -166,7 +80,24 @@
     margin: 4px;
 }
 
+.kanjiQuiz-entry-incorrect {
+    border: solid 2px;
+    border-radius: 50%;
+    font-size: inherit;
+    min-width: 100px;
+    min-height: 100px;
+}
+
+.kanjiQuiz-entry-incorrect:active {
+    transform: scale(0.9);
+}
+
+.kanjiQuiz-entry-result {
+    font-size: 4rem;
+}
+
 .kanjiQuiz-entry-ui {
+    flex-basis: 50%;
     margin: 16px;
 }
 
@@ -187,6 +118,10 @@
     max-width: 720px;
 }
 
+.kanjiQuiz-quiz-entries {
+    list-style: none;
+}
+
 .kanjiQuiz-quiz-intro {
     padding: 0.5%;
 }
@@ -204,6 +139,12 @@
     flex-wrap: wrap;
 }
 
+.kanjiQuiz-entry-wordBox, .kanjiQuiz-quiz-wordText {
+    font-size: 3rem;
+    margin: 4px;
+    min-width: 6em;
+}
+
 .kanjiQuiz-quiz-wordDef {
     font-size: 1.5rem;
     margin: 4px;
@@ -211,6 +152,26 @@
 
 .kanjiQuiz-quiz-wordText {
     text-align: center;
+}
+
+.kanjiQuiz-solution-input {
+    border: 2px solid;
+    border-radius: 10%;
+    color: var(--color-dark-pink);
+    display: inline-block;
+    min-height: 0.75em;
+    min-width: 0.75em;
+    opacity: 0.25;
+}
+
+.kanjiQuiz-solution-marked {
+    font-weight: normal;
+}
+
+.kanjiQuiz-solution-reading {
+    font-size: 0.5em;
+    font-weight: normal;
+    margin: 0 0.15em;
 }
 
 .kanjiQuiz-updateSlider-container {
