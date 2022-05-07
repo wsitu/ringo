@@ -1,33 +1,3 @@
-.quiz-control-button {
-    border-radius: 128px;
-    border-style: none;
-    display: block;
-    font-size: 1.5rem;
-    margin: 1.5% auto;
-    min-width: 256px;
-    padding: 4px;
-    position: relative;
-    ruby-position: under;
-    transition-duration: 0.30s;
-    transition-property: background-color, color;
-}
-
-.quiz-control-button::after {
-    content: "\279c";
-    position: absolute;
-    opacity: 0;
-    left: calc(50% + 0.75em);
-    transition: opacity 0.20s;
-}
-
-.quiz-control-button:hover {
-    background-color: var(--color-black);
-    color: var(--color-light-pink);
-}
-
-.quiz-control-button:hover::after {
-    opacity: 1;
-}
 
 .kanjiQuiz-entry-answer {
     font-size: 3rem;
@@ -182,4 +152,35 @@
 .kanjiQuiz-updateSlider-slider {
     accent-color: currentcolor;
     width: 50%;
+}
+
+.quiz-control-button {
+    border-radius: 128px;
+    border-style: none;
+    display: block;
+    font-size: 1.5rem;
+    margin: 1.5% auto;
+    min-width: 256px;
+    padding: 4px;
+    position: relative;
+    ruby-position: under;
+    transition-duration: 0.30s;
+    transition-property: background-color, color;
+}
+
+.quiz-control-button::after {
+    content: "\279c";
+    position: absolute;
+    opacity: 0;
+    left: calc(50% + 0.75em);
+    transition: opacity 0.20s;
+}
+
+.quiz-control-button:hover {
+    background-color: var(--color-black);
+    color: var(--color-light-pink);
+}
+
+.quiz-control-button:hover::after {
+    opacity: 1;
 }
