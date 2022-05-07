@@ -24,7 +24,7 @@ settings.kanjiQuiz.quiz.html = {
             style: "display: none",
         },
     },
-    container: {tag : "div", attr: {class: "quiz"}},
+    container: {tag : "div", attr: {class: ""}},
     difficulty: {
         tag : "input", 
         attr: {
@@ -32,8 +32,8 @@ settings.kanjiQuiz.quiz.html = {
             type: "range",
         },
     },
-    entries: {tag : "ul", attr: {class: "a-color-bg1b quiz-entries"}},
-    intro: {tag : "div", attr: {class: "a-background-bg1a quiz-intro"}},
+    entries: {tag : "ul", attr: {class: "a-color-bg1b"}},
+    intro: {tag : "div", attr: {class: "a-background-bg1a"}},
     submitBtn: {
         tag : "button",
         attr: {
@@ -47,7 +47,7 @@ settings.kanjiQuiz.quiz.html = {
     wordsBody: {tag: "dl", attr: {class: ""},},
     wordsBox: {tag: "div"},
     wordDef: {tag: "dd", attr: {class: "a-color-fg1a"},},
-    wordText: {tag: "dt", attr: {class: "a-color-fg1a entry-word"},},
+    wordText: {tag: "dt", attr: {class: "a-color-fg1a"},},
 };
 
 settings.kanjiQuiz.quiz.js = {
@@ -68,13 +68,13 @@ settings.kanjiQuiz.entry.html = {
     answer: {
         tag : "p",
         attr: {
-            class: "entry-answer a-color-fg2a",
+            class: "a-color-fg2a",
             style: "display: none",
         },
     },
     body: {tag: "div", attr: {class: "a-background-bg1a"}},
     choice: {tag: "li",},
-    choices: {tag: "ul",  attr: {class: "entry-choices"}},
+    choices: {tag: "ul",  attr: {class: ""}},
     choiceBtn: {
         tag : "button",
         attr: {
@@ -87,7 +87,7 @@ settings.kanjiQuiz.entry.html = {
         attr: {style: "display: none"},
         text: "\u2714", //check mark
     },
-    container: {tag: "li", attr: {class: "quiz-entry"}},
+    container: {tag: "li", attr: {class: ""}},
     definition: {tag: "p",  attr: {class: "a-color-fg1a"}},
     incorrect: {
         tag : "button",
@@ -101,13 +101,13 @@ settings.kanjiQuiz.entry.html = {
     result: {
         tag : "p",
         attr: {
-            class: "entry-result a-color-fg2b",
+            class: "a-color-fg2b",
             style: "display: none",
         },
     },
-    ui: {tag: "div", attr: {class: "entry-ui b-center"}},
+    ui: {tag: "div", attr: {class: "b-center"}},
     word: {tag: "p"},
-    wordBox: {tag: "div", attr: {class: "entry-word a-color-fg1a b-center "}},
+    wordBox: {tag: "div", attr: {class: "a-color-fg1a b-center "}},
     wordData: {tag: "div", attr: {class: "a-background-bg0a a-color-bg1b b-center"}},
 };
 
@@ -121,7 +121,7 @@ settings.kanjiQuiz.solution.html = {
 
 settings.kanjiQuiz.solution.js = {
     // css class for styling the parts of a word replaced by user input
-    unsetClass: "quiz-hidden-kanji",
+    unsetClass: "kanjiQuiz-solution-input",
 };
 
 settings.kanjiQuiz.updateSlider.html = {
