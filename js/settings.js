@@ -12,7 +12,7 @@ settings.kanjiQuiz.quiz.html = {
         tag : "button",
         attr: {
             class: "quiz-control-button a-background-fg1a a-color-bg0a " +
-            "",
+            "a-font-medium2",
             type: "button",
         },
         html: "<ruby>次<rt>Next</rt></ruby>"
@@ -38,7 +38,7 @@ settings.kanjiQuiz.quiz.html = {
         tag : "button",
         attr: {
             class: "quiz-control-button a-background-fg1a a-color-bg0a " +
-            "",
+            "a-font-medium2",
             type: "button",
         },
         html: "<ruby>次<rt>Next</rt></ruby>"
@@ -46,8 +46,8 @@ settings.kanjiQuiz.quiz.html = {
     word: {tag: "div", attr: {class: "a-background-bg0a a-color-bg1b b-center"},},
     wordsBody: {tag: "dl", attr: {class: ""},},
     wordsBox: {tag: "div"},
-    wordDef: {tag: "dd", attr: {class: "a-color-fg1a"},},
-    wordText: {tag: "dt", attr: {class: "a-color-fg1a"},},
+    wordDef: {tag: "dd", attr: {class: "a-color-fg1a a-font-medium2"},},
+    wordText: {tag: "dt", attr: {class: "a-color-fg1a a-font-large1"},},
 };
 
 settings.kanjiQuiz.quiz.js = {
@@ -68,17 +68,18 @@ settings.kanjiQuiz.entry.html = {
     answer: {
         tag : "p",
         attr: {
-            class: "a-color-fg2a",
+            class: "a-color-fg2a a-font-large1",
             style: "display: none",
         },
     },
-    body: {tag: "div", attr: {class: "a-background-bg1a"}},
+    body: {tag: "div", attr: {class: "a-background-bg1a a-font-medium1"}},
     choice: {tag: "li",},
     choices: {tag: "ul",  attr: {class: ""}},
     choiceBtn: {
         tag : "button",
         attr: {
-            class: "a-background-bg0a a-color-fg1a b-center b-hover-invert",
+            class: "a-background-bg0a a-color-fg1a a-font-medium1 b-center " +
+            "b-hover-invert",
             type: "button",
         },
     },
@@ -88,7 +89,7 @@ settings.kanjiQuiz.entry.html = {
         text: "\u2714", //check mark
     },
     container: {tag: "li", attr: {class: ""}},
-    definition: {tag: "p",  attr: {class: "a-color-fg1a"}},
+    definition: {tag: "p",  attr: {class: "a-color-fg1a a-font-medium2"}},
     incorrect: {
         tag : "button",
         attr: {
@@ -101,13 +102,13 @@ settings.kanjiQuiz.entry.html = {
     result: {
         tag : "p",
         attr: {
-            class: "a-color-fg2b",
+            class: "a-color-fg2b a-font-large2",
             style: "display: none",
         },
     },
     ui: {tag: "div", attr: {class: "b-center"}},
     word: {tag: "p"},
-    wordBox: {tag: "div", attr: {class: "a-color-fg1a b-center "}},
+    wordBox: {tag: "div", attr: {class: "a-color-fg1a a-font-large1 b-center "}},
     wordData: {tag: "div", attr: {class: "a-background-bg0a a-color-bg1b b-center"}},
 };
 

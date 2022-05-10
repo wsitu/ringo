@@ -1,6 +1,5 @@
 
 .kanjiQuiz-entry-answer {
-    font-size: 3rem;
 }
 
 .kanjiQuiz-entry-body {
@@ -27,7 +26,6 @@
     border-radius: 20%;
     border-color: var(--color-light-pink);
     flex-grow: 1;
-    font-size: 1.25rem;
 }
 
 .kanjiQuiz-entry-choiceBtn:active {
@@ -46,7 +44,6 @@
 }
 
 .kanjiQuiz-entry-definition {
-    font-size: 1.5rem;
     margin: 4px;
 }
 
@@ -63,7 +60,6 @@
 }
 
 .kanjiQuiz-entry-result {
-    font-size: 4rem;
 }
 
 .kanjiQuiz-entry-ui {
@@ -110,13 +106,11 @@
 }
 
 .kanjiQuiz-entry-wordBox, .kanjiQuiz-quiz-wordText {
-    font-size: 3rem;
     margin: 4px;
     min-width: 6em;
 }
 
 .kanjiQuiz-quiz-wordDef {
-    font-size: 1.5rem;
     margin: 4px;
 }
 
@@ -158,7 +152,6 @@
     border-radius: 128px;
     border-style: none;
     display: block;
-    font-size: 1.5rem;
     margin: 1.5% auto;
     min-width: 256px;
     padding: 4px;
