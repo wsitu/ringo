@@ -80,15 +80,15 @@ h1, h2, h3, h4, h5, h6{
 .a-color-fg3a.b-hover-invert {--default-color: var(--color-dark-red);}
 .a-color-fg3b.b-hover-invert {--default-color: var(--color-red);}
 
-.a-font-default, h5,h6 {font-size: 1rem;}
-.a-font-medium1, h4 {font-size: 1.25rem;}
-.a-font-medium2, h3 {font-size: 1.50rem;}
-.a-font-medium3, h2 {font-size: 1.75rem;}
-.a-font-medium4, h1 {font-size: 2rem;}
-.a-font-large1 {font-size: 3rem;}
-.a-font-large2 {font-size: 4rem;}
-.a-font-large3 {font-size: 5rem;}
-.a-font-large4 {font-size: 6rem;}
+.a-font-default, h6 {font-size: 1.00rem;}
+.a-font-medium1, h5 {font-size: 1.25rem;}
+.a-font-medium2, h4 {font-size: 1.50rem;}
+.a-font-medium3, h3 {font-size: 1.75rem;}
+.a-font-medium4, h2 {font-size: 2.00rem;}
+.a-font-large1,  h1 {font-size: 2.50rem;}
+.a-font-large2 {font-size: 3.00rem;}
+.a-font-large3 {font-size: 3.50rem;}
+.a-font-large4 {font-size: 4.00rem;}
 
 /* On hover, switches the background and border color to the font color set by
    an a-color-... class, and the font color with the background color set in an
