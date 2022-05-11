@@ -46,7 +46,7 @@ settings.kanjiQuiz.quiz.html = {
     word: {tag: "div", attr: {class: "a-background-bg0a a-color-bg1b b-center"},},
     wordsBody: {tag: "dl", attr: {class: ""},},
     wordsBox: {tag: "div"},
-    wordDef: {tag: "dd", attr: {class: "a-color-fg1a a-font-medium2"},},
+    wordDef: {tag: "dd", attr: {class: "a-color-fg1a"},},
     wordText: {tag: "dt", attr: {class: "a-color-fg1a a-font-large1"},},
 };
 
@@ -72,7 +72,7 @@ settings.kanjiQuiz.entry.html = {
             style: "display: none",
         },
     },
-    body: {tag: "div", attr: {class: "a-background-bg1a a-font-medium1"}},
+    body: {tag: "div", attr: {class: "a-background-bg1a"}},
     choice: {tag: "li",},
     choices: {tag: "ul",  attr: {class: ""}},
     choiceBtn: {
@@ -89,7 +89,7 @@ settings.kanjiQuiz.entry.html = {
         text: "\u2714", //check mark
     },
     container: {tag: "li", attr: {class: ""}},
-    definition: {tag: "p",  attr: {class: "a-color-fg1a a-font-medium2"}},
+    definition: {tag: "p",  attr: {class: "a-color-fg1a"}},
     incorrect: {
         tag : "button",
         attr: {
