@@ -145,11 +145,9 @@
 }
 
 .quiz-control-button {
-    border-radius: 128px;
     border-style: none;
     display: block;
-    margin: 1.5% auto;
-    min-width: 256px;
+    width: 100%;
     padding: 4px;
     position: relative;
     ruby-position: under;
