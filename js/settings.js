@@ -20,7 +20,7 @@ settings.kanjiQuiz.quiz.html = {
     body: {
         tag : "div",
         attr: {
-            class: "a-background-bg1a",
+            class: "",
             style: "display: none",
         },
     },
@@ -32,7 +32,7 @@ settings.kanjiQuiz.quiz.html = {
             type: "range",
         },
     },
-    entries: {tag : "ul", attr: {class: "a-color-bg1b"}},
+    entries: {tag : "ul", attr: {class: ""}},
     intro: {tag : "div", attr: {class: "a-background-bg1a"}},
     submitBtn: {
         tag : "button",
@@ -72,13 +72,13 @@ settings.kanjiQuiz.entry.html = {
             style: "display: none",
         },
     },
-    body: {tag: "div", attr: {class: "a-background-bg1a"}},
+    body: {tag: "div", attr: {class: "a-background-bg0a"}},
     choice: {tag: "li",},
     choices: {tag: "ul",  attr: {class: ""}},
     choiceBtn: {
         tag : "button",
         attr: {
-            class: "a-background-bg0a a-color-fg1a a-font-medium1 b-center " +
+            class: "a-background-bg1a a-color-fg0a a-font-medium1 b-center " +
             "b-hover-invert",
             type: "button",
         },
@@ -88,8 +88,8 @@ settings.kanjiQuiz.entry.html = {
         attr: {style: "display: none"},
         text: "\u2714", //check mark
     },
-    container: {tag: "li", attr: {class: ""}},
-    definition: {tag: "p",  attr: {class: "a-color-fg1a"}},
+    container: {tag: "li", attr: {class: "a-color-bg1b"}},
+    definition: {tag: "p",  attr: {class: ""}},
     incorrect: {
         tag : "button",
         attr: {
@@ -108,8 +108,11 @@ settings.kanjiQuiz.entry.html = {
     },
     ui: {tag: "div", attr: {class: "b-center"}},
     word: {tag: "p"},
-    wordBox: {tag: "div", attr: {class: "a-color-fg1a a-font-large1 b-center "}},
-    wordData: {tag: "div", attr: {class: "a-background-bg0a a-color-bg1b b-center"}},
+    wordBox: {tag: "div", attr: {class: "a-font-large1 b-center "}},
+    wordData: {
+        tag: "div", 
+        attr: {class: "a-background-bg0a a-color-fg0a b-center"},
+    },
 };
 
 settings.kanjiQuiz.solution.html = {
