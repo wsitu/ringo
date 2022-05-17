@@ -32,7 +32,7 @@ settings.kanjiQuiz.quiz.html = {
             type: "range",
         },
     },
-    entries: {tag : "ul", attr: {class: ""}},
+    entries: {tag : "ul", attr: {class: "a-color-fg1a"}},
     intro: {tag : "div", attr: {class: "a-background-bg1a"}},
     submitBtn: {
         tag : "button",
