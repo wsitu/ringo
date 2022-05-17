@@ -32,7 +32,7 @@ settings.kanjiQuiz.quiz.html = {
             type: "range",
         },
     },
-    entries: {tag : "ul", attr: {class: "a-color-fg1a"}},
+    entries: {tag : "ul", attr: {class: "a-border-fg1a"}},
     intro: {tag : "div", attr: {class: "a-background-bg1a"}},
     submitBtn: {
         tag : "button",
@@ -88,7 +88,7 @@ settings.kanjiQuiz.entry.html = {
         attr: {style: "display: none"},
         text: "\u2714", //check mark
     },
-    container: {tag: "li", attr: {class: "a-color-bg1b"}},
+    container: {tag: "li", attr: {class: "a-border-bg0b"}},
     definition: {tag: "p",  attr: {class: ""}},
     incorrect: {
         tag : "button",
@@ -111,7 +111,7 @@ settings.kanjiQuiz.entry.html = {
     wordBox: {tag: "div", attr: {class: "a-font-large1 b-center "}},
     wordData: {
         tag: "div", 
-        attr: {class: "a-background-bg0a a-color-fg0a b-center"},
+        attr: {class: "a-background-bg0a a-border-bg0b a-color-fg0a b-center"},
     },
 };
 

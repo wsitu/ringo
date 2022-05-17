@@ -40,7 +40,8 @@
 }
 
 .kanjiQuiz-entry-container {
-    border-bottom: 1px solid;
+    border-width: 1px;
+    border-bottom-style: solid;
 }
 
 .kanjiQuiz-entry-container:last-child {
@@ -72,6 +73,8 @@
 }
 
 .kanjiQuiz-entry-wordData {
+    border-right-style: solid;
+    border-width: 1px;
     flex-basis: 50%;
     flex-direction: column;
 }
@@ -85,8 +88,9 @@
 }
 
 .kanjiQuiz-quiz-entries {
-    border: 2px solid;
+    border-style: solid;
     border-bottom-style: none;
+    border-width: 2px;
     list-style: none;
 }
 
