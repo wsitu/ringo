@@ -23,7 +23,6 @@
 
 .kanjiQuiz-entry-choiceBtn {
     border-style: none;
-    border-radius: 20%;
     border-color: var(--color-light-pink);
     flex-grow: 1;
 }
