@@ -123,6 +123,7 @@
 }
 
 .kanjiQuiz-solution-input {
+    color: var(--color-light-gray);
 }
 
 .kanjiQuiz-solution-input::before {
