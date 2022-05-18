@@ -124,12 +124,10 @@
 }
 
 .kanjiQuiz-solution-input {
-    border: 2px solid;
-    border-radius: 10%;
-    display: inline-block;
-    min-height: 0.75em;
-    min-width: 0.75em;
-    opacity: 0.25;
+}
+
+.kanjiQuiz-solution-input::before {
+    content: "\25fc";
 }
 
 .kanjiQuiz-solution-marked {
