@@ -37,29 +37,51 @@ h1, h2, h3, h4, h5, h6{
    
    * Mirror all color modification to hover-invert version *
 */
-.a-background-bg0a, body {background-color: var(--color-white);}
-.a-background-bg0b {background-color: var(--color-light-gray);}
-.a-background-bg1a {background-color: var(--color-lightest-pink);}
-.a-background-bg1b {background-color: var(--color-light-pink);}
-.a-background-fg0a {background-color: var(--color-black);}
-.a-background-fg1a {background-color: var(--color-dark-pink);}
-.a-background-fg1b {background-color: var(--color-pink);}
-.a-background-fg2a {background-color: var(--color-dark-green);}
-.a-background-fg2b {background-color: var(--color-green);}
-.a-background-fg3a {background-color: var(--color-dark-red);}
-.a-background-fg3b {background-color: var(--color-red);}
+.a-background-bg0a, .a-background-hv-bg0a:hover, body {
+    background-color: var(--color-white);
+}
+.a-background-bg0b, .a-background-hv-bg0b:hover {
+    background-color: var(--color-light-gray);
+}
+.a-background-bg1a, .a-background-hv-bg1a:hover {
+    background-color: var(--color-lightest-pink);
+}
+.a-background-bg1b, .a-background-hv-bg1b:hover {
+    background-color: var(--color-light-pink);
+}
+.a-background-fg0a, .a-background-hv-fg0a:hover {
+    background-color: var(--color-black);
+}
+.a-background-fg1a, .a-background-hv-fg1a:hover {
+    background-color: var(--color-dark-pink);
+}
+.a-background-fg1b, .a-background-hv-fg1b:hover {
+    background-color: var(--color-pink);
+}
+.a-background-fg2a, .a-background-hv-fg2a:hover {
+    background-color: var(--color-dark-green);
+}
+.a-background-fg2b, .a-background-hv-fg2b:hover {
+    background-color: var(--color-green);
+}
+.a-background-fg3a, .a-background-hv-fg3a:hover {
+    background-color: var(--color-dark-red);
+}
+.a-background-fg3b, .a-background-hv-fg3b:hover {
+    background-color: var(--color-red);
+}
 
-.a-border-bg0a {border-color: var(--color-white);}
-.a-border-bg0b {border-color: var(--color-light-gray);}
-.a-border-bg1a {border-color: var(--color-lightest-pink);}
-.a-border-bg1b {border-color: var(--color-light-pink);}
-.a-border-fg0a {border-color: var(--color-black);}
-.a-border-fg1a {border-color: var(--color-dark-pink);}
-.a-border-fg1b {border-color: var(--color-pink);}
-.a-border-fg2a {border-color: var(--color-dark-green);}
-.a-border-fg2b {border-color: var(--color-green);}
-.a-border-fg3a {border-color: var(--color-dark-red);}
-.a-border-fg3b {border-color: var(--color-red);}
+.a-border-bg0a, .a-border-hv-bg0a:hover {border-color: var(--color-white);}
+.a-border-bg0b, .a-border-hv-bg0b:hover {border-color: var(--color-light-gray);}
+.a-border-bg1a, .a-border-hv-bg1a:hover {border-color: var(--color-lightest-pink);}
+.a-border-bg1b, .a-border-hv-bg1b:hover {border-color: var(--color-light-pink);}
+.a-border-fg0a, .a-border-hv-fg0a:hover {border-color: var(--color-black);}
+.a-border-fg1a, .a-border-hv-fg1a:hover {border-color: var(--color-dark-pink);}
+.a-border-fg1b, .a-border-hv-fg1b:hover {border-color: var(--color-pink);}
+.a-border-fg2a, .a-border-hv-fg2a:hover {border-color: var(--color-dark-green);}
+.a-border-fg2b, .a-border-hv-fg2b:hover {border-color: var(--color-green);}
+.a-border-fg3a, .a-border-hv-fg3a:hover {border-color: var(--color-dark-red);}
+.a-border-fg3b, .a-border-hv-fg3b:hover {border-color: var(--color-red);}
 
 .a-background-bg0a.b-hover-invert {--default-bg-color: var(--color-white);}
 .a-background-bg1a.b-hover-invert {--default-bg-color: var(--color-lightest-pink);}
@@ -72,17 +94,39 @@ h1, h2, h3, h4, h5, h6{
 .a-background-fg3a.b-hover-invert {--default-bg-color: var(--color-dark-red);}
 .a-background-fg3b.b-hover-invert {--default-bg-color: var(--color-red);}
 
-.a-color-bg0a {color: var(--color-white);}
-.a-color-bg0b {color: var(--color-light-gray);}
-.a-color-bg1a {color: var(--color-lightest-pink);}
-.a-color-bg1b {color: var(--color-light-pink);}
-.a-color-fg0a, body {color: var(--color-black);}
-.a-color-fg1a, h1, h2, h3, h4, h5, h6 {color: var(--color-dark-pink);}
-.a-color-fg1b {color: var(--color-pink);}
-.a-color-fg2a {color: var(--color-dark-green);}
-.a-color-fg2b {color: var(--color-green);}
-.a-color-fg3a {color: var(--color-dark-red);}
-.a-color-fg3b {color: var(--color-red);}
+.a-color-bg0a, .a-color-hv-bg0a:hover {
+    color: var(--color-white);
+}
+.a-color-bg0b, .a-color-hv-bg0b:hover {
+    color: var(--color-light-gray);
+}
+.a-color-bg1a, .a-color-hv-bg1a:hover {
+    color: var(--color-lightest-pink);
+}
+.a-color-bg1b, .a-color-hv-bg1b:hover {
+    color: var(--color-light-pink);
+}
+.a-color-fg0a, .a-color-hv-fg0a:hover, body {
+    color: var(--color-black);
+}
+.a-color-fg1a, .a-color-hv-fg1a:hover, h1, h2, h3, h4, h5, h6 {
+    color: var(--color-dark-pink);
+}
+.a-color-fg1b, .a-color-hv-fg1b:hover {
+    color: var(--color-pink);
+}
+.a-color-fg2a, .a-color-hv-fg2a:hover {
+    color: var(--color-dark-green);
+}
+.a-color-fg2b, .a-color-hv-fg2b:hover {
+    color: var(--color-green);
+}
+.a-color-fg3a, .a-color-hv-fg3a:hover {
+    color: var(--color-dark-red);
+}
+.a-color-fg3b, .a-color-hv-fg3b:hover {
+    color: var(--color-red);
+}
 
 .a-color-bg0a.b-hover-invert {--default-color: var(--color-white);}
 .a-color-bg1a.b-hover-invert {--default-color: var(--color-lightest-pink);}
