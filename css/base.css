@@ -30,12 +30,11 @@ h1, h2, h3, h4, h5, h6{
 }
 
 /* The background (bg) and foreground (fg) colors are numbered and correspond
-   to the same hue but all background colors must contrast to the primary
-   foreground color bg0, while all foreground colors must contrast with the
-   primary background color bg0. Each color group varies with a letter but note
-   bg#a goes from brightest to darkest while fg#a is darkest to brightest.
+   to the same hue and subdivided into letter subgroups. Background colors bg#a
+   go from lightest to dark and foreground colors fg#a from darkest to light.
    
-   * Mirror all color modification to hover-invert version *
+   ! All background colors must have enough contrast against fg0a and all     !
+   ! foreground colors against bg0a                                           !
 */
 .a-background-bg0a, .a-background-hv-bg0a:hover, body {
     background-color: var(--color-white);
@@ -83,17 +82,6 @@ h1, h2, h3, h4, h5, h6{
 .a-border-fg3a, .a-border-hv-fg3a:hover {border-color: var(--color-dark-red);}
 .a-border-fg3b, .a-border-hv-fg3b:hover {border-color: var(--color-red);}
 
-.a-background-bg0a.b-hover-invert {--default-bg-color: var(--color-white);}
-.a-background-bg1a.b-hover-invert {--default-bg-color: var(--color-lightest-pink);}
-.a-background-bg1b.b-hover-invert {--default-bg-color: var(--color-light-pink);}
-.a-background-fg0a.b-hover-invert {--default-bg-color: var(--color-black);}
-.a-background-fg1a.b-hover-invert {--default-bg-color: var(--color-dark-pink);}
-.a-background-fg1b.b-hover-invert {--default-bg-color: var(--color-pink);}
-.a-background-fg2a.b-hover-invert {--default-bg-color: var(--color-dark-green);}
-.a-background-fg2b.b-hover-invert {--default-bg-color: var(--color-green);}
-.a-background-fg3a.b-hover-invert {--default-bg-color: var(--color-dark-red);}
-.a-background-fg3b.b-hover-invert {--default-bg-color: var(--color-red);}
-
 .a-color-bg0a, .a-color-hv-bg0a:hover {
     color: var(--color-white);
 }
@@ -128,17 +116,6 @@ h1, h2, h3, h4, h5, h6{
     color: var(--color-red);
 }
 
-.a-color-bg0a.b-hover-invert {--default-color: var(--color-white);}
-.a-color-bg1a.b-hover-invert {--default-color: var(--color-lightest-pink);}
-.a-color-bg1b.b-hover-invert {--default-color: var(--color-light-pink);}
-.a-color-fg0a.b-hover-invert {--default-color: var(--color-black);}
-.a-color-fg1a.b-hover-invert {--default-color: var(--color-dark-pink);}
-.a-color-fg1b.b-hover-invert {--default-color: var(--color-pink);}
-.a-color-fg2a.b-hover-invert {--default-color: var(--color-dark-green);}
-.a-color-fg2b.b-hover-invert {--default-color: var(--color-green);}
-.a-color-fg3a.b-hover-invert {--default-color: var(--color-dark-red);}
-.a-color-fg3b.b-hover-invert {--default-color: var(--color-red);}
-
 .a-font-default, h6 {font-size: 1.00rem;}
 .a-font-medium1, h5 {font-size: 1.25rem;}
 .a-font-medium2, h4 {font-size: 1.50rem;}
@@ -149,15 +126,6 @@ h1, h2, h3, h4, h5, h6{
 .a-font-large3 {font-size: 3.50rem;}
 .a-font-large4 {font-size: 4.00rem;}
 
-/* On hover, switches the background and border color to the font color set by
-   an a-color-... class, and the font color with the background color set in an
-   a-background-... class.
-*/
-.b-hover-invert:hover {
-    background-color: var(--default-color);
-    border-color: var(--default-color);
-    color: var(--default-bg-color);
-}
 
 .b-center {
     align-items: center;
