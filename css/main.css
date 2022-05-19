@@ -169,11 +169,6 @@
     transition: opacity 0.20s;
 }
 
-.quiz-control-button:hover {
-    background-color: var(--color-black);
-    color: var(--color-light-pink);
-}
-
 .quiz-control-button:hover::after {
     opacity: 1;
 }

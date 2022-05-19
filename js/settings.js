@@ -11,8 +11,8 @@ settings.kanjiQuiz.quiz.html = {
     beginBtn: {
         tag : "button",
         attr: {
-            class: "quiz-control-button a-background-fg1a a-color-bg0a " +
-            "a-font-medium2",
+            class: "a-background-fg1a a-background-hv-fg0a a-color-bg0a " +
+            "a-color-hv-bg1a a-font-medium2 quiz-control-button ",
             type: "button",
         },
         html: "<ruby>次<rt>Next</rt></ruby>"
@@ -37,8 +37,8 @@ settings.kanjiQuiz.quiz.html = {
     submitBtn: {
         tag : "button",
         attr: {
-            class: "quiz-control-button a-background-fg1a a-color-bg0a " +
-            "a-font-medium2",
+            class: "a-background-fg1a a-background-hv-fg0a a-color-bg0a " +
+            "a-color-hv-bg1a a-font-medium2 quiz-control-button ",
             type: "button",
         },
         html: "<ruby>次<rt>Next</rt></ruby>"
@@ -78,8 +78,8 @@ settings.kanjiQuiz.entry.html = {
     choiceBtn: {
         tag : "button",
         attr: {
-            class: "a-background-bg1a a-color-fg0a a-font-medium1 b-center " +
-            "b-hover-invert",
+            class: "a-background-bg1a a-background-hv-fg0a a-color-fg0a " +
+            "a-color-hv-bg1a a-font-medium1 b-center",
             type: "button",
         },
     },
@@ -93,7 +93,8 @@ settings.kanjiQuiz.entry.html = {
     incorrect: {
         tag : "button",
         attr: {
-            class: "a-background-bg0a a-color-fg3a b-hover-invert",
+            class: "a-background-bg0a a-background-hv-fg3a a-border-hv-fg3a " +
+            "a-color-fg3a a-color-hv-bg0a",
             style: "display: none",
             type: "button",
         },
