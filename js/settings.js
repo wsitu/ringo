@@ -25,15 +25,8 @@ settings.kanjiQuiz.quiz.html = {
         },
     },
     container: {tag : "div", attr: {class: ""}},
-    difficulty: {
-        tag : "input", 
-        attr: {
-            class: "a-color-fg2a",
-            type: "range",
-        },
-    },
     entries: {tag : "ul", attr: {class: "a-border-fg1a"}},
-    intro: {tag : "div", attr: {class: "a-background-bg1a"}},
+    intro: {tag : "div", attr: {class: ""}},
     submitBtn: {
         tag : "button",
         attr: {
@@ -43,11 +36,11 @@ settings.kanjiQuiz.quiz.html = {
         },
         html: "<ruby>次<rt>Next</rt></ruby>"
     },
-    word: {tag: "div", attr: {class: "a-background-bg0a a-color-bg1b b-center"},},
-    wordsBody: {tag: "dl", attr: {class: ""},},
+    word: {tag: "div", attr: {class: "a-border-bg0b b-center"},},
+    wordsBody: {tag: "dl", attr: {class: "a-border-fg1a"},},
     wordsBox: {tag: "div"},
-    wordDef: {tag: "dd", attr: {class: "a-color-fg1a"},},
-    wordText: {tag: "dt", attr: {class: "a-color-fg1a a-font-large1"},},
+    wordDef: {tag: "dd", attr: {class: ""},},
+    wordText: {tag: "dt", attr: {class: "a-font-large1"},},
 };
 
 settings.kanjiQuiz.quiz.js = {
@@ -130,12 +123,12 @@ settings.kanjiQuiz.solution.js = {
 };
 
 settings.kanjiQuiz.updateSlider.html = {
-    container: {tag: "div", attr: {class: "b-center"},},
+    container: {tag: "div", attr: {class: "a-border-fg1a b-center"},},
     display: {tag: "p"},
     slider: {
         tag : "input",
         attr: {
-            class: "a-color-bg0a",
+            class: "a-color-fg1a",
             type: "range",
         },
     },

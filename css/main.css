@@ -93,18 +93,23 @@
 }
 
 .kanjiQuiz-quiz-intro {
-    padding: 0.5%;
 }
 
 .kanjiQuiz-quiz-word {
-    border: solid 1px;
-    flex: 1 1 49%;
+    border-style: solid solid none none;
+    border-width: 1px;
+    flex: 1 1 50%;
     flex-direction: column;
-    margin: 0.5%;
-    padding: 16px;
+    padding: 2%;
+}
+
+.kanjiQuiz-quiz-word:last-child, .kanjiQuiz-quiz-word:nth-child(2n) {
+    border-right-style: none;
 }
 
 .kanjiQuiz-quiz-wordsBody {
+    border-style: none solid none solid;
+    border-width: 2px;
     display: flex;
     flex-wrap: wrap;
 }
@@ -141,8 +146,11 @@
 }
 
 .kanjiQuiz-updateSlider-container {
+    border-style: solid;
+    border-bottom-style: none;
+    border-width: 2px;
     flex-direction: column;
-    margin: 0.5%;
+    padding: 1%;
 }
 
 .kanjiQuiz-updateSlider-slider {
