@@ -11,8 +11,8 @@ settings.kanjiQuiz.quiz.html = {
     beginBtn: {
         tag : "button",
         attr: {
-            class: "a-background-fg1a a-background-hv-fg0a a-color-bg0a " +
-            "a-color-hv-bg1a a-font-medium2 quiz-control-button ",
+            class: "a-background-fg1a a-background-hv-fg1b a-color-bg0a " +
+            "a-font-medium2 quiz-control-button ",
             type: "button",
         },
         html: "<ruby>次<rt>Next</rt></ruby>"
@@ -30,8 +30,8 @@ settings.kanjiQuiz.quiz.html = {
     submitBtn: {
         tag : "button",
         attr: {
-            class: "a-background-fg1a a-background-hv-fg0a a-color-bg0a " +
-            "a-color-hv-bg1a a-font-medium2 quiz-control-button ",
+            class: "a-background-fg1a a-background-hv-fg1b a-color-bg0a " +
+            "a-font-medium2 quiz-control-button ",
             type: "button",
         },
         html: "<ruby>次<rt>Next</rt></ruby>"
