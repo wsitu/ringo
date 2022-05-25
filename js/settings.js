@@ -112,7 +112,7 @@ settings.kanjiQuiz.entry.html = {
 settings.kanjiQuiz.solution.html = {
     container: {tag: "ruby"},
     input: {tag: "span", attr:{class: ""}},
-    marked: {tag: "strong", attr:{class:"a-color-fg3a"}},
+    marked: {tag: "strong", attr:{class:""}},
     reading: {tag: "rt"},
     text: {tag: "span"},
 };

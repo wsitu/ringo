@@ -483,6 +483,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         if (this._isLocked == aBool) return;
         this._isLocked = aBool;
         if (aBool == true) {
+            this.userInput.markIncorrect();
             this.fadeOut(this._choices, () => this.displayResult());
         } else {
             let restoreUserInput = () => {

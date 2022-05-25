@@ -137,6 +137,7 @@
 
 .kanjiQuiz-solution-marked {
     font-weight: normal;
+    text-decoration: underline 0.125em var(--color-dark-red);
 }
 
 .kanjiQuiz-solution-reading {
