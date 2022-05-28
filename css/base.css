@@ -8,7 +8,9 @@
     --color-darkest-pink: #663f51;
     --color-green: #0e7940;
     --color-light-gray: #e7e2e5;
+    --color-light-green: #acd3bf;
     --color-light-pink: #f4cdde;
+    --color-lightest-green: #c9e5d7;
     --color-lightest-pink: #ffe9f3;
     --color-pink: #bd3772;
     --color-white: #fbfbfb;
@@ -35,7 +37,7 @@ h1, h2, h3, h4, h5, h6{
    go from lightest to dark and foreground colors fg#a from darkest to light.
    
    ! All background colors must have enough contrast against fg0a and all     !
-   ! foreground colors against bg0a                                           !
+   ! foreground colors must have enough contrast against bg0a                 !
 */
 .a-background-bg0a, .a-background-hv-bg0a:hover, body {
     background-color: var(--color-white);
@@ -48,6 +50,12 @@ h1, h2, h3, h4, h5, h6{
 }
 .a-background-bg1b, .a-background-hv-bg1b:hover {
     background-color: var(--color-light-pink);
+}
+.a-background-bg2a, .a-background-hv-bg2a:hover {
+    background-color: var(--color-lightest-green);
+}
+.a-background-bg2b, .a-background-hv-bg2b:hover {
+    background-color: var(--color-light-green);
 }
 .a-background-fg0a, .a-background-hv-fg0a:hover {
     background-color: var(--color-black);
@@ -78,6 +86,8 @@ h1, h2, h3, h4, h5, h6{
 .a-border-bg0b, .a-border-hv-bg0b:hover {border-color: var(--color-light-gray);}
 .a-border-bg1a, .a-border-hv-bg1a:hover {border-color: var(--color-lightest-pink);}
 .a-border-bg1b, .a-border-hv-bg1b:hover {border-color: var(--color-light-pink);}
+.a-border-bg2a, .a-border-hv-bg2a:hover {border-color: var(--color-lightest-green);}
+.a-border-bg2b, .a-border-hv-bg2b:hover {border-color: var(--color-light-green);}
 .a-border-fg0a, .a-border-hv-fg0a:hover {border-color: var(--color-black);}
 .a-border-fg1a, .a-border-hv-fg1a:hover {border-color: var(--color-darkest-pink);}
 .a-border-fg1b, .a-border-hv-fg1b:hover {border-color: var(--color-dark-pink);}
@@ -98,6 +108,12 @@ h1, h2, h3, h4, h5, h6{
 }
 .a-color-bg1b, .a-color-hv-bg1b:hover {
     color: var(--color-light-pink);
+}
+.a-color-bg2a, .a-color-hv-bg2a:hover {
+    color: var(--color-lightest-green);
+}
+.a-color-bg2b, .a-color-hv-bg2b:hover {
+    color: var(--color-light-green);
 }
 .a-color-fg0a, .a-color-hv-fg0a:hover, body {
     color: var(--color-black);
