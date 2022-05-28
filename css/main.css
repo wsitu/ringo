@@ -37,6 +37,16 @@
     padding-top:100%;
 }
 
+/* Note that inputting the answer in the wrong order is still incorrect */
+.kanjiQuiz-entry-choiceBtn-correct,
+.kanjiQuiz-entry-choiceBtn-correct.kanjiQuiz-entry-choiceBtn-input {
+    background-color: var(--color-light-green);
+}
+
+.kanjiQuiz-entry-choiceBtn-input {
+    background-color: var(--color-light-pink);
+}
+
 .kanjiQuiz-entry-container {
     border-width: 1px;
     border-bottom-style: solid;
