@@ -109,6 +109,12 @@ settings.kanjiQuiz.entry.html = {
     },
 };
 
+settings.kanjiQuiz.entry.js = {
+    choiceClass: "kanjiQuiz-entry-choiceBtn",
+    correctClass: "kanjiQuiz-entry-choiceBtn-correct",
+    inputClass: "kanjiQuiz-entry-choiceBtn-input",
+};
+
 settings.kanjiQuiz.solution.html = {
     container: {tag: "ruby"},
     input: {tag: "span", attr:{class: ""}},

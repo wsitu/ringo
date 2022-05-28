@@ -424,6 +424,10 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._word      = this.createElem(this.settings.html.word);
         this._wordBox   = this.createElem(this.settings.html.wordBox);
         this._wordData  = this.createElem(this.settings.html.wordData);
+        
+        this._CHOICECLASS = this.settings.js.choiceClass;
+        this._CORRECTCLASS = this.settings.js.correctClass;
+        this._INPUTCLASS = this.settings.js.inputClass;
 
         this._init(wordData);
     }
@@ -484,7 +488,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._isLocked = aBool;
         if (aBool == true) {
             this.userInput.markIncorrect();
-            this.fadeOut(this._choices, () => this.displayResult());
+            this.markChoices();
         } else {
             let restoreUserInput = () => {
                 this.fadeIn(this._choices);
@@ -526,6 +530,19 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this.userInput.markIncorrect();
         this._answerBox.replaceChildren(kanjiQuiz.wordDataToRuby(this.word));
         this.fadeOut(this._incorrect, () => this.fadeIn(this._answerBox));
+    }
+
+    markChoices() {
+        let answers = new Set(this.userInput.answers);
+        let inputs = new Set(this.userInput.inputs);
+        let buttons = this._choices.getElementsByClassName(this._CHOICECLASS);
+        for (const btn of buttons) {
+            let choice = btn.textContent;
+            if(answers.has(choice))
+                btn.classList.add(this._CORRECTCLASS);
+            if(inputs.has(choice))
+                btn.classList.add(this._INPUTCLASS);
+        }
     }
 
     /* Shuffles in the answers with arrayOfString into the choices
