@@ -438,6 +438,11 @@ kanjiQuiz.Quiz.prototype.Entry = class {
     fadeOut = kanjiQuiz.fadeOut;
     settings = kanjiQuiz.settings.entry;
     Shuffler = kanjiQuiz.Shuffler;
+
+    // Returns an array containing the button elements used for choices
+    get buttons() {
+        return Array.from(this._choices.children, (e) => e.children[0]);
+    }
     
     // Returns an array containing the string of each choice
     get choices() {
@@ -535,8 +540,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
     markChoices() {
         let answers = new Set(this.userInput.answers);
         let inputs = new Set(this.userInput.inputs);
-        let buttons = this._choices.getElementsByClassName(this._CHOICECLASS);
-        for (const btn of buttons) {
+        for (const btn of this.buttons) {
             let choice = btn.textContent;
             if(answers.has(choice))
                 btn.classList.add(this._CORRECTCLASS);
