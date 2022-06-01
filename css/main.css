@@ -22,7 +22,6 @@
 
 .kanjiQuiz-entry-choiceBtn {
     border-style: none;
-    border-color: var(--color-light-pink);
     flex-grow: 1;
 }
 
@@ -35,6 +34,15 @@
     content:'';
     float:left;
     padding-top:100%;
+}
+
+.kanjiQuiz-entry-choiceBtn:disabled {
+    pointer-events: none;
+}
+
+.kanjiQuiz-entry-choiceBtn:disabled:not(.kanjiQuiz-entry-choiceBtn-correct,
+.kanjiQuiz-entry-choiceBtn-input) {
+    color: transparent;
 }
 
 /* Note that inputting the answer in the wrong order is still incorrect */

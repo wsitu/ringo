@@ -494,6 +494,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         if (aBool == true) {
             this.userInput.markIncorrect();
             this.markChoices();
+            this.buttons.forEach( (e) => e.disabled=true );
         } else {
             let restoreUserInput = () => {
                 this.fadeIn(this._choices);
@@ -503,6 +504,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
                 this.fadeOut(this._answerBox, restoreUserInput);
             else if (this._resultBox.style.display != "none")
                 this.fadeOut(this._resultBox, restoreUserInput);
+            this.buttons.forEach( (e) => e.disabled=false );
         }
     }
     
