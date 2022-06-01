@@ -52,6 +52,11 @@
     background-color: var(--color-light-pink);
 }
 
+.kanjiQuiz-entry-choiceBtn[data-correct="false"] {
+    border-left-style: solid;
+    border-left-width: 4px;
+}
+
 .kanjiQuiz-entry-container {
     border-width: 1px;
     border-bottom-style: solid;
