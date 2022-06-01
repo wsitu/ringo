@@ -426,8 +426,8 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._wordData  = this.createElem(this.settings.html.wordData);
         
         this._CHOICECLASS = this.settings.js.choiceClass;
-        this._CORRECTCLASS = this.settings.js.correctClass;
-        this._INPUTCLASS = this.settings.js.inputClass;
+        this._ANSWERATTR = this.settings.js.answerDataAttr;
+        this._CORRECTATTR = this.settings.js.correctDataAttr;
 
         this._init(wordData);
     }
@@ -539,15 +539,29 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this.fadeOut(this._incorrect, () => this.fadeIn(this._answerBox));
     }
 
+    /* Marks each choice button with data attributes describing its status
+       answer = "true" if it contains an answer else "false"
+       correct has value only if activated and its value is:
+           "true" if it is an answer and was input in the right order
+           "false" if is not an answer or was input in the wrong order
+    */
     markChoices() {
         let answers = new Set(this.userInput.answers);
         let inputs = new Set(this.userInput.inputs);
+        let wrongInputs = new Set(this.userInput.check().wrong);
         for (const btn of this.buttons) {
             let choice = btn.textContent;
-            if(answers.has(choice))
-                btn.classList.add(this._CORRECTCLASS);
-            if(inputs.has(choice))
-                btn.classList.add(this._INPUTCLASS);
+            if (answers.has(choice))
+                btn.dataset[this._ANSWERATTR] = "true";
+            else
+                btn.dataset[this._ANSWERATTR] = "false";
+            delete btn.dataset[this._CORRECTATTR];
+            if (inputs.has(choice)) {
+                if (wrongInputs.has(choice))
+                    btn.dataset[this._CORRECTATTR] = "false";
+                else
+                    btn.dataset[this._CORRECTATTR] = "true";
+            }
         }
     }
 

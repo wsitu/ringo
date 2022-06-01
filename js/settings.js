@@ -111,8 +111,11 @@ settings.kanjiQuiz.entry.html = {
 
 settings.kanjiQuiz.entry.js = {
     choiceClass: "kanjiQuiz-entry-choiceBtn",
-    correctClass: "kanjiQuiz-entry-choiceBtn-correct",
-    inputClass: "kanjiQuiz-entry-choiceBtn-input",
+    
+    // data attribute name for button status in camelcase without "data" prefix
+    // see kanjiQuiz.entry.markChoices() for info on the values
+    correctDataAttr: "correct",
+    answerDataAttr: "answer",
 };
 
 settings.kanjiQuiz.solution.html = {

@@ -40,18 +40,15 @@
     pointer-events: none;
 }
 
-.kanjiQuiz-entry-choiceBtn:disabled:not(.kanjiQuiz-entry-choiceBtn-correct,
-.kanjiQuiz-entry-choiceBtn-input) {
-    color: transparent;
-}
-
-/* Note that inputting the answer in the wrong order is still incorrect */
-.kanjiQuiz-entry-choiceBtn-correct,
-.kanjiQuiz-entry-choiceBtn-correct.kanjiQuiz-entry-choiceBtn-input {
+.kanjiQuiz-entry-choiceBtn[data-answer="true"] {
     background-color: var(--color-light-green);
 }
 
-.kanjiQuiz-entry-choiceBtn-input {
+.kanjiQuiz-entry-choiceBtn[data-answer="false"]:not([data-correct]) {
+    color: transparent;
+}
+
+.kanjiQuiz-entry-choiceBtn[data-answer="false"][data-correct="false"] {
     background-color: var(--color-light-pink);
 }
 
