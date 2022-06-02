@@ -425,9 +425,11 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._wordBox   = this.createElem(this.settings.html.wordBox);
         this._wordData  = this.createElem(this.settings.html.wordData);
         
-        this._CHOICECLASS = this.settings.js.choiceClass;
         this._ANSWERATTR = this.settings.js.answerDataAttr;
         this._CORRECTATTR = this.settings.js.correctDataAttr;
+        this._CORRECTCLASS = this.settings.js.correctClass;
+        this._CHOICECLASS = this.settings.js.choiceClass;
+        this._INCORRECTCLASS = this.settings.js.incorrectClass;
 
         this._init(wordData);
     }
@@ -491,6 +493,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
     set locked(aBool) {
         if (this._isLocked == aBool) return;
         this._isLocked = aBool;
+        this.toggleStatus();
         if (aBool == true) {
             this.userInput.markIncorrect();
             this.markChoices();
@@ -586,6 +589,22 @@ kanjiQuiz.Quiz.prototype.Entry = class {
                 inserted.push(next.value);
         }
         this.choices = new this.Shuffler(inserted).random();
+    }
+    
+    // Adds or removes classes onto the container element that indicate
+    // whether the user answered the entry correctly or not
+    toggleStatus() {
+        let classList = this.container.classList;
+        if (classList.contains(this._CORRECTCLASS) || 
+                classList.contains(this._INCORRECTCLASS)) {
+            classList.remove(this._CORRECTCLASS);
+            classList.remove(this._INCORRECTCLASS);
+            return;
+        }
+        if (this.userInput.check().wrong.length == 0)
+            classList.add(this._CORRECTCLASS);
+        else
+            classList.add(this._INCORRECTCLASS);
     }
     
     _arrangeLayout() {

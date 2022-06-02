@@ -110,12 +110,14 @@ settings.kanjiQuiz.entry.html = {
 };
 
 settings.kanjiQuiz.entry.js = {
+    correctClass: "kanjiQuiz-entry-container-correct",
     choiceClass: "kanjiQuiz-entry-choiceBtn",
+    incorrectClass: "kanjiQuiz-entry-container-incorrect",
     
     // data attribute name for button status in camelcase without "data" prefix
     // see kanjiQuiz.entry.markChoices() for info on the values
-    correctDataAttr: "correct",
     answerDataAttr: "answer",
+    correctDataAttr: "correct",
 };
 
 settings.kanjiQuiz.solution.html = {
