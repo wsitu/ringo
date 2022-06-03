@@ -539,11 +539,14 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this.fadeIn(this._resultBox);
     }
     
-    // Hides the incorrect element and shows the answer
+    // Hides what the user input and displays the correct answer
     displayAnswer() {
-        this.userInput.markIncorrect();
         this._answerBox.replaceChildren(kanjiQuiz.wordDataToRuby(this.word));
-        this.fadeOut(this._incorrect, () => this.fadeIn(this._answerBox));
+        let showAnswer = () => {
+            this.fadeIn(this._answerBox);
+            this.fadeOut(this._answerBtn, null);
+        }
+        this.fadeOut(this._word, showAnswer);
     }
 
     /* Marks each choice button with data attributes describing its status
@@ -627,10 +630,10 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._wordData.appendChild(this._defBox);
         this._wordData.appendChild(this._answerBtn);
         this._wordBox.appendChild(this._word); // allows userInput ruby to wrap
+        this._wordBox.appendChild(this._answerBox);
         this.userInput.addTo(this._word);
         this._uiBox.appendChild(this._choices)
         this._uiBox.appendChild(this._resultBox);
-        this._uiBox.appendChild(this._answerBox);
         this._resultBox.appendChild(this._correct);
         this._resultBox.appendChild(this._incorrect);
     }
@@ -650,6 +653,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
     }
 
     _init(wordData) {
+        this._answerBtn.addEventListener("click", () => this.displayAnswer());
         this._choices.addEventListener("click", (e) => this._handleClick(e));
         this._incorrect.addEventListener("click", () => this.displayAnswer());
         this._arrangeLayout();
