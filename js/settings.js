@@ -61,7 +61,7 @@ settings.kanjiQuiz.entry.html = {
     answer: {
         tag : "p",
         attr: {
-            class: "a-color-fg2a a-font-large1",
+            class: "a-font-large1",
             style: "display: none",
         },
     },
