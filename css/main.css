@@ -2,6 +2,14 @@
 .kanjiQuiz-entry-answer {
 }
 
+.kanjiQuiz-entry-answerBtn {
+    border-radius: 2rem;
+    border-style: none;
+    font-weight: bold;
+    min-height: 2rem;
+    min-width: 2rem;
+}
+
 .kanjiQuiz-entry-body {
     display: flex;
 }

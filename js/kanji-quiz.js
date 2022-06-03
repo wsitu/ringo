@@ -414,6 +414,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._wordData;
         
         this._answerBox = this.createElem(this.settings.html.answer);
+        this._answerBtn = this.createElem(this.settings.html.answerBtn);
         this._body      = this.createElem(this.settings.html.body);
         this._choices   = this.createElem(this.settings.html.choices);
         this._correct   = this.createElem(this.settings.html.correct);
@@ -498,6 +499,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
             this.userInput.markIncorrect();
             this.markChoices();
             this.buttons.forEach( (e) => e.disabled=true );
+            this.fadeIn(this._answerBtn);
         } else {
             let restoreUserInput = () => {
                 this.fadeIn(this._choices);
@@ -507,6 +509,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
                 this.fadeOut(this._answerBox, restoreUserInput);
             else if (this._resultBox.style.display != "none")
                 this.fadeOut(this._resultBox, restoreUserInput);
+            this.fadeOut(this._answerBtn, null, 0);
             this.buttons.forEach( (e) => e.disabled=false );
         }
     }
@@ -608,14 +611,14 @@ kanjiQuiz.Quiz.prototype.Entry = class {
     }
     
     _arrangeLayout() {
-        //this.container.appendChild(this._headerBox);
         this.container.appendChild(this._body);
         this._body.appendChild(this._wordData);
         this._body.appendChild(this._uiBox);
         this._wordData.appendChild(this._wordBox);
         this._wordData.appendChild(this._defBox);
-        this._wordBox.appendChild(this._word); // without this wrapper 
-        this.userInput.addTo(this._word);      // userInput's ruby won't wrap
+        this._wordData.appendChild(this._answerBtn);
+        this._wordBox.appendChild(this._word); // allows userInput ruby to wrap
+        this.userInput.addTo(this._word);
         this._uiBox.appendChild(this._choices)
         this._uiBox.appendChild(this._resultBox);
         this._uiBox.appendChild(this._answerBox);

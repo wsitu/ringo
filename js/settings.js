@@ -65,6 +65,15 @@ settings.kanjiQuiz.entry.html = {
             style: "display: none",
         },
     },
+    answerBtn: {
+        tag : "button",
+        attr: {
+            class: "a-background-bg2a a-background-hv-bg2b",
+            style: "display: none;",
+            type: "button",
+        },
+        text: "?",
+    },
     body: {tag: "div", attr: {class: "a-background-bg0a"}},
     choice: {tag: "li",},
     choices: {tag: "ul",  attr: {class: ""}},
