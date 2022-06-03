@@ -510,6 +510,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
             else if (this._resultBox.style.display != "none")
                 this.fadeOut(this._resultBox, restoreUserInput);
             this.fadeOut(this._answerBtn, null, 0);
+            this.unmarkChoices();
             this.buttons.forEach( (e) => e.disabled=false );
         }
     }
@@ -608,6 +609,14 @@ kanjiQuiz.Quiz.prototype.Entry = class {
             classList.add(this._CORRECTCLASS);
         else
             classList.add(this._INCORRECTCLASS);
+    }
+    
+    // Removes the data attributes on choice buttons added by markChoices()
+    unmarkChoices() {
+        for (const btn of this.buttons) {
+            delete btn.dataset[this._ANSWERATTR];
+            delete btn.dataset[this._CORRECTATTR];
+        }
     }
     
     _arrangeLayout() {
