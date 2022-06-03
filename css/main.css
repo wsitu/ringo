@@ -75,10 +75,13 @@
     border-bottom-style: none;
 }
 
+.kanjiQuiz-entry-container-correct .kanjiQuiz-entry-answerBtn {
+    display: none;
+}
+
 .kanjiQuiz-entry-container-correct
 .kanjiQuiz-entry-choiceBtn[data-answer="false"] {
     background-color: var(--color-lightest-green);
-
 }
 
 .kanjiQuiz-entry-definition {
