@@ -628,10 +628,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
     // Sets the next input as the button's textContent and locks entry if full
     // Does nothing if already locked or the clicked element is not a choiceBtn
     _handleClick(e) {
-        let correctTag = this.settings.html.choiceBtn.tag;
-        // change to class check after revamping the css since this will
-        // prevent the delegate from having child elements same as choiceBtn
-        if (e.target.tagName != correctTag.toUpperCase()) return;
+        if (!e.target.classList.contains(this._BTNCLASS)) return;
         if (this.locked) return;
         this.userInput.set(e.target.textContent);
         if (this.userInput.hasAllSet()) {
