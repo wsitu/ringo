@@ -487,7 +487,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
     }
     
     // If true, prevents further user input and shows if the input is correct
-    // If false, allows user input again
+    // If false, resets the entry and allows user input again
     set locked(aBool) {
         if (this._isLocked == aBool) return;
         this._isLocked = aBool;
