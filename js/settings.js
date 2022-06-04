@@ -85,23 +85,8 @@ settings.kanjiQuiz.entry.html = {
             type: "button",
         },
     },
-    correct: {
-        tag : "span",
-        attr: {style: "display: none"},
-        text: "\u2714", //check mark
-    },
     container: {tag: "li", attr: {class: "a-border-bg0b"}},
     definition: {tag: "p",  attr: {class: ""}},
-    incorrect: {
-        tag : "button",
-        attr: {
-            class: "a-background-bg0a a-background-hv-fg3a a-border-hv-fg3a " +
-            "a-color-fg3a a-color-hv-bg0a",
-            style: "display: none",
-            type: "button",
-        },
-        text: "\u2716", //cross mark
-    },
     ui: {tag: "div", attr: {class: "b-center"}},
     word: {tag: "p"},
     wordBox: {tag: "div", attr: {class: "a-font-large1 b-center "}},

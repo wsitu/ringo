@@ -417,9 +417,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._answerBtn = this.createElem(this.settings.html.answerBtn);
         this._body      = this.createElem(this.settings.html.body);
         this._choices   = this.createElem(this.settings.html.choices);
-        this._correct   = this.createElem(this.settings.html.correct);
         this._defBox    = this.createElem(this.settings.html.definition);
-        this._incorrect = this.createElem(this.settings.html.incorrect);
         this._uiBox     = this.createElem(this.settings.html.ui);
         this._word      = this.createElem(this.settings.html.word);
         this._wordBox   = this.createElem(this.settings.html.wordBox);
@@ -644,7 +642,6 @@ kanjiQuiz.Quiz.prototype.Entry = class {
     _init(wordData) {
         this._answerBtn.addEventListener("click", () => this.displayAnswer());
         this._choices.addEventListener("click", (e) => this._handleClick(e));
-        this._incorrect.addEventListener("click", () => this.displayAnswer());
         this._arrangeLayout();
         this.word = wordData;
     }
