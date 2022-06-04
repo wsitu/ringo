@@ -424,9 +424,9 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._wordData  = this.createElem(this.settings.html.wordData);
         
         this._ANSWERATTR = this.settings.js.answerDataAttr;
+        this._BTNCLASS = this.settings.html.choiceBtn.attr.class.split(" ").pop()
         this._CORRECTATTR = this.settings.js.correctDataAttr;
         this._CORRECTCLASS = this.settings.js.correctClass;
-        this._CHOICECLASS = this.settings.js.choiceClass;
         this._INCORRECTCLASS = this.settings.js.incorrectClass;
 
         this._init(wordData);

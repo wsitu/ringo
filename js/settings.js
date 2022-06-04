@@ -98,7 +98,6 @@ settings.kanjiQuiz.entry.html = {
 
 settings.kanjiQuiz.entry.js = {
     correctClass: "kanjiQuiz-entry-container-correct",
-    choiceClass: "kanjiQuiz-entry-choiceBtn",
     incorrectClass: "kanjiQuiz-entry-container-incorrect",
     
     // data attribute name for button status in camelcase without "data" prefix
