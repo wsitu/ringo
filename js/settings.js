@@ -102,13 +102,6 @@ settings.kanjiQuiz.entry.html = {
         },
         text: "\u2716", //cross mark
     },
-    result: {
-        tag : "p",
-        attr: {
-            class: "a-color-fg2b a-font-large2",
-            style: "display: none",
-        },
-    },
     ui: {tag: "div", attr: {class: "b-center"}},
     word: {tag: "p"},
     wordBox: {tag: "div", attr: {class: "a-font-large1 b-center "}},

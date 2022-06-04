@@ -420,7 +420,6 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._correct   = this.createElem(this.settings.html.correct);
         this._defBox    = this.createElem(this.settings.html.definition);
         this._incorrect = this.createElem(this.settings.html.incorrect);
-        this._resultBox = this.createElem(this.settings.html.result);
         this._uiBox     = this.createElem(this.settings.html.ui);
         this._word      = this.createElem(this.settings.html.word);
         this._wordBox   = this.createElem(this.settings.html.wordBox);
@@ -501,14 +500,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
             this.buttons.forEach( (e) => e.disabled=true );
             this.fadeIn(this._answerBtn);
         } else {
-            let restoreUserInput = () => {
-                this.fadeIn(this._choices);
-                this.userInput.resetInput();
-            }
-            if (this._answerBox.style.display != "none")
-                this.fadeOut(this._answerBox, restoreUserInput);
-            else if (this._resultBox.style.display != "none")
-                this.fadeOut(this._resultBox, restoreUserInput);
+            this.userInput.resetInput();
             this.hideAnswer();
             this.unmarkChoices();
             this.buttons.forEach( (e) => e.disabled=false );
@@ -528,16 +520,6 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this.definition = wordData.definition;
         this.userInput.word = wordData;
         this.shuffleInChoices();
-    }
-
-    // Hides the choices and shows whether the user input was correct or not
-    displayResult() {
-        if (this.userInput.check().wrong.length == 0) {
-            this._correct.style.removeProperty("display");
-        } else {
-            this._incorrect.style.removeProperty("display");
-        }
-        this.fadeIn(this._resultBox);
     }
     
     // Hides what the user input and displays the correct answer
@@ -643,9 +625,6 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._wordBox.appendChild(this._answerBox);
         this.userInput.addTo(this._word);
         this._uiBox.appendChild(this._choices)
-        this._uiBox.appendChild(this._resultBox);
-        this._resultBox.appendChild(this._correct);
-        this._resultBox.appendChild(this._incorrect);
     }
     
     // Sets the next input as the button's textContent and locks entry if full
