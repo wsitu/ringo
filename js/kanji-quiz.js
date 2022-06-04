@@ -509,9 +509,10 @@ kanjiQuiz.Quiz.prototype.Entry = class {
                 this.fadeOut(this._answerBox, restoreUserInput);
             else if (this._resultBox.style.display != "none")
                 this.fadeOut(this._resultBox, restoreUserInput);
-            this.fadeOut(this._answerBtn, null, 0);
+            this.hideAnswer();
             this.unmarkChoices();
             this.buttons.forEach( (e) => e.disabled=false );
+            this.fadeOut(this._answerBtn, null, 0);
         }
     }
     
@@ -547,6 +548,15 @@ kanjiQuiz.Quiz.prototype.Entry = class {
             this.fadeOut(this._answerBtn, null);
         }
         this.fadeOut(this._word, showAnswer);
+    }
+    
+    // Hides the correct answer and displays the user input
+    hideAnswer() {
+        let showInput = () => {
+            this.fadeIn(this._word);
+            this._answerBox.replaceChildren();
+        }
+        this.fadeOut(this._answerBox, showInput);
     }
 
     /* Marks each choice button with data attributes describing its status
