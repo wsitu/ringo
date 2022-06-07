@@ -84,6 +84,12 @@
     background-color: var(--color-lightest-green);
 }
 
+/* This border needs to be in the same element as the gray border otherwise
+   it will throw the alignment of the gray borders off */
+.kanjiQuiz-entry-container-highlight .kanjiQuiz-entry-wordData{
+    border-left: 16px solid var(--color-pink);
+}
+
 .kanjiQuiz-entry-definition {
     margin: 4px;
 }

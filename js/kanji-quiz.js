@@ -379,10 +379,7 @@ kanjiQuiz.Quiz = class {
     _submitQuiz() {
         for (const entry of this.entries) {
             if (!entry.userInput.hasAllSet()) {
-                // add visual
-                // get entry header element from settings
-                let headers = entry.container.getElementsByTagName("h2");
-                if (headers.length > 0) headers[0].scrollIntoView();
+                entry.highlight();
                 return;
             }
         }
@@ -427,6 +424,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._BTNCLASS = this.settings.html.choiceBtn.attr.class.split(" ").pop()
         this._CORRECTATTR = this.settings.js.correctDataAttr;
         this._CORRECTCLASS = this.settings.js.correctClass;
+        this._HIGHLIGHTCLASS = this.settings.js.hightlightClass;
         this._INCORRECTCLASS = this.settings.js.incorrectClass;
 
         this._init(wordData);
@@ -494,6 +492,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this.toggleStatus();
         if (aBool == true) {
             this.userInput.markIncorrect();
+            this.unhighlight();
             this.markChoices();
             this.buttons.forEach( (e) => e.disabled=true );
             this.fadeIn(this._answerBtn);
@@ -519,7 +518,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this.userInput.word = wordData;
         this.shuffleInChoices();
     }
-    
+
     // Hides what the user input and displays the correct answer
     displayAnswer() {
         this._answerBox.replaceChildren(kanjiQuiz.wordDataToRuby(this.word));
@@ -537,6 +536,12 @@ kanjiQuiz.Quiz.prototype.Entry = class {
             this._answerBox.replaceChildren();
         }
         this.fadeOut(this._answerBox, showInput);
+    }
+    
+    // Adds a class to indicate the entry requires input and scrolls it into view
+    highlight() {
+        this.container.classList.add(this._HIGHLIGHTCLASS);
+        this.container.scrollIntoView();
     }
 
     /* Marks each choice button with data attributes describing its status
@@ -602,6 +607,11 @@ kanjiQuiz.Quiz.prototype.Entry = class {
             classList.add(this._CORRECTCLASS);
         else
             classList.add(this._INCORRECTCLASS);
+    }
+    
+    // Removes the class added by highlight()
+    unhighlight() {
+        this.container.classList.remove(this._HIGHLIGHTCLASS);
     }
     
     // Removes the data attributes on choice buttons added by markChoices()
