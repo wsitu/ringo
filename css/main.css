@@ -178,6 +178,24 @@
     padding: 1%;
 }
 
+.kanjiQuiz-updateSlider-display {
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 32px; /* hard to see if smaller */
+    width: 6.25%;
+}
+
+.kanjiQuiz-updateSlider-displayItem {
+    display: flex;
+    flex-basis: 18.75%;
+    margin: 3.125%;
+}
+
+.kanjiQuiz-updateSlider-displayItem:before {
+    content: '';
+    padding-top: 100%;
+}
+
 .kanjiQuiz-updateSlider-slider {
     accent-color: currentcolor;
     width: 50%;

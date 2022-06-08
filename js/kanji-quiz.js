@@ -358,6 +358,13 @@ kanjiQuiz.Quiz = class {
             let chosenWords = this.newWords(this.entryCount, this.accChance);
             this.displayIntro(chosenWords);
             this.createEntries(chosenWords, this.choiceCount);
+            let numberOfChoices = this._numFromScore(this.choiceRange);
+            let slider = this._difficulty;
+            slider.display.replaceChildren();
+            for (let i = 0; i < numberOfChoices; i++) {
+                let item = this.createElem(slider.settings.html.displayItem);
+                slider.display.appendChild(item);
+            }
         }
         this._arrangeLayout();
         this.restart();
