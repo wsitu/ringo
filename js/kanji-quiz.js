@@ -354,18 +354,7 @@ kanjiQuiz.Quiz = class {
         this._beginBtn.addEventListener("click", () => this._startQuiz());
         this._submitBtn.addEventListener("click", () => this._submitQuiz());
         this._difficulty.callback = (e) => this.score = e.target.value;
-        this._difficulty.throttled = () => {
-            let chosenWords = this.newWords(this.entryCount, this.accChance);
-            this.displayIntro(chosenWords);
-            this.createEntries(chosenWords, this.choiceCount);
-            let numberOfChoices = this._numFromScore(this.choiceRange);
-            let slider = this._difficulty;
-            slider.display.replaceChildren();
-            for (let i = 0; i < numberOfChoices; i++) {
-                let item = this.createElem(slider.settings.html.displayItem);
-                slider.display.appendChild(item);
-            }
-        }
+        this._difficulty.throttled = () => this._refreshIntro();
         this._arrangeLayout();
         this.restart();
     }
@@ -373,6 +362,19 @@ kanjiQuiz.Quiz = class {
     _numFromScore(rangeObj) {
         let num = Math.floor(this.score/rangeObj.div) + rangeObj.min;
         return Math.min(rangeObj.max, Math.max(rangeObj.min, num));
+    }
+    
+    _refreshIntro() {
+        let chosenWords = this.newWords(this.entryCount, this.accChance);
+        this.displayIntro(chosenWords);
+        this.createEntries(chosenWords, this.choiceCount);
+        let numberOfChoices = this._numFromScore(this.choiceRange);
+        let slider = this._difficulty;
+        slider.display.replaceChildren();
+        for (let i = 0; i < numberOfChoices; i++) {
+            let item = this.createElem(slider.settings.html.displayItem);
+            slider.display.appendChild(item);
+        }
     }
     
     // Hides the intro, displays the entries, and enables the submit button
