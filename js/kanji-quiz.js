@@ -353,8 +353,7 @@ kanjiQuiz.Quiz = class {
     _init() {
         this._beginBtn.addEventListener("click", () => this._startQuiz());
         this._submitBtn.addEventListener("click", () => this._submitQuiz());
-        this._difficulty.callback = (e) => this.score = e.target.value;
-        this._difficulty.throttled = () => this._refreshIntro();
+        this._difficulty.throttled = (e) => this._refreshIntro(e);
         this._arrangeLayout();
         this.restart();
     }
@@ -364,7 +363,8 @@ kanjiQuiz.Quiz = class {
         return Math.min(rangeObj.max, Math.max(rangeObj.min, num));
     }
     
-    _refreshIntro() {
+    _refreshIntro(e) {
+        this.score = e.target.value;
         let chosenWords = this.newWords(this.entryCount, this.accChance);
         this.displayIntro(chosenWords);
         this.createEntries(chosenWords, this.choiceCount);
