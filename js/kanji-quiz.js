@@ -338,6 +338,47 @@ kanjiQuiz.Quiz = class {
         return words;
     }
     
+    /* Associates each wordData in wordDataArray with its lowest kanji accuracy
+       Returns an array of {acc: number, kanji: aKanji words: [wordData]}
+       objects sorted ascending by its accuracy. If no accuracy data exists for
+       aKanji, its accuracy is -1 and sorts to the front of the array.
+    */
+    wordDataByKanjiAccuracy(wordDataArray = []) {
+        let withAcc = new Map();
+        // Returns the stored accuracy of kanji as a ratio or -1 if none
+        let findAcc = (kanji) => {
+            let acc = -1;  // prioritize kanji with no accuracy data
+            if (withAcc.has(kanji)) {
+                acc = withAcc.get(kanji).acc;
+            } else {
+                // when ready, check local storage first and if not found
+                // fallback to checking tempAccuracy
+                if (this.tempAccuracy.has(kanji)) {
+                    let accData = this.tempAccuracy.get(kanji);
+                    acc = accData.right/accData.total;
+                }
+            }
+            return acc;
+        }
+        for (const data of wordDataArray) {
+            let lowestAcc = Infinity;
+            let lowestKanji;
+            for (const kanji of data.kanji) {
+                let acc = findAcc(kanji);
+                if (!withAcc.has(kanji))
+                    withAcc.set(kanji, {acc: acc, kanji: kanji, words: []});
+                if (acc < lowestAcc) {
+                    lowestAcc = acc;
+                    lowestKanji = kanji;
+                }
+            }
+            if (lowestKanji)
+                withAcc.get(lowestKanji).words.push(data);
+        }
+        let ascendingAcc = (a, b) => a.acc - b.acc;
+        return Array.from(withAcc.values()).sort(ascendingAcc);
+    }
+    
     // Parent child hierarchy setup
     _arrangeLayout() {
         this.container.appendChild(this._introBox);
