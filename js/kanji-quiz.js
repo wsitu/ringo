@@ -205,6 +205,14 @@ kanjiQuiz.Quiz = class {
         this._intro.replaceChildren(words);
     }
     
+    getAccuracy(kanjiString) {
+        let getRatio = (accData) => accData.right / accData.total;
+        // return data from from local storage when ready
+        if (this.tempAccuracy.has(kanjiString))
+            return getRatio(this.tempAccuracy.get(kanjiString));
+        return -1;
+    }
+    
     /* Returns an array of WordData from a mix of weighted and randomed kanji
        <numberOfWords> max number of words in the return
        <weightedChance> [0, 1.0] chance that a word comes from weighted shuffle
@@ -345,21 +353,8 @@ kanjiQuiz.Quiz = class {
     */
     wordDataByKanjiAccuracy(wordDataArray = []) {
         let withAcc = new Map();
-        // Returns the stored accuracy of kanji as a ratio or -1 if none
-        let findAcc = (kanji) => {
-            let acc = -1;  // prioritize kanji with no accuracy data
-            if (withAcc.has(kanji)) {
-                acc = withAcc.get(kanji).acc;
-            } else {
-                // when ready, check local storage first and if not found
-                // fallback to checking tempAccuracy
-                if (this.tempAccuracy.has(kanji)) {
-                    let accData = this.tempAccuracy.get(kanji);
-                    acc = accData.right/accData.total;
-                }
-            }
-            return acc;
-        }
+        let findAcc = (kanji) => withAcc.has(kanji) ? 
+                      withAcc.get(kanji).acc : this.getAccuracy(kanji);
         for (const data of wordDataArray) {
             let lowestAcc = Infinity;
             let lowestKanji;
