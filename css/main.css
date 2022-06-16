@@ -106,6 +106,14 @@
     flex-direction: column;
 }
 
+.kanjiQuiz-quiz-accBody {
+    flex-wrap: wrap;
+}
+
+.kanjiQuiz-quiz-accEntry {
+    margin: 2%;
+}
+
 .kanjiQuiz-quiz-body {
 }
 
