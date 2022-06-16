@@ -8,6 +8,10 @@ const settings = {
 };
 
 settings.kanjiQuiz.quiz.html = {
+    accBody: {tag: "dl", attr: {class: "a-border-fg1a b-center"},},
+    accEntry: {tag: "div"},
+    accText: {tag: "dt", attr: {class: "a-font-medium2"},},
+    accVal: {tag: "dd", attr: {class: ""},},
     beginBtn: {
         tag : "button",
         attr: {

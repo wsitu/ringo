@@ -129,6 +129,7 @@ kanjiQuiz.Quiz = class {
         this._difficulty = new this.UpdateSlider();
         this._kanjiCache; // reuse same copy of all kanjis per restart
 
+        this._accBody    = this.createElem(this.settings.html.accBody);
         this._beginBtn   = this.createElem(this.settings.html.beginBtn);
         this._entriesBox = this.createElem(this.settings.html.entries);
         this._intro      = this.createElem(this.settings.html.wordsBox);
@@ -189,8 +190,23 @@ kanjiQuiz.Quiz = class {
         }
     }
     
+    displayAccuracy(dataArray = []) {
+        this._accBody.replaceChildren();
+        for (const data of dataArray) {
+            let wrapper = this.createElem(this.settings.html.accEntry);
+            let kanji = this.createElem(this.settings.html.accText);
+            kanji.textContent = data.kanji;
+            let acc = this.createElem(this.settings.html.accVal);
+            acc.textContent = data.acc;
+            wrapper.appendChild(kanji);
+            wrapper.appendChild(acc);
+            this._accBody.appendChild(wrapper);
+        }
+    }
+    
     // Fill the quiz intro with the information of each word in wordDataArray
     displayIntro(wordDataArray = []) {
+        this.displayAccuracy(this.wordDataByKanjiAccuracy(wordDataArray));
         let words = this.createElem(this.settings.html.wordsBody);
         for (const data of wordDataArray) {
             let row = this.createElem(this.settings.html.word);
@@ -379,6 +395,7 @@ kanjiQuiz.Quiz = class {
         this.container.appendChild(this._introBox);
         this.container.appendChild(this._mainBox);
         this._difficulty.addTo(this._introBox);
+        this._introBox.appendChild(this._accBody);
         this._introBox.appendChild(this._intro);
         this._introBox.appendChild(this._beginBtn);
         this._mainBox.appendChild(this._entriesBox);
