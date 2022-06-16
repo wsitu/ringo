@@ -8,7 +8,7 @@ const settings = {
 };
 
 settings.kanjiQuiz.quiz.html = {
-    accBody: {tag: "dl", attr: {class: "a-border-fg1a b-center"},},
+    accBody: {tag: "dl", attr: {class: "b-center"},},
     accEntry: {tag: "div"},
     accText: {tag: "dt", attr: {class: "a-font-medium2"},},
     accVal: {tag: "dd", attr: {class: ""},},
@@ -29,8 +29,8 @@ settings.kanjiQuiz.quiz.html = {
         },
     },
     container: {tag : "div", attr: {class: ""}},
-    entries: {tag : "ul", attr: {class: "a-border-fg1a"}},
-    intro: {tag : "div", attr: {class: ""}},
+    entries: {tag : "ul", attr: {class: ""}},
+    intro: {tag : "div", attr: {class: "a-border-fg1a"}},
     submitBtn: {
         tag : "button",
         attr: {
@@ -41,7 +41,7 @@ settings.kanjiQuiz.quiz.html = {
         html: "<ruby>次<rt>Next</rt></ruby>"
     },
     word: {tag: "div", attr: {class: "a-border-bg0b b-center"},},
-    wordsBody: {tag: "dl", attr: {class: "a-border-fg1a"},},
+    wordsBody: {tag: "dl", attr: {class: ""},},
     wordsBox: {tag: "div"},
     wordDef: {tag: "dd", attr: {class: ""},},
     wordText: {tag: "dt", attr: {class: "a-font-large1"},},
@@ -125,7 +125,7 @@ settings.kanjiQuiz.solution.js = {
 };
 
 settings.kanjiQuiz.updateSlider.html = {
-    container: {tag: "div", attr: {class: "a-border-fg1a b-center"},},
+    container: {tag: "div", attr: {class: "b-center"},},
     display: {tag: "div"},
     displayItem: {tag: "div", attr: {class: "a-background-bg1b"},},
     slider: {

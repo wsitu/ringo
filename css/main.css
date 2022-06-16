@@ -123,13 +123,13 @@
 }
 
 .kanjiQuiz-quiz-entries {
-    border-style: solid;
-    border-bottom-style: none;
-    border-width: 2px;
     list-style: none;
 }
 
 .kanjiQuiz-quiz-intro {
+    border-style: solid;
+    border-bottom-style: none;
+    border-width: 2px;
 }
 
 .kanjiQuiz-quiz-word {
@@ -145,8 +145,6 @@
 }
 
 .kanjiQuiz-quiz-wordsBody {
-    border-style: none solid none solid;
-    border-width: 2px;
     display: flex;
     flex-wrap: wrap;
 }
@@ -179,9 +177,6 @@
 }
 
 .kanjiQuiz-updateSlider-container {
-    border-style: solid;
-    border-bottom-style: none;
-    border-width: 2px;
     flex-direction: column;
     padding: 1%;
 }
