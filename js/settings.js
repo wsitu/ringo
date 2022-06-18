@@ -11,7 +11,11 @@ settings.kanjiQuiz.quiz.html = {
     accBody: {tag: "dl", attr: {class: "b-center"},},
     accEntry: {tag: "div", attr: {class: "b-center"},},
     accText: {tag: "dt", attr: {class: "a-font-medium2"},},
-    accVal: {tag: "dd", attr: {class: "kanjiQuiz-quiz-accVal-bar"},},
+    accVal: {
+        tag : "dd",
+        attr: {
+            class: "a-background-bg0b a-color-bg2b kanjiQuiz-quiz-accVal-bar"},
+    },
     beginBtn: {
         tag : "button",
         attr: {

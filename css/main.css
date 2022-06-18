@@ -115,20 +115,23 @@
     margin: 2%;
 }
 
-.kanjiQuiz-quiz-accVal {
+/* This is setup so kanjiQuiz-quiz-accVal-bar's percentage bar colors
+   can be set in settings.js and as a result, prevents the configuration
+   of the text percentage display through settings. */
+.kanjiQuiz-quiz-accVal:not(.kanjiQuiz-quiz-accVal-bar) {
+    color: inherit;
+    background-color: inherit;
 }
 
 .kanjiQuiz-quiz-accVal.kanjiQuiz-quiz-accVal-bar {
-    background-color: var(--color-light-gray);
-    color: transparent; /* 0px font may vary in browsers */
-    font-size: 0px;
+    font-size: 0%;
     height: 0.5rem;
-    position: relative;
     user-select: none;
     width: 2.5rem;
 }
+
 .kanjiQuiz-quiz-accVal.kanjiQuiz-quiz-accVal-bar::before {
-    background-color: var(--color-light-green);
+    background-color: currentcolor;
     content: "";
     display: block;
     height: 100%;
