@@ -107,7 +107,10 @@
 }
 
 .kanjiQuiz-quiz-accBody {
+    border-top-style: solid;
+    border-width: 1px;
     flex-wrap: wrap;
+    padding: 1% 0;
 }
 
 .kanjiQuiz-quiz-accEntry {
@@ -211,6 +214,7 @@
 .kanjiQuiz-updateSlider-display {
     display: flex;
     flex-wrap: wrap;
+    margin: 1%;
     min-width: 32px; /* hard to see if smaller */
     width: 6.25%;
 }
@@ -228,6 +232,7 @@
 
 .kanjiQuiz-updateSlider-slider {
     accent-color: currentcolor;
+    margin: 1%;
     width: 50%;
 }
 
