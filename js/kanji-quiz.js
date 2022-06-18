@@ -112,6 +112,7 @@ kanjiQuiz.Quiz = class {
        dictionaries | array of dictionaries to get WordData from
        entries      | array of current Entry that users can input to
        entryRange   | same as choiceRange but for the # of entries
+       maxAccKanji  | max number of kanji listed in accuracy element
        score        | number of times a quiz was submit as 100% correct 
        tempAccuracy | kanji accuracy of the current session(reset on page load)
     */
@@ -123,6 +124,7 @@ kanjiQuiz.Quiz = class {
         this.dictionaries = this.dataManager.dictionaries;
         this.entries      = [];
         this.entryRange   = this.settings.js.entries;
+        this.maxAccKanji  = this.settings.js.maxAccuracyKanji;
         this.score        = 0;
         this.tempAccuracy = new Map();
 
@@ -191,9 +193,10 @@ kanjiQuiz.Quiz = class {
         }
     }
     
+    // Fill the quiz intro with the accuracy of each kanji in dataArray
     displayAccuracy(dataArray = []) {
         this._accBody.replaceChildren();
-        for (const data of dataArray) {
+        for (const data of dataArray.slice(0, this.maxAccKanji)) {
             let wrapper = this.createElem(this.settings.html.accEntry);
             let kanji = this.createElem(this.settings.html.accText);
             kanji.textContent = data.kanji;
