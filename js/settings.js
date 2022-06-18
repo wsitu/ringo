@@ -28,7 +28,7 @@ settings.kanjiQuiz.quiz.html = {
     body: {
         tag : "div",
         attr: {
-            class: "",
+            class: "a-border-fg1a",
             style: "display: none",
         },
     },
