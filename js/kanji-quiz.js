@@ -128,7 +128,8 @@ kanjiQuiz.Quiz = class {
 
         this._difficulty = new this.UpdateSlider();
         this._kanjiCache; // reuse same copy of all kanjis per restart
-
+        this._ACCVARIABLE = this.settings.js.accuracyCSSVariable;
+        
         this._accBody    = this.createElem(this.settings.html.accBody);
         this._beginBtn   = this.createElem(this.settings.html.beginBtn);
         this._entriesBox = this.createElem(this.settings.html.entries);
@@ -136,7 +137,7 @@ kanjiQuiz.Quiz = class {
         this._introBox   = this.createElem(this.settings.html.intro);
         this._mainBox    = this.createElem(this.settings.html.body);
         this._submitBtn  = this.createElem(this.settings.html.submitBtn);
-        
+
         this._init();
     }
     
@@ -197,7 +198,9 @@ kanjiQuiz.Quiz = class {
             let kanji = this.createElem(this.settings.html.accText);
             kanji.textContent = data.kanji;
             let acc = this.createElem(this.settings.html.accVal);
-            acc.textContent = data.acc;
+            let percent = data.acc < 0 ? "0%" : `${Math.round(data.acc*100)}%`;
+            acc.textContent = data.acc < 0 ? "--%" : percent ;
+            acc.style.setProperty("--accuracy", percent);
             wrapper.appendChild(kanji);
             wrapper.appendChild(acc);
             this._accBody.appendChild(wrapper);

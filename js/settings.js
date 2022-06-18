@@ -11,7 +11,7 @@ settings.kanjiQuiz.quiz.html = {
     accBody: {tag: "dl", attr: {class: "b-center"},},
     accEntry: {tag: "div"},
     accText: {tag: "dt", attr: {class: "a-font-medium2"},},
-    accVal: {tag: "dd", attr: {class: ""},},
+    accVal: {tag: "dd", attr: {class: "kanjiQuiz-quiz-accVal-bar"},},
     beginBtn: {
         tag : "button",
         attr: {
@@ -48,6 +48,9 @@ settings.kanjiQuiz.quiz.html = {
 };
 
 settings.kanjiQuiz.quiz.js = {
+    
+    // Receives a string percentage for styling the kanji accuracy in intro
+    accuracyCSSVariable : "--accuracy",
     
     // Number of entries in each quiz based on quiz score (times all correct)
     // entry # = floor(<score>/<div>) + <min> capped at <max>
