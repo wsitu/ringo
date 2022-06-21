@@ -193,7 +193,8 @@ kanjiQuiz.Quiz = class {
         }
     }
     
-    // Fill the quiz intro with the accuracy of each kanji in dataArray
+    // Fill the quiz intro with the accuracy of each kanji using the <kanji>
+    // and <acc> property of each object in dataArray
     displayAccuracy(dataArray = []) {
         this._accBody.replaceChildren();
         for (const data of dataArray.slice(0, this.maxAccKanji)) {
@@ -210,20 +211,30 @@ kanjiQuiz.Quiz = class {
         }
     }
     
-    // Fill the quiz intro with the information of each word in wordDataArray
+    // Populates the quiz intro with each WordData in wordDataArray sorted from
+    // lowest to highest accuracy of the kanji used
     displayIntro(wordDataArray = []) {
-        this.displayAccuracy(this.wordDataByKanjiAccuracy(wordDataArray));
-        let words = this.createElem(this.settings.html.wordsBody);
-        for (const data of wordDataArray) {
-            let row = this.createElem(this.settings.html.word);
+        let wordsByAcc = this.wordDataByKanjiAccuracy(wordDataArray);
+        this.displayAccuracy(wordsByAcc);
+        this.displayWords(wordsByAcc);
+    }
+    
+    // Displays the words of each WordData in the <words> property array for
+    // each object in dataArray
+    displayWords(dataArray = []) {
+        let newDisplayElement = (wordData) => {
+            let display = this.createElem(this.settings.html.word);
             let wordText = this.createElem(this.settings.html.wordText);
-            wordText.appendChild(kanjiQuiz.wordDataToRuby(data));
             let wordDef = this.createElem(this.settings.html.wordDef);
-            wordDef.textContent = data.definition;
-            row.appendChild(wordText);
-            row.appendChild(wordDef);
-            words.appendChild(row);
+            wordText.appendChild(kanjiQuiz.wordDataToRuby(wordData));
+            wordDef.textContent = wordData.definition;
+            display.appendChild(wordText);
+            display.appendChild(wordDef);
+            return display;
         }
+        let words = this.createElem(this.settings.html.wordsBody);
+        for (const data of dataArray)
+            data.words.forEach( e => words.appendChild(newDisplayElement(e)) )
         this._intro.replaceChildren(words);
     }
     
@@ -369,7 +380,7 @@ kanjiQuiz.Quiz = class {
     }
     
     /* Associates each wordData in wordDataArray with its lowest kanji accuracy
-       Returns an array of {acc: number, kanji: aKanji words: [wordData]}
+       Returns an array of {acc: number, kanji: aKanji, words: [wordData]}
        objects sorted ascending by its accuracy. If no accuracy data exists for
        aKanji, its accuracy is -1 and sorts to the front of the array.
     */
@@ -388,6 +399,7 @@ kanjiQuiz.Quiz = class {
                     lowestAcc = acc;
                     lowestKanji = kanji;
                 }
+
             }
             if (lowestKanji)
                 withAcc.get(lowestKanji).words.push(data);
