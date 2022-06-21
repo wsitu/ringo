@@ -324,23 +324,22 @@ kanjiQuiz.Quiz = class {
         return words;
     }
     
-    // Sets up a new quiz with new words
+    // Restart the quiz with new words
     restart() {
         let highestScoreNeeded = () => {
             let highest = (rangeObj) => (rangeObj.max - rangeObj.min) * rangeObj.div;
             return Math.max(highest(this.choiceRange), highest(this.entryRange));
         }
+        // delayed or you can see the new words while fading out
         let delayedSetup = () => {
             this.fadeIn(this._introBox);
-            // delayed or you can see old words replaced before faded out
             this.createEntries(chosenWords, this.choiceCount);
         }
 
         this._kanjiCache = this.allKanji();
         this._difficulty.slider.max = highestScoreNeeded();
         this._difficulty.slider.value = this.score;
-        let chosenWords = this.newWords(this.entryCount, this.accChance);
-        this.displayIntro(chosenWords);
+        let chosenWords = this._wordSetup();
         this.fadeOut(this._mainBox, delayedSetup);
     }
     
@@ -433,9 +432,7 @@ kanjiQuiz.Quiz = class {
     
     _refreshIntro(e) {
         this.score = e.target.value;
-        let chosenWords = this.newWords(this.entryCount, this.accChance);
-        this.displayIntro(chosenWords);
-        this.createEntries(chosenWords, this.choiceCount);
+        this.createEntries(this._wordSetup(), this.choiceCount);
         let numberOfChoices = this._numFromScore(this.choiceRange);
         let slider = this._difficulty;
         slider.display.replaceChildren();
@@ -472,6 +469,13 @@ kanjiQuiz.Quiz = class {
             }  
         }
         this.restart();
+    }
+    
+    // shared code in restart() and _refreshIntro()
+    _wordSetup() {
+        let chosenWords = this.newWords(this.entryCount, this.accChance);
+        this.displayIntro(chosenWords);
+        return new this.Shuffler(chosenWords).random();
     }
 }
 
