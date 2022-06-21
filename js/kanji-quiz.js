@@ -395,11 +395,8 @@ kanjiQuiz.Quiz = class {
                 let acc = findAcc(kanji);
                 if (!withAcc.has(kanji))
                     withAcc.set(kanji, {acc: acc, kanji: kanji, words: []});
-                if (acc < lowestAcc) {
-                    lowestAcc = acc;
-                    lowestKanji = kanji;
-                }
-
+                if (acc < lowestAcc)
+                    [lowestAcc, lowestKanji] = [acc, kanji];
             }
             if (lowestKanji)
                 withAcc.get(lowestKanji).words.push(data);
