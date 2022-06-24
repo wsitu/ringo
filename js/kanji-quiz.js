@@ -130,6 +130,7 @@ kanjiQuiz.Quiz = class {
 
         this._difficulty = new this.UpdateSlider();
         this._kanjiCache; // reuse same copy of all kanjis per restart
+        this._ACCMORECLASS = this.settings.js.accToggleClass;
         this._ACCVARIABLE = this.settings.js.accuracyCSSVariable;
         
         this._accBody    = this.createElem(this.settings.html.accBody);
@@ -199,7 +200,7 @@ kanjiQuiz.Quiz = class {
     // and <acc> property of each object in dataArray
     displayAccuracy(dataArray = []) {
         this._accBody.replaceChildren();
-        for (const data of dataArray.slice(0, this.maxAccKanji)) {
+        for (const data of dataArray) {
             let wrapper = this.createElem(this.settings.html.accEntry);
             let kanji = this.createElem(this.settings.html.accText);
             kanji.textContent = data.kanji;
@@ -422,6 +423,8 @@ kanjiQuiz.Quiz = class {
     
     // One time setup on constructor
     _init() {
+        this._accMoreBtn.addEventListener("click",
+            () => this._accBox.classList.toggle(this._ACCMORECLASS));
         this._beginBtn.addEventListener("click", () => this._startQuiz());
         this._submitBtn.addEventListener("click", () => this._submitQuiz());
         this._difficulty.throttled = (e) => this._refreshIntro(e);

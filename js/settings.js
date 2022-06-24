@@ -62,6 +62,9 @@ settings.kanjiQuiz.quiz.js = {
     // Receives a string percentage for styling the kanji accuracy in intro
     accuracyCSSVariable : "--accuracy",
     
+    // The class to toggle when the button in accuracy box is pressed
+    accToggleClass: "kanjiQuiz-quiz-accBox-more",
+    
     // Number of entries in each quiz based on quiz score (times all correct)
     // entry # = floor(<score>/<div>) + <min> capped at <max>
     entries : {div: 4, min: 1, max: 10},
