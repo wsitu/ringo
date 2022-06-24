@@ -133,6 +133,8 @@ kanjiQuiz.Quiz = class {
         this._ACCVARIABLE = this.settings.js.accuracyCSSVariable;
         
         this._accBody    = this.createElem(this.settings.html.accBody);
+        this._accBox     = this.createElem(this.settings.html.accBox);
+        this._accMoreBtn = this.createElem(this.settings.html.accMoreBtn);
         this._beginBtn   = this.createElem(this.settings.html.beginBtn);
         this._entriesBox = this.createElem(this.settings.html.entries);
         this._intro      = this.createElem(this.settings.html.wordsBox);
@@ -409,9 +411,11 @@ kanjiQuiz.Quiz = class {
         this.container.appendChild(this._introBox);
         this.container.appendChild(this._mainBox);
         this._difficulty.addTo(this._introBox);
-        this._introBox.appendChild(this._accBody);
+        this._introBox.appendChild(this._accBox);
         this._introBox.appendChild(this._intro);
         this._introBox.appendChild(this._beginBtn);
+        this._accBox.appendChild(this._accBody);
+        this._accBox.appendChild(this._accMoreBtn);
         this._mainBox.appendChild(this._entriesBox);
         this._mainBox.appendChild(this._submitBtn);
     }
