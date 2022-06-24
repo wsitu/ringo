@@ -132,6 +132,11 @@
     border: none;
     flex-basis: 3.125%;
     min-width: 16px;
+    opacity: 0%;
+}
+
+.kanjiQuiz-quiz-accMoreBtn:hover, .kanjiQuiz-quiz-accMoreBtn:focus {
+    opacity: 100%;
 }
 
 /* This is setup so kanjiQuiz-quiz-accVal-bar's percentage bar colors
