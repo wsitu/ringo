@@ -13,7 +13,7 @@ settings.kanjiQuiz.quiz.html = {
     accEntry: {tag: "div", attr: {class: "b-center"},},
     accMoreBtn: {
         tag: "button",
-        attr: {class: ""},
+        attr: {class: "a-background-bg0b a-color-fg0a a-font-medium1"},
     },
     accText: {tag: "dt", attr: {class: "a-font-medium2"},},
     accVal: {
