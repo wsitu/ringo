@@ -118,6 +118,12 @@
     border-width: 1px;
 }
 
+.kanjiQuiz-quiz-accBox:before, .kanjiQuiz-quiz-accMoreBtn {
+    content: "";
+    flex-basis: 3.125%;
+    min-width: 16px;
+}
+
 .kanjiQuiz-quiz-accBox:not(.kanjiQuiz-quiz-accBox-more)
 .kanjiQuiz-quiz-accEntry:nth-child(n+11){
     display: none;
@@ -125,14 +131,12 @@
 
 .kanjiQuiz-quiz-accEntry {
     flex-direction: column;
-    margin: 1.5%;
+    margin: 1.25%;
 }
 
 .kanjiQuiz-quiz-accMoreBtn {
     border: none;
-    flex-basis: 3.125%;
     font-weight: bold;
-    min-width: 16px;
     opacity: 0%;
 }
 
