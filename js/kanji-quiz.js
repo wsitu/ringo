@@ -219,6 +219,8 @@ kanjiQuiz.Quiz = class {
             this._accMoreBtn.disabled = false;
         else
             this._accMoreBtn.disabled = true;
+        if (this._accBox.classList.contains(this._ACCMORECLASS))
+            this._accMoreBtn.disabled = false;
     }
     
     // Populates the quiz intro with each WordData in wordDataArray sorted from
