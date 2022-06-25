@@ -14,7 +14,6 @@ settings.kanjiQuiz.quiz.html = {
     accMoreBtn: {
         tag: "button",
         attr: {class: ""},
-        text: "+",
     },
     accText: {tag: "dt", attr: {class: "a-font-medium2"},},
     accVal: {

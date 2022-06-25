@@ -131,9 +131,14 @@
 .kanjiQuiz-quiz-accMoreBtn {
     border: none;
     flex-basis: 3.125%;
+    font-weight: bold;
     min-width: 16px;
     opacity: 0%;
 }
+
+.kanjiQuiz-quiz-accMoreBtn:before {content: "+";}
+.kanjiQuiz-quiz-accBox-more .kanjiQuiz-quiz-accMoreBtn:before {content: "-";}
+
 
 .kanjiQuiz-quiz-accMoreBtn:disabled {
     visibility: hidden;
