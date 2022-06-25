@@ -200,8 +200,9 @@ kanjiQuiz.Quiz = class {
     // and <acc> property of each object in dataArray
     displayAccuracy(dataArray = []) {
         this._accBody.replaceChildren();
+        let wrapper;
         for (const data of dataArray) {
-            let wrapper = this.createElem(this.settings.html.accEntry);
+            wrapper = this.createElem(this.settings.html.accEntry);
             let kanji = this.createElem(this.settings.html.accText);
             kanji.textContent = data.kanji;
             let acc = this.createElem(this.settings.html.accVal);
@@ -212,6 +213,12 @@ kanjiQuiz.Quiz = class {
             wrapper.appendChild(acc);
             this._accBody.appendChild(wrapper);
         }
+        // Only enable the button if the last accuracy entry is hidden
+        let displayValue = (e) => getComputedStyle(e).getPropertyValue("display");
+        if (wrapper && displayValue(wrapper) == "none")
+            this._accMoreBtn.disabled = false;
+        else
+            this._accMoreBtn.disabled = true;
     }
     
     // Populates the quiz intro with each WordData in wordDataArray sorted from
