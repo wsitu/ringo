@@ -434,6 +434,7 @@ kanjiQuiz.Quiz = class {
     _init() {
         this._accBox.addEventListener("click", () => {
             if (this._accMoreBtn.disabled == true) return;
+            if (getSelection().toString() != "") return;
             this._accBox.classList.toggle(this._ACCMORECLASS);
         });
         this._beginBtn.addEventListener("click", () => this._startQuiz());
