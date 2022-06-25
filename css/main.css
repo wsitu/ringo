@@ -143,12 +143,12 @@
 .kanjiQuiz-quiz-accMoreBtn:before {content: "+";}
 .kanjiQuiz-quiz-accBox-more .kanjiQuiz-quiz-accMoreBtn:before {content: "-";}
 
-
 .kanjiQuiz-quiz-accMoreBtn:disabled {
     visibility: hidden;
 }
 
-.kanjiQuiz-quiz-accMoreBtn:hover, .kanjiQuiz-quiz-accMoreBtn:focus {
+.kanjiQuiz-quiz-accMoreBtn:hover, .kanjiQuiz-quiz-accMoreBtn:focus,
+.kanjiQuiz-quiz-accBox:hover .kanjiQuiz-quiz-accMoreBtn {
     opacity: 100%;
 }
 

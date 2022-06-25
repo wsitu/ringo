@@ -432,8 +432,10 @@ kanjiQuiz.Quiz = class {
     
     // One time setup on constructor
     _init() {
-        this._accMoreBtn.addEventListener("click",
-            () => this._accBox.classList.toggle(this._ACCMORECLASS));
+        this._accBox.addEventListener("click", () => {
+            if (this._accMoreBtn.disabled == true) return;
+            this._accBox.classList.toggle(this._ACCMORECLASS);
+        });
         this._beginBtn.addEventListener("click", () => this._startQuiz());
         this._submitBtn.addEventListener("click", () => this._submitQuiz());
         this._difficulty.throttled = (e) => this._refreshIntro(e);
