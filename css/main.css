@@ -138,6 +138,7 @@
     border: none;
     font-weight: bold;
     opacity: 0%;
+    transition: opacity 0.25s ease-in;
 }
 
 .kanjiQuiz-quiz-accMoreBtn:before {content: "+";}
