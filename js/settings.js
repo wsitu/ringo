@@ -71,9 +71,6 @@ settings.kanjiQuiz.quiz.js = {
     // Same as entries but for the number of entry choices
     entryChoices : {div: 2, min: 4, max: 16},
     
-    // Max number of kanji to list in the intro's accuracy element
-    maxAccuracyKanji : 10,
-    
     // Number between 0 and 1 that represents the chance that quiz words are
     // picked by its kanji accuracy (lower accuracy = higher chance)
     weightedWordRatio : 0.75
