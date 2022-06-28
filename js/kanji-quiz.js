@@ -248,6 +248,7 @@ kanjiQuiz.Quiz = class {
         this._intro.replaceChildren(words);
     }
     
+    // Returns the accuracy of <kanjiString> as a ratio or -1 if no data
     getAccuracy(kanjiString) {
         let getRatio = (accData) => accData.right / accData.total;
         // return data from from local storage when ready
@@ -442,11 +443,13 @@ kanjiQuiz.Quiz = class {
         this.restart();
     }
     
+    // Returns the number within the range that the current score represents
     _numFromScore(rangeObj) {
         let num = Math.floor(this.score/rangeObj.div) + rangeObj.min;
         return Math.min(rangeObj.max, Math.max(rangeObj.min, num));
     }
     
+    // Used by slider to update the intro with new words
     _refreshIntro(e) {
         this.score = e.target.value;
         this.createEntries(this._wordSetup(), this.choiceCount);
