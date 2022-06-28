@@ -1,4 +1,36 @@
 
+class Accuracy {
+    
+    constructor(data = [0, 0]) {
+        this.key;
+        this.right = data[0];
+        this.total = data[1];
+    }
+    
+    // Returns the wrong count
+    get wrong() { return this.total - this.right; }
+    
+    // Returns the accuracy as a ratio
+    get ratio() { return this.right / this.total; }
+    
+    // Returns the error rate as a ratio
+    get ratioWrong() { return this.wrong / this.total; }
+    
+    // Returns a string of the accuracy as a percentage
+    // <digits> number of digits after the decimal point or -1 for no limit
+    percent(digits = -1) {
+        let percent = this.ratio * 100;
+        return `${digits < 0 ? percent : percent.toFixed(digits)}%`;
+    }
+    
+    // Returns a string of the accuracy as a percentage
+    // <digits> number of digits after the decimal point or -1 for no limit
+    percentWrong(digits = -1) {
+        let percent = this.ratioWrong * 100;
+        return `${digits < 0 ? percent : percent.toFixed(digits)}%`;
+    }
+}
+
 // Wrapper for errors related to usage of local DOM storage or files
 class DataManagerError extends Error {
     constructor(errorObj) {
