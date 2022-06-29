@@ -16,6 +16,12 @@ class Accuracy {
     // Returns the error rate as a ratio
     get ratioWrong() { return this.wrong / this.total; }
     
+    // Adds another Accuracy's data to this, does not modify the key
+    add(otherAcc) {
+        this.right += otherAcc.right;
+        this.total += otherAcc.total;
+    }
+    
     // Returns a string of the accuracy as a percentage
     // <digits> number of digits after the decimal point or -1 for no limit
     percent(digits = -1) {
