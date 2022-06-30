@@ -2,9 +2,9 @@
 class Accuracy {
     
     constructor(data = [0, 0]) {
-        this.key;
-        this.right = data[0];
-        this.total = data[1];
+        this.key = data.key;
+        this.right = data.right ? data.right: data[0];
+        this.total = data.total ? data.total: data[1];
     }
     
     // Returns the wrong count
