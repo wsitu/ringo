@@ -273,25 +273,23 @@ kanjiQuiz.Quiz = class {
         return Array.from(words.values());
     }
     
-    // Returns an object containing the corrected of each fully set entry
-    // in the format of { <kanji>: {right: #, total: #} }
+    // Returns an object containing the accuracies of all fully set entries
+    // in the format of { <aKanji>: Accuracy }
     processEntries() {
-        let rightTotal = {};
-        let addRightTotal = function (key, right, total) {
-            if (key in rightTotal) {
-                rightTotal[key].right += right;
-                rightTotal[key].total += total;
-            } else
-                rightTotal[key] = {right: right, total: total};
+        let accuracies = {};
+        let addAcc = function (key, right, total) {
+            if (key in accuracies)
+                accuracies[key].add({right: right, total: total})
+            else
+                accuracies[key] = new Accuracy([right, total]);
         }
         for (const entry of this.entries) {
+            if (!entry.userInput.hasAllSet()) continue;
             let result = entry.userInput.check();
-            for (const part of result.right)
-                addRightTotal(part, 1, 1);
-            for (const part of result.wrong)
-                addRightTotal(part, 0, 1);
+            result.right.forEach( (kanji) => addAcc(kanji, 1, 1) );
+            result.wrong.forEach( (kanji) => addAcc(kanji, 0, 1) );
         }
-        return rightTotal;
+        return accuracies;
     }
     
     /* Returns a Map of WordData.text : WordData of all WordDatas from the
