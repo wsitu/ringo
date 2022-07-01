@@ -163,12 +163,12 @@ kanjiQuiz.Quiz = class {
     }
     
     /* Returns a weight between [1, 3 000 000 000] when
-       1 <= totalNum <= 1 000 000 000  and 0 <= rightNum <= totalNum
-       A low totalNum or accuracy results in a higher weight
+       1 <= acc.total <= 1 000 000 000  and 0 <= acc.right <= acc.total
+       A low total or accuracy.ratio results in a higher weight
     */
-    accuracyWeight(rightNum, totalNum) {
-        let wrongRatio = (totalNum - rightNum)/totalNum;
-        return (wrongRatio * wrongRatio + 0.5/totalNum) * 2000000000;
+    accuracyWeight(acc) {
+        let weight = acc.ratioWrong * acc.ratioWrong + 0.5/acc.totalNum;
+        return weight * 2000000000; // reduce precision error when using it
     }
     
     // Returns a set of every kanji used in all words of the dictionaries
@@ -358,7 +358,7 @@ kanjiQuiz.Quiz = class {
         for (const kanji of Object.keys(accData)) {
             if (!this.tempAccuracy.has(kanji))
                 this.tempAccuracy.set(kanji, new Accuracy());
-            this.tempAccuracy.get(kanji).add(accData);
+            this.tempAccuracy.get(kanji).add(accData[kanji]);
             // add to local storage here when ready to implement
         }
     }
@@ -373,7 +373,7 @@ kanjiQuiz.Quiz = class {
         if (maxLength > 0) {
             let weights = new Map();
             for (const [key, data] of this.tempAccuracy) 
-                weights.set(key, this.accuracyWeight(data.right, data.total));
+                weights.set(key, this.accuracyWeight(data));
             weightedKanji = this.weightedShuffle(weights);
         }
         let blacklists = filters.concat(words);
