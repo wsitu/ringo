@@ -390,13 +390,11 @@ kanjiQuiz.Quiz = class {
     */
     wordDataByKanjiAccuracy(wordDataArray = []) {
         let withAcc = new Map();
-        let findAcc = (kanji) => withAcc.has(kanji) ? 
-                      withAcc.get(kanji).acc : this.getAccuracy(kanji);
         for (const data of wordDataArray) {
             let lowestAcc = Infinity;
             let lowestKanji;
             for (const kanji of data.kanji) {
-                let acc = findAcc(kanji);
+                let acc = this.getAccuracy(kanji);
                 if (!withAcc.has(kanji))
                     withAcc.set(kanji, {acc: acc, kanji: kanji, words: []});
                 if (acc < lowestAcc)
