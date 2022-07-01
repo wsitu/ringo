@@ -357,10 +357,8 @@ kanjiQuiz.Quiz = class {
     saveAccuracy(accData) {
         for (const kanji of Object.keys(accData)) {
             if (!this.tempAccuracy.has(kanji))
-                this.tempAccuracy.set(kanji, {right: 0, total: 0});
-            let data = this.tempAccuracy.get(kanji);
-            data.right += accData[kanji].right;
-            data.total += accData[kanji].total;
+                this.tempAccuracy.set(kanji, new Accuracy());
+            this.tempAccuracy.get(kanji).add(accData);
             // add to local storage here when ready to implement
         }
     }
