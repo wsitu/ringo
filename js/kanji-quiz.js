@@ -250,11 +250,9 @@ kanjiQuiz.Quiz = class {
     
     // Returns the accuracy of <kanjiString> as a ratio or -1 if no data
     getAccuracy(kanjiString) {
-        let getRatio = (accData) => accData.right / accData.total;
         // return data from from local storage when ready
-        if (this.tempAccuracy.has(kanjiString))
-            return getRatio(this.tempAccuracy.get(kanjiString));
-        return -1;
+        let acc = this.tempAccuracy.get(kanjiString);
+        return acc == undefined ? -1 : acc.ratio;
     }
     
     /* Returns an array of WordData from a mix of weighted and randomed kanji
