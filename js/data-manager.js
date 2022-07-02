@@ -2,9 +2,8 @@
 class Accuracy {
     
     constructor(data = [0, 0]) {
-        this.key = data.key;
-        this.right = data.right ? data.right: data[0];
-        this.total = data.total ? data.total: data[1];
+        this.right = (data.right == undefined) ? data[0] : data.right;
+        this.total = (data.total == undefined) ? data[1] : data.total;
     }
     
     // Returns the wrong count
@@ -16,10 +15,10 @@ class Accuracy {
     // Returns the error rate as a ratio
     get ratioWrong() { return this.wrong / this.total; }
     
-    // Adds another Accuracy's data to this, does not modify the key
-    add(otherAcc) {
-        this.right += otherAcc.right;
-        this.total += otherAcc.total;
+    // Adds another Accuracy's data to this
+    add(other) {
+        this.right += (other.right == undefined) ? other[0] : other.right;
+        this.total += (other.total == undefined) ? other[1] : other.total;
     }
     
     // Returns a string of the accuracy as a percentage

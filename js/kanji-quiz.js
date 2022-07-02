@@ -277,7 +277,7 @@ kanjiQuiz.Quiz = class {
         let accuracies = {};
         let addAcc = function (key, right, total) {
             if (key in accuracies)
-                accuracies[key].add({right: right, total: total})
+                accuracies[key].add([right, total]);
             else
                 accuracies[key] = new Accuracy([right, total]);
         }
