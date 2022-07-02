@@ -167,7 +167,7 @@ kanjiQuiz.Quiz = class {
        A low total or accuracy.ratio results in a higher weight
     */
     accuracyWeight(acc) {
-        let weight = acc.ratioWrong * acc.ratioWrong + 0.5/acc.totalNum;
+        let weight = acc.ratioWrong * acc.ratioWrong + 0.5/acc.total;
         return weight * 2000000000; // reduce precision error when using it
     }
     
