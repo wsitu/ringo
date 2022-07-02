@@ -1,6 +1,8 @@
 
 class Accuracy {
+    // Stores the accuracy of an item as two integers
     
+    // Takes in another Accuracy object or an array as [right, total]
     constructor(data = [0, 0]) {
         this.right = (data.right == undefined) ? data[0] : data.right;
         this.total = (data.total == undefined) ? data[1] : data.total;
@@ -15,7 +17,7 @@ class Accuracy {
     // Returns the error rate as a ratio
     get ratioWrong() { return this.wrong / this.total; }
     
-    // Adds another Accuracy's data to this
+    // Adds another Accuracy's data or [right, total] to this
     add(other) {
         this.right += (other.right == undefined) ? other[0] : other.right;
         this.total += (other.total == undefined) ? other[1] : other.total;
@@ -33,6 +35,11 @@ class Accuracy {
     percentWrong(digits = -1) {
         let percent = this.ratioWrong * 100;
         return `${digits < 0 ? percent : percent.toFixed(digits)}%`;
+    }
+    
+    toJSON() {
+        // Uses less characters as an array
+        return [this.right, this.total];
     }
 }
 
