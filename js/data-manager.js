@@ -67,8 +67,10 @@ class DataManager {
         for (const setting of [this.default, this.user]) {
             setting.dictionaries = [];
         }
+        this.user.accuracies = new Map();
     }
     
+    static _KANJI_PREFIX = "K__";
     static _TEST_STORAGE_KEY = "__TESTSTORAGEKEY__";
     static _TEST_STORAGE_VALUE = "テst";
     static _DICTIONARY_KEY = "dict"
@@ -85,6 +87,16 @@ class DataManager {
     // Return a new array of the names of all the dictionaries added
     get dictNames() {
         return this.dictionaries.map(x => x.name);
+    }
+    
+    // Returns the Accuracy object stored at aString and stores it into
+    // this.user.accuracies
+    getUserAcc(aString) {
+        let stored = this._getUser(DataManager._KANJI_PREFIX + aString);
+        if (stored == null) return undefined;
+        stored = new Accuracy(JSON.parse(stored));
+        this.user.accuracies.set(aString, stored);
+        return stored;
     }
     
     // Return the dictionary named nameString or null
@@ -146,6 +158,27 @@ class DataManager {
         let data = JSON.parse(this._getUser(DataManager._DICTIONARY_KEY));
         if (!data) return;
         this.user.dictionaries = data.map(dict => new WordDictionary(dict));
+    }
+    
+    // Saves an Accuracy object accObj into localStorage indexed with aString
+    // and stores both into this.user.accuracies
+    // Does not save if either is an invalid type and will log a console error
+    saveUserAcc(aString, accObj) {
+        if (!(accObj instanceof Accuracy)) {
+            console.error("Attempt to save invalid Accuracy:", accObj, 
+                "on key:", aString);
+            return;
+        }
+        if (!(typeof aString == "string" || aString instanceof String) || 
+            aString == "") {
+            console.error("Attempt to save invalid key:", aString, 
+                "with:", accObj);
+            return;
+        }
+
+        let key = DataManager._KANJI_PREFIX + aString;
+        this._setUser(key, JSON.stringify(accObj));
+        this.user.accuracies.set(aString, accObj);
     }
     
     /* Save the cached user dictionaries into local storage or throws a 
