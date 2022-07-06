@@ -89,10 +89,10 @@ class DataManager {
         return this.dictionaries.map(x => x.name);
     }
     
-    // Returns the Accuracy object stored at aString and stores it into
+    // Return the Accuracy object stored at aString and stores it into
     // this.user.accuracies
     getUserAcc(aString) {
-        let stored = this._getUser(DataManager._KANJI_PREFIX + aString);
+        let stored = this._getUser(this._accKey(aString));
         if (stored == null) return undefined;
         stored = new Accuracy(JSON.parse(stored));
         this.user.accuracies.set(aString, stored);
@@ -130,6 +130,12 @@ class DataManager {
                     dicts.splice(i, 1);
         }
     }
+    
+    // Remove the aString's Accuracy data in localStorage and the cache
+    removeUserAcc(aString) {
+        this._removeUser(this._accKey(aString));
+        this.user.accuracies.delete(aString);
+    }
 
     // Return true if the user's local storage is accessible or full
     // otherwise false
@@ -160,9 +166,10 @@ class DataManager {
         this.user.dictionaries = data.map(dict => new WordDictionary(dict));
     }
     
-    // Saves an Accuracy object accObj into localStorage indexed with aString
-    // and stores both into this.user.accuracies
-    // Does not save if either is an invalid type and will log a console error
+    /* Save an Accuracy object accObj into localStorage indexed with aString
+        and store both into the cache
+        Does not save if either is an invalid type and will log a console error
+    */
     saveUserAcc(aString, accObj) {
         if (!(accObj instanceof Accuracy)) {
             console.error("Attempt to save invalid Accuracy:", accObj, 
@@ -176,8 +183,7 @@ class DataManager {
             return;
         }
 
-        let key = DataManager._KANJI_PREFIX + aString;
-        this._setUser(key, JSON.stringify(accObj));
+        this._setUser(this._accKey(aString), JSON.stringify(accObj));
         this.user.accuracies.set(aString, accObj);
     }
     
@@ -201,6 +207,8 @@ class DataManager {
             throw new DataManagerError(err);
         }
     }
+    
+    _accKey(accString) {return DataManager._KANJI_PREFIX + accString;}
     
     // Return the value stored in local storage at keyString or null
     _getUser(keyString) {
