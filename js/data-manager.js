@@ -90,11 +90,18 @@ class DataManager {
     }
     
     // Return the Accuracy object stored at aString and stores it into
-    // this.user.accuracies
+    // this.user.accuracies or undefined
     getUserAcc(aString) {
         let stored = this._getUser(this._accKey(aString));
         if (stored == null) return undefined;
-        stored = new Accuracy(JSON.parse(stored));
+        try {
+            stored = new Accuracy(JSON.parse(stored));
+        } catch (err) {
+            if (err instanceof SyntaxError) {
+                console.warn("Invalid Accuracy:", stored, "at key:", aString);
+                return undefined;
+            }
+        }
         this.user.accuracies.set(aString, stored);
         return stored;
     }
