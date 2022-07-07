@@ -124,7 +124,7 @@ kanjiQuiz.Quiz = class {
         this.entryRange   = this.settings.js.entries;
         this.score        = 0;
 
-        this._accuracies = new Map();
+        this._accuracies = this.dataManager.user.accuracies;
         this._difficulty = new this.UpdateSlider();
         this._kanjiCache; // reuse same copy of all kanjis per restart
         this._ACCMORECLASS = this.settings.js.accToggleClass;
@@ -249,7 +249,6 @@ kanjiQuiz.Quiz = class {
     
     // Returns the accuracy of <kanjiString> as a ratio or -1 if no data
     getAccuracy(kanjiString) {
-        // return data from from local storage when ready
         let acc = this._accuracies.get(kanjiString);
         return acc == undefined ? -1 : acc.ratio;
     }
@@ -352,12 +351,18 @@ kanjiQuiz.Quiz = class {
     // Saves accuracy data of entries for weighted shuffling
     // <accData> object in the same format as the return of processEntries()
     saveAccuracy(accData) {
-        for (const kanji of Object.keys(accData)) {
+        for (const [kanji, acc] of Object.entries(accData)) {
             if (!this._accuracies.has(kanji))
                 this._accuracies.set(kanji, new Accuracy());
-            this._accuracies.get(kanji).add(accData[kanji]);
-            // add to local storage here when ready to implement
-        }
+            let updated = this._accuracies.get(kanji).add(acc, true);
+            try {
+                this.dataManager.saveUserAcc(kanji, updated);
+            } catch (err) {
+                // silently fail for now until we can inform users of the error
+                if (!(err instanceof DataManagerError))
+                    throw err;
+            }
+        } 
     }
     
     /* Returns a map of WordData.text : WordData randomly from kanjis by weight
