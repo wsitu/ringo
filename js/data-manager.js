@@ -171,6 +171,14 @@ class DataManager {
         }
     }
     
+    // Parse local storage for user data and store it into the cache
+    loadUserData() {
+        for (const [key, value] of Object.entries(localStorage)) {
+            if (key.startsWith(DataManager._KANJI_PREFIX))
+                this.getUserAcc(key.replace(DataManager._KANJI_PREFIX, ""));
+        }
+    }
+    
     // Parse and cache the user dictionary data stored in local storage 
     loadUserDict() {
         let data = JSON.parse(this._getUser(DataManager._DICTIONARY_KEY));
