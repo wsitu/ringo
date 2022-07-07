@@ -113,7 +113,6 @@ kanjiQuiz.Quiz = class {
        entries      | array of current Entry that users can input to
        entryRange   | same as choiceRange but for the # of entries
        score        | number of times a quiz was submit as 100% correct 
-       tempAccuracy | kanji accuracy of the current session(reset on page load)
     */
     constructor(dataManager) {
         this.accChance    = this.settings.js.weightedWordRatio;
@@ -124,8 +123,8 @@ kanjiQuiz.Quiz = class {
         this.entries      = [];
         this.entryRange   = this.settings.js.entries;
         this.score        = 0;
-        this.tempAccuracy = new Map();
 
+        this._accuracies = new Map();
         this._difficulty = new this.UpdateSlider();
         this._kanjiCache; // reuse same copy of all kanjis per restart
         this._ACCMORECLASS = this.settings.js.accToggleClass;
@@ -251,7 +250,7 @@ kanjiQuiz.Quiz = class {
     // Returns the accuracy of <kanjiString> as a ratio or -1 if no data
     getAccuracy(kanjiString) {
         // return data from from local storage when ready
-        let acc = this.tempAccuracy.get(kanjiString);
+        let acc = this._accuracies.get(kanjiString);
         return acc == undefined ? -1 : acc.ratio;
     }
     
@@ -354,9 +353,9 @@ kanjiQuiz.Quiz = class {
     // <accData> object in the same format as the return of processEntries()
     saveAccuracy(accData) {
         for (const kanji of Object.keys(accData)) {
-            if (!this.tempAccuracy.has(kanji))
-                this.tempAccuracy.set(kanji, new Accuracy());
-            this.tempAccuracy.get(kanji).add(accData[kanji]);
+            if (!this._accuracies.has(kanji))
+                this._accuracies.set(kanji, new Accuracy());
+            this._accuracies.get(kanji).add(accData[kanji]);
             // add to local storage here when ready to implement
         }
     }
@@ -370,7 +369,7 @@ kanjiQuiz.Quiz = class {
         let weightedKanji = [];
         if (maxLength > 0) {
             let weights = new Map();
-            for (const [key, data] of this.tempAccuracy) 
+            for (const [key, data] of this._accuracies)
                 weights.set(key, this.accuracyWeight(data));
             weightedKanji = this.weightedShuffle(weights);
         }
