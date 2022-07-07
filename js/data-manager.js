@@ -202,9 +202,9 @@ class DataManager {
                 "with:", accObj);
             return;
         }
-
-        this._setUser(this._accKey(aString), JSON.stringify(accObj));
+        
         this.user.accuracies.set(aString, accObj);
+        this._setUser(this._accKey(aString), JSON.stringify(accObj));
     }
     
     /* Save the cached user dictionaries into local storage or throws a 
