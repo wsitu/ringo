@@ -73,6 +73,7 @@ class DataManager {
             setting.dictionaries = [];
         }
         this.user.accuracies = new Map();
+        window.addEventListener("storage", (e) => this._onStorageChange(e));
     }
     
     static _KANJI_PREFIX = "K__";
@@ -250,6 +251,12 @@ class DataManager {
     // Return if aString could be a key for Accuracy objects in local storage
     _isAccKey(aString) {
         return aString.startsWith(DataManager._KANJI_PREFIX);
+    }
+    
+    // Reloads the changed data into cached objects if necesarry
+    _onStorageChange(storageEvent) {
+        if (this._isAccKey(storageEvent.key))
+            this.getUserAcc(this._accString(storageEvent.key));
     }
     
     // Store valueString at keyString in local storage or throw a
