@@ -128,6 +128,7 @@ kanjiQuiz.Quiz = class {
         this._difficulty = new this.UpdateSlider();
         this._kanjiCache; // reuse same copy of all kanjis per restart
         this._ACCMORECLASS = this.settings.js.accToggleClass;
+        this._ACCNONECLASS = this.settings.js.accNoneClass;
         this._ACCVARIABLE = this.settings.js.accuracyCSSVariable;
         
         this._accBody    = this.createElem(this.settings.html.accBody);
@@ -203,14 +204,21 @@ kanjiQuiz.Quiz = class {
             let kanji = this.createElem(this.settings.html.accText);
             kanji.textContent = data.kanji;
             let acc = this.createElem(this.settings.html.accVal);
-            let percent = data.acc < 0 ? "0%" : `${Math.round(data.acc*100)}%`;
-            acc.textContent = data.acc < 0 ? "--%" : percent ;
+            let percent = "0%";
+            if (data.acc < 0) {
+                acc.classList.add(this._ACCNONECLASS);
+                acc.textContent = "--%";
+            } else {
+                percent = `${Math.round(data.acc*100)}%`;
+                acc.textContent = percent;
+            }
             acc.style.setProperty("--accuracy", percent);
             wrapper.appendChild(kanji);
             wrapper.appendChild(acc);
             this._accBody.appendChild(wrapper);
         }
         // Only enable the button if the last accuracy entry is hidden
+        // or the button was toggled meaning they cannot be hidden
         let displayValue = (e) => getComputedStyle(e).getPropertyValue("display");
         if (wrapper && displayValue(wrapper) == "none")
             this._accMoreBtn.disabled = false;

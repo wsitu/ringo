@@ -19,7 +19,9 @@ settings.kanjiQuiz.quiz.html = {
     accVal: {
         tag : "dd",
         attr: {
-            class: "a-background-bg0b a-color-bg2b kanjiQuiz-quiz-accVal-bar"},
+            class: "a-background-bg0b a-border-bg0b a-color-bg2b " +
+            "kanjiQuiz-quiz-accVal-bar",
+        },
     },
     beginBtn: {
         tag : "button",
@@ -63,6 +65,9 @@ settings.kanjiQuiz.quiz.js = {
     
     // The class to toggle when the button in accuracy box is pressed
     accToggleClass: "kanjiQuiz-quiz-accBox-more",
+    
+    // Class to add with kanjiQuiz-quiz-accVal when no accuracy data is found
+    accNoneClass: "kanjiQuiz-quiz-accVal-none",
     
     // Number of entries in each quiz based on quiz score (times all correct)
     // entry # = floor(<score>/<div>) + <min> capped at <max>

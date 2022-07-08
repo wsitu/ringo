@@ -176,6 +176,12 @@
     width: var(--accuracy);
 }
 
+.kanjiQuiz-quiz-accVal-none {
+    background-color: transparent;
+    border-style: dashed;
+    border-width: 0.125rem;
+}
+
 .kanjiQuiz-quiz-body {
     border-style: solid;
     border-bottom-style: none;
