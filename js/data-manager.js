@@ -174,8 +174,8 @@ class DataManager {
     // Parse local storage for user data and store it into the cache
     loadUserData() {
         for (const [key, value] of Object.entries(localStorage)) {
-            if (key.startsWith(DataManager._KANJI_PREFIX))
-                this.getUserAcc(key.replace(DataManager._KANJI_PREFIX, ""));
+            if (this._isAccKey(key))
+                this.getUserAcc(this._accString(key));
         }
     }
     
@@ -228,8 +228,16 @@ class DataManager {
         }
     }
     
-    _accKey(accString) {return DataManager._KANJI_PREFIX + accString;}
+    // Return a string representing the key used for accString in local storage
+    _accKey(accString) {
+        return DataManager._KANJI_PREFIX + accString;
+    }
     
+    // Return the original string passed to _accKey()
+    _accString(accKey) {
+        return accKey.substring(DataManager._KANJI_PREFIX.length);
+    }
+
     // Return the value stored in local storage at keyString or null
     _getUser(keyString) {
         try {
@@ -237,6 +245,11 @@ class DataManager {
         } catch (err) {
             throw new DataManagerError(err);
         }
+    }
+    
+    // Return if aString could be a key for Accuracy objects in local storage
+    _isAccKey(aString) {
+        return aString.startsWith(DataManager._KANJI_PREFIX);
     }
     
     // Store valueString at keyString in local storage or throw a
