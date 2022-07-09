@@ -95,8 +95,8 @@ class DataManager {
         return this.dictionaries.map(x => x.name);
     }
     
-    // Return the Accuracy object stored at aString and stores it into
-    // this.user.accuracies or undefined
+    // Return undefined or the Accuracy object stored at aString and store it
+    // into this.user.accuracies if the object stored is a valid Accuracy
     getUserAcc(aString) {
         let stored = this._getUser(this._accKey(aString));
         if (stored == null) return undefined;
@@ -253,15 +253,20 @@ class DataManager {
         return aString.startsWith(DataManager._KANJI_PREFIX);
     }
     
-    // Reloads the changed data into cached objects if necesarry
+    // Mirror localStorage changes from other pages to this page's cache
     _onStorageChange(storageEvent) {
-        // clearUserStorage()
-        if (storageEvent.key == null && localStorage.length == 0) {
-            this.user.accuracies.clear();
+        if (storageEvent.key == null) {
+            if (localStorage.length == 0) // clearUserStorage()
+                this.user.accuracies.clear();
             return;
         }
-        if (this._isAccKey(storageEvent.key))
-            this.getUserAcc(this._accString(storageEvent.key));
+        if (this._isAccKey(storageEvent.key)) {
+            if (storageEvent.newValue == null)
+                this.user.accuracies.delete(this._accString(storageEvent.key));
+            else
+                this.getUserAcc(this._accString(storageEvent.key));
+        }
+
     }
     
     // Store valueString at keyString in local storage or throw a
