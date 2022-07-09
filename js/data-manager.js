@@ -255,6 +255,11 @@ class DataManager {
     
     // Reloads the changed data into cached objects if necesarry
     _onStorageChange(storageEvent) {
+        // clearUserStorage()
+        if (storageEvent.key == null && localStorage.length == 0) {
+            this.user.accuracies.clear();
+            return;
+        }
         if (this._isAccKey(storageEvent.key))
             this.getUserAcc(this._accString(storageEvent.key));
     }

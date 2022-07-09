@@ -277,6 +277,19 @@ kanjiQuiz.Quiz = class {
         return Array.from(words.values());
     }
     
+    // Returns a set of kanji that does not have any accuracy data
+    noAccKanji() {
+        let noAcc = new Set();
+        for (const kanji of this._kanjiCache) {
+            if (this._accuracies.has(kanji)) {
+                if (this._accuracies.get(kanji).total == 0)
+                    noAcc.add(kanji);
+            } else
+                noAcc.add(kanji);
+        }
+        return noAcc;
+    }
+    
     // Returns an object containing the accuracies of all fully set entries
     // in the format of { <aKanji>: Accuracy }
     processEntries() {
@@ -320,16 +333,20 @@ kanjiQuiz.Quiz = class {
         return shuffler.random(maxLength);
     }
     
-    /* Returns a map of WordData.text : WordData randomly from random kanjis
+    /* Returns a map of WordData.text : WordData randomly from kanji with no
+       accuracy data and when exhausted, randomly from all kanji
        <maxLength> the max number of words in the return
        <filters> array of Map(keys) or Set(values) of WordData.text to exclude
     */
     randomWords(maxLength, filters = []) {
         let words = new Map();
         let blacklists = filters.concat(words);
+        let noData = new this.Shuffler(this.noAccKanji());
         let randomed = new this.Shuffler(this._kanjiCache);
         while (words.size < maxLength) {
-            let nextKanji = randomed.random(1);
+            let nextKanji = noData.random(1);
+            if (nextKanji.length < 1)
+                nextKanji = randomed.random(1);
             if (nextKanji.length < 1) break;
             let wordDatas = this.shuffledWordData(nextKanji[0], 1, blacklists)
             wordDatas.forEach( (wdData) => words.set(wdData.text, wdData) );
