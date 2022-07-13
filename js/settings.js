@@ -1,4 +1,8 @@
-const settings = {
+(()=>{ //======================================================================
+//=============================================================================
+
+
+ringo.settings = {
     kanjiQuiz : {
         entry: {},
         quiz: {},
@@ -6,6 +10,7 @@ const settings = {
         updateSlider: {},
     }
 };
+let settings = ringo.settings;
 
 settings.kanjiQuiz.quiz.html = {
     accBody: {tag: "dl", attr: {class: "b-center"},},
@@ -172,3 +177,7 @@ for (const [moduleName, module] of Object.entries(settings)) {
         }
     }
 }
+
+
+//=============================================================================
+})(); //=======================================================================

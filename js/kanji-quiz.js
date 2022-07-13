@@ -1,6 +1,6 @@
 const kanjiQuiz = {
     
-    settings: settings.kanjiQuiz,
+    settings: ringo.settings.kanjiQuiz,
     
     // Adds an object with a container HTML element to parentElement
     addTo(parentElement) {
