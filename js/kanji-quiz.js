@@ -1,11 +1,13 @@
-const kanjiQuiz = {
-    
-    settings: ringo.settings.kanjiQuiz,
+(()=>{ //======================================================================
+//=============================================================================
+
+
+const settings = ringo.settings.kanjiQuiz;
     
     // Adds an object with a container HTML element to parentElement
-    addTo(parentElement) {
+    function addTo(parentElement) {
         parentElement.appendChild(this.container);
-    },
+    }
 
     /* Returns an element of the given tag, attribute, and content
        <elConfig> element config with the following keys
@@ -14,7 +16,7 @@ const kanjiQuiz = {
            text: (optional) string of the text content (not tml)
            html: (optional) string of the html content (overwrites text)
     */
-    createElem(elConfig = {tag: "div", attr: {}, html: "", text: ""}) {
+    function createElem(elConfig = {tag: "div", attr: {}, html: "", text: ""}) {
         let e = document.createElement(elConfig.tag);
         if (elConfig.text) e.textContent = elConfig.text;
         if (elConfig.html) e.innerHTML = elConfig.html;
@@ -22,11 +24,11 @@ const kanjiQuiz = {
         for (const [key, value] of Object.entries(attributes))
             e.setAttribute(key, value);
         return e;
-    },
-    
+    }
+
     // Fades out elementToRemove over totalSeconds then runs callbackFunc
     //  * overwrites the inline display, opacity, and transition style
-    fadeOut(elementToRemove, callbackFunc, totalSeconds = 0.25) {
+    function fadeOut(elementToRemove, callbackFunc, totalSeconds = 0.25) {
         let runOnce = {
             ran: false,
             run: function() {
@@ -43,10 +45,10 @@ const kanjiQuiz = {
         // Transition may not be available, setTimeout may not match the visual
         elementToRemove.addEventListener("transitionend", () => runOnce.run());
         setTimeout(() => runOnce.run(), totalSeconds*1000);
-    },
-    
+    }
+
     // Remove and transition from the inline properties used by fadeOut
-    fadeIn(elementToRestore) {
+    function fadeIn(elementToRestore) {
         elementToRestore.style.removeProperty("display");
         let removeTransition = () => {
             elementToRestore.style.removeProperty("transition");
@@ -54,13 +56,13 @@ const kanjiQuiz = {
         elementToRestore.addEventListener("transitionend", removeTransition);
         // delayed to work around display:none disabling transitions
         setTimeout(() => elementToRestore.style.removeProperty("opacity"), 5);
-    },
-    
+    }
+
     /* Returns an array of random weight shuffled mapObject keys 
        <mapobject> is a Map or object with a [key, value] iterator 
             value is the weight of key and is a real between [10^-4, 10^15]
     */
-    weightedShuffle(mapObject) {
+    function weightedShuffle(mapObject) {
         let weightedOrder = x => [x[0], Math.pow(Math.random(), 1/x[1])];
         let shuffled = Array.from(mapObject, weightedOrder);
         shuffled.sort( (a, b) => b[1] - a[1] ); // High to low weightedOrder
@@ -80,10 +82,10 @@ const kanjiQuiz = {
        correctness but tests over 1 million iterations in JS show similar
        results while allowing weights around [10^-300, 10^300].
     */
-    },
-    
+    }
+
     // Return the wordData represented as a ruby element
-    wordDataToRuby(wordData) {
+    function wordDataToRuby(wordData) {
         let ruby = document.createElement("ruby");
         if (wordData && wordData.parts) {
             for (const part of wordData.parts) {
@@ -95,9 +97,9 @@ const kanjiQuiz = {
         }
         return ruby;
     }
-};
 
-kanjiQuiz.Quiz = class {
+
+ringo.Quiz = class {
     
     /* Creates a quiz for users to interact with from the dictionaries of words
        in the DataManager class passed in. Records the accuracy of each kanji
@@ -144,13 +146,13 @@ kanjiQuiz.Quiz = class {
         this._init();
     }
     
-    addTo = kanjiQuiz.addTo;
-    createElem = kanjiQuiz.createElem;
-    settings = kanjiQuiz.settings.quiz;
-    fadeIn = kanjiQuiz.fadeIn;
-    fadeOut = kanjiQuiz.fadeOut;
-    weightedShuffle = kanjiQuiz.weightedShuffle;
-    Shuffler = kanjiQuiz.Shuffler;
+    addTo = addTo;
+    createElem = createElem;
+    settings = settings.quiz;
+    fadeIn = fadeIn;
+    fadeOut = fadeOut;
+    weightedShuffle = weightedShuffle;
+    Shuffler = ringo.Shuffler;
     
     // Returns the number of entries to create based on the score
     get entryCount() {
@@ -243,7 +245,7 @@ kanjiQuiz.Quiz = class {
             let display = this.createElem(this.settings.html.word);
             let wordText = this.createElem(this.settings.html.wordText);
             let wordDef = this.createElem(this.settings.html.wordDef);
-            wordText.appendChild(kanjiQuiz.wordDataToRuby(wordData));
+            wordText.appendChild(wordDataToRuby(wordData));
             wordDef.textContent = wordData.definition;
             display.appendChild(wordText);
             display.appendChild(wordDef);
@@ -520,7 +522,7 @@ kanjiQuiz.Quiz = class {
     }
 }
 
-kanjiQuiz.Quiz.prototype.Entry = class {
+ringo.Quiz.prototype.Entry = class {
     
     /* Creates an entry to display wordData's information but hides the
        components of the word among other false buttons.
@@ -552,12 +554,12 @@ kanjiQuiz.Quiz.prototype.Entry = class {
         this._init(wordData);
     }
     
-    addTo = kanjiQuiz.addTo;
-    createElem = kanjiQuiz.createElem;
-    fadeIn = kanjiQuiz.fadeIn;
-    fadeOut = kanjiQuiz.fadeOut;
-    settings = kanjiQuiz.settings.entry;
-    Shuffler = kanjiQuiz.Shuffler;
+    addTo = addTo;
+    createElem = createElem;
+    fadeIn = fadeIn;
+    fadeOut = fadeOut;
+    settings = settings.entry;
+    Shuffler = ringo.Shuffler;
 
     // Returns an array containing the button elements used for choices
     get buttons() {
@@ -776,7 +778,7 @@ kanjiQuiz.Quiz.prototype.Entry = class {
     }
 }
 
-kanjiQuiz.Quiz.prototype.Entry.prototype.Solution = class {
+ringo.Quiz.prototype.Entry.prototype.Solution = class {
     /* Creates a partial display of the WordData and provides a method
        to set and check the input of a solution. Parts of WordData with a
        non empty read will be hidden and converted into an input field.
@@ -793,9 +795,9 @@ kanjiQuiz.Quiz.prototype.Entry.prototype.Solution = class {
         this.word = wordData;
     }
 
-    addTo = kanjiQuiz.addTo;
-    createElem = kanjiQuiz.createElem;
-    settings = kanjiQuiz.settings.solution;
+    addTo = addTo;
+    createElem = createElem;
+    settings = settings.solution;
     
     // Returns an array of the correct characters to be inputted
     get answers() {
@@ -925,7 +927,7 @@ kanjiQuiz.Quiz.prototype.Entry.prototype.Solution = class {
     
 }
 
-kanjiQuiz.Quiz.prototype.UpdateSlider = class {
+ringo.Quiz.prototype.UpdateSlider = class {
     constructor() {
         this.callback = function () {};
         this.container = this.createElem(this.settings.html.container);
@@ -945,9 +947,9 @@ kanjiQuiz.Quiz.prototype.UpdateSlider = class {
         this.slider.addEventListener("input", this._handleInput);
     }
     
-    addTo = kanjiQuiz.addTo;
-    createElem = kanjiQuiz.createElem;
-    settings = kanjiQuiz.settings.updateSlider;
+    addTo = addTo;
+    createElem = createElem;
+    settings = settings.updateSlider;
     
     throttledUpdate(eventObj) {
         if (this._currentCall == undefined) {
@@ -960,7 +962,7 @@ kanjiQuiz.Quiz.prototype.UpdateSlider = class {
     }
 }
 
-kanjiQuiz.Shuffler = class {
+ringo.Shuffler = class {
     /* Shuffles a copy of an array and provides random elements one at a time.
        Best used for obtaining a small subset of random elements from a larger
        array. Performs slower than a normal shuffle, use a simpler
@@ -1011,3 +1013,7 @@ kanjiQuiz.Shuffler = class {
             yield arrayObj[length - 1];
     }
 }
+
+
+//=============================================================================
+})(); //=======================================================================

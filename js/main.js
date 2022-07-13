@@ -5,7 +5,7 @@ function main() {
     data.addDict(defaultWords, false);
     if (data.hasUserStorage())
         data.loadUserData();
-    let quiz = new kanjiQuiz.Quiz(data);
+    let quiz = new ringo.Quiz(data);
     quiz.addTo(document.getElementsByTagName("body")[0]);
 }
 
