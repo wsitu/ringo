@@ -10,9 +10,11 @@ ringo.settings = {
         updateSlider: {},
     }
 };
-let settings = ringo.settings;
+const settings = ringo.settings;
+const kanjiQuiz = settings.kanjiQuiz;
 
-settings.kanjiQuiz.quiz.html = {
+
+kanjiQuiz.quiz.html = {
     accBody: {tag: "dl", attr: {class: "b-center"},},
     accBox: {tag: "div", attr: {class: "a-border-bg0b"},},
     accEntry: {tag: "div", attr: {class: "b-center"},},
@@ -63,7 +65,7 @@ settings.kanjiQuiz.quiz.html = {
     wordText: {tag: "dt", attr: {class: "a-font-large1"},},
 };
 
-settings.kanjiQuiz.quiz.js = {
+kanjiQuiz.quiz.js = {
     
     // Receives a string percentage for styling the kanji accuracy in intro
     accuracyCSSVariable : "--accuracy",
@@ -86,7 +88,7 @@ settings.kanjiQuiz.quiz.js = {
     weightedWordRatio : 0.75
 };
 
-settings.kanjiQuiz.entry.html = {
+kanjiQuiz.entry.html = {
     answer: {
         tag : "p",
         attr: {
@@ -125,7 +127,7 @@ settings.kanjiQuiz.entry.html = {
     },
 };
 
-settings.kanjiQuiz.entry.js = {
+kanjiQuiz.entry.js = {
     correctClass: "kanjiQuiz-entry-container-correct",
     hightlightClass: "kanjiQuiz-entry-container-highlight",
     incorrectClass: "kanjiQuiz-entry-container-incorrect",
@@ -136,7 +138,7 @@ settings.kanjiQuiz.entry.js = {
     correctDataAttr: "correct",
 };
 
-settings.kanjiQuiz.solution.html = {
+kanjiQuiz.solution.html = {
     container: {tag: "ruby"},
     input: {tag: "span", attr:{class: ""}},
     marked: {tag: "strong", attr:{class:""}},
@@ -144,12 +146,12 @@ settings.kanjiQuiz.solution.html = {
     text: {tag: "span"},
 };
 
-settings.kanjiQuiz.solution.js = {
+kanjiQuiz.solution.js = {
     // css class for styling the parts of a word replaced by user input
     unsetClass: "kanjiQuiz-solution-input",
 };
 
-settings.kanjiQuiz.updateSlider.html = {
+kanjiQuiz.updateSlider.html = {
     container: {tag: "div", attr: {class: "b-center"},},
     display: {tag: "div"},
     displayItem: {tag: "div", attr: {class: "a-background-bg1b"},},
@@ -163,8 +165,8 @@ settings.kanjiQuiz.updateSlider.html = {
 };
 
 // Appends a class that resembles the setting location on each html element
-// with the dot replaced by a hyphen and omitting the "settings" and "html"
-// Example: settings.kanjiQuiz.quiz.html.body -> kanjiQuiz-quiz-body
+// with the dot replaced by a hyphen and omitting the "html"
+// Example: kanjiQuiz.quiz.html.body -> kanjiQuiz-quiz-body
 for (const [moduleName, module] of Object.entries(settings)) {
     for (const [compName, component] of Object.entries(module)) {
         for (const [item, htmlSetting] of Object.entries(component.html)) {
