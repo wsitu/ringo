@@ -49,21 +49,15 @@ kanjiQuiz.quiz.html = {
     container: {tag : "div", attr: {class: ""}},
     entries: {tag : "ul", attr: {class: ""}},
     intro: {tag : "div", attr: {class: "a-border-fg1a"}},
-    submitBtn: {
-        tag : "button",
-        attr: {
-            class: "a-background-fg1a a-background-hv-fg1b a-color-bg0a " +
-            "a-font-medium2 quiz-control-button ",
-            type: "button",
-        },
-        html: "<ruby>次<rt>Next</rt></ruby>"
-    },
+    submitBtn: undefined, // copied from beginBtn
     word: {tag: "div", attr: {class: "a-border-bg0b b-center"},},
     wordsBody: {tag: "dl", attr: {class: ""},},
     wordsBox: {tag: "div"},
     wordDef: {tag: "dd", attr: {class: ""},},
     wordText: {tag: "dt", attr: {class: "a-font-large1"},},
 };
+kanjiQuiz.quiz.html.submitBtn = {...kanjiQuiz.quiz.html.beginBtn};
+kanjiQuiz.quiz.html.submitBtn.attr = {...kanjiQuiz.quiz.html.beginBtn.attr};
 
 kanjiQuiz.quiz.js = {
     
