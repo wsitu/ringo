@@ -3,7 +3,8 @@
 
 
 const settings = ringo.settings.kanjiQuiz;
-    
+const WElement = ringo.WElement;
+
 // Adds an object with a container HTML element to parentElement
 function addTo(parentElement) {
     parentElement.appendChild(this.container);
@@ -99,7 +100,7 @@ function wordDataToRuby(wordData) {
 }
 
 
-ringo.Quiz = class {
+ringo.Quiz = class extends WElement {
     
     /* Creates a quiz for users to interact with from the dictionaries of words
        in the DataManager class passed in. Records the accuracy of each kanji
@@ -117,9 +118,9 @@ ringo.Quiz = class {
        score        | number of times a quiz was submit as 100% correct 
     */
     constructor(dataManager) {
+        super(settings.quiz.html.container);
         this.accChance    = this.settings.js.weightedWordRatio;
         this.choiceRange  = this.settings.js.entryChoices;
-        this.container    = this.createElem(this.settings.html.container);
         this.dataManager  = dataManager;
         this.dictionaries = this.dataManager.dictionaries;
         this.entries      = [];
@@ -146,7 +147,7 @@ ringo.Quiz = class {
         this._init();
     }
     
-    addTo = addTo;
+    //addTo = addTo;
     createElem = createElem;
     settings = settings.quiz;
     fadeIn = fadeIn;
@@ -440,8 +441,8 @@ ringo.Quiz = class {
     
     // Parent child hierarchy setup
     _arrangeLayout() {
-        this.container.appendChild(this._introBox);
-        this.container.appendChild(this._mainBox);
+        this.addChild(this._introBox);
+        this.addChild(this._mainBox);
         this._difficulty.addTo(this._introBox);
         this._introBox.appendChild(this._accBox);
         this._introBox.appendChild(this._intro);
