@@ -774,13 +774,13 @@ ringo.Quiz.prototype.Entry = class extends WElement {
     }
 }
 
-ringo.Quiz.prototype.Entry.prototype.Solution = class {
+ringo.Quiz.prototype.Entry.prototype.Solution = class extends WElement {
     /* Creates a partial display of the WordData and provides a method
        to set and check the input of a solution. Parts of WordData with a
        non empty read will be hidden and converted into an input field.
     */
     constructor(wordData) {   
-        this.container = this.createElem(this.settings.html.container);
+        super(settings.solution.html.container);
         this.cursor = 0; // Points at the input for this.set()
         
         this._UNSETCLASS = this.settings.js.unsetClass;
@@ -791,7 +791,6 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class {
         this.word = wordData;
     }
 
-    addTo = addTo;
     createElem = createElem;
     settings = settings.solution;
     
@@ -813,7 +812,7 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class {
     
     // Resets and initializes the solution to represent wordData
     set word(wordData) {
-        this.container.replaceChildren();
+        this.root.replaceChildren();
         this.cursor = 0;
         this._sections = [];
         this._wordData = wordData;
@@ -825,7 +824,7 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class {
                 this._addText(part.text);
             let reading = this.createElem(this.settings.html.reading);
             reading.textContent = part.read;
-            this.container.appendChild(reading);
+            this.root.appendChild(reading);
         }
     }
     
@@ -900,7 +899,7 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class {
             let input = this.createElem(this.settings.html.input);
             this._resetInput(input);
             this._sections.push({answer: character, input: input});
-            this.container.appendChild(input);
+            this.root.appendChild(input);
         }
     }
     
@@ -908,7 +907,7 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class {
     _addText(textToDisplay) {
         let txt = this.createElem(this.settings.html.text);
         txt.textContent = textToDisplay;
-        this.container.appendChild(txt);
+        this.root.appendChild(txt);
     }
     
     _isUnset(inputElement) {
