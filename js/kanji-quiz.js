@@ -520,13 +520,13 @@ ringo.Quiz = class extends WElement {
     }
 }
 
-ringo.Quiz.prototype.Entry = class {
+ringo.Quiz.prototype.Entry = class extends WElement {
     
     /* Creates an entry to display wordData's information but hides the
        components of the word among other false buttons.
     */
     constructor(wordData) {
-        this.container = this.createElem(this.settings.html.container);
+        super(settings.entry.html.container);
         this.userInput = new this.Solution();
         
         this._isLocked = false;
@@ -552,7 +552,6 @@ ringo.Quiz.prototype.Entry = class {
         this._init(wordData);
     }
     
-    addTo = addTo;
     createElem = createElem;
     fadeIn = fadeIn;
     fadeOut = fadeOut;
@@ -662,8 +661,8 @@ ringo.Quiz.prototype.Entry = class {
     
     // Adds a class to indicate the entry requires input and scrolls it into view
     highlight() {
-        this.container.classList.add(this._HIGHLIGHTCLASS);
-        this.container.scrollIntoView();
+        this.root.classList.add(this._HIGHLIGHTCLASS);
+        this.root.scrollIntoView();
     }
 
     /* Marks each choice button with data attributes describing its status
@@ -715,10 +714,10 @@ ringo.Quiz.prototype.Entry = class {
         this.choices = new this.Shuffler(inserted).random();
     }
     
-    // Adds or removes classes onto the container element that indicate
+    // Adds or removes classes onto the root element that indicate
     // whether the user answered the entry correctly or not
     toggleStatus() {
-        let classList = this.container.classList;
+        let classList = this.root.classList;
         if (classList.contains(this._CORRECTCLASS) || 
                 classList.contains(this._INCORRECTCLASS)) {
             classList.remove(this._CORRECTCLASS);
@@ -733,7 +732,7 @@ ringo.Quiz.prototype.Entry = class {
     
     // Removes the class added by highlight()
     unhighlight() {
-        this.container.classList.remove(this._HIGHLIGHTCLASS);
+        this.root.classList.remove(this._HIGHLIGHTCLASS);
     }
     
     // Removes the data attributes on choice buttons added by markChoices()
@@ -745,7 +744,7 @@ ringo.Quiz.prototype.Entry = class {
     }
     
     _arrangeLayout() {
-        this.container.appendChild(this._body);
+        this.addChild(this._body);
         this._body.appendChild(this._wordData);
         this._body.appendChild(this._uiBox);
         this._wordData.appendChild(this._wordBox);
