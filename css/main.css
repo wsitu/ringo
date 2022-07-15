@@ -66,27 +66,27 @@
     border-left-width: 4px;
 }
 
-.kanjiQuiz-entry-container {
+.kanjiQuiz-entry-root {
     border-width: 1px;
     border-bottom-style: solid;
 }
 
-.kanjiQuiz-entry-container:last-child {
+.kanjiQuiz-entry-root:last-child {
     border-bottom-style: none;
 }
 
-.kanjiQuiz-entry-container-correct .kanjiQuiz-entry-answerBtn {
+.kanjiQuiz-entry-root-correct .kanjiQuiz-entry-answerBtn {
     display: none;
 }
 
-.kanjiQuiz-entry-container-correct
+.kanjiQuiz-entry-root-correct
 .kanjiQuiz-entry-choiceBtn[data-answer="false"] {
     background-color: var(--color-lightest-green);
 }
 
 /* This border needs to be in the same element as the gray border otherwise
    it will throw the alignment of the gray borders off */
-.kanjiQuiz-entry-container-highlight .kanjiQuiz-entry-wordData{
+.kanjiQuiz-entry-root-highlight .kanjiQuiz-entry-wordData{
     border-left: 16px solid var(--color-pink);
 }
 
@@ -188,7 +188,7 @@
     border-width: 2px;
 }
 
-.kanjiQuiz-quiz-container {
+.kanjiQuiz-quiz-root {
     margin: 0 auto;
     max-width: 720px;
 }
@@ -247,7 +247,7 @@
     margin: 0 0.15em;
 }
 
-.kanjiQuiz-updateSlider-container {
+.kanjiQuiz-updateSlider-root {
     flex-direction: column;
     padding: 1%;
 }
