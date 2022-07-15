@@ -791,7 +791,6 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends WElement {
         this.word = wordData;
     }
 
-    createElem = createElem;
     settings = settings.solution;
     
     // Returns an array of the correct characters to be inputted
@@ -822,7 +821,7 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends WElement {
                 this._addInput(part.text);
             else
                 this._addText(part.text);
-            let reading = this.createElem(this.settings.html.reading);
+            let reading = this.createEl(this.settings.html.reading);
             reading.textContent = part.read;
             this.root.appendChild(reading);
         }
@@ -859,7 +858,7 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends WElement {
             if (this._isUnset(sect.input)) continue;
             let user = sect.input.textContent;
             if (user != sect.answer) {
-                let highlight = this.createElem(this.settings.html.marked);
+                let highlight = this.createEl(this.settings.html.marked);
                 highlight.textContent = user;
                 sect.input.replaceChildren(highlight);
             }
@@ -896,7 +895,7 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends WElement {
     // Adds each character in textToHide as an input and hides it
     _addInput(textToHide) {
         for (const character of textToHide) {
-            let input = this.createElem(this.settings.html.input);
+            let input = this.createEl(this.settings.html.input);
             this._resetInput(input);
             this._sections.push({answer: character, input: input});
             this.root.appendChild(input);
@@ -905,7 +904,7 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends WElement {
     
     // Adds textToDisplay as normal text to be shown
     _addText(textToDisplay) {
-        let txt = this.createElem(this.settings.html.text);
+        let txt = this.createEl(this.settings.html.text);
         txt.textContent = textToDisplay;
         this.root.appendChild(txt);
     }
