@@ -46,9 +46,9 @@ kanjiQuiz.quiz.html = {
             style: "display: none",
         },
     },
-    container: {tag : "div", attr: {class: ""}},
     entries: {tag : "ul", attr: {class: ""}},
     intro: {tag : "div", attr: {class: "a-border-fg1a"}},
+    root: {tag : "div", attr: {class: ""}},
     submitBtn: undefined, // copied from beginBtn
     word: {tag: "div", attr: {class: "a-border-bg0b b-center"},},
     wordsBody: {tag: "dl", attr: {class: ""},},
@@ -110,8 +110,8 @@ kanjiQuiz.entry.html = {
             type: "button",
         },
     },
-    container: {tag: "li", attr: {class: "a-border-bg0b"}},
     definition: {tag: "p",  attr: {class: ""}},
+    root: {tag: "li", attr: {class: "a-border-bg0b"}},
     ui: {tag: "div", attr: {class: "b-center"}},
     word: {tag: "p"},
     wordBox: {tag: "div", attr: {class: "a-font-large1 b-center "}},
@@ -122,9 +122,9 @@ kanjiQuiz.entry.html = {
 };
 
 kanjiQuiz.entry.js = {
-    correctClass: "kanjiQuiz-entry-container-correct",
-    hightlightClass: "kanjiQuiz-entry-container-highlight",
-    incorrectClass: "kanjiQuiz-entry-container-incorrect",
+    correctClass: "kanjiQuiz-entry-root-correct",
+    hightlightClass: "kanjiQuiz-entry-root-highlight",
+    incorrectClass: "kanjiQuiz-entry-root-incorrect",
     
     // data attribute name for button status in camelcase without "data" prefix
     // see kanjiQuiz.entry.markChoices() for info on the values
@@ -133,10 +133,10 @@ kanjiQuiz.entry.js = {
 };
 
 kanjiQuiz.solution.html = {
-    container: {tag: "ruby"},
     input: {tag: "span", attr:{class: ""}},
     marked: {tag: "strong", attr:{class:""}},
     reading: {tag: "rt"},
+    root: {tag: "ruby"},
     text: {tag: "span"},
 };
 
@@ -146,9 +146,9 @@ kanjiQuiz.solution.js = {
 };
 
 kanjiQuiz.updateSlider.html = {
-    container: {tag: "div", attr: {class: "b-center"},},
     display: {tag: "div"},
     displayItem: {tag: "div", attr: {class: "a-background-bg1b"},},
+    root: {tag: "div", attr: {class: "b-center"},},
     slider: {
         tag : "input",
         attr: {

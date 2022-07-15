@@ -109,7 +109,6 @@ ringo.Quiz = class extends WElement {
        accChance    | [0, 1] chance that words are picked by kanji accuracy
        choiceRange  | object with {div: , min: , max: } where # of choices is
                     | floor(<score>/<div>) + <min> capped at <max>
-       container    | parent element of all elements created by this
        dataManager  | source of WordData and interaction with local storage
        dictionaries | array of dictionaries to get WordData from
        entries      | array of current Entry that users can input to
@@ -117,7 +116,7 @@ ringo.Quiz = class extends WElement {
        score        | number of times a quiz was submit as 100% correct 
     */
     constructor(dataManager) {
-        super(settings.quiz.html.container);
+        super(settings.quiz.html.root);
         this.accChance    = this.settings.js.weightedWordRatio;
         this.choiceRange  = this.settings.js.entryChoices;
         this.dataManager  = dataManager;
@@ -526,7 +525,7 @@ ringo.Quiz.prototype.Entry = class extends WElement {
        components of the word among other false buttons.
     */
     constructor(wordData) {
-        super(settings.entry.html.container);
+        super(settings.entry.html.root);
         this.userInput = new this.Solution();
         
         this._isLocked = false;
@@ -780,7 +779,7 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends WElement {
        non empty read will be hidden and converted into an input field.
     */
     constructor(wordData) {   
-        super(settings.solution.html.container);
+        super(settings.solution.html.root);
         this.cursor = 0; // Points at the input for this.set()
         
         this._UNSETCLASS = this.settings.js.unsetClass;
@@ -923,7 +922,7 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends WElement {
 
 ringo.Quiz.prototype.UpdateSlider = class extends WElement {
     constructor() {
-        super(settings.updateSlider.html.container);
+        super(settings.updateSlider.html.root);
         this.callback = function () {};
         this.delay = 0.25;
         this.display = this.createEl(this.settings.html.display);
