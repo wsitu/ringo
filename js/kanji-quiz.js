@@ -921,13 +921,13 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends WElement {
     
 }
 
-ringo.Quiz.prototype.UpdateSlider = class {
+ringo.Quiz.prototype.UpdateSlider = class extends WElement {
     constructor() {
+        super(settings.updateSlider.html.container);
         this.callback = function () {};
-        this.container = this.createElem(this.settings.html.container);
         this.delay = 0.25;
-        this.display = this.createElem(this.settings.html.display);
-        this.slider = this.createElem(this.settings.html.slider);
+        this.display = this.createEl(this.settings.html.display);
+        this.slider = this.createEl(this.settings.html.slider);
         this.throttled = function () {};
 
         this._currentCall = undefined;
@@ -936,13 +936,11 @@ ringo.Quiz.prototype.UpdateSlider = class {
             this.throttledUpdate(e);
         }
 
-        this.container.appendChild(this.slider);
-        this.container.appendChild(this.display);
+        this.addChild(this.slider);
+        this.addChild(this.display);
         this.slider.addEventListener("input", this._handleInput);
     }
     
-    addTo = addTo;
-    createElem = createElem;
     settings = settings.updateSlider;
     
     throttledUpdate(eventObj) {
