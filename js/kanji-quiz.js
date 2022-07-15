@@ -532,15 +532,15 @@ ringo.Quiz.prototype.Entry = class extends WElement {
         this._isLocked = false;
         this._wordData;
         
-        this._answerBox = this.createElem(this.settings.html.answer);
-        this._answerBtn = this.createElem(this.settings.html.answerBtn);
-        this._body      = this.createElem(this.settings.html.body);
-        this._choices   = this.createElem(this.settings.html.choices);
-        this._defBox    = this.createElem(this.settings.html.definition);
-        this._uiBox     = this.createElem(this.settings.html.ui);
-        this._word      = this.createElem(this.settings.html.word);
-        this._wordBox   = this.createElem(this.settings.html.wordBox);
-        this._wordData  = this.createElem(this.settings.html.wordData);
+        this._answerBox = this.createEl(this.settings.html.answer);
+        this._answerBtn = this.createEl(this.settings.html.answerBtn);
+        this._body      = this.createEl(this.settings.html.body);
+        this._choices   = this.createEl(this.settings.html.choices);
+        this._defBox    = this.createEl(this.settings.html.definition);
+        this._uiBox     = this.createEl(this.settings.html.ui);
+        this._word      = this.createEl(this.settings.html.word);
+        this._wordBox   = this.createEl(this.settings.html.wordBox);
+        this._wordData  = this.createEl(this.settings.html.wordData);
         
         this._ANSWERATTR = this.settings.js.answerDataAttr;
         this._BTNCLASS = this.settings.html.choiceBtn.attr.class.split(" ").pop()
@@ -552,7 +552,6 @@ ringo.Quiz.prototype.Entry = class extends WElement {
         this._init(wordData);
     }
     
-    createElem = createElem;
     fadeIn = fadeIn;
     fadeOut = fadeOut;
     settings = settings.entry;
@@ -575,8 +574,8 @@ ringo.Quiz.prototype.Entry = class extends WElement {
         let buttons = this._choices;
         let buttonsToAdd = arrayOfString.length - buttons.children.length;
         let newButton = () => {
-            let box = this.createElem(this.settings.html.choice);
-            box.appendChild(this.createElem(this.settings.html.choiceBtn));
+            let box = this.createEl(this.settings.html.choice);
+            box.appendChild(this.createEl(this.settings.html.choiceBtn));
             return box;
         }
         if (buttonsToAdd > 0) {
@@ -642,7 +641,7 @@ ringo.Quiz.prototype.Entry = class extends WElement {
 
     // Hides what the user input and displays the correct answer
     displayAnswer() {
-        this._answerBox.replaceChildren(kanjiQuiz.wordDataToRuby(this.word));
+        this._answerBox.replaceChildren(wordDataToRuby(this.word));
         let showAnswer = () => {
             this.fadeIn(this._answerBox);
             this.fadeOut(this._answerBtn, null);
