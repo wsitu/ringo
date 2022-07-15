@@ -1,7 +1,6 @@
 (()=>{ //======================================================================
 //=============================================================================
 
-
 const settings = ringo.settings.kanjiQuiz;
 const WElement = ringo.WElement;
 
@@ -134,21 +133,19 @@ ringo.Quiz = class extends WElement {
         this._ACCNONECLASS = this.settings.js.accNoneClass;
         this._ACCVARIABLE = this.settings.js.accuracyCSSVariable;
         
-        this._accBody    = this.createElem(this.settings.html.accBody);
-        this._accBox     = this.createElem(this.settings.html.accBox);
-        this._accMoreBtn = this.createElem(this.settings.html.accMoreBtn);
-        this._beginBtn   = this.createElem(this.settings.html.beginBtn);
-        this._entriesBox = this.createElem(this.settings.html.entries);
-        this._intro      = this.createElem(this.settings.html.wordsBox);
-        this._introBox   = this.createElem(this.settings.html.intro);
-        this._mainBox    = this.createElem(this.settings.html.body);
-        this._submitBtn  = this.createElem(this.settings.html.submitBtn);
+        this._accBody    = this.createEl(this.settings.html.accBody);
+        this._accBox     = this.createEl(this.settings.html.accBox);
+        this._accMoreBtn = this.createEl(this.settings.html.accMoreBtn);
+        this._beginBtn   = this.createEl(this.settings.html.beginBtn);
+        this._entriesBox = this.createEl(this.settings.html.entries);
+        this._intro      = this.createEl(this.settings.html.wordsBox);
+        this._introBox   = this.createEl(this.settings.html.intro);
+        this._mainBox    = this.createEl(this.settings.html.body);
+        this._submitBtn  = this.createEl(this.settings.html.submitBtn);
 
         this._init();
     }
     
-    //addTo = addTo;
-    createElem = createElem;
     settings = settings.quiz;
     fadeIn = fadeIn;
     fadeOut = fadeOut;
@@ -203,10 +200,10 @@ ringo.Quiz = class extends WElement {
         this._accBody.replaceChildren();
         let wrapper;
         for (const data of dataArray) {
-            wrapper = this.createElem(this.settings.html.accEntry);
-            let kanji = this.createElem(this.settings.html.accText);
+            wrapper = this.createEl(this.settings.html.accEntry);
+            let kanji = this.createEl(this.settings.html.accText);
             kanji.textContent = data.kanji;
-            let acc = this.createElem(this.settings.html.accVal);
+            let acc = this.createEl(this.settings.html.accVal);
             let percent = "0%";
             if (data.acc < 0) {
                 acc.classList.add(this._ACCNONECLASS);
@@ -243,16 +240,16 @@ ringo.Quiz = class extends WElement {
     // each object in dataArray
     displayWords(dataArray = []) {
         let newDisplayElement = (wordData) => {
-            let display = this.createElem(this.settings.html.word);
-            let wordText = this.createElem(this.settings.html.wordText);
-            let wordDef = this.createElem(this.settings.html.wordDef);
+            let display = this.createEl(this.settings.html.word);
+            let wordText = this.createEl(this.settings.html.wordText);
+            let wordDef = this.createEl(this.settings.html.wordDef);
             wordText.appendChild(wordDataToRuby(wordData));
             wordDef.textContent = wordData.definition;
             display.appendChild(wordText);
             display.appendChild(wordDef);
             return display;
         }
-        let words = this.createElem(this.settings.html.wordsBody);
+        let words = this.createEl(this.settings.html.wordsBody);
         for (const data of dataArray)
             data.words.forEach( e => words.appendChild(newDisplayElement(e)) )
         this._intro.replaceChildren(words);
@@ -481,7 +478,7 @@ ringo.Quiz = class extends WElement {
         let slider = this._difficulty;
         slider.display.replaceChildren();
         for (let i = 0; i < numberOfChoices; i++) {
-            let item = this.createElem(slider.settings.html.displayItem);
+            let item = this.createEl(slider.settings.html.displayItem);
             slider.display.appendChild(item);
         }
     }
