@@ -310,6 +310,7 @@ ringo.Quiz = class extends WElement {
         let delayedSetup = () => {
             this.fadeIn(this._introBox);
             this.createEntries(chosenWords, this.choiceCount);
+            this._beginBtn.disabled = false;
         }
 
         this._kanjiCache = this.allKanji();
@@ -404,6 +405,7 @@ ringo.Quiz = class extends WElement {
             this._accBox.classList.toggle(this._ACCMORECLASS);
         });
         this._beginBtn.addEventListener("click", () => this._startQuiz());
+        this._beginBtn.disabled = true;
         this._submitBtn.addEventListener("click", () => this._submitQuiz());
         this._difficulty.throttled = (e) => this._refreshIntro(e);
         this._arrangeLayout();
@@ -431,6 +433,7 @@ ringo.Quiz = class extends WElement {
     
     // Hides the intro, displays the entries, and enables the submit button
     _startQuiz() {
+        this._beginBtn.disabled = true;
         this._submitBtn.disabled = false;
         this.fadeOut(this._introBox, () => this.fadeIn(this._mainBox) );
     }
