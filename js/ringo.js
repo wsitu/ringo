@@ -3,6 +3,40 @@ const ringo = {};
 //=============================================================================
 
 
+// Remove and transition from the inline properties used by fadeOut
+ringo.fadeIn = function (elementToRestore) {
+    elementToRestore.style.removeProperty("display");
+    let removeTransition = () => {
+        elementToRestore.style.removeProperty("transition");
+    }
+    elementToRestore.addEventListener("transitionend", removeTransition);
+    // delayed to work around display:none disabling transitions
+    setTimeout(() => elementToRestore.style.removeProperty("opacity"), 5);
+}
+
+
+// Fades out elementToRemove over totalSeconds then runs callbackFunc
+//  * overwrites the inline display, opacity, and transition style
+ringo.fadeOut = function (elementToRemove, callbackFunc, totalSeconds = 0.25) {
+    let runOnce = {
+        ran: false,
+        run: function() {
+            if (this.ran == false) {
+                this.ran = true;
+                elementToRemove.style.display = "none";
+                if (callbackFunc)
+                    callbackFunc();
+            }
+        }
+    };
+    elementToRemove.style.opacity = "0";
+    elementToRemove.style.transition = `opacity ${totalSeconds}s`
+    // Transition may not be available, setTimeout may not match the visual
+    elementToRemove.addEventListener("transitionend", () => runOnce.run());
+    setTimeout(() => runOnce.run(), totalSeconds*1000);
+}
+
+
 ringo.WElement = class {
     /* Base class for objects that create an HTML element then wrap data and
     other functionality along with it. See this.createEl() for elConfig info.

@@ -1,62 +1,9 @@
 (()=>{ //======================================================================
 //=============================================================================
-
+const fadeIn = ringo.fadeIn;
+const fadeOut = ringo.fadeOut;
 const settings = ringo.settings.kanjiQuiz;
 const WElement = ringo.WElement;
-
-// Adds an object with a container HTML element to parentElement
-function addTo(parentElement) {
-    parentElement.appendChild(this.container);
-}
-
-/* Returns an element of the given tag, attribute, and content
-   <elConfig> element config with the following keys
-       tag:  (required) string of the type of html element to return
-       attr: (optional) object representing html attribute: value
-       text: (optional) string of the text content (not tml)
-       html: (optional) string of the html content (overwrites text)
-*/
-function createElem(elConfig = {tag: "div", attr: {}, html: "", text: ""}) {
-    let e = document.createElement(elConfig.tag);
-    if (elConfig.text) e.textContent = elConfig.text;
-    if (elConfig.html) e.innerHTML = elConfig.html;
-    let attributes = elConfig.attr || {};
-    for (const [key, value] of Object.entries(attributes))
-        e.setAttribute(key, value);
-    return e;
-}
-
-// Fades out elementToRemove over totalSeconds then runs callbackFunc
-//  * overwrites the inline display, opacity, and transition style
-function fadeOut(elementToRemove, callbackFunc, totalSeconds = 0.25) {
-    let runOnce = {
-        ran: false,
-        run: function() {
-            if (this.ran == false) {
-                this.ran = true;
-                elementToRemove.style.display = "none";
-                if (callbackFunc)
-                    callbackFunc();
-            }
-        }
-    };
-    elementToRemove.style.opacity = "0";
-    elementToRemove.style.transition = `opacity ${totalSeconds}s`
-    // Transition may not be available, setTimeout may not match the visual
-    elementToRemove.addEventListener("transitionend", () => runOnce.run());
-    setTimeout(() => runOnce.run(), totalSeconds*1000);
-}
-
-// Remove and transition from the inline properties used by fadeOut
-function fadeIn(elementToRestore) {
-    elementToRestore.style.removeProperty("display");
-    let removeTransition = () => {
-        elementToRestore.style.removeProperty("transition");
-    }
-    elementToRestore.addEventListener("transitionend", removeTransition);
-    // delayed to work around display:none disabling transitions
-    setTimeout(() => elementToRestore.style.removeProperty("opacity"), 5);
-}
 
 /* Returns an array of random weight shuffled mapObject keys 
    <mapobject> is a Map or object with a [key, value] iterator 
