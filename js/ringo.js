@@ -18,24 +18,29 @@ ringo.fadeIn = function (elementToRestore) {
 // Fades out elementToRemove over totalSeconds then runs callbackFunc
 //  * overwrites the inline display, opacity, and transition style
 ringo.fadeOut = function (elementToRemove, callbackFunc, totalSeconds = 0.25) {
-    let runOnce = {
-        ran: false,
-        run: function() {
-            if (this.ran == false) {
-                this.ran = true;
-                elementToRemove.style.display = "none";
-                if (callbackFunc)
-                    callbackFunc();
-            }
-        }
-    };
     elementToRemove.style.opacity = "0";
     elementToRemove.style.transition = `opacity ${totalSeconds}s`
     // Transition may not be available, setTimeout may not match the visual
+    let runOnce = new ringo.RunOnce(() => {
+        elementToRemove.style.display = "none";
+        callbackFunc();
+    });
     elementToRemove.addEventListener("transitionend", () => runOnce.run());
-    setTimeout(() => runOnce.run(), totalSeconds*1000);
+    setTimeout(() =>  runOnce.run(), totalSeconds*1000);
 }
 
+ringo.RunOnce = class {
+    constructor(functionToRun = () => {}) {
+        this.callback = functionToRun;
+        this.ran = false;
+    }
+    
+    run() {
+        if (this.ran) return;
+        this.ran = true;
+        this.callback();
+    }
+}
 
 ringo.WElement = class {
     /* Base class for objects that create an HTML element then wrap data and
