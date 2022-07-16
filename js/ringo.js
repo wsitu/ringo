@@ -9,11 +9,11 @@ ringo.fadeIn = function (elementToRestore) {
     let removeTransition = () => {
         elementToRestore.style.removeProperty("transition");
     }
-    elementToRestore.addEventListener("transitionend", removeTransition);
+    elementToRestore.addEventListener("transitionend", removeTransition,
+        {once: true});
     // delayed to work around display:none disabling transitions
     setTimeout(() => elementToRestore.style.removeProperty("opacity"), 5);
 }
-
 
 // Fades out elementToRemove over totalSeconds then runs callbackFunc
 //  * overwrites the inline display, opacity, and transition style
@@ -25,8 +25,9 @@ ringo.fadeOut = function (elementToRemove, callbackFunc, totalSeconds = 0.25) {
         elementToRemove.style.display = "none";
         callbackFunc();
     });
-    elementToRemove.addEventListener("transitionend", () => runOnce.run());
-    setTimeout(() =>  runOnce.run(), totalSeconds*1000);
+    elementToRemove.addEventListener("transitionend", () => runOnce.run(),
+        {once: true});
+    setTimeout(() => runOnce.run(), totalSeconds*1000);
 }
 
 ringo.RunOnce = class {
