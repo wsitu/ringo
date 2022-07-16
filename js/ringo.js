@@ -17,7 +17,7 @@ ringo.fadeIn = function (elementToRestore) {
 
 // Fades out elementToRemove over totalSeconds then runs callbackFunc
 //  * overwrites the inline display, opacity, and transition style
-ringo.fadeOut = function (elementToRemove, callbackFunc, totalSeconds = 0.25) {
+ringo.fadeOut = (elementToRemove, callbackFunc=()=>{}, totalSeconds = 0.25) =>{
     elementToRemove.style.opacity = "0";
     elementToRemove.style.transition = `opacity ${totalSeconds}s`
     // Transition may not be available, setTimeout may not match the visual

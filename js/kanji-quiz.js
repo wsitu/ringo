@@ -593,7 +593,7 @@ ringo.Quiz.prototype.Entry = class extends WElement {
         this._answerBox.replaceChildren(wordDataToRuby(this.word));
         let showAnswer = () => {
             this.fadeIn(this._answerBox);
-            this.fadeOut(this._answerBtn, null);
+            this.fadeOut(this._answerBtn);
         }
         this.fadeOut(this._word, showAnswer);
     }
