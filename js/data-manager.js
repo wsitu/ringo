@@ -419,6 +419,17 @@ class WordData {
         return new Set(characters);
     }
     
+    // Returns a string of the word in HTML format using the ruby element
+    toHTML() {
+        let components = ["<ruby>"];
+        for (const part of this.parts) {
+            components.push(part.text);
+            components.push(`<rt>${part.read}</rt>`);
+        }
+        components.push("</ruby>");
+        return components.join("");
+    }
+    
     // This class is a wrapper for data so output as it was input
     toJSON() {
         return {part: this._part, def: this._def};

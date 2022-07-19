@@ -189,7 +189,7 @@ ringo.Quiz = class extends WElement {
             let display = this.createEl(this.settings.html.word);
             let wordText = this.createEl(this.settings.html.wordText);
             let wordDef = this.createEl(this.settings.html.wordDef);
-            wordText.appendChild(wordDataToRuby(wordData));
+            wordText.innerHTML = wordData.toHTML();
             wordDef.textContent = wordData.definition;
             display.appendChild(wordText);
             display.appendChild(wordDef);
@@ -590,7 +590,7 @@ ringo.Quiz.prototype.Entry = class extends WElement {
 
     // Hides what the user input and displays the correct answer
     displayAnswer() {
-        this._answerBox.replaceChildren(wordDataToRuby(this.word));
+        this._answerBox.innerHTML = this.word.toHTML();
         let showAnswer = () => {
             this.fadeIn(this._answerBox);
             this.fadeOut(this._answerBtn);
