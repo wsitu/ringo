@@ -1,10 +1,7 @@
 (()=>{ //======================================================================
 //=============================================================================
 const ri = ringo;
-const fadeIn = ringo.fadeIn;
-const fadeOut = ringo.fadeOut;
 const settings = ringo.settings.kanjiQuiz;
-const WElement = ringo.WElement;
 
 
 /* Returns an array of random weight shuffled mapObject keys 
@@ -419,7 +416,7 @@ ri.Quiz = class extends ri.WElement {
     _startQuiz() {
         this._beginBtn.disabled = true;
         this._submitBtn.disabled = false;
-        ri.fadeOut(this._introBox, () => fadeIn(this._mainBox) );
+        ri.fadeOut(this._introBox, () => ri.fadeIn(this._mainBox) );
     }
     
     // If all entries are set, processes the input on entries and restarts
@@ -704,7 +701,7 @@ ringo.Quiz.prototype.Entry = class extends ri.WElement {
     }
 }
 
-ringo.Quiz.prototype.Entry.prototype.Solution = class extends WElement {
+ringo.Quiz.prototype.Entry.prototype.Solution = class extends ri.WElement {
     /* Creates a partial display of the WordData and provides a method
        to set and check the input of a solution. Parts of WordData with a
        non empty read will be hidden and converted into an input field.
@@ -851,7 +848,7 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends WElement {
     
 }
 
-ringo.Quiz.prototype.UpdateSlider = class extends WElement {
+ringo.Quiz.prototype.UpdateSlider = class extends ri.WElement {
     constructor() {
         super(settings.updateSlider.html.root);
         this.callback = function () {};
