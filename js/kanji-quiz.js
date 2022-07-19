@@ -31,20 +31,6 @@ function weightedShuffle(mapObject) {
 */
 }
 
-// Return the wordData represented as a ruby element
-function wordDataToRuby(wordData) {
-    let ruby = document.createElement("ruby");
-    if (wordData && wordData.parts) {
-        for (const part of wordData.parts) {
-            ruby.appendChild(document.createTextNode(part.text));
-            let reading = document.createElement("rt");
-            reading.textContent = part.read;
-            ruby.appendChild(reading);
-        }
-    }
-    return ruby;
-}
-
 
 ringo.Quiz = class extends WElement {
     
