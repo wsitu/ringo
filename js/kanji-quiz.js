@@ -453,7 +453,7 @@ ri.Quiz = class extends ri.WElement {
     }
 }
 
-ringo.Quiz.prototype.Entry = class extends WElement {
+ringo.Quiz.prototype.Entry = class extends ri.WElement {
     
     /* Creates an entry to display wordData's information but hides the
        components of the word among other false buttons.
@@ -485,10 +485,7 @@ ringo.Quiz.prototype.Entry = class extends WElement {
         this._init(wordData);
     }
     
-    fadeIn = fadeIn;
-    fadeOut = fadeOut;
     settings = settings.entry;
-    Shuffler = ringo.Shuffler;
 
     // Returns an array containing the button elements used for choices
     get buttons() {
@@ -548,13 +545,13 @@ ringo.Quiz.prototype.Entry = class extends WElement {
             this.unhighlight();
             this.markChoices();
             this.buttons.forEach( (e) => e.disabled=true );
-            this.fadeIn(this._answerBtn);
+            ri.fadeIn(this._answerBtn);
         } else {
             this.userInput.resetInput();
             this.hideAnswer();
             this.unmarkChoices();
             this.buttons.forEach( (e) => e.disabled=false );
-            this.fadeOut(this._answerBtn, null, 0);
+            ri.fadeOut(this._answerBtn, null, 0);
         }
     }
     
@@ -576,19 +573,19 @@ ringo.Quiz.prototype.Entry = class extends WElement {
     displayAnswer() {
         this._answerBox.innerHTML = this.word.toHTML();
         let showAnswer = () => {
-            this.fadeIn(this._answerBox);
-            this.fadeOut(this._answerBtn);
+            ri.fadeIn(this._answerBox);
+            ri.fadeOut(this._answerBtn);
         }
-        this.fadeOut(this._word, showAnswer);
+        ri.fadeOut(this._word, showAnswer);
     }
     
     // Hides the correct answer and displays the user input
     hideAnswer() {
         let showInput = () => {
-            this.fadeIn(this._word);
+            ri.fadeIn(this._word);
             this._answerBox.replaceChildren();
         }
-        this.fadeOut(this._answerBox, showInput);
+        ri.fadeOut(this._answerBox, showInput);
     }
     
     // Adds a class to indicate the entry requires input and scrolls it into view
@@ -632,7 +629,7 @@ ringo.Quiz.prototype.Entry = class extends WElement {
     */
     shuffleInChoices(arrayOfString=this.choices) {
         let targetLength = arrayOfString.length;
-        let shuffle = new this.Shuffler(arrayOfString);
+        let shuffle = new ri.Shuffler(arrayOfString);
         let required = new Set(this.userInput.answers);
         let inserted = [...required];
         while (inserted.length < targetLength) {
@@ -643,7 +640,7 @@ ringo.Quiz.prototype.Entry = class extends WElement {
             else
                 inserted.push(next.value);
         }
-        this.choices = new this.Shuffler(inserted).random();
+        this.choices = new ri.Shuffler(inserted).random();
     }
     
     // Adds or removes classes onto the root element that indicate
