@@ -1,9 +1,11 @@
 (()=>{ //======================================================================
 //=============================================================================
+const ri = ringo;
 const fadeIn = ringo.fadeIn;
 const fadeOut = ringo.fadeOut;
 const settings = ringo.settings.kanjiQuiz;
 const WElement = ringo.WElement;
+
 
 /* Returns an array of random weight shuffled mapObject keys 
    <mapobject> is a Map or object with a [key, value] iterator 
@@ -32,7 +34,7 @@ function weightedShuffle(mapObject) {
 }
 
 
-ringo.Quiz = class extends WElement {
+ri.Quiz = class extends ri.WElement {
     
     /* Creates a quiz for users to interact with from the dictionaries of words
        in the DataManager class passed in. Records the accuracy of each kanji
@@ -79,10 +81,6 @@ ringo.Quiz = class extends WElement {
     }
     
     settings = settings.quiz;
-    fadeIn = fadeIn;
-    fadeOut = fadeOut;
-    weightedShuffle = weightedShuffle;
-    Shuffler = ringo.Shuffler;
     
     // Returns the number of entries to create based on the score
     get entryCount() {
@@ -116,7 +114,7 @@ ringo.Quiz = class extends WElement {
     createEntries(wordDataArray, numberOfChoices) {
         this._entriesBox.replaceChildren();
         this.entries = [];
-        let allKanji = new this.Shuffler(this._kanjiCache);
+        let allKanji = new ri.Shuffler(this._kanjiCache);
         for (const data of wordDataArray) {
             let entry = new this.Entry(data);
             entry.addTo(this._entriesBox);
@@ -261,7 +259,7 @@ ringo.Quiz = class extends WElement {
                 }
             }
         }
-        let shuffler = new this.Shuffler(Array.from(data.values()), false);
+        let shuffler = new ri.Shuffler(Array.from(data.values()), false);
         return shuffler.random(maxLength);
     }
     
@@ -273,8 +271,8 @@ ringo.Quiz = class extends WElement {
     randomWords(maxLength, filters = []) {
         let words = new Map();
         let blacklists = filters.concat(words);
-        let noData = new this.Shuffler(this.noAccKanji());
-        let randomed = new this.Shuffler(this._kanjiCache);
+        let noData = new ri.Shuffler(this.noAccKanji());
+        let randomed = new ri.Shuffler(this._kanjiCache);
         while (words.size < maxLength) {
             let nextKanji = noData.random(1);
             if (nextKanji.length < 1)
@@ -294,7 +292,7 @@ ringo.Quiz = class extends WElement {
         }
         // delayed or you can see the new words while fading out
         let delayedSetup = () => {
-            this.fadeIn(this._introBox);
+            ri.fadeIn(this._introBox);
             this.createEntries(chosenWords, this.choiceCount);
             this._beginBtn.disabled = false;
         }
@@ -303,7 +301,7 @@ ringo.Quiz = class extends WElement {
         this._difficulty.slider.max = highestScoreNeeded();
         this._difficulty.slider.value = this.score;
         let chosenWords = this._wordSetup();
-        this.fadeOut(this._mainBox, delayedSetup);
+        ri.fadeOut(this._mainBox, delayedSetup);
     }
     
     // Saves accuracy data of entries for weighted shuffling
@@ -334,7 +332,7 @@ ringo.Quiz = class extends WElement {
             let weights = new Map();
             for (const [key, data] of this._accuracies)
                 weights.set(key, this.accuracyWeight(data));
-            weightedKanji = this.weightedShuffle(weights);
+            weightedKanji = weightedShuffle(weights);
         }
         let blacklists = filters.concat(words);
         for (let i = 0; i < weightedKanji.length; i++) {
@@ -421,7 +419,7 @@ ringo.Quiz = class extends WElement {
     _startQuiz() {
         this._beginBtn.disabled = true;
         this._submitBtn.disabled = false;
-        this.fadeOut(this._introBox, () => this.fadeIn(this._mainBox) );
+        ri.fadeOut(this._introBox, () => fadeIn(this._mainBox) );
     }
     
     // If all entries are set, processes the input on entries and restarts
@@ -451,7 +449,7 @@ ringo.Quiz = class extends WElement {
     _wordSetup() {
         let chosenWords = this.newWords(this.entryCount, this.accChance);
         this.displayIntro(chosenWords);
-        return new this.Shuffler(chosenWords).random();
+        return new ri.Shuffler(chosenWords).random();
     }
 }
 
