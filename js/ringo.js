@@ -1,10 +1,10 @@
 const ringo = {};
 (()=>{ //======================================================================
 //=============================================================================
-
+const ri = ringo;
 
 // Remove and transition from the inline properties used by fadeOut
-ringo.fadeIn = function (elementToRestore) {
+ri.fadeIn = function (elementToRestore) {
     elementToRestore.style.removeProperty("display");
     let removeTransition = () => {
         elementToRestore.style.removeProperty("transition");
@@ -17,20 +17,20 @@ ringo.fadeIn = function (elementToRestore) {
 
 // Fades out elementToRemove over totalSeconds then runs callbackFunc
 //  * overwrites the inline display, opacity, and transition style
-ringo.fadeOut = (elementToRemove, callbackFunc=()=>{}, totalSeconds = 0.25) =>{
+ri.fadeOut = function (elementToRemove, callbackFunc, totalSeconds = 0.25) {
     elementToRemove.style.opacity = "0";
     elementToRemove.style.transition = `opacity ${totalSeconds}s`
     // Transition may not be available, setTimeout may not match the visual
-    let runOnce = new ringo.RunOnce(() => {
+    let runOnce = new ri.RunOnce(() => {
         elementToRemove.style.display = "none";
-        callbackFunc();
+        if (callbackFunc) callbackFunc();
     });
     elementToRemove.addEventListener("transitionend", () => runOnce.run(),
         {once: true});
     setTimeout(() => runOnce.run(), totalSeconds*1000);
 }
 
-ringo.RunOnce = class {
+ri.RunOnce = class {
     constructor(functionToRun = () => {}) {
         this.callback = functionToRun;
         this.ran = false;
@@ -43,7 +43,7 @@ ringo.RunOnce = class {
     }
 }
 
-ringo.WElement = class {
+ri.WElement = class {
     /* Base class for objects that create an HTML element then wrap data and
     other functionality along with it. See this.createEl() for elConfig info.
     
