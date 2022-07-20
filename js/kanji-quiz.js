@@ -225,7 +225,7 @@ ri.Quiz = class extends ri.WElement {
             if (key in accuracies)
                 accuracies[key].add([right, total]);
             else
-                accuracies[key] = new Accuracy([right, total]);
+                accuracies[key] = new ri.Accuracy([right, total]);
         }
         for (const entry of this.entries) {
             if (!entry.userInput.hasAllSet()) continue;
@@ -306,13 +306,13 @@ ri.Quiz = class extends ri.WElement {
     saveAccuracy(accData) {
         for (const [kanji, acc] of Object.entries(accData)) {
             if (!this._accuracies.has(kanji))
-                this._accuracies.set(kanji, new Accuracy());
+                this._accuracies.set(kanji, new ri.Accuracy());
             let updated = this._accuracies.get(kanji).add(acc, true);
             try {
                 this.dataManager.saveUserAcc(kanji, updated);
             } catch (err) {
                 // silently fail for now until we can inform users of the error
-                if (!(err instanceof DataManagerError))
+                if (!(err instanceof ri.DataManagerError))
                     throw err;
             }
         } 

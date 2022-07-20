@@ -1,3 +1,6 @@
+(()=>{ //======================================================================
+//=============================================================================
+
 
 class Accuracy {
     // Stores the accuracy of an item as two integers
@@ -436,3 +439,12 @@ class WordData {
    }
     
 }
+
+
+ringo.Accuracy = Accuracy;
+ringo.DataManager = DataManager;
+ringo.DataManagerError = DataManagerError;
+ringo.WordData = WordData;
+ringo.WordDictionary = WordDictionary;
+//=============================================================================
+})(); //=======================================================================
