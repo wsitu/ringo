@@ -76,9 +76,11 @@ class DataManager {
             setting.dictionaries = [];
         }
         this.user.accuracies = new Map();
+        this.user.config = new Map();
         window.addEventListener("storage", (e) => this._onStorageChange(e));
     }
     
+    static _CONFIG_PREFIX = "CONFIG_";
     static _KANJI_PREFIX = "K__";
     static _TEST_STORAGE_KEY = "__TESTSTORAGEKEY__";
     static _TEST_STORAGE_VALUE = "テst";
@@ -98,8 +100,8 @@ class DataManager {
         return this.dictionaries.map(x => x.name);
     }
     
-    // Return undefined or the Accuracy object stored at aString and store it
-    // into this.user.accuracies if the object stored is a valid Accuracy
+    // Return the Accuracy object stored at aString in local storage and cache
+    // it into this.user.accuracies or return undefined if no value at aString
     getUserAcc(aString) {
         let stored = this._getUser(this._accKey(aString));
         if (stored == null) return undefined;
@@ -113,6 +115,16 @@ class DataManager {
         }
         this.user.accuracies.set(aString, stored);
         return stored;
+    }
+    
+    // Return the user config stored at aString in local storage and cache ir
+    // into this.user.config or return undefined if no value at aString
+    getUserConfig(aString) {
+        let stored = this._getUser(this._configKey(aString));
+        if (stored == null) return undefined;
+        let parsed = this.parseConfig(aString, stored);
+        this.user.config.set(aString, parsed);
+        return parsed;
     }
     
     // Return the dictionary named nameString or null
@@ -147,10 +159,16 @@ class DataManager {
         }
     }
     
-    // Remove the aString's Accuracy data in localStorage and the cache
+    // Remove aString's Accuracy data in localStorage and the cache
     removeUserAcc(aString) {
         this._removeUser(this._accKey(aString));
         this.user.accuracies.delete(aString);
+    }
+    
+    // Remove aString's user config from the localStorage and cache
+    removeUserConfig(aString) {
+        this._removeUser(this._configKey(aString));
+        this.user.config.delete(aString);
     }
 
     // Return true if the user's local storage is accessible or full
@@ -180,6 +198,8 @@ class DataManager {
         for (const [key, value] of Object.entries(localStorage)) {
             if (this._isAccKey(key))
                 this.getUserAcc(this._accString(key));
+            else if (this._isConfigKey(key))
+                this.getUserConfig(this._configString(key));
         }
     }
     
@@ -190,9 +210,18 @@ class DataManager {
         this.user.dictionaries = data.map(dict => new WordDictionary(dict));
     }
     
+    // Return the key's config value string as the desired data type
+    parseConfig(key, value) {
+        switch (key) {
+            case "score":
+                return Number(value);
+        }
+        return value;
+    }
+    
     /* Save an Accuracy object accObj into localStorage indexed with aString
-        and store both into the cache
-        Does not save if either is an invalid type and will log a console error
+       and store both into the cache. aString must be a non empty string and
+       accObj must be an Accuracy object.
     */
     saveUserAcc(aString, accObj) {
         if (!(accObj instanceof Accuracy)) {
@@ -211,6 +240,20 @@ class DataManager {
         this._setUser(this._accKey(aString), JSON.stringify(accObj));
     }
     
+    // Save miscellaneous user data <value> at aString in local storage and
+    // the cache. aString cannot be the empty string.
+    saveUserConfig(aString, value) {
+        if (!(typeof aString == "string" || aString instanceof String) || 
+            aString == "") {
+            console.error("Attempt to save invalid key:", aString, 
+                "with:", value);
+            return;
+        }
+        this.user.config.set(aString, value);
+        let str = this.stringifyConfig(aString, value);
+        this._setUser(this._configKey(aString), str);
+    }
+    
     /* Save the cached user dictionaries into local storage or throws a 
        DataManagerError. Will delete the stored dictionaries if loaduserDict()
        is not called first.
@@ -222,6 +265,13 @@ class DataManager {
         }
         let data = JSON.stringify(this.user.dictionaries);
         this._setUser(DataManager._DICTIONARY_KEY, data);
+    }
+    
+    // Return the key's config value as a string
+    stringifyConfig(key, value) {
+        // no data that needs explicit conversion at this time
+        // switch (key) {}
+        return value;
     }
     
     clearUserStorage() {
@@ -241,6 +291,14 @@ class DataManager {
     _accString(accKey) {
         return accKey.substring(DataManager._KANJI_PREFIX.length);
     }
+    
+    _configKey(configString) {
+        return DataManager._CONFIG_PREFIX + configString;
+    }
+    
+    _configString(configKey) {
+        return configKey.substring(DataManager._CONFIG_PREFIX.length);
+    }
 
     // Return the value stored in local storage at keyString or null
     _getUser(keyString) {
@@ -254,6 +312,11 @@ class DataManager {
     // Return if aString could be a key for Accuracy objects in local storage
     _isAccKey(aString) {
         return aString.startsWith(DataManager._KANJI_PREFIX);
+    }
+    
+    // Return if aString could be a key for config items in local storage
+    _isConfigKey(aString) {
+        return aString.startsWith(DataManager._CONFIG_PREFIX);
     }
     
     // Mirror localStorage changes from other pages to this page's cache
