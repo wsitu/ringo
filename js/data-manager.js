@@ -322,8 +322,10 @@ class DataManager {
     // Mirror localStorage changes from other pages to this page's cache
     _onStorageChange(storageEvent) {
         if (storageEvent.key == null) {
-            if (localStorage.length == 0) // clearUserStorage()
+            if (localStorage.length == 0) { // clearUserStorage()
                 this.user.accuracies.clear();
+                this.user.config.clear();
+            }
             return;
         }
         if (this._isAccKey(storageEvent.key)) {
@@ -331,8 +333,12 @@ class DataManager {
                 this.user.accuracies.delete(this._accString(storageEvent.key));
             else
                 this.getUserAcc(this._accString(storageEvent.key));
+        } if (this._isConfigKey(storageEvent.key)) {
+            if (storageEvent.newValue == null)
+                this.user.config.delete(this._configString(storageEvent.key));
+            else
+                this.getUserConfig(this._configString(storageEvent.key));
         }
-
     }
     
     // Store valueString at keyString in local storage or throw a
