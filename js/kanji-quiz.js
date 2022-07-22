@@ -326,6 +326,17 @@ ri.Quiz = class extends ri.WElement {
         } 
     }
     
+    // Saves the affected user config 
+    saveConfig() {
+        try {
+            this.dataManager.saveUserConfig("score", this.score);
+        } catch (err) {
+            if (err instanceof ri.DataManagerError)
+                return;
+            throw err;
+        }
+    }
+    
     /* Returns a map of WordData.text : WordData randomly from kanjis by weight
        <maxLength> the max number of words in the return
        <filters> array of Map(keys) or Set(values) of WordData.text to exclude
@@ -439,14 +450,10 @@ ri.Quiz = class extends ri.WElement {
         this._submitBtn.disabled = true;
         let result = this.processEntries();
         this.saveAccuracy(result);
-        
-        this.score++;
-        for (const accuracy of Object.values(result)) {
-            if (accuracy.right < accuracy.total) {
-                this.score--;
-                break;
-            }  
-        }
+        let isCorrect = (acc) => acc.right >= acc.total;
+        if (Object.values(result).every(isCorrect))
+            this.score++;
+        this.saveConfig();
         this.restart();
     }
     
