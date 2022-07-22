@@ -45,7 +45,6 @@ ri.Quiz = class extends ri.WElement {
        dictionaries | array of dictionaries to get WordData from
        entries      | array of current Entry that users can input to
        entryRange   | same as choiceRange but for the # of entries
-       score        | number of times a quiz was submit as 100% correct 
     */
     constructor(dataManager) {
         super(settings.quiz.html.root);
@@ -55,7 +54,6 @@ ri.Quiz = class extends ri.WElement {
         this.dictionaries = this.dataManager.dictionaries;
         this.entries      = [];
         this.entryRange   = this.settings.js.entries;
-        this.score        = 0;
 
         this._accuracies = this.dataManager.user.accuracies;
         this._difficulty = new this.UpdateSlider();
@@ -87,6 +85,16 @@ ri.Quiz = class extends ri.WElement {
     // Returns the number of entry choices to create based on the score
     get choiceCount() {
         return this._numFromScore(this.settings.js.entryChoices);
+    }
+    
+    // Returns the score used to determine the quiz difficulty
+    get score() {
+        let stored = this.dataManager.user.config.get("score");
+        return stored == undefined ? 0 : stored;
+    }
+    
+    set score(intNum) {
+        this.dataManager.user.config.set("score", intNum);
     }
     
     /* Returns a weight between [1, 3 000 000 000] when
