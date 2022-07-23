@@ -88,6 +88,36 @@ class DataManager {
     get dictNames() {
         return this.dictionaries.map(x => x.name);
     }
+
+    /* Add wordDictionary to user dictionaries if isUser otherwise to default
+       If wordDictionary is not a WordDictionary object, it will copy it and 
+       create one to be added.
+    */
+    addDict(wordDictionary, isUser = true) {
+        if( !(wordDictionary instanceof WordDictionary))
+            wordDictionary = new WordDictionary(wordDictionary);
+        this.removeDict(wordDictionary.name);
+        if (isUser)
+            this.user.dictionaries.push(wordDictionary);
+        else
+            this.default.dictionaries.push(wordDictionary);
+    }
+    
+    clearUserStorage() {
+        try {
+            localStorage.clear();
+        } catch (err) {
+            throw new DataManagerError(err);
+        }
+    }
+    
+    // Return the dictionary named nameString or null
+    getDict(nameString) {
+        for (let i = 0; i < this.dictionaries.length; i++)
+            if (this.dictionaries[i].name == nameString)
+                return this.dictionaries[i];
+        return null;
+    }
     
     // Return the Accuracy object stored at aString in local storage and cache
     // it into this.user.accuracies or return undefined if no value at aString
@@ -116,50 +146,6 @@ class DataManager {
         return parsed;
     }
     
-    // Return the dictionary named nameString or null
-    getDict(nameString) {
-        for (let i = 0; i < this.dictionaries.length; i++)
-            if (this.dictionaries[i].name == nameString)
-                return this.dictionaries[i];
-        return null;
-    }
-    
-    /* Add wordDictionary to user dictionaries if isUser otherwise to default
-       If wordDictionary is not a WordDictionary object, it will copy it and 
-       create one to be added.
-    */
-    addDict(wordDictionary, isUser = true) {
-        if( !(wordDictionary instanceof WordDictionary))
-            wordDictionary = new WordDictionary(wordDictionary);
-        this.removeDict(wordDictionary.name);
-        if (isUser)
-            this.user.dictionaries.push(wordDictionary);
-        else
-            this.default.dictionaries.push(wordDictionary);
-    }
-    
-    // Remove the dictionary named nameString if there is one
-    removeDict(nameString) {
-        for (const setting of this.settings) {
-            let dicts = setting.dictionaries;
-            for (let i = 0; i < dicts.length; i++)
-                if (dicts[i].name == nameString)
-                    dicts.splice(i, 1);
-        }
-    }
-    
-    // Remove aString's Accuracy data in localStorage and the cache
-    removeUserAcc(aString) {
-        this._removeUser(this._accKey(aString));
-        this.user.accuracies.delete(aString);
-    }
-    
-    // Remove aString's user config from the localStorage and cache
-    removeUserConfig(aString) {
-        this._removeUser(this._configKey(aString));
-        this.user.config.delete(aString);
-    }
-
     // Return true if the user's local storage is accessible or full
     // otherwise false
     hasUserStorage() {
@@ -206,6 +192,28 @@ class DataManager {
                 return Number(value);
         }
         return value;
+    }
+    
+    // Remove the dictionary named nameString if there is one
+    removeDict(nameString) {
+        for (const setting of this.settings) {
+            let dicts = setting.dictionaries;
+            for (let i = 0; i < dicts.length; i++)
+                if (dicts[i].name == nameString)
+                    dicts.splice(i, 1);
+        }
+    }
+    
+    // Remove aString's Accuracy data in localStorage and the cache
+    removeUserAcc(aString) {
+        this._removeUser(this._accKey(aString));
+        this.user.accuracies.delete(aString);
+    }
+    
+    // Remove aString's user config from the localStorage and cache
+    removeUserConfig(aString) {
+        this._removeUser(this._configKey(aString));
+        this.user.config.delete(aString);
     }
     
     /* Save an Accuracy object accObj into localStorage indexed with aString
@@ -261,14 +269,6 @@ class DataManager {
         // no data that needs explicit conversion at this time
         // switch (key) {}
         return value;
-    }
-    
-    clearUserStorage() {
-        try {
-            localStorage.clear();
-        } catch (err) {
-            throw new DataManagerError(err);
-        }
     }
     
     // Return a string representing the key used for accString in local storage
