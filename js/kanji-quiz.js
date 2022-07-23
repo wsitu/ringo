@@ -315,9 +315,10 @@ ri.Quiz = class extends ri.WElement {
         for (const [kanji, acc] of Object.entries(accData)) {
             if (!this._accuracies.has(kanji))
                 this._accuracies.set(kanji, new ri.Accuracy());
-            let updated = this._accuracies.get(kanji).add(acc, true);
+            let storedAcc = this._accuracies.get(kanji);
+            storedAcc.add(acc);
             try {
-                this.dataManager.saveUserAcc(kanji, updated);
+                this.dataManager.saveUserAcc(kanji, storedAcc);
             } catch (err) {
                 // silently fail for now until we can inform users of the error
                 if (!(err instanceof ri.DataManagerError))

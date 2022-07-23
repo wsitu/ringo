@@ -16,15 +16,10 @@ class Accuracy {
 
     get wrong() { return this.total - this.right; }
     
-    /* Return an Accuracy with the sum of this and other where other is another
-       Accuracy or an array of [right, total]
-       If copy == true, return a new Accuracy else adds to the calling object
-    */
-    add(other, copy=false) {
-        let acc = copy ? new this.constructor(this) : this;
-        acc.right += (other.right == undefined) ? other[0] : other.right;
-        acc.total += (other.total == undefined) ? other[1] : other.total;
-        return acc;
+    // <other> may be an array of [right, total] or another Accuracy
+    add(other) {
+        this.right += (other.right == undefined) ? other[0] : other.right;
+        this.total += (other.total == undefined) ? other[1] : other.total;
     }
     
     // Returns as a string with <digit> decimal places or -1 for no limit
