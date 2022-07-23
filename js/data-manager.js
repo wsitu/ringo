@@ -3,21 +3,17 @@
 
 
 class Accuracy {
-    // Stores the accuracy of an item as two integers
-    
-    // Takes in another Accuracy object or an array as [right, total]
+    // Stores an accuracy as two numbers representing the right and total
+    // amount. Input is an array of [right, total] or an Accuracy object.
     constructor(data = [0, 0]) {
         this.right = (data.right == undefined) ? data[0] : data.right;
         this.total = (data.total == undefined) ? data[1] : data.total;
     }
     
-    // Returns the accuracy as a ratio
     get ratio() { return this.right / this.total; }
     
-    // Returns the error rate as a ratio
     get ratioWrong() { return this.wrong / this.total; }
-    
-    // Returns the wrong count
+
     get wrong() { return this.total - this.right; }
     
     /* Return an Accuracy with the sum of this and other where other is another
@@ -31,15 +27,13 @@ class Accuracy {
         return acc;
     }
     
-    // Returns a string of the accuracy as a percentage
-    // <digits> number of digits after the decimal point or -1 for no limit
+    // Returns as a string with <digit> decimal places or -1 for no limit
     percent(digits = -1) {
         let percent = this.ratio * 100;
         return `${digits < 0 ? percent : percent.toFixed(digits)}%`;
     }
     
-    // Returns a string of the accuracy as a percentage
-    // <digits> number of digits after the decimal point or -1 for no limit
+    // Returns as a string with <digit> decimal places or -1 for no limit
     percentWrong(digits = -1) {
         let percent = this.ratioWrong * 100;
         return `${digits < 0 ? percent : percent.toFixed(digits)}%`;
