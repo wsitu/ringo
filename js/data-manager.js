@@ -11,14 +11,14 @@ class Accuracy {
         this.total = (data.total == undefined) ? data[1] : data.total;
     }
     
-    // Returns the wrong count
-    get wrong() { return this.total - this.right; }
-    
     // Returns the accuracy as a ratio
     get ratio() { return this.right / this.total; }
     
     // Returns the error rate as a ratio
     get ratioWrong() { return this.wrong / this.total; }
+    
+    // Returns the wrong count
+    get wrong() { return this.total - this.right; }
     
     /* Return an Accuracy with the sum of this and other where other is another
        Accuracy or an array of [right, total]
