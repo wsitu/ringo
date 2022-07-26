@@ -71,8 +71,9 @@ class DataManager {
         window.addEventListener("storage", (e) => this._onStorageChange(e));
     }
     
+    // Keys with a dynamic name use a prefix to avoid colliding with each other
     static _CONFIG_PREFIX = "CONFIG_";
-    static _KANJI_PREFIX = "K__";
+    static _KANJI_PREFIX = "K_"; // Lots of entries, shortened to save space
     static _TEST_STORAGE_KEY = "__TESTSTORAGEKEY__";
     static _TEST_STORAGE_VALUE = "テst";
     static _DICTIONARY_KEY = "dict"
