@@ -75,6 +75,7 @@ class DataManager {
     static _TEST_STORAGE_VALUE = "テst";
     static _DICTIONARY_KEY = "dict"
     
+    
     get settings() {
         return [this.default, this.user];
     }
@@ -84,7 +85,6 @@ class DataManager {
         return this.default.dictionaries.concat(this.user.dictionaries);
     }
     
-    // Return a new array of the names of all the dictionaries added
     get dictNames() {
         return this.dictionaries.map(x => x.name);
     }
@@ -119,8 +119,7 @@ class DataManager {
         return null;
     }
     
-    // Return the Accuracy object stored at aString in local storage and cache
-    // it into this.user.accuracies or return undefined if no value at aString
+    // Returns an Accuracy and caches it or undefined if not found
     getUserAcc(aString) {
         let stored = this._getUser(this._accKey(aString));
         if (stored == null) return undefined;
@@ -136,8 +135,7 @@ class DataManager {
         return stored;
     }
     
-    // Return the user config stored at aString in local storage and cache ir
-    // into this.user.config or return undefined if no value at aString
+    // Returns a string or the type defined at parseConfig() or undefined
     getUserConfig(aString) {
         let stored = this._getUser(this._configKey(aString));
         if (stored == null) return undefined;
@@ -146,8 +144,7 @@ class DataManager {
         return parsed;
     }
     
-    // Return true if the user's local storage is accessible or full
-    // otherwise false
+    // Returns true if localStorage is useable or full
     hasUserStorage() {
         let storage = localStorage;
         try {
@@ -168,7 +165,7 @@ class DataManager {
         }
     }
     
-    // Parse local storage for user data and store it into the cache
+    // Loads ALL user and config data in localStorage into this.user
     loadUserData() {
         for (const [key, value] of Object.entries(localStorage)) {
             if (this._isAccKey(key))
@@ -185,7 +182,8 @@ class DataManager {
         this.user.dictionaries = data.map(dict => new WordDictionary(dict));
     }
     
-    // Return the key's config value string as the desired data type
+    // Converts the stored config value to the preferred type for convenience
+    // isntead of converting it everytime when read
     parseConfig(key, value) {
         switch (key) {
             case "score":
@@ -204,22 +202,16 @@ class DataManager {
         }
     }
     
-    // Remove aString's Accuracy data in localStorage and the cache
     removeUserAcc(aString) {
         this._removeUser(this._accKey(aString));
         this.user.accuracies.delete(aString);
     }
     
-    // Remove aString's user config from the localStorage and cache
     removeUserConfig(aString) {
         this._removeUser(this._configKey(aString));
         this.user.config.delete(aString);
     }
     
-    /* Save an Accuracy object accObj into localStorage indexed with aString
-       and store both into the cache. aString must be a non empty string and
-       accObj must be an Accuracy object.
-    */
     saveUserAcc(aString, accObj) {
         if (!(accObj instanceof Accuracy)) {
             console.error("Attempt to save invalid Accuracy:", accObj, 
@@ -271,12 +263,10 @@ class DataManager {
         return value;
     }
     
-    // Return a string representing the key used for accString in local storage
     _accKey(accString) {
         return DataManager._KANJI_PREFIX + accString;
     }
     
-    // Return the original string passed to _accKey()
     _accString(accKey) {
         return accKey.substring(DataManager._KANJI_PREFIX.length);
     }
@@ -298,12 +288,10 @@ class DataManager {
         }
     }
     
-    // Return if aString could be a key for Accuracy objects in local storage
     _isAccKey(aString) {
         return aString.startsWith(DataManager._KANJI_PREFIX);
     }
     
-    // Return if aString could be a key for config items in local storage
     _isConfigKey(aString) {
         return aString.startsWith(DataManager._CONFIG_PREFIX);
     }
@@ -330,7 +318,7 @@ class DataManager {
         }
     }
     
-    // Store valueString at keyString in local storage or throw a
+    // Stores valueString at keyString in local storage or throw a
     // DataManagerError containing the message of the original error
     _setUser(keyString, valueString) {
         try {
@@ -340,7 +328,7 @@ class DataManager {
         }
     }
     
-    // Remove keyString from local storage or do nothing
+    // Removes keyString from local storage or does nothing if not found
     _removeUser(keyString) {
         try {
             localStorage.removeItem(keyString);
