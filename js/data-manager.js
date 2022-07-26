@@ -258,7 +258,7 @@ class DataManager {
         this._setUser(DataManager._DICTIONARY_KEY, data);
     }*/
     
-    // Return the key's config value as a string
+    // For parseConfig() types that do not easily store into localStorage
     stringifyConfig(key, value) {
         // no data that needs explicit conversion at this time
         // switch (key) {}
@@ -281,7 +281,7 @@ class DataManager {
         return configKey.substring(DataManager._CONFIG_PREFIX.length);
     }
 
-    // Return the value stored in local storage at keyString or null
+    // Returns null if not found, can avoid errors with hasUserStorage()
     _getUser(keyString) {
         try {
             return localStorage.getItem(keyString);
@@ -320,8 +320,7 @@ class DataManager {
         }
     }
     
-    // Stores valueString at keyString in local storage or throw a
-    // DataManagerError containing the message of the original error
+    // Always make sure to catch errors
     _setUser(keyString, valueString) {
         try {
             localStorage.setItem(keyString, valueString);
@@ -330,7 +329,7 @@ class DataManager {
         }
     }
     
-    // Removes keyString from local storage or does nothing if not found
+    // Does nothing if not found, always make sure to catch errors
     _removeUser(keyString) {
         try {
             localStorage.removeItem(keyString);
