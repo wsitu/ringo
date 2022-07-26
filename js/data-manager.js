@@ -58,6 +58,8 @@ class DataManager {
        data in local storage.
     */
     
+    //TODO: when implementing user dictionaries refactor and store dictionaries
+    //into a map by name and save them into local storage with prefix + name
     constructor() {
         this.default = {};
         this.user = {};
@@ -85,9 +87,9 @@ class DataManager {
         return this.default.dictionaries.concat(this.user.dictionaries);
     }
     
-    get dictNames() {
+    /*get dictNames() {
         return this.dictionaries.map(x => x.name);
-    }
+    }*/
 
     /* Add wordDictionary to user dictionaries if isUser otherwise to default
        If wordDictionary is not a WordDictionary object, it will copy it and 
@@ -112,12 +114,12 @@ class DataManager {
     }
     
     // Return the dictionary named nameString or null
-    getDict(nameString) {
+    /*getDict(nameString) {
         for (let i = 0; i < this.dictionaries.length; i++)
             if (this.dictionaries[i].name == nameString)
                 return this.dictionaries[i];
         return null;
-    }
+    }*/
     
     // Returns an Accuracy and caches it or undefined if not found
     getUserAcc(aString) {
@@ -176,11 +178,11 @@ class DataManager {
     }
     
     // Parse and cache the user dictionary data stored in local storage 
-    loadUserDict() {
+    /*loadUserDict() {
         let data = JSON.parse(this._getUser(DataManager._DICTIONARY_KEY));
         if (!data) return;
         this.user.dictionaries = data.map(dict => new WordDictionary(dict));
-    }
+    }*/
     
     // Converts the stored config value to the preferred type for convenience
     // isntead of converting it everytime when read
@@ -247,14 +249,14 @@ class DataManager {
        DataManagerError. Will delete the stored dictionaries if loaduserDict()
        is not called first.
     */
-    saveUserDict() {
+    /*saveUserDict() {
         if (this.user.dictionaries.length == 0) {
             this._removeUser(DataManager._DICTIONARY_KEY);
             return;
         }
         let data = JSON.stringify(this.user.dictionaries);
         this._setUser(DataManager._DICTIONARY_KEY, data);
-    }
+    }*/
     
     // Return the key's config value as a string
     stringifyConfig(key, value) {
