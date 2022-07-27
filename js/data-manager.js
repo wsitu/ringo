@@ -49,14 +49,10 @@ class DataManagerError extends Error {
 }
 
 class DataManager {
-    /* Manages data to be split between those that are default and those that
-       are user loaded. Additionally provides an interface to save and load 
-       user data.
-       
-       The user data should be loaded before modification, then saved. 
-       Multiple instances of DataManager will access and modify the same user
-       data in local storage.
-    */
+    // Manages the interaction of data stored across the default and user
+    // locations.
+    //
+    // All user data that is cached here must be updated in  _onStorageChange()
     
     //TODO: when implementing user dictionaries refactor and store dictionaries
     //into a map by name and save them into local storage with prefix + name
@@ -338,7 +334,6 @@ class DataManager {
             throw new DataManagerError(err);
         }
     }
-    
 }
 
 class WordDictionary {
