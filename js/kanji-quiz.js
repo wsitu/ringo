@@ -110,7 +110,7 @@ ri.Quiz = class extends ri.WElement {
     allKanji() {
         let total = new Set();
         for (const dict of this.dictionaries)
-            dict.kanjiList.forEach( (kanji) => total.add(kanji) );
+            dict.allKanji.forEach( (kanji) => total.add(kanji) );
         return total;
     }
     

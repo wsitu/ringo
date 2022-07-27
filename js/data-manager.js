@@ -359,6 +359,11 @@ class WordDictionary {
             this.add(new WordData(data));
     }
 
+    // Retuns a set of all kanji used in the dictionary, see WordData.kanji()
+    get allKanji() {
+        return new Set(Object.keys(this._index));
+    }
+
     // Returns a set of the strings, not WordData
     get words() {
         return new Set(Object.keys(this._words));
@@ -385,12 +390,7 @@ class WordDictionary {
         this._unindexWord(wordString);
         delete this._words[wordString];
     }
-    
-    // Retuns a set of all kanji used in the dictionary, see WordData.kanji()
-    get kanjiList() {
-        return new Set(Object.keys(this._index));
-    }
-    
+        
     // Returns a set of words (strings) that kanjiString is found in 
     wordsWith(kanjiString) {
         if (!this._index[kanjiString]) return new Set();
