@@ -369,15 +369,6 @@ class WordDictionary {
         return new Set(Object.keys(this._words));
     }
     
-    has(wordString) {
-        return wordString in this._words;
-    }
-    
-    // Returns the WordData or undefined if not found
-    getData(wordString) {
-        return this._words[wordString];
-    }
-    
     // Overwrites previous entries with the same wordData.text
     add(wordData) {
         let word = wordData.text;
@@ -389,6 +380,20 @@ class WordDictionary {
     delete(wordString) {
         this._unindexWord(wordString);
         delete this._words[wordString];
+    }
+    
+    // Returns the WordData or undefined if not found
+    getData(wordString) {
+        return this._words[wordString];
+    }
+    
+    has(wordString) {
+        return wordString in this._words;
+    }
+
+    // Output the JSON as it would have been input
+    toJSON() {
+        return {name: this.name, words: this._words};
     }
         
     // Returns a set of words (strings) that kanjiString is found in 
@@ -418,12 +423,6 @@ class WordDictionary {
             }
         } 
     }
-
-    // Output the JSON as it would have been input
-    toJSON() {
-        return {name: this.name, words: this._words};
-    }
-    
 }
 
 class WordData {
