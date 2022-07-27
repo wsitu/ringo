@@ -435,20 +435,15 @@ class WordData {
         this._def = (data._def) ? data._def : data.def;
     }
     
-    // Returns a copy of the array of text and reading data of the format:
-    // [{text: string_part_of_word, read: string_reading_of_text}, ... ]
-    get parts() {
-        return this._part.map( p => {return {...p}} );
-    }
-    
     // Returns the string of the word's definition
     get definition() {
         return this._def;
     }
     
-    // Returns the string of the word represented by this.parts
-    get text() {
-        return this._part.map(part => part.text).join("");
+    // Returns a copy of the array of text and reading data of the format:
+    // [{text: string_part_of_word, read: string_reading_of_text}, ... ]
+    get parts() {
+        return this._part.map( p => {return {...p}} );
     }
     
     // Returns a set of kanji (string) used in the word
@@ -458,6 +453,11 @@ class WordData {
         let hasReading = this._part.filter(part => part.read);
         let characters = hasReading.flatMap(part => [...part.text]);
         return new Set(characters);
+    }
+    
+    // Returns the string of the word represented by this.parts
+    get text() {
+        return this._part.map(part => part.text).join("");
     }
     
     // Returns a string of the word in HTML format using the ruby element
@@ -475,7 +475,6 @@ class WordData {
     toJSON() {
         return {part: this._part, def: this._def};
    }
-    
 }
 
 
