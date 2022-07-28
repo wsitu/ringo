@@ -4,48 +4,44 @@ const ri = ringo;
 const settings = ringo.settings.kanjiQuiz;
 
 
-/* Returns an array of random weight shuffled mapObject keys 
-   <mapobject> is a Map or object with a [key, value] iterator 
-        value is the weight of key and is a real between [10^-4, 10^15]
-*/
+// Returns an array of random weight shuffled mapObject keys
+//     <mapobject> is a Map or object with a [key, value] iterator
+//         value is the weight of key and is a real between [10^-4, 10^15]
 function weightedShuffle(mapObject) {
     let weightedOrder = x => [x[0], Math.pow(Math.random(), 1/x[1])];
     let shuffled = Array.from(mapObject, weightedOrder);
     shuffled.sort( (a, b) => b[1] - a[1] ); // High to low weightedOrder
     return shuffled.map(x => x[0]);
     
-/* Efraimidis & Spirakis: Weighted random sampling with a reservoir (2006)
-   Probablity of random_1^(1 / weight_1) >= random_2^(1 / weight_2) is
-   equal to weight_1 / (weight_1 + weight_2) so applying this function to
-   every weight and sorting it descending produces a permutation of the
-   keys without calculating the total weight.
-   
-   If slow use resevoir version that doesn't need to sort.
-   
-   If wider range of input is needed, use ln(random)/weight instead, seen
-   in the blog post by Tim Vieira "Gumbel-max trick and weighted reservoir
-   sampling (2014)." I don't know enough in this area to confirm the
-   correctness but tests over 1 million iterations in JS show similar
-   results while allowing weights around [10^-300, 10^300].
-*/
+// Efraimidis & Spirakis: Weighted random sampling with a reservoir (2006)
+// Probablity of random_1^(1 / weight_1) >= random_2^(1 / weight_2) is
+// equal to weight_1 / (weight_1 + weight_2) so applying this function to
+// every weight and sorting it descending produces a permutation of the
+// keys without calculating the total weight.
+// 
+// If slow use resevoir version that doesn't need to sort.
+// 
+// If wider range of input is needed, use ln(random)/weight instead, seen
+// in the blog post by Tim Vieira "Gumbel-max trick and weighted reservoir
+// sampling (2014)." Would allow weights around [10^-300, 10^300].
 }
 
 
 ri.Quiz = class extends ri.WElement {
+    // Creates a quiz for users to interact with from the dictionaries of words
+    // in the DataManager class passed in. Records the accuracy of each kanji
+    // based of the correctness of the user input and assigns a larger weight
+    // to lower accuracy kanjis for future word selection.
+    // 
+    // accChance    | [0, 1] chance that words are picked by kanji accuracy
+    // choiceRange  | object with {div: , min: , max: } where # of choices is
+    //              | floor(<score>/<div>) + <min> capped at <max>
+    // entries      | array of current Entry that users can input to
+    // entryRange   | same as choiceRange but for the # of entries
     
-    /* Creates a quiz for users to interact with from the dictionaries of words
-       in the DataManager class passed in. Records the accuracy of each kanji
-       based of the correctness of the user input and assigns a larger weight 
-       to lower accuracy kanjis for future word selection.
-       
-       accChance    | [0, 1] chance that words are picked by kanji accuracy
-       choiceRange  | object with {div: , min: , max: } where # of choices is
-                    | floor(<score>/<div>) + <min> capped at <max>
-       dataManager  | source of WordData and interaction with local storage
-       dictionaries | array of dictionaries to get WordData from
-       entries      | array of current Entry that users can input to
-       entryRange   | same as choiceRange but for the # of entries
-    */
+    // TODO: If more functionality needs to be added refactor first. Maybe pull
+    // out word and dictionary related functions from here and DataManager into
+    // a class for a collection of dictionaries.
     constructor(dataManager) {
         super(settings.quiz.html.root);
         this.accChance    = this.settings.js.weightedWordRatio;
@@ -77,17 +73,16 @@ ri.Quiz = class extends ri.WElement {
     
     settings = settings.quiz;
     
-    // Returns the number of entries to create based on the score
     get entryCount() {
         return this._numFromScore(this.settings.js.entries);
     }
     
-    // Returns the number of entry choices to create based on the score
+    // The number of buttons per entry
     get choiceCount() {
         return this._numFromScore(this.settings.js.entryChoices);
     }
     
-    // Returns the score used to determine the quiz difficulty
+    // Determines the quiz difficulty
     get score() {
         let stored = this.dataManager.user.config.get("score");
         return stored == undefined ? 0 : stored;
@@ -97,16 +92,14 @@ ri.Quiz = class extends ri.WElement {
         this.dataManager.user.config.set("score", intNum);
     }
     
-    /* Returns a weight between [1, 3 000 000 000] when
-       1 <= acc.total <= 1 000 000 000  and 0 <= acc.right <= acc.total
-       A low total or accuracy.ratio results in a higher weight
-    */
+    // Returns a weight between [1, 3 000 000 000] when
+    // 1 <= acc.total <= 1 000 000 000  and 0 <= acc.right <= acc.total
+    // A low total or accuracy.ratio results in a higher weight
     accuracyWeight(acc) {
         let weight = acc.ratioWrong * acc.ratioWrong + 0.5/acc.total;
         return weight * 2000000000; // reduce precision error when using it
     }
     
-    // Returns a set of every kanji used in all words of the dictionaries
     allKanji() {
         let total = new Set();
         for (const dict of this.dictionaries)
@@ -114,8 +107,7 @@ ri.Quiz = class extends ri.WElement {
         return total;
     }
     
-    // Replace current entries with ones from each wordDataArray element
-    // each with random numberOfChoices 
+    // Creates new entries with random choices, overwrites previous entries
     createEntries(wordDataArray, numberOfChoices) {
         this._entriesBox.replaceChildren();
         this.entries = [];
@@ -129,8 +121,7 @@ ri.Quiz = class extends ri.WElement {
         }
     }
     
-    // Fill the quiz intro with the accuracy of each kanji using the <kanji>
-    // and <acc> property of each object in dataArray
+    // <dataArray> array of objects with kanji:string and acc : Accuracy
     displayAccuracy(dataArray = []) {
         this._accBody.replaceChildren();
         let wrapper;
@@ -163,16 +154,13 @@ ri.Quiz = class extends ri.WElement {
             this._accMoreBtn.disabled = false;
     }
     
-    // Populates the quiz intro with each WordData in wordDataArray sorted from
-    // lowest to highest accuracy of the kanji used
     displayIntro(wordDataArray = []) {
         let wordsByAcc = this.wordDataByKanjiAccuracy(wordDataArray);
         this.displayAccuracy(wordsByAcc);
         this.displayWords(wordsByAcc);
     }
     
-    // Displays the words of each WordData in the <words> property array for
-    // each object in dataArray
+    // <dataArray> array of objects with words: [WordData]
     displayWords(dataArray = []) {
         let newDisplayElement = (wordData) => {
             let display = this.createEl(this.settings.html.word);
@@ -196,10 +184,9 @@ ri.Quiz = class extends ri.WElement {
         return acc == undefined ? -1 : acc.ratio;
     }
     
-    /* Returns an array of WordData from a mix of weighted and randomed kanji
-       <numberOfWords> max number of words in the return
-       <weightedChance> [0, 1.0] chance that a word comes from weighted shuffle
-    */
+    // Returns an array of WordData from a mix of weighted and randomed kanji
+    // <numberOfWords> max number of words in the return
+    // <weightedChance> [0, 1.0] chance that a word comes from weighted shuffle
     newWords(numberOfWords, weightedChance = 0.75) {
         let numOfWeighted = 0;
         for (let i = 0; i < numberOfWords; i++) {
@@ -212,7 +199,6 @@ ri.Quiz = class extends ri.WElement {
         return Array.from(words.values());
     }
     
-    // Returns a set of kanji that does not have any accuracy data
     noAccKanji() {
         let noAcc = new Set();
         for (const kanji of this._kanjiCache) {
@@ -225,8 +211,8 @@ ri.Quiz = class extends ri.WElement {
         return noAcc;
     }
     
-    // Returns an object containing the accuracies of all fully set entries
-    // in the format of { <aKanji>: Accuracy }
+    // Returns an object of the entry results as { <aKanji>: Accuracy }
+    // The result of incomplete entries are ignored
     processEntries() {
         let accuracies = {};
         let addAcc = function (key, right, total) {
@@ -244,12 +230,10 @@ ri.Quiz = class extends ri.WElement {
         return accuracies;
     }
     
-    /* Returns a Map of WordData.text : WordData of all WordDatas from the
-       dictionaries that contain the input kanji.
-       <kanjiString> only returns WordDatas whose .kanji contains this string
-       <maxLength> the max number of words in the return
-       <filters> array of Map(keys) or Set(values) of WordData.text to exclude
-    */
+    // Returns an array of all WordData with the kanji in random order
+    // <kanjiString> only returns WordDatas whose .kanji contains this string
+    // <maxLength> the max number of words in the return
+    // <filters> array of Map(keys) or Set(values) of WordData.text to exclude
     shuffledWordData(kanjiString, maxLength = Infinity, filters = []) {
         let data = new Map();
         for (const dict of this.dictionaries) {
@@ -268,11 +252,10 @@ ri.Quiz = class extends ri.WElement {
         return shuffler.random(maxLength);
     }
     
-    /* Returns a map of WordData.text : WordData randomly from kanji with no
-       accuracy data and when exhausted, randomly from all kanji
-       <maxLength> the max number of words in the return
-       <filters> array of Map(keys) or Set(values) of WordData.text to exclude
-    */
+    // Returns a map of WordData.text : WordData randomly from kanji with no
+    // accuracy data and when exhausted, randomly from all kanji
+    // <maxLength> the max number of words in the return
+    // <filters> array of Map(keys) or Set(values) of WordData.text to exclude
     randomWords(maxLength, filters = []) {
         let words = new Map();
         let blacklists = filters.concat(words);
@@ -289,7 +272,7 @@ ri.Quiz = class extends ri.WElement {
         return words;
     }
     
-    // Restart the quiz with new words
+    // Restarts the quiz with new words
     restart() {
         let highestScoreNeeded = () => {
             let highest = (rangeObj) => (rangeObj.max - rangeObj.min) * rangeObj.div;
@@ -309,8 +292,8 @@ ri.Quiz = class extends ri.WElement {
         ri.fadeOut(this._mainBox, delayedSetup);
     }
     
-    // Saves accuracy data of entries for weighted shuffling
-    // <accData> object in the same format as the return of processEntries()
+    // Saves accuracy data to user storage
+    // <accData> object similar to the return of processEntries()
     saveAccuracy(accData) {
         for (const [kanji, acc] of Object.entries(accData)) {
             if (!this._accuracies.has(kanji))
@@ -327,7 +310,7 @@ ri.Quiz = class extends ri.WElement {
         } 
     }
     
-    // Saves the affected user config 
+    // Saves data to user storage that is not accuracies
     saveConfig() {
         try {
             this.dataManager.saveUserConfig("score", this.score);
@@ -338,10 +321,9 @@ ri.Quiz = class extends ri.WElement {
         }
     }
     
-    /* Returns a map of WordData.text : WordData randomly from kanjis by weight
-       <maxLength> the max number of words in the return
-       <filters> array of Map(keys) or Set(values) of WordData.text to exclude
-    */
+    // Returns a map of WordData.text : WordData randomly from kanjis by weight
+    // <maxLength> the max number of words in the return
+    // <filters> array of Map(keys) or Set(values) of WordData.text to exclude
     weightedWords(maxLength, filters = []) {
         let words = new Map();
         let weightedKanji = [];
@@ -360,11 +342,9 @@ ri.Quiz = class extends ri.WElement {
         return words;
     }
     
-    /* Associates each wordData in wordDataArray with its lowest kanji accuracy
-       Returns an array of {acc: number, kanji: aKanji, words: [wordData]}
-       objects sorted ascending by its accuracy. If no accuracy data exists for
-       aKanji, its accuracy is -1 and sorts to the front of the array.
-    */
+    // Returns an array of {acc: number, kanji: aKanji, words: [wordData]} with
+    // kanji sorted ascending by its accuracy. Each WordData is placed in its
+    // kanji with the lowest accuracy. No accuracy found is interpreted as -1.
     wordDataByKanjiAccuracy(wordDataArray = []) {
         let withAcc = new Map();
         for (const data of wordDataArray) {
@@ -384,7 +364,6 @@ ri.Quiz = class extends ri.WElement {
         return Array.from(withAcc.values()).sort(ascendingAcc);
     }
     
-    // Parent child hierarchy setup
     _arrangeLayout() {
         this.addChild(this._introBox);
         this.addChild(this._mainBox);
@@ -398,7 +377,6 @@ ri.Quiz = class extends ri.WElement {
         this._mainBox.appendChild(this._submitBtn);
     }
     
-    // One time setup on constructor
     _init() {
         this._accBox.addEventListener("click", () => {
             if (this._accMoreBtn.disabled == true) return;
@@ -413,7 +391,7 @@ ri.Quiz = class extends ri.WElement {
         this.restart();
     }
     
-    // Returns the number within the range that the current score represents
+    // Returns the number based on score clamped to the min and max
     _numFromScore(rangeObj) {
         let num = Math.floor(this.score/rangeObj.div) + rangeObj.min;
         return Math.min(rangeObj.max, Math.max(rangeObj.min, num));
@@ -432,15 +410,13 @@ ri.Quiz = class extends ri.WElement {
         }
     }
     
-    // Hides the intro, displays the entries, and enables the submit button
     _startQuiz() {
         this._beginBtn.disabled = true;
         this._submitBtn.disabled = false;
         ri.fadeOut(this._introBox, () => ri.fadeIn(this._mainBox) );
     }
     
-    // If all entries are set, processes the input on entries and restarts
-    // Disables itself to prevent multiple calls on the same entries
+    // Processes the quiz if all entries are complete then restarts
     _submitQuiz() {
         for (const entry of this.entries) {
             if (!entry.userInput.hasAllSet()) {
@@ -448,7 +424,7 @@ ri.Quiz = class extends ri.WElement {
                 return;
             }
         }
-        this._submitBtn.disabled = true;
+        this._submitBtn.disabled = true; // prevent multiple submissions
         let result = this.processEntries();
         this.saveAccuracy(result);
         let isCorrect = (acc) => acc.right >= acc.total;
