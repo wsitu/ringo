@@ -443,10 +443,8 @@ ri.Quiz = class extends ri.WElement {
 }
 
 ringo.Quiz.prototype.Entry = class extends ri.WElement {
-    
-    /* Creates an entry to display wordData's information but hides the
-       components of the word among other false buttons.
-    */
+    // Creates a quiz entry to manage the display and interaction of each
+    // WordData to be quized on.
     constructor(wordData) {
         super(settings.entry.html.root);
         this.userInput = new this.Solution();
@@ -476,7 +474,7 @@ ringo.Quiz.prototype.Entry = class extends ri.WElement {
     
     settings = settings.entry;
 
-    // Returns an array containing the button elements used for choices
+    // Returns an array of html elements
     get buttons() {
         return Array.from(this._choices.children, (e) => e.children[0]);
     }
@@ -487,7 +485,7 @@ ringo.Quiz.prototype.Entry = class extends ri.WElement {
         return Array.from(this._choices.children, getButtonText);
     }
     
-    // Sets each button's text in choices to those of arrayOfString
+    // Sets each button's text to each element in arrayOfString
     // Will add or remove buttons to match the size of the array
     set choices(arrayOfString) {
         let buttons = this._choices;
@@ -508,17 +506,14 @@ ringo.Quiz.prototype.Entry = class extends ri.WElement {
             buttons.children[i].children[0].textContent = arrayOfString[i];
     }
     
-    // Returns the text of the definition element
     get definition() {
         return this._defBox.textContent;
     }
     
-    // Sets the text of the definition element
     set definition(textContent) {
         this._defBox.textContent = textContent;
     }
     
-    // Returns whether the user can input to this entry
     get locked() {
         return this._isLocked;
     }
@@ -544,12 +539,10 @@ ringo.Quiz.prototype.Entry = class extends ri.WElement {
         }
     }
     
-    // Returns the WordData associated with the Entry
     get word() {
         return this._wordData;
     }
     
-    // Sets the entry and all relevant properties to those of wordData
     set word(wordData) {
         this._wordData = wordData;
         if (!wordData) return;
@@ -558,7 +551,6 @@ ringo.Quiz.prototype.Entry = class extends ri.WElement {
         this.shuffleInChoices();
     }
 
-    // Hides what the user input and displays the correct answer
     displayAnswer() {
         this._answerBox.innerHTML = this.word.toHTML();
         let showAnswer = () => {
@@ -568,7 +560,6 @@ ringo.Quiz.prototype.Entry = class extends ri.WElement {
         ri.fadeOut(this._word, showAnswer);
     }
     
-    // Hides the correct answer and displays the user input
     hideAnswer() {
         let showInput = () => {
             ri.fadeIn(this._word);
@@ -577,18 +568,14 @@ ringo.Quiz.prototype.Entry = class extends ri.WElement {
         ri.fadeOut(this._answerBox, showInput);
     }
     
-    // Adds a class to indicate the entry requires input and scrolls it into view
     highlight() {
         this.root.classList.add(this._HIGHLIGHTCLASS);
         this.root.scrollIntoView();
     }
 
-    /* Marks each choice button with data attributes describing its status
-       answer = "true" if it contains an answer else "false"
-       correct has value only if activated and its value is:
-           "true" if it is an answer and was input in the right order
-           "false" if is not an answer or was input in the wrong order
-    */
+    // Marks each choice button with data attributes describing whether the 
+    // button is an answer (true), if it was pressed (has correct), and whether
+    // the button was pressed in the right order (correct = true).
     markChoices() {
         let answers = new Set(this.userInput.answers);
         let inputs = new Set(this.userInput.inputs);
@@ -609,13 +596,9 @@ ringo.Quiz.prototype.Entry = class extends ri.WElement {
         }
     }
 
-    /* Shuffles in the answers with arrayOfString into the choices
-    
-       If no array is passed it will shuffle with the current choices.
-       The choices will be at least the length of arrayOfString but may be
-       longer if the length of array is smaller than the answers in which case
-       the choices will only contain answers.
-    */
+    // Sets up the buttons by shuffling this word's kanji with arrayOfString
+    // The number of choices will be the same length as the array except when
+    // the word has more kanji than the array, making choices of only answers.
     shuffleInChoices(arrayOfString=this.choices) {
         let targetLength = arrayOfString.length;
         let shuffle = new ri.Shuffler(arrayOfString);
@@ -632,8 +615,7 @@ ringo.Quiz.prototype.Entry = class extends ri.WElement {
         this.choices = new ri.Shuffler(inserted).random();
     }
     
-    // Adds or removes classes onto the root element that indicate
-    // whether the user answered the entry correctly or not
+    // Toggles the correct / incorrect mark on the entry
     toggleStatus() {
         let classList = this.root.classList;
         if (classList.contains(this._CORRECTCLASS) || 
@@ -648,12 +630,10 @@ ringo.Quiz.prototype.Entry = class extends ri.WElement {
             classList.add(this._INCORRECTCLASS);
     }
     
-    // Removes the class added by highlight()
     unhighlight() {
         this.root.classList.remove(this._HIGHLIGHTCLASS);
     }
     
-    // Removes the data attributes on choice buttons added by markChoices()
     unmarkChoices() {
         for (const btn of this.buttons) {
             delete btn.dataset[this._ANSWERATTR];
@@ -674,8 +654,7 @@ ringo.Quiz.prototype.Entry = class extends ri.WElement {
         this._uiBox.appendChild(this._choices)
     }
     
-    // Sets the next input as the button's textContent and locks entry if full
-    // Does nothing if already locked or the clicked element is not a choiceBtn
+    // On button parent, always ensure this filters to just the buttons
     _handleClick(e) {
         if (!e.target.classList.contains(this._BTNCLASS)) return;
         if (this.locked) return;
