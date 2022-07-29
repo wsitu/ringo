@@ -673,10 +673,8 @@ ringo.Quiz.prototype.Entry = class extends ri.WElement {
 }
 
 ringo.Quiz.prototype.Entry.prototype.Solution = class extends ri.WElement {
-    /* Creates a partial display of the WordData and provides a method
-       to set and check the input of a solution. Parts of WordData with a
-       non empty read will be hidden and converted into an input field.
-    */
+    // Creates a solution for the entry from the WordData hiding its kanji,
+    // accepting input for the answer, and checking its correctness.
     constructor(wordData) {   
         super(settings.solution.html.root);
         this.cursor = 0; // Points at the input for this.set()
@@ -691,7 +689,7 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends ri.WElement {
 
     settings = settings.solution;
     
-    // Returns an array of the correct characters to be inputted
+    // Returns an array of answers in same order as inputs
     get answers() {
         return this._sections.map( (e) => e.answer );
     }
@@ -702,12 +700,11 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends ri.WElement {
         return this._sections.map(inputText);
     }
     
-    // Returns the WordData that the solution represents
     get word() {
         return this._wordData;
     }
     
-    // Resets and initializes the solution to represent wordData
+    // Setting a WordData clears all input
     set word(wordData) {
         this.root.replaceChildren();
         this.cursor = 0;
@@ -725,7 +722,7 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends ri.WElement {
         }
     }
     
-    // Returns an object with an array of the right and wrong inputs
+    // Returns the correctness as an object with two arrays:
     //     .right contains the input that matched the answers
     //     .wrong contains both the mismatched input and the answer
     check() {
@@ -741,16 +738,14 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends ri.WElement {
         return results;
     }
     
-    // Returns true if every input has been set else false
-    // Returns true if there are no input elements
+    // Returns true if has every input is set or there are no inputs
     hasAllSet() {
         for (const sect of this._sections)
             if (this._isUnset(sect.input)) return false;
         return true;
     }
     
-    // Wraps incorrect user inputs inside a <strong>
-    // Will be overwritten if the input is set again
+    // Mark is removed if the marked input is set again
     markIncorrect() {
         for (const sect of this._sections) {
             if (this._isUnset(sect.input)) continue;
@@ -763,21 +758,18 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends ri.WElement {
         }
     }
     
-    // Selects the next input for this.set wrapping back to the first input
     moveCursor() {
-        if(this._sections.length == 0) return;
+        if (this._sections.length == 0) return; // prevent divide by 0
         this.cursor = (this.cursor + 1) % this._sections.length;
     }
     
-    // Resets the cursor and clears every input
     resetInput() {
         for (const section of this._sections)
             this._resetInput(section.input);
         this.cursor = 0;
     }
     
-    // Sets the current input to inputText and moves the cursor to the next one
-    // Changes nothing if there are no input elements
+    // Sets inputText and moves cursor, clears inputs if cursor wraps to start
     set(inputText) {
         if(this._sections.length == 0) return;
         let selected = this._sections[this.cursor].input;
@@ -790,7 +782,7 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends ri.WElement {
         this.moveCursor();
     }
     
-    // Adds each character in textToHide as an input and hides it
+    // Adds input sections, converting textToHide as answers to be input
     _addInput(textToHide) {
         for (const character of textToHide) {
             let input = this.createEl(this.settings.html.input);
@@ -800,7 +792,7 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends ri.WElement {
         }
     }
     
-    // Adds textToDisplay as normal text to be shown
+    // Adds normal text to be displayed, not input
     _addText(textToDisplay) {
         let txt = this.createEl(this.settings.html.text);
         txt.textContent = textToDisplay;
@@ -811,7 +803,6 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends ri.WElement {
         return inputElement.classList.contains(this._UNSETCLASS);
     }
     
-    // Resets the text and class of inputElement to be unset
     _resetInput(inputElement) {
         inputElement.textContent = this._UNSETTEXT;
         inputElement.classList.add(this._UNSETCLASS);
