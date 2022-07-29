@@ -844,27 +844,17 @@ ringo.Quiz.prototype.UpdateSlider = class extends ri.WElement {
 }
 
 ringo.Shuffler = class {
-    /* Shuffles a copy of an array and provides random elements one at a time.
-       Best used for obtaining a small subset of random elements from a larger
-       array. Performs slower than a normal shuffle, use a simpler
-       implementation when performance is critical.
-    */
-    
-    /* Copies iterableObj into an array at this.data shuffled starting at 0
-       If copy = false, iterableObj must be array like and will not be copied
-       To iterate with more control use this.generator.next()
-    */
+    // Copies the input and provides shuffled subsets of its elements
+    //  * If <copy> = false, will not copy the input
+    //  * Slower than a simple shuffle when shuffling all elements
     constructor(iterableObj, copy=true) {
         this.data = (copy) ? [...iterableObj] : iterableObj;
         this.generator;
         this.reset();
     }
     
-    /* Returns an array of the next <length> random elements of this.data
-           returns all remaining elements by default or length >= data.length
-           returns an empty array if length is <= 0 or no remaining elements
-           <length> is a max value the returned array may be smaller
-    */
+    // Returns an array up to <length> max remaining elements, default is all
+    // Returns an empty array if <length> <=0 or no remaining elements
     random(length=null) {
         let shuffled = []
         if (length == null) length = this.data.length;
@@ -876,13 +866,12 @@ ringo.Shuffler = class {
         return shuffled;
     }
     
-    // Discard current shuffle process and restart
-    //  * this will not unshuffle this.data
+    // Resets all elements to unshuffled, it does not unshuffle this.data
     reset() {
         this.generator = this._randomGenerator(this.data);
     }
     
-    // Generator for a shuffle function yielding a random shuffled element 
+    // Generator function for shuffling a single element at a time
     * _randomGenerator(arrayObj) {
         let length = arrayObj.length;
         for (let i = 0; i < length - 1; i++) {
