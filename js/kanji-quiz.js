@@ -442,7 +442,7 @@ ri.Quiz = class extends ri.WElement {
     }
 }
 
-ringo.Quiz.prototype.Entry = class extends ri.WElement {
+ri.Quiz.prototype.Entry = class extends ri.WElement {
     // Creates a quiz entry to manage the display and interaction of each
     // WordData to be quized on.
     constructor(wordData) {
@@ -672,7 +672,7 @@ ringo.Quiz.prototype.Entry = class extends ri.WElement {
     }
 }
 
-ringo.Quiz.prototype.Entry.prototype.Solution = class extends ri.WElement {
+ri.Quiz.prototype.Entry.prototype.Solution = class extends ri.WElement {
     // Creates a solution for the entry from the WordData hiding its kanji,
     // accepting input for the answer, and checking its correctness.
     constructor(wordData) {   
@@ -810,7 +810,7 @@ ringo.Quiz.prototype.Entry.prototype.Solution = class extends ri.WElement {
     
 }
 
-ringo.Quiz.prototype.UpdateSlider = class extends ri.WElement {
+ri.Quiz.prototype.UpdateSlider = class extends ri.WElement {
     constructor() {
         super(settings.updateSlider.html.root);
         this.callback = function () {};
@@ -843,7 +843,7 @@ ringo.Quiz.prototype.UpdateSlider = class extends ri.WElement {
     }
 }
 
-ringo.Shuffler = class {
+ri.Shuffler = class {
     // Copies the input and provides shuffled subsets of its elements
     //  * If <copy> = false, will not copy the input
     //  * Slower than a simple shuffle when shuffling all elements
