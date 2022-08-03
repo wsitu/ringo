@@ -16,17 +16,17 @@ const kanjiQuiz = settings.kanjiQuiz;
 
 kanjiQuiz.quiz.html = {
     accBody: {tag: "dl", attr: {class: "b-center"},},
-    accBox: {tag: "div", attr: {class: "a-border-bg0b"},},
+    accBox: {tag: "div", attr: {class: "a-border-bg0c"},},
     accEntry: {tag: "div", attr: {class: "b-center"},},
     accMoreBtn: {
         tag: "button",
-        attr: {class: "a-background-bg0b a-color-fg0a a-font-medium1"},
+        attr: {class: "a-background-bg0c a-color-fg0a a-font-medium1"},
     },
     accText: {tag: "dt", attr: {class: "a-font-medium2"},},
     accVal: {
         tag : "dd",
         attr: {
-            class: "a-background-bg0b a-border-bg0b a-color-bg2b " +
+            class: "a-background-bg0c a-border-bg0c a-color-bg2b " +
             "kanjiQuiz-quiz-accVal-bar",
         },
     },
@@ -50,7 +50,7 @@ kanjiQuiz.quiz.html = {
     intro: {tag : "div", attr: {class: "a-border-fg1a"}},
     root: {tag : "div", attr: {class: ""}},
     submitBtn: undefined, // copied from beginBtn
-    word: {tag: "div", attr: {class: "a-border-bg0b b-center"},},
+    word: {tag: "div", attr: {class: "a-border-bg0c b-center"},},
     wordsBody: {tag: "dl", attr: {class: ""},},
     wordsBox: {tag: "div"},
     wordDef: {tag: "dd", attr: {class: ""},},
@@ -111,13 +111,13 @@ kanjiQuiz.entry.html = {
         },
     },
     definition: {tag: "p",  attr: {class: ""}},
-    root: {tag: "li", attr: {class: "a-border-bg0b"}},
+    root: {tag: "li", attr: {class: "a-border-bg0c"}},
     ui: {tag: "div", attr: {class: "b-center"}},
     word: {tag: "p"},
     wordBox: {tag: "div", attr: {class: "a-font-large1 b-center "}},
     wordData: {
         tag: "div", 
-        attr: {class: "a-background-bg0a a-border-bg0b a-color-fg0a b-center"},
+        attr: {class: "a-background-bg0a a-border-bg0c a-color-fg0a b-center"},
     },
 };
 

@@ -10,6 +10,7 @@
     --color-light-gray: #e7e2e5;
     --color-light-green: #acd3bf;
     --color-light-pink: #f4cdde;
+    --color-lightest-gray: #f4eff2;
     --color-lightest-green: #c9e5d7;
     --color-lightest-pink: #ffe9f3;
     --color-pink: #bd3772;
@@ -43,6 +44,9 @@ h1, h2, h3, h4, h5, h6{
     background-color: var(--color-white);
 }
 .a-background-bg0b, .a-background-hv-bg0b:hover {
+    background-color: var(--color-lightest-gray);
+}
+.a-background-bg0c, .a-background-hv-bg0c:hover {
     background-color: var(--color-light-gray);
 }
 .a-background-bg1a, .a-background-hv-bg1a:hover {
@@ -83,7 +87,8 @@ h1, h2, h3, h4, h5, h6{
 }
 
 .a-border-bg0a, .a-border-hv-bg0a:hover {border-color: var(--color-white);}
-.a-border-bg0b, .a-border-hv-bg0b:hover {border-color: var(--color-light-gray);}
+.a-border-bg0b, .a-border-hv-bg0b:hover {border-color: var(--color-lightest-gray);}
+.a-border-bg0c, .a-border-hv-bg0c:hover {border-color: var(--color-light-gray);}
 .a-border-bg1a, .a-border-hv-bg1a:hover {border-color: var(--color-lightest-pink);}
 .a-border-bg1b, .a-border-hv-bg1b:hover {border-color: var(--color-light-pink);}
 .a-border-bg2a, .a-border-hv-bg2a:hover {border-color: var(--color-lightest-green);}
@@ -101,6 +106,9 @@ h1, h2, h3, h4, h5, h6{
     color: var(--color-white);
 }
 .a-color-bg0b, .a-color-hv-bg0b:hover {
+    color: var(--color-lightest-gray);
+}
+.a-color-bg0c, .a-color-hv-bg0c:hover {
     color: var(--color-light-gray);
 }
 .a-color-bg1a, .a-color-hv-bg1a:hover {
