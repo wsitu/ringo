@@ -33,8 +33,8 @@ kanjiQuiz.quiz.html = {
     beginBtn: {
         tag : "button",
         attr: {
-            class: "a-background-fg1a a-background-hv-fg1b a-color-bg0a " +
-            "a-font-medium2 quiz-control-button ",
+            class: "a-background-bg0a a-background-hv-bg1b a-border-bg1b " +
+            "a-color-fg0a a-font-medium2 quiz-control-button ",
             type: "button",
         },
         html: "<ruby>次<rt>Next</rt></ruby>"
