@@ -113,9 +113,10 @@
 }
 
 .kanjiQuiz-quiz-accBox {
+    border-style: solid solid none solid;
+    border-width: 4px;
     display: flex;
-    border-top-style: solid;
-    border-width: 1px;
+    margin-top: 3.125%;
 }
 
 .kanjiQuiz-quiz-accBox:before, .kanjiQuiz-quiz-accMoreBtn {
@@ -216,8 +217,11 @@
 }
 
 .kanjiQuiz-quiz-wordsBody {
+    border-style: none solid solid solid;
+    border-width: 4px;
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 3.125%;
 }
 
 .kanjiQuiz-quiz-wordDef {
@@ -248,7 +252,10 @@
 }
 
 .kanjiQuiz-updateSlider-root {
+    border-style: solid;
+    border-width: 4px;
     flex-direction: column;
+    margin: 3.125% 0;
     padding: 1%;
 }
 
@@ -280,12 +287,13 @@
 .quiz-control-button {
     border-style: none;
     display: block;
-    width: 100%;
+    margin: 3.125% 0;
     padding: 4px;
     position: relative;
     ruby-position: under;
     transition-duration: 0.30s;
     transition-property: background-color, color;
+    width: 100%;
 }
 
 .quiz-control-button::after {

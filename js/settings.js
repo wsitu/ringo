@@ -16,7 +16,7 @@ const kanjiQuiz = settings.kanjiQuiz;
 
 kanjiQuiz.quiz.html = {
     accBody: {tag: "dl", attr: {class: "b-center"},},
-    accBox: {tag: "div", attr: {class: "a-border-bg0c"},},
+    accBox: {tag: "div", attr: {class: "a-border-bg0b"},},
     accEntry: {tag: "div", attr: {class: "b-center"},},
     accMoreBtn: {
         tag: "button",
@@ -51,7 +51,7 @@ kanjiQuiz.quiz.html = {
     root: {tag : "div", attr: {class: ""}},
     submitBtn: undefined, // copied from beginBtn
     word: {tag: "div", attr: {class: "a-border-bg0c b-center"},},
-    wordsBody: {tag: "dl", attr: {class: ""},},
+    wordsBody: {tag: "dl", attr: {class: "a-border-bg0b"},},
     wordsBox: {tag: "div"},
     wordDef: {tag: "dd", attr: {class: ""},},
     wordText: {tag: "dt", attr: {class: "a-font-large1"},},
@@ -148,7 +148,7 @@ kanjiQuiz.solution.js = {
 kanjiQuiz.updateSlider.html = {
     display: {tag: "div"},
     displayItem: {tag: "div", attr: {class: "a-background-bg1b"},},
-    root: {tag: "div", attr: {class: "b-center"},},
+    root: {tag: "div", attr: {class: "a-border-bg0b b-center"},},
     slider: {
         tag : "input",
         attr: {
