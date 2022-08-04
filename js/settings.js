@@ -47,7 +47,7 @@ kanjiQuiz.quiz.html = {
         },
     },
     entries: {tag : "ul", attr: {class: ""}},
-    intro: {tag : "div", attr: {class: "a-border-fg1a"}},
+    intro: {tag : "div", attr: {class: ""}},
     root: {tag : "div", attr: {class: ""}},
     submitBtn: undefined, // copied from beginBtn
     word: {tag: "div", attr: {class: "a-border-bg0c b-center"},},
