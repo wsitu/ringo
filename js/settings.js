@@ -111,7 +111,7 @@ kanjiQuiz.entry.html = {
         },
     },
     definition: {tag: "p",  attr: {class: ""}},
-    root: {tag: "li", attr: {class: "a-border-bg0c"}},
+    root: {tag: "li", attr: {class: "a-border-bg0b"}},
     ui: {tag: "div", attr: {class: "b-center"}},
     word: {tag: "p"},
     wordBox: {tag: "div", attr: {class: "a-font-large1 b-center "}},
