@@ -97,8 +97,6 @@
 }
 
 .kanjiQuiz-entry-wordData {
-    border-right-style: solid;
-    border-width: 1px;
     flex-basis: 50%;
     flex-direction: column;
 }
