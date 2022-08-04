@@ -42,7 +42,7 @@ kanjiQuiz.quiz.html = {
     body: {
         tag : "div",
         attr: {
-            class: "a-border-fg1a",
+            class: "",
             style: "display: none",
         },
     },
