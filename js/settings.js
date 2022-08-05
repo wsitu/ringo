@@ -152,7 +152,7 @@ kanjiQuiz.updateSlider.html = {
     slider: {
         tag : "input",
         attr: {
-            class: "a-color-fg1a",
+            class: "a-color-bg1b",
             type: "range",
         },
     },
