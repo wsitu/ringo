@@ -95,7 +95,9 @@
 }
 
 .kanjiQuiz-entry-wordData {
-    flex-basis: 50%;
+    border-style: solid;
+    border-weight: 4px;
+    flex-basis: 55%;
     flex-direction: column;
 }
 
