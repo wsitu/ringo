@@ -67,9 +67,7 @@
 }
 
 .kanjiQuiz-entry-root {
-    border-width: 4px;
-    border-style: solid;
-    margin: 3.125% 0;
+    margin: 6.25% 0;
 }
 
 .kanjiQuiz-entry-root-correct .kanjiQuiz-entry-answerBtn {
