@@ -13,6 +13,7 @@
 
 .kanjiQuiz-entry-body {
     display: flex;
+    justify-content: center;
 }
 
 .kanjiQuiz-entry-choice {
