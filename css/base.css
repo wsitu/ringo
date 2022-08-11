@@ -33,6 +33,10 @@ h1, h2, h3, h4, h5, h6{
     margin: 1rem 0;
 }
 
+rt {
+    margin-bottom: 0.25em;
+}
+
 /* The background (bg) and foreground (fg) colors are numbered and correspond
    to the same hue and subdivided into letter subgroups. Background colors bg#a
    go from lightest to dark and foreground colors fg#a from darkest to light.
