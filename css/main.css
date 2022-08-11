@@ -59,12 +59,7 @@
 }
 
 .kanjiQuiz-entry-choiceBtn[data-answer="false"][data-correct="false"] {
-    background-color: var(--color-light-pink);
-}
-
-.kanjiQuiz-entry-choiceBtn[data-correct="false"] {
-    border-left-style: solid;
-    border-left-width: 4px;
+    background-color: var(--color-lightest-pink);
 }
 
 .kanjiQuiz-entry-root {
@@ -75,8 +70,7 @@
     display: none;
 }
 
-.kanjiQuiz-entry-root-correct
-.kanjiQuiz-entry-choiceBtn[data-answer="false"] {
+.kanjiQuiz-entry-root-correct .kanjiQuiz-entry-choiceBtn {
     background-color: var(--color-lightest-green);
 }
 

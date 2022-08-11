@@ -105,8 +105,8 @@ kanjiQuiz.entry.html = {
     choiceBtn: {
         tag : "button",
         attr: {
-            class: "a-background-bg0c a-background-hv-bg1b a-border-fg1c " +
-            "a-color-fg0a a-font-medium1 b-center",
+            class: "a-background-bg0c a-background-hv-bg1b a-color-fg0a " +
+            "a-font-medium1 b-center",
             type: "button",
         },
     },
