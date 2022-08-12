@@ -103,7 +103,7 @@
 .kanjiQuiz-quiz-accBody {
     flex-grow: 1;
     flex-wrap: wrap;
-    padding: 1% 0;
+    padding: 0.625rem 0;
 }
 
 .kanjiQuiz-quiz-accBox {
@@ -126,7 +126,7 @@
 
 .kanjiQuiz-quiz-accEntry {
     flex-direction: column;
-    margin: 1.25%;
+    margin: 0.5rem;
 }
 
 .kanjiQuiz-quiz-accMoreBtn {
