@@ -272,7 +272,7 @@
 .quiz-control-button {
     border-style: none;
     display: block;
-    margin: 3.125% 0;
+    margin: 6.25% auto;
     padding: 4px;
     position: relative;
     ruby-position: under;
