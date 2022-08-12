@@ -1,6 +1,6 @@
 
-.kanjiQuiz-entry-answer, .kanjiQuiz-entry-wordBox, .kanjiQuiz-quiz-wordText {
-    margin-bottom: 0.625rem;
+.kanjiQuiz-entry-wordBox, .kanjiQuiz-quiz-wordText {
+    margin-bottom: 1rem;
 }
 
 .kanjiQuiz-entry-answerBtn {
