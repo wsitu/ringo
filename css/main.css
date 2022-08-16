@@ -63,8 +63,9 @@
     background-color: var(--color-lightest-pink);
 }
 
-.kanjiQuiz-entry-root {
-    margin: 6.25% 0;
+.kanjiQuiz-entry-root:nth-child(n+2) {
+    border-top-style: solid;
+    border-width: 1px;
 }
 
 .kanjiQuiz-entry-root-correct .kanjiQuiz-entry-answerBtn {
@@ -77,21 +78,19 @@
 
 /* This border needs to be in the same element as the gray border otherwise
    it will throw the alignment of the gray borders off */
-.kanjiQuiz-entry-root-highlight .kanjiQuiz-entry-wordData{
+.kanjiQuiz-entry-root-highlight .kanjiQuiz-entry-wordData {
     border-left: 16px solid var(--color-pink);
 }
 
 .kanjiQuiz-entry-definition {
 }
-
+    
 .kanjiQuiz-entry-ui {
     flex-basis: 40%;
     margin: 2.5% 0 2.5% 5%;
 }
 
 .kanjiQuiz-entry-wordData {
-    border-style: solid;
-    border-width: 4px;
     flex-basis: 55%;
     flex-direction: column;
 }
@@ -186,6 +185,8 @@
 }
 
 .kanjiQuiz-quiz-entries {
+    border-style: solid;
+    border-width: 4px;
     list-style: none;
 }
 

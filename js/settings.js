@@ -46,7 +46,7 @@ kanjiQuiz.quiz.html = {
             style: "display: none",
         },
     },
-    entries: {tag : "ul", attr: {class: ""}},
+    entries: {tag : "ul", attr: {class: "a-border-bg0b"}},
     intro: {tag : "div", attr: {class: ""}},
     root: {tag : "div", attr: {class: ""}},
     submitBtn: undefined, // copied from beginBtn
@@ -99,7 +99,7 @@ kanjiQuiz.entry.html = {
         },
         text: "?",
     },
-    body: {tag: "div", attr: {class: "a-background-bg0a"}},
+    body: {tag: "div", attr: {class: ""}},
     choice: {tag: "li",},
     choices: {tag: "ul",  attr: {class: ""}},
     choiceBtn: {
@@ -111,13 +111,13 @@ kanjiQuiz.entry.html = {
         },
     },
     definition: {tag: "p",  attr: {class: ""}},
-    root: {tag: "li", attr: {class: ""}},
+    root: {tag: "li", attr: {class: "a-border-bg0c"}},
     ui: {tag: "div", attr: {class: "b-center"}},
     word: {tag: "p"},
     wordBox: {tag: "div", attr: {class: "a-font-large1 b-center "}},
     wordData: {
         tag: "div", 
-        attr: {class: "a-border-bg0b b-center"},
+        attr: {class: "b-center"},
     },
 };
 
