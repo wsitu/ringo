@@ -15,6 +15,7 @@
 .kanjiQuiz-entry-body {
     display: flex;
     justify-content: center;
+    padding: 6.25%;
 }
 
 .kanjiQuiz-entry-choice {
@@ -86,12 +87,12 @@
 }
     
 .kanjiQuiz-entry-ui {
-    flex-basis: 40%;
-    margin: 2.5% 0 2.5% 5%;
+    flex-basis: 36.875%;
+    margin-left: 3.125%;
 }
 
 .kanjiQuiz-entry-wordData {
-    flex-basis: 55%;
+    flex-basis: 60%;
     flex-direction: column;
 }
 
