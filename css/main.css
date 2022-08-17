@@ -19,9 +19,10 @@
 }
 
 .kanjiQuiz-entry-choice {
+    /* lined up together so visually it's 2x the border-width */
+    border: 1px solid transparent;
     display: flex;
-    flex-basis: 23%;
-    margin: 1%;
+    flex-basis: 25%;
 }
 
 .kanjiQuiz-entry-choices {
