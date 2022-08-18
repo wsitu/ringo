@@ -72,7 +72,7 @@ kanjiQuiz.quiz.js = {
     
     // Number of entries in each quiz based on quiz score (times all correct)
     // entry # = floor(<score>/<div>) + <min> capped at <max>
-    entries : {div: 4, min: 1, max: 10},
+    entries : {div: 4, min: 1, max: 6},
     
     // Same as entries but for the number of entry choices
     entryChoices : {div: 2, min: 4, max: 16},
