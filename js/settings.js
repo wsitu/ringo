@@ -14,6 +14,56 @@ const settings = ringo.settings;
 const kanjiQuiz = settings.kanjiQuiz;
 
 
+kanjiQuiz.entry.html = {
+    answer: {
+        tag : "p",
+        attr: {
+            class: "a-font-large1",
+            style: "display: none",
+        },
+    },
+    answerBtn: {
+        tag : "button",
+        attr: {
+            class: "a-background-bg2a a-background-hv-bg2b",
+            style: "display: none;",
+            type: "button",
+        },
+        text: "?",
+    },
+    body: {tag: "div", attr: {class: ""}},
+    choice: {tag: "li",},
+    choices: {tag: "ul",  attr: {class: ""}},
+    choiceBtn: {
+        tag : "button",
+        attr: {
+            class: "a-background-bg0c a-background-hv-bg1b a-color-fg0a " +
+            "a-font-medium1 b-center",
+            type: "button",
+        },
+    },
+    definition: {tag: "p",  attr: {class: ""}},
+    root: {tag: "li", attr: {class: "a-border-bg0c"}},
+    ui: {tag: "div", attr: {class: "b-center"}},
+    word: {tag: "p"},
+    wordBox: {tag: "div", attr: {class: "a-font-large1 b-center "}},
+    wordData: {
+        tag: "div",
+        attr: {class: "b-center"},
+    },
+};
+
+kanjiQuiz.entry.js = {
+    correctClass: "kanjiQuiz-entry-root-correct",
+    hightlightClass: "kanjiQuiz-entry-root-highlight",
+    incorrectClass: "kanjiQuiz-entry-root-incorrect",
+    
+    // data attribute name for button status in camelcase without "data" prefix
+    // see kanjiQuiz.entry.markChoices() for info on the values
+    answerDataAttr: "answer",
+    correctDataAttr: "correct",
+};
+
 kanjiQuiz.quiz.html = {
     accBody: {tag: "dl", attr: {class: "b-center"},},
     accBox: {tag: "div", attr: {class: "a-border-bg0b"},},
@@ -80,56 +130,6 @@ kanjiQuiz.quiz.js = {
     // Number between 0 and 1 that represents the chance that quiz words are
     // picked by its kanji accuracy (lower accuracy = higher chance)
     weightedWordRatio : 0.75
-};
-
-kanjiQuiz.entry.html = {
-    answer: {
-        tag : "p",
-        attr: {
-            class: "a-font-large1",
-            style: "display: none",
-        },
-    },
-    answerBtn: {
-        tag : "button",
-        attr: {
-            class: "a-background-bg2a a-background-hv-bg2b",
-            style: "display: none;",
-            type: "button",
-        },
-        text: "?",
-    },
-    body: {tag: "div", attr: {class: ""}},
-    choice: {tag: "li",},
-    choices: {tag: "ul",  attr: {class: ""}},
-    choiceBtn: {
-        tag : "button",
-        attr: {
-            class: "a-background-bg0c a-background-hv-bg1b a-color-fg0a " +
-            "a-font-medium1 b-center",
-            type: "button",
-        },
-    },
-    definition: {tag: "p",  attr: {class: ""}},
-    root: {tag: "li", attr: {class: "a-border-bg0c"}},
-    ui: {tag: "div", attr: {class: "b-center"}},
-    word: {tag: "p"},
-    wordBox: {tag: "div", attr: {class: "a-font-large1 b-center "}},
-    wordData: {
-        tag: "div", 
-        attr: {class: "b-center"},
-    },
-};
-
-kanjiQuiz.entry.js = {
-    correctClass: "kanjiQuiz-entry-root-correct",
-    hightlightClass: "kanjiQuiz-entry-root-highlight",
-    incorrectClass: "kanjiQuiz-entry-root-incorrect",
-    
-    // data attribute name for button status in camelcase without "data" prefix
-    // see kanjiQuiz.entry.markChoices() for info on the values
-    answerDataAttr: "answer",
-    correctDataAttr: "correct",
 };
 
 kanjiQuiz.solution.html = {
