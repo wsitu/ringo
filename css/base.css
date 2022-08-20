@@ -171,6 +171,17 @@ rt {
 }
 
 .site-nav {
+    position: relative;
+}
+
+.site-nav::after {
+    content: '';
+    border-bottom: 2px solid;
+    border-color: inherit;
+    position: absolute;
+    width: 100vw;
+    left: 50%; /* these two lines centers to screen */
+    margin-left: -50vw;
 }
 
 .site-nav a {
