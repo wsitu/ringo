@@ -1,4 +1,8 @@
 
+.kanjiQuiz-entry-answer rt, .kanjiQuiz-quiz-wordText rt, .kanjiQuiz-solution-reading {
+    font-size: 0.4em;
+    ruby-align: center; /* firefox only */
+}
 
 .kanjiQuiz-entry-answerBtn {
     border-radius: 2rem;
