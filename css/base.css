@@ -169,3 +169,23 @@ rt {
     justify-content: center;
 }
 
+.site-nav {
+}
+
+.site-nav a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.site-nav a:visited {
+    color: inherit;
+}
+
+.site-nav ul {
+    display: flex;
+    list-style: none;
+}
+
+.site-nav li {
+    padding: 16px;
+}
