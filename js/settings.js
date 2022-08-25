@@ -43,7 +43,7 @@ kanjiQuiz.entry.html = {
         },
     },
     definition: {tag: "p",  attr: {class: ""}},
-    root: {tag: "li", attr: {class: "a-border-bg0c"}},
+    root: {tag: "li", attr: {class: "a-border-bg0b"}},
     ui: {tag: "div", attr: {class: "b-center"}},
     word: {tag: "p"},
     wordBox: {tag: "div", attr: {class: "a-font-large1 b-center "}},
@@ -100,7 +100,7 @@ kanjiQuiz.quiz.html = {
     intro: {tag : "div", attr: {class: ""}},
     root: {tag : "div", attr: {class: ""}},
     submitBtn: undefined, // copied from beginBtn
-    word: {tag: "div", attr: {class: "a-border-bg0c b-center"},},
+    word: {tag: "div", attr: {class: "a-border-bg0b b-center"},},
     wordsBody: {tag: "dl", attr: {class: "a-border-bg0b"},},
     wordsBox: {tag: "div"},
     wordDef: {tag: "dd", attr: {class: ""},},
