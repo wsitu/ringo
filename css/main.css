@@ -278,12 +278,13 @@
     border-style: none;
     display: block;
     margin: 6.25% auto;
+    min-width: 4em;
     padding: 0.375rem;
     position: relative;
     ruby-position: under;
     transition-duration: 0.30s;
     transition-property: background-color, color;
-    width: 93.75%;
+    width: 50%;
 }
 
 .quiz-control-button::after {
