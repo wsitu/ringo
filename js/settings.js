@@ -83,7 +83,7 @@ kanjiQuiz.quiz.html = {
     beginBtn: {
         tag : "button",
         attr: {
-            class: "a-background-bg1a a-background-hv-bg1b a-color-fg0a " +
+            class: "a-background-bg0c a-background-hv-bg1b a-color-fg0a " +
             "a-font-medium2 quiz-control-button ",
             type: "button",
         },
