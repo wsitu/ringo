@@ -203,7 +203,6 @@
     border-style: solid solid none none;
     border-width: 2px;
     flex: 1 1 50%;
-    flex-direction: column;
 }
 
 .kanjiQuiz-quiz-word:last-child, .kanjiQuiz-quiz-word:nth-child(2n) {
@@ -219,6 +218,7 @@
 }
 
 .kanjiQuiz-quiz-wordDef {
+    text-align: center;
 }
 
 .kanjiQuiz-quiz-wordText {
