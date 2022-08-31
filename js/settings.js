@@ -76,7 +76,7 @@ kanjiQuiz.quiz.html = {
     accVal: {
         tag : "dd",
         attr: {
-            class: "a-background-bg0c a-border-bg0c a-color-bg2b " +
+            class: "a-background-bg0c a-border-bg0c a-color-bg1b " +
             "kanjiQuiz-quiz-accVal-bar",
         },
     },
@@ -152,7 +152,7 @@ kanjiQuiz.updateSlider.html = {
     slider: {
         tag : "input",
         attr: {
-            class: "a-color-fg0a",
+            class: "a-color-bg1a",
             type: "range",
         },
     },
