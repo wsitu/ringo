@@ -103,7 +103,7 @@ kanjiQuiz.quiz.html = {
     word: {tag: "div", attr: {class: "a-border-bg0b"},},
     wordsBody: {tag: "dl", attr: {class: "a-border-bg0b"},},
     wordsBox: {tag: "div"},
-    wordDef: {tag: "dd", attr: {class: ""},},
+    wordDef: {tag: "dd", attr: {class: "a-border-bg1a"},},
     wordText: {tag: "dt", attr: {class: "a-font-large1"},},
 };
 kanjiQuiz.quiz.html.submitBtn = {...kanjiQuiz.quiz.html.beginBtn};
