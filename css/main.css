@@ -300,7 +300,7 @@
     ruby-position: under;
     transition-duration: 0.30s;
     transition-property: background-color, color;
-    width: 37.5%;
+    width: 100%;
 }
 
 .quiz-control-button::after {
