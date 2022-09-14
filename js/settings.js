@@ -101,7 +101,7 @@ kanjiQuiz.quiz.html = {
     root: {tag : "div", attr: {class: ""}},
     submitBtn: undefined, // copied from beginBtn
     word: {tag: "div", attr: {class: "a-border-bg0b"},},
-    wordsBody: {tag: "dl", attr: {class: "a-border-bg0b"},},
+    wordsBody: {tag: "dl", attr: {class: ""},},
     wordsBox: {tag: "div"},
     wordDef: {tag: "dd", attr: {class: "a-border-bg1b"},},
     wordText: {tag: "dt", attr: {class: "a-font-large1"},},
