@@ -202,32 +202,16 @@
 
 .kanjiQuiz-quiz-word {
     border-style: solid;
-    border-width: 1px;
-    flex: 1 1 50%;
-}
-
-/* These rules draw borders only in between siblings in a 2 column layout. */
-/* Drawing most of the border on 1 element would be simpler but causes     */
-/* that element to be thinner in width than its sibling. */
-.kanjiQuiz-quiz-word:last-child {
-    border-bottom: none;
-    border-right: none;
-}
-
-.kanjiQuiz-quiz-word:nth-child(odd) {
-    border-left: none;
+    border-width: 2px;
+    flex: 1 1 46.875%; /* 50% - half left margin */
 }
 
 .kanjiQuiz-quiz-word:nth-child(even) {
-    border-right: none;
+    margin-left: 6.25%;
 }
 
-.kanjiQuiz-quiz-word:nth-child(-n+2) {
-    border-top: none;
-}
-
-.kanjiQuiz-quiz-word:nth-last-child(2):not(:nth-child(even)) {
-    border-bottom: none;
+.kanjiQuiz-quiz-word:nth-child(n+3) {
+    margin-top: 6.25%;
 }
 
 .kanjiQuiz-quiz-wordsBody {
