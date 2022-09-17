@@ -262,6 +262,7 @@
 
 .kanjiQuiz-updateSlider-display {
     display: flex;
+    display: none;
     flex-wrap: wrap;
     margin: 1%;
     min-width: 32px; /* hard to see if smaller */
@@ -272,7 +273,6 @@
     display: flex;
     flex-basis: 18.75%;
     margin: 3.125%;
-    display: none;
 }
 
 .kanjiQuiz-updateSlider-displayItem:before {
@@ -282,7 +282,6 @@
 
 .kanjiQuiz-updateSlider-slider {
     accent-color: currentcolor;
-    margin: 1%;
     width: 37.5%;
 }
 
