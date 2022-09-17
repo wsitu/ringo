@@ -66,7 +66,7 @@ kanjiQuiz.entry.js = {
 
 kanjiQuiz.quiz.html = {
     accBody: {tag: "dl", attr: {class: "b-center"},},
-    accBox: {tag: "div", attr: {class: "a-border-bg0b"},},
+    accBox: {tag: "div", attr: {class: ""},},
     accEntry: {tag: "div", attr: {class: "b-center"},},
     accMoreBtn: {
         tag: "button",
@@ -148,7 +148,7 @@ kanjiQuiz.solution.js = {
 kanjiQuiz.updateSlider.html = {
     display: {tag: "div"},
     displayItem: {tag: "div", attr: {class: "a-background-bg1b"},},
-    root: {tag: "div", attr: {class: "a-border-bg0b b-center"},},
+    root: {tag: "div", attr: {class: "b-center"},},
     slider: {
         tag : "input",
         attr: {
