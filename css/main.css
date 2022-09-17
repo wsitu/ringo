@@ -162,9 +162,9 @@
 
 .kanjiQuiz-quiz-accVal.kanjiQuiz-quiz-accVal-bar {
     font-size: 0%;
-    height: 0.5rem;
+    height: 0.375rem;
     user-select: none;
-    width: 3rem;
+    width: 2.75rem;
 }
 
 .kanjiQuiz-quiz-accVal.kanjiQuiz-quiz-accVal-bar::before {

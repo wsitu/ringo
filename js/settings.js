@@ -72,7 +72,7 @@ kanjiQuiz.quiz.html = {
         tag: "button",
         attr: {class: "a-background-bg0c a-color-fg0a a-font-medium1"},
     },
-    accText: {tag: "dt", attr: {class: "a-font-medium2"},},
+    accText: {tag: "dt", attr: {class: "a-font-medium1"},},
     accVal: {
         tag : "dd",
         attr: {
