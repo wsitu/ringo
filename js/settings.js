@@ -49,7 +49,7 @@ kanjiQuiz.entry.html = {
     wordBox: {tag: "div", attr: {class: "a-font-large1 b-center "}},
     wordData: {
         tag: "div",
-        attr: {class: "b-center"},
+        attr: {class: "a-border-bg0b b-center"},
     },
 };
 
