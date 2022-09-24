@@ -69,9 +69,7 @@
 .kanjiQuiz-entry-definition {
 }
 
-.kanjiQuiz-entry-root:nth-child(n+2) {
-    border-top-style: solid;
-    border-width: 2px;
+.kanjiQuiz-entry-root {
 }
 
 .kanjiQuiz-entry-root-correct .kanjiQuiz-entry-answerBtn {
@@ -185,8 +183,6 @@
 }
 
 .kanjiQuiz-quiz-entries {
-    border-style: solid;
-    border-width: 8px;
     list-style: none;
 }
 
