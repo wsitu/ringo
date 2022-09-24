@@ -199,10 +199,9 @@
 }
 
 .kanjiQuiz-quiz-word {
-    border-style: solid solid solid none;
+    border-top-style: solid;
     border-width: 2px;
     flex: 1 1 46.875%; /* 50% - half left margin */
-    position: relative;
 }
 
 .kanjiQuiz-quiz-word:nth-child(even) {
@@ -211,17 +210,6 @@
 
 .kanjiQuiz-quiz-word:nth-child(n+3) {
     margin-top: 6.25%;
-}
-
-.kanjiQuiz-quiz-word::before {
-    background-color: var(--color-lightest-pink);
-    content: '';
-    display: block;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 8px;
 }
 
 .kanjiQuiz-quiz-wordsBody {
