@@ -98,8 +98,10 @@
 .kanjiQuiz-entry-wordData {
     border-style: solid none;
     border-width: 2px;
+    display: flex;
     flex-basis: 60%;
     flex-direction: column;
+    justify-content: center;
 }
 
 .kanjiQuiz-entry-wordData, .kanjiQuiz-quiz-word {

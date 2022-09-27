@@ -46,10 +46,10 @@ kanjiQuiz.entry.html = {
     root: {tag: "li", attr: {class: ""}},
     ui: {tag: "div", attr: {class: "b-center"}},
     word: {tag: "p"},
-    wordBox: {tag: "div", attr: {class: "a-font-large1 b-center "}},
+    wordBox: {tag: "div", attr: {class: "a-font-large1"}},
     wordData: {
         tag: "div",
-        attr: {class: "a-border-bg0b b-center"},
+        attr: {class: "a-border-bg0b"},
     },
 };
 
