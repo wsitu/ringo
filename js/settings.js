@@ -18,7 +18,7 @@ kanjiQuiz.entry.html = {
     answer: {
         tag : "p",
         attr: {
-            class: "a-font-large1",
+            class: "",
             style: "display: none",
         },
     },
@@ -46,7 +46,7 @@ kanjiQuiz.entry.html = {
     root: {tag: "li", attr: {class: ""}},
     ui: {tag: "div", attr: {class: "b-center"}},
     word: {tag: "p"},
-    wordBox: {tag: "div", attr: {class: "a-font-large1"}},
+    wordBox: {tag: "div", attr: {class: "a-font-medium4"}},
     wordData: {
         tag: "div",
         attr: {class: "a-border-bg0b"},
