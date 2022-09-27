@@ -232,7 +232,7 @@
 }
 
 .kanjiQuiz-solution-input-unset::before {
-    color: var(--color-lightest-pink);
+    color: var(--color-light-pink);
     content: "\3007";
 }
 
