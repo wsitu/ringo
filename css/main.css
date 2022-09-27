@@ -229,11 +229,11 @@
 }
 
 .kanjiQuiz-solution-input {
-    color: var(--color-light-gray);
+    color: var(--color-lightest-pink);
 }
 
 .kanjiQuiz-solution-input::before {
-    content: "\25fc";
+    content: "\3007";
 }
 
 .kanjiQuiz-solution-marked {
