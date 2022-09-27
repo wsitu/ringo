@@ -142,7 +142,7 @@ kanjiQuiz.solution.html = {
 
 kanjiQuiz.solution.js = {
     // css class for styling the parts of a word replaced by user input
-    unsetClass: "kanjiQuiz-solution-input",
+    unsetClass: "kanjiQuiz-solution-input-unset",
 };
 
 kanjiQuiz.updateSlider.html = {
