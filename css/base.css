@@ -174,19 +174,22 @@ rt {
 }
 
 .site-nav a {
-    text-decoration: none;
+    display: block;
     font-weight: bold;
+    margin: 16px;
+    padding: 8px;
+    text-decoration: none;
 }
 
 .site-nav a:visited {
     color: inherit;
 }
 
+.site-nav li:first-child a {
+    margin-left: 0;
+}
+
 .site-nav ul {
     display: flex;
     list-style: none;
-}
-
-.site-nav li {
-    padding: 16px;
 }
