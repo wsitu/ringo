@@ -118,7 +118,7 @@
     border-top-style: solid;
     border-width: 2px;
     display: flex;
-    margin-bottom: 6.25%;
+    padding-top: 3.125%
 }
 
 .kanjiQuiz-quiz-accBox:before, .kanjiQuiz-quiz-accMoreBtn {
@@ -130,6 +130,10 @@
 .kanjiQuiz-quiz-accBox:not(.kanjiQuiz-quiz-accBox-more)
 .kanjiQuiz-quiz-accEntry:nth-child(n+11){
     display: none;
+}
+
+.kanjiQuiz-quiz-accBox + .quiz-control-button {
+    margin-top: 0;
 }
 
 .kanjiQuiz-quiz-accEntry {
