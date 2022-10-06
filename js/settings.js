@@ -66,7 +66,7 @@ kanjiQuiz.entry.js = {
 
 kanjiQuiz.quiz.html = {
     accBody: {tag: "dl", attr: {class: "b-center"},},
-    accBox: {tag: "div", attr: {class: ""},},
+    accBox: {tag: "div", attr: {class: "a-border-bg0c"},},
     accEntry: {tag: "div", attr: {class: "b-center"},},
     accMoreBtn: {
         tag: "button",

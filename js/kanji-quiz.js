@@ -368,8 +368,8 @@ ri.Quiz = class extends ri.WElement {
         this.addChild(this._introBox);
         this.addChild(this._mainBox);
         this._difficulty.addTo(this._introBox);
-        this._introBox.appendChild(this._accBox);
         this._introBox.appendChild(this._intro);
+        this._introBox.appendChild(this._accBox);
         this._introBox.appendChild(this._beginBtn);
         this._accBox.appendChild(this._accBody);
         this._accBox.appendChild(this._accMoreBtn);
