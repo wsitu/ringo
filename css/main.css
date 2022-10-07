@@ -109,6 +109,7 @@
 }
 
 .kanjiQuiz-quiz-accBody {
+    display: flex;
     flex-grow: 1;
     flex-wrap: wrap;
     padding: 0.625rem 0;
@@ -118,7 +119,7 @@
     border-top-style: solid;
     border-width: 2px;
     display: flex;
-    padding-top: 3.125%
+    padding: 1.5625% 0;
 }
 
 .kanjiQuiz-quiz-accBox:before, .kanjiQuiz-quiz-accMoreBtn {
