@@ -107,7 +107,7 @@
 }
 
 .kanjiQuiz-entry-wordData, .kanjiQuiz-quiz-word {
-    padding: 2rem;
+    padding: 32px;
 }
 
 .kanjiQuiz-quiz-accBody {
