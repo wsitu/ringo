@@ -255,9 +255,9 @@
 }
 
 .kanjiQuiz-updateSlider-root {
-    flex-direction: column;
     margin: 3.125% 0;
-    padding: 1%;
+    padding: 0 32px;
+    width: 46.875%;
 }
 
 .kanjiQuiz-updateSlider-display {
@@ -282,7 +282,7 @@
 
 .kanjiQuiz-updateSlider-slider {
     accent-color: currentcolor;
-    width: 37.5%;
+    width: 100%;
 }
 
 .quiz-control-button {
