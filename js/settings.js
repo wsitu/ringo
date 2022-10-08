@@ -148,7 +148,7 @@ kanjiQuiz.solution.js = {
 kanjiQuiz.updateSlider.html = {
     display: {tag: "div"},
     displayItem: {tag: "div", attr: {class: "a-background-bg1b"},},
-    root: {tag: "div", attr: {class: "b-center"},},
+    root: {tag: "div", attr: {class: ""},},
     slider: {
         tag : "input",
         attr: {
