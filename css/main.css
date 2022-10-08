@@ -5,12 +5,14 @@
 }
 
 .kanjiQuiz-entry-answerBtn {
-    border-radius: 2rem;
+    border-radius: 16em;
     border-style: none;
     font-weight: bold;
     margin-top: 1.75rem;
-    min-height: 2rem;
-    min-width: 2rem;
+    min-height: 2.5em;
+    min-width: fit-content;
+    padding: 0.5em;
+    width: 2.5em;
 }
 
 .kanjiQuiz-entry-body {
