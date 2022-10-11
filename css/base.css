@@ -177,8 +177,8 @@ rt {
     border-bottom: 4px solid transparent;
     display: block;
     font-weight: bold;
-    margin: 16px;
-    padding: 8px;
+    margin: 16px 22px;
+    padding: 8px 2px;
     text-decoration: none;
 }
 
