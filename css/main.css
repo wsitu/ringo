@@ -172,6 +172,8 @@
 }
 
 .kanjiQuiz-quiz-accVal.kanjiQuiz-quiz-accVal-bar {
+    border-style: solid;
+    border-width: 1px;
     font-size: 0%;
     height: 0.3125rem;
     user-select: none;

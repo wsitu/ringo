@@ -76,8 +76,7 @@ kanjiQuiz.quiz.html = {
     accVal: {
         tag : "dd",
         attr: {
-            class: "a-background-bg0c a-border-bg0c a-color-bg1b " +
-            "kanjiQuiz-quiz-accVal-bar",
+            class: "a-color-bg1b kanjiQuiz-quiz-accVal-bar",
         },
     },
     beginBtn: {
