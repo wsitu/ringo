@@ -283,7 +283,13 @@
 
 .kanjiQuiz-updateSlider-slider {
     accent-color: currentcolor;
+    opacity: 25%;
     width: 100%;
+}
+
+.kanjiQuiz-updateSlider-slider:active, .kanjiQuiz-updateSlider-slider:focus,
+.kanjiQuiz-updateSlider-slider:hover {
+    opacity: 100%;
 }
 
 .quiz-control-button {
