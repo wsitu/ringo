@@ -32,6 +32,7 @@
     flex-basis: 100%;
     grid-auto-rows: 1fr;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     list-style: none;
 }
 
