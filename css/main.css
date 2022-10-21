@@ -24,14 +24,14 @@
     /* lined up together so visually it's 2x the border-width */
     border: 1px solid transparent;
     display: flex;
-    flex-basis: 25%;
 }
 
 .kanjiQuiz-entry-choices {
     align-content: start;
-    display: flex; 
+    display: grid;
     flex-basis: 100%;
-    flex-wrap: wrap;
+    grid-auto-rows: 1fr;
+    grid-template-columns: repeat(4, 1fr);
     list-style: none;
 }
 
