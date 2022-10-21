@@ -33,7 +33,7 @@ kanjiQuiz.entry.html = {
     },
     body: {tag: "div", attr: {class: ""}},
     choice: {tag: "li",},
-    choices: {tag: "ul",  attr: {class: ""}},
+    choices: {tag: "ul",  attr: {class: "a-background-bg0b"}},
     choiceBtn: {
         tag : "button",
         attr: {
