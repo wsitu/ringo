@@ -81,7 +81,8 @@
     display: none;
 }
 
-.kanjiQuiz-entry-root-correct .kanjiQuiz-entry-choiceBtn {
+.kanjiQuiz-entry-root-correct .kanjiQuiz-entry-choiceBtn,
+.kanjiQuiz-entry-root-correct .kanjiQuiz-entry-choices {
     background-color: var(--color-lightest-green);
 }
 
