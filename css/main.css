@@ -21,15 +21,17 @@
 }
 
 .kanjiQuiz-entry-choice {
-    /* lined up together so visually it's 2x the border-width */
-    border: 1px solid transparent;
     display: flex;
+    outline: 2px solid var(--color-white);
+    /* Bleeds outside of the grid, alternatively use sets of box shadows if
+       it does not cause performance issues */
 }
 
 .kanjiQuiz-entry-choices {
     align-content: start;
     display: grid;
     flex-basis: 100%;
+    gap: 2px;
     grid-auto-rows: 1fr;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, 1fr);
