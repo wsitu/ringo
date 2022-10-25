@@ -121,6 +121,8 @@
     
     .kanjiQuiz-entry-ui {
         flex-basis: 100%;
+        margin-left: 0;
+        margin-bottom: 6.25%;
     }
     
     .kanjiQuiz-entry-wordData {
