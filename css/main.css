@@ -131,6 +131,7 @@
     }
     
     .kanjiQuiz-entry-wordData {
+        border-bottom: none;
         flex-basis: 100%;
     }
 }
