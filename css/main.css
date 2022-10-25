@@ -119,6 +119,11 @@
         flex-wrap: wrap;
     }
     
+    .kanjiQuiz-entry-choices {
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+    }
+    
     .kanjiQuiz-entry-ui {
         flex-basis: 100%;
         margin-left: 0;
