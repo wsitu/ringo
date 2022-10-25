@@ -114,6 +114,21 @@
     padding: 32px;
 }
 
+@media (max-width: 600px) {
+    .kanjiQuiz-entry-body {
+        flex-wrap: wrap;
+    }
+    
+    .kanjiQuiz-entry-ui {
+        flex-basis: 100%;
+    }
+    
+    .kanjiQuiz-entry-wordData {
+        flex-basis: 100%;
+    }
+}
+
+
 .kanjiQuiz-quiz-accBody {
     display: flex;
     flex-grow: 1;
