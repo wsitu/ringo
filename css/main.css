@@ -236,6 +236,7 @@
 .kanjiQuiz-quiz-word {
     border-top-style: solid;
     border-width: 2px;
+    display: flex;
     flex: 1 1 46.875%; /* 50% - half left margin */
 }
 
@@ -259,8 +260,6 @@
 .kanjiQuiz-quiz-wordText {
     border-bottom-style: solid;
     border-width: 4px;
-    margin-bottom: 1.5rem;
-    width: fit-content;
 }
 
 .kanjiQuiz-solution-input {
