@@ -255,6 +255,7 @@
 }
 
 .kanjiQuiz-quiz-wordDef {
+    align-self: center;
     margin: 16px;
 }
 
