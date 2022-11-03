@@ -238,14 +238,11 @@
     border-width: 2px;
     display: flex;
     flex: 1 1 46.875%; /* 50% - half left margin */
+    padding: 36px 16px;
 }
 
 .kanjiQuiz-quiz-word:nth-child(even) {
     margin-left: 6.25%;
-}
-
-.kanjiQuiz-quiz-word:nth-child(n+3) {
-    margin-top: 6.25%;
 }
 
 .kanjiQuiz-quiz-wordsBody {
