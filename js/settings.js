@@ -66,7 +66,7 @@ kanjiQuiz.entry.js = {
 
 kanjiQuiz.quiz.html = {
     accBody: {tag: "dl", attr: {class: ""},},
-    accBox: {tag: "div", attr: {class: "a-border-bg0c"},},
+    accBox: {tag: "div", attr: {class: "a-border-bg0b"},},
     accEntry: {tag: "div", attr: {class: "b-center"},},
     accMoreBtn: {
         tag: "button",
@@ -99,7 +99,7 @@ kanjiQuiz.quiz.html = {
     intro: {tag : "div", attr: {class: ""}},
     root: {tag : "div", attr: {class: ""}},
     submitBtn: undefined, // copied from beginBtn
-    word: {tag: "div", attr: {class: "a-border-bg0c"},},
+    word: {tag: "div", attr: {class: "a-border-bg0b"},},
     wordsBody: {tag: "dl", attr: {class: ""},},
     wordsBox: {tag: "div"},
     wordDef: {tag: "dd", attr: {class: ""},},
