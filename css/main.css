@@ -248,7 +248,6 @@
 .kanjiQuiz-quiz-wordsBody {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 3.125%;
 }
 
 .kanjiQuiz-quiz-wordDef {
